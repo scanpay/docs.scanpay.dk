@@ -1,0 +1,726 @@
+/**
+*   @author ScanPay ApS.
+**/
+
+// Bitter: 2015-04-27
+@font-face {
+    font-family: 'B';
+    font-weight: 700;
+    src: url('B700.woff2') format('woff2'), url('B700.woff') format('woff');
+}
+
+// Noto Sans (UI): 2017-05-21
+@font-face {
+    font-family: 'N';
+    src: url('N400.woff2') format('woff2'), url('N400.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'N';
+    font-weight: 700;
+    src: url('N700.woff2') format('woff2'), url('N700.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'N';
+    font-style: italic;
+    src: url('N400i.woff2') format('woff2'), url('N400i.woff') format('woff');
+}
+
+// Open Sans: 2017-05-16
+@font-face {
+    font-family: 'O';
+    font-weight: 600;
+    src: url('O600.woff2') format('woff2'), url('O600.woff') format('woff');
+}
+
+body {
+    display: flex;
+    background: #f0f0f0;
+    min-height: 100vh;
+    margin: 0;
+    font: 15px/1.54 'N', sans-serif;
+    color: #4a4a4a;
+    -ms-text-size-adjust: 100%; // Prevent adjust after orientation change.
+    -webkit-text-size-adjust: 100%; // Prevent adjust after orientation change.
+    box-sizing: border-box;
+}
+
+a {
+    color: #3074af;
+    text-decoration: none;
+
+    &:active {
+        outline: 0;
+    }
+    &:hover {
+        outline: 0;
+        text-decoration: underline;
+    }
+}
+
+p {
+    padding: 0;
+    margin: .7em 0;
+}
+
+
+h1, h2, h3, h4 {
+    font: 700 20.5px / normal 'B', serif;
+    margin: 1.45em 0 0.6em;
+    color: #404040;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+    font-size: 27px;
+    margin: 1.2em 0 .9em;
+}
+
+h3 {
+    font-size: 19px;
+    margin: 31px 0 15px;
+}
+
+h4 {
+    font-size: 17px;
+}
+
+.hlink {
+    display: none;
+    position: absolute;
+    margin: 2px 0 0 6px;
+
+    h3:hover > & {
+        display: inline-block;
+    }
+}
+
+
+/*
+    Sidebar
+*/
+
+.sidebar-- {
+    position: relative;
+    background: #343131;
+    width: 23%;
+    min-width: 210px;
+    max-width: 290px;
+}
+
+.sidebar--head {
+    position: absolute;
+    position: -webkit-sticky;
+    position: -ms-sticky;
+    position: sticky;
+    top: 0;
+    padding: 16px 10.5% 0 9.5%;
+    height: 93px;
+    width: 80%;
+    background: #2980b9;
+    text-align: center;
+}
+
+.sidebar--logo {
+    height: 38px;
+}
+
+.sidebar--home {
+    display: inline-block;
+    padding: 2px 6px 3px;
+    font: 600 17px / normal 'O';
+    color: #fcfcfc;
+    margin-left: -3px;
+    border-radius: 2px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    > svg {
+        vertical-align: -1px;
+    }
+
+    &:hover {
+        background: #388abf;
+        color: #fcfcfc;
+        text-decoration: none;
+    }
+}
+
+.sidebar--search {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 20px;
+    font-size: 13px;
+    padding: 6px 12px;
+    border: 1px solid #216694;
+    outline: none;
+}
+
+.sidebar--ul {
+    position: absolute;
+    position: -webkit-sticky;
+    position: -ms-sticky;
+    position: sticky;
+    width: 100%;
+    top: 120px;
+    padding: 0;
+    margin: 0;
+    line-height: 1.55;
+
+    > li {
+        color: #b3b3b3;
+        position: relative;
+
+        > a {
+            display: block;
+            color: #b3b3b3;
+            padding: 5.5px 24px;
+            text-decoration: none;
+        }
+
+        &:hover {
+            background: #4e4a4a;
+            text-decoration: none;
+        }
+    }
+}
+
+.sidebar--sub {
+    list-style: none;
+    background: #e3e3e3;
+    padding: 0;
+    margin-bottom: 3px;
+    border-right: solid 1px #c9c9c9;
+
+    a {
+        display: block;
+        color: #6b6a6a;
+        padding: 3.5px 33px;
+        text-decoration: none;
+    }
+    li:hover {
+        background: #d6d6d6;
+    }
+    li:last-child {
+        padding-bottom: 4px;
+    }
+}
+
+.sidebar--label {
+    display: inline-block;
+    font-size: 0.7em;
+    color: #088608;
+    border: 1px solid #088608;
+    vertical-align: 1px;
+    line-height: 14px;
+    border-radius: 3px;
+    padding: 0 4px;
+    margin: 0 0 0 4px;
+}
+
+.sidebar--fold {
+    position: absolute;
+    left: 9px;
+    margin-top: 13px;
+}
+
+.sidebar--active {
+    background: #fdfdfd !important;
+    color: #404040;
+
+    > a {
+        color: #404040 !important;
+        border-bottom: solid 1px #c9c9c9;
+        position: relative;
+    }
+}
+
+main {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-shrink: 1;
+    flex-direction: column;
+    background: #fdfdfd;
+    max-width: 900px;
+}
+
+article {
+    flex: 2;
+    margin: 0 8% 0;
+    position: relative;
+    padding-bottom: 100px;
+}
+
+.header {
+    margin: 0 8% 0;
+    height: 50px;
+    padding-top: 32px;
+    border-bottom: 1px solid #e1e4e5;
+}
+
+.footer {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+    padding-top: 22px;
+    color: #999;
+    border-top: 1px solid #e1e4e5;
+    font-size: 14px;
+}
+
+.raquo {
+    margin: 0 4px;
+}
+
+.git {
+    float: right;
+}
+
+.git--logo {
+    display: inline-block;
+    vertical-align: -2px;
+    margin-right: 1px;
+}
+
+.note-- {
+    margin: 21px 0 15px 0;
+}
+
+.note--head {
+    background: #6ab0de;
+    color: #fff;
+    font-weight: 600;
+    font-family: 'O';
+    padding: 2px 15px;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.note--ico {
+    float: left;
+    margin: 4px 5px 0 0;
+}
+
+.note--body {
+    background: #e7f2fa;
+    padding: 10px 12px 12px 12px;
+    font-size: 14.5px;
+    color: #3d4a52;
+}
+
+svg, img {
+    vertical-align: middle;
+}
+
+small {
+    font-size: 0.9em;
+}
+
+
+.bashcmd, .pcode, .example {
+    display: block;
+    padding: 8px 3px 8px 9px;
+    font: 13px/19px DejaVu Sans Mono, Consolas, monospace;
+    color: #252525;
+    background: #f9f9f9;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.bashcmd {
+    margin: 20px 0;
+    background: #f4f4f4;
+    border-radius: 3px;
+
+    &:before {
+        content: '$ ';
+        color: #999;
+    }
+}
+
+.pcode {
+    margin: 21px 0;
+    border-radius: 3px;
+    border: 1px solid #dcdcdc;
+}
+
+.code {
+    display: inline-block;
+    font: 13px/19px DejaVu Sans Mono, Consolas, monospace;
+    color: #bd143e;
+    border: solid 1px #e1e4e5;
+    padding: 0 4px;
+    border-radius: 3px;
+}
+
+
+.code-- {
+    margin: 21px 0 0;
+    border: 1px solid #e3e3e3;
+
+    > pre {
+        display: none;
+        margin: 0;
+        border-top: 1px solid #e3e3e3;
+    }
+
+    > .code--active {
+        display: block;
+    }
+
+    & > button:first-child {
+        margin-left: 10px;
+    }
+}
+
+.code--btn--active {
+    border-bottom: 2px solid #1c83c7;
+}
+
+.paylink--tcode {
+    width: 50%;
+    max-width: 26em;
+    font-size: 13px;
+    padding-left: 13px;
+    font-family: DejaVu Sans Mono, Consolas, monospace;
+    word-break: break-all;
+
+    > pre {
+        background: none;
+        font: inherit;
+        border: 0;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+button {
+    background: none;
+    cursor: pointer;
+    border: 0;
+    color: #757575;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'O';
+    line-height: 40px;
+    padding: 2px 6px 0;
+    margin-bottom: -1px;
+
+    &:focus {
+        outline: none;
+    }
+    &::-moz-focus-inner {
+        border: 0;
+        padding: 0; // Remove inner padding and border in Firefox 4+ (normalize)
+    }
+}
+
+
+.header--auth {
+    display: block;
+    word-break: break-all;
+}
+
+/*
+Tables
+*/
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    empty-cells: show;
+    font-size: 90%;
+    width: 100%;
+    border: 1px solid #d5d5d5;
+    margin: 21px 0 26px;
+}
+.table--fixed {
+    table-layout: fixed;
+}
+
+th {
+    background: #eee;
+    color: #444;
+    border: 1px solid #d9d9d9;
+    font: 600 13px / normal 'O', sans-serif;
+    text-align: left;
+    margin: 0;
+    padding: 8px 13px;
+}
+
+td {
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    text-align: left;
+    margin: 0;
+    padding: 11px 15px 10px 15px;
+    position: relative;
+}
+
+.field--required::after {
+    //content: "required";
+    font-size: 9px;
+    font-family: 'N';
+    display: block;
+    color: red;
+}
+
+.td--vtop {
+    vertical-align: top;
+    padding-top: 20px;
+}
+
+.td--desc {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.td--note {
+    display: inline-block;
+    color: #555;
+    font-size: 12.5px;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+.paylink--th--name {
+    width: 11em;
+}
+
+.paylink--th--value {
+    width: 16em;
+}
+
+.type--name, .hljs-attr {
+    color: #bd143e;
+}
+.type--str, .hljs-string {
+    color: #138061;
+}
+.type--int, .hljs-number {
+    color: #fa755a;
+}
+
+.type--small {
+    color: #666;
+}
+
+.hljs-comment, .hljs-quote {
+    color: #9a9a8e;
+    font-style: italic;
+}
+
+.hljs-keyword {
+    color: #a71d5d;
+}.hljs-selector-tag,
+.hljs-subst {
+    color: #333;
+    font-weight: bold;
+}
+
+.hljs-literal,
+.hljs-tag .hljs-attr,
+.hljs-template-variable,
+.hljs-variable {
+    color: #008080;
+}
+
+.hljs-section,
+.hljs-selector-id,
+.hljs-title {
+    color: #900;
+    font-weight: bold;
+}
+
+.hljs-subst {
+    font-weight: normal;
+}
+
+.hljs-class .hljs-title,
+.hljs-type {
+    color: #458;
+    font-weight: bold;
+}
+
+.hljs-attribute,
+.hljs-name,
+.hljs-tag {
+    color: #000080;
+    font-weight: normal;
+}
+
+.hljs-link,
+.hljs-regexp {
+    color: #009926;
+}
+
+.hljs-bullet,
+.hljs-symbol {
+    color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+    color: #0086b3;
+}
+
+.hljs-meta {
+    color: #999;
+    font-weight: bold;
+}
+
+.hljs-deletion {
+    background: #fdd;
+}
+
+.hljs-addition {
+    background: #dfd;
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
+.paylink--shipping {
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.table--ul {
+    margin: 12px 0 0;
+    padding: 0 5px 0 18px;
+
+    > li {
+        margin: 10px 0;
+    }
+}
+
+#seq--selectdb {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+}
+
+.seq--pseudo {
+    margin: 25px 0 22px;
+    position: relative;
+}
+
+.picture {
+    display: inline-block;
+    margin: 13px 0 6px;
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid #d0d0d0;
+}
+
+
+
+
+/*
+    Search :: /search
+*/
+
+.search--h2 {
+    font-size: 18px;
+    margin: 15px 0 0;
+    padding: 7px 0;
+}
+
+#search--ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+/*
+    Synchronization :: /synchronization
+*/
+
+.mysql, .mssql, .postgresql, .generic {
+    display: none;
+}
+
+.show--mysql > .mysql, .show--mssql > .mssql, .show--postgresql > .postgresql, .show--generic > .generic {
+  display: inline;
+}
+
+.sync--pcode1 {
+    margin: 25px 0 36px;
+}
+
+.fsize15 {
+    font-size: 15px
+}
+
+
+/*
+    Acquiring banks :: /acquiring-banks
+*/
+
+.acq--apply {
+    width: 70px;
+    word-spacing: 2px;
+    text-align: center;
+}
+
+.acq--name {
+    width: 168px;
+    height: 66px;
+    padding: 0 0 0 15px;
+    color: #555;
+}
+
+.clearhaus--logo {
+    margin-bottom: 2px
+}
+
+.elavon--logo {
+    margin-bottom: 10px
+}
+
+
+/*
+    Ecommerce modules :: /ecommerce-modules
+*/
+
+#modules--magento-2, #modules--woocommerce {
+    display: none;
+}
+
+#magento-2:target ~ #modules--magento-2, #woocommerce:target ~ #modules--woocommerce {
+    display: block;
+}
+
+.woo--img1 {
+    margin: 10px 0 0;
+}
+
+.modules--ol {
+    padding: 0 0 0 16px;
+
+    > li {
+        margin: 8px 0;
+    }
+}
+
+
+/*
+    API Libraries :: /API-libraries
+*/
+
+.libs--ul {
+    margin-top: 18px;
+}

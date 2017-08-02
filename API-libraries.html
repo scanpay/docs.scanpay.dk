@@ -1,0 +1,51 @@
+{% extends "default.html" %}
+{% set title = "API Libraries" | settitle %}
+{% block meta %}
+<title>API Libraries - Scanpay</title>
+<meta name="description" content="Scanpay has official client libraries for popular programming languages.">
+{% endblock %}
+
+{% block article %}
+  <h1>API Libraries</h1>
+  <p>
+      Scanpay has official API client libraries for different programming languages. Client libraries make it easier for you to integrate our APIs in your project. All client libraries follow the same scheme and provide the following three methods:
+  </p>
+
+  <ul class="libs--ul">
+    <li><b>newURL</b>: Create a new payment link <small>(<a href="/payment-link#examples">API</a>)</small></li>
+    <li><b>seq</b>: Make a sequence request <small>(<a href="/synchronization">API</a>)</small></li>
+    <li><b>handlePing</b>: Verify and parse ping requests <small>(<a href="/synchronization">API</a>)</small></li>
+  </ul>
+
+  {{ h(2, "PHP", "") }}
+  <p>
+      The PHP client library is available through Composer (<a href="//packagist.org/packages/scanpay/scanpay">packagist</a>) and the source code is hosted at <a href="//github.com/scanpaydk/php-scanpay">GitHub</a>.
+  </p>
+
+  <code class="bashcmd"><span class="hljs-built_in">composer</span> require scanpay/scanpay</code>
+
+  {{ h(2, "Node.js", "") }}
+  <p>
+    The node.js client library is available through <a href="//www.npmjs.com/package/scanpay">npm</a> and the source code is hosted at <a href="//github.com/scanpaydk/node-scanpay">GitHub</a>.
+  </p>
+
+  <code class="bashcmd"><span class="hljs-built_in">npm</span> install scanpay</code>
+
+  {{ h(2, "Ruby", "") }}
+  <p>
+    The Ruby client library is available as a <a href="//rubygems.org/gems/scanpay">gem</a> and the source code is hosted at <a href="//github.com/scanpaydk/ruby-scanpay">GitHub</a>.
+  </p>
+
+  <code class="bashcmd"><span class="hljs-built_in">gem</span> install scanpay</code>
+
+  {{ h(2, "Go", "") }}
+  <p>
+    The Go client library is hosted at <a href="//github.com/scanpaydk/go-scanpay">GitHub</a>.
+  </p>
+
+  <code class="bashcmd"><span class="hljs-built_in">go</span> get github.com/scanpaydk/go-scanpay</code>
+
+  {{ h(2, ".NET", "") }}
+  <p>Coming soon.</p>
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% macro h(n, name, toc) %}
+{% set shortname = toc if toc else name %}
+{% set id = shortname | lower | replace(" ", "-") %}
+<h{{ n }} id="{{ id }}">{{ name }}
+{% if toc or toc == "" %}
+  {{ addsublist(shortname, id) }} <a class="hlink" href="#{{ id }}">{% include "link.svg" %}</a>
+{% endif %}
+</h{{ n }}>
+{% endmacro %}
+
+{% macro ah(n, name, toc) %}
+{% set shortname = toc if toc else name %}
+{% set id = shortname | lower | replace(" ", "-") %}
+<h{{ n }} id="{{ id }}"><a href="#{{ id }}">{{ name | safe }}</a></h{{ n }}>
+{% if toc or toc == "" %}
+  {{ addsublist(shortname, id) }}
+{% endif %}
+{% endmacro %}
+
+{% macro note(msg) %}
+<div class="note--">
+  <div class="note--head">
+    {% include "exclamation.svg" %} Note
+  </div>
+  <div class="note--body">
+    {{ msg | safe }}
+  </div>
+</div>
+{% endmacro %}
+
+
+<!DOCTYPE HTML><html lang="en">
+<link href="/a/docs.css?{{ csst }}" rel="stylesheet">
+{% block meta %}{% endblock %}
+<!-- TODO: <link rel="canonical" href="https://docs.scanpay.dk{{ path }}">-->
+
+<nav class="sidebar--">
+  <div class="sidebar--head">
+    <div class="sidebar--logo">
+      <a href="https://scanpay.dk" class="sidebar--home" title="Back to Scanpay frontpage">
+        {% include "home.svg" %}
+        scanpay
+      </a>
+    </div>
+    <form id="search" action="/search">
+      <input class="sidebar--search" type="text" name="q" placeholder="Search the docs">
+    </form>
+  </div>
+
+  <ul class="sidebar--ul">
+    {% for i in index %}
+    <li {% if title == i.title %}class="sidebar--active"{% endif %}>
+      {% if title == i.title %}{% include "fold.svg" %}{% endif %}
+      <a href="{{ i.path }}">{{ i.title }}
+        {% if i.label %}
+        <span class="sidebar--label">{{ i.label }}</span>
+        {% endif %}
+      </a>
+      {% if title == i.title %}
+      <ol class="sidebar--sub">
+        {% for l in i.sublist %}
+        <li><a href="#{{ l.id }}">{{ l.name }}</a></li>
+        {% endfor %}
+      </ol>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</nav>
+
+<main>
+  <header class="header">
+    <a href="/">Docs</a>
+    <span class="raquo">»</span>
+    {{ title }}
+
+    <a class="git" href="https://github.com/scanpaydk/">
+      {% include "github.svg" %}
+      Edit on GitHub
+    </a>
+  </header>
+
+  <article>
+    {% block article %}{% endblock %}
+
+    <footer class="footer">&copy; Copyright {{ currentYear }}. Scanpay ApS.</footer>
+  </article>
+</main>
+<script src="/a/docs.js?{{ jst }}"></script>
+</html>

@@ -1,0 +1,17 @@
+<span class="generic">email := <span class="hljs-built_in">atomic-transaction</span>(
+        find row where trnid = trn.id
+        <b>if</b> row exists <b>then</b>
+            <b>if</b> row.rev &lt; change.rev <b>then</b>
+                <span class="hljs-built_in">set</span> row.rev := change.rev, ...
+            <b>end if</b>
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+        <b>else</b>
+            find youngest row where orderid = trn.orderid
+            <span class="hljs-built_in">set</span> row.trnid := trn.id, row.rev := trn.rev, ...
+            <span class="hljs-keyword">return</span> row.email
+        <b>end</b>
+    )
+
+    <b>if</b> email is not <span class="hljs-literal">null</span> <b>then</b>
+        <span class="hljs-built_in">sendmail</span>(email, <span class="type--str">"Order confirmation ..."</span>)
+    <b>end</b></span>

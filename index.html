@@ -1,0 +1,34 @@
+{% extends "default.html" %}
+{% set title = "Getting Started" | settitle %}
+{% block meta %}
+<title>Getting Started - Scanpay</title>
+<meta name="description" content="Getting started with Scanpay and online payments.">
+{% endblock %}
+
+{% block article %}
+  <h1>Getting started</h1>
+  <p>
+    Scanpay is a PCI DSS certified Payment Service Provider (PSP) and Payment Gateway. In short, we are a payment platform that allows companies to accept payments online.
+     The purpose of this guide is to briefly explain how it works and how you get started.
+  </p>
+
+  {{ note('For security and compliance reasons you cannot iFrame or inline our Payment Window. <a href="//www.pcisecuritystandards.org/documents/PCI-DSS-v3_2-SAQ-A_EP.pdf?agreement=true">SAQ A-EP</a> certified merchants can request permission to host the payment form (<a href="mailto:contact@scanpay.dk?subject=PCI-DSS">here</a>).') }}
+
+  {{ h(3, "Create user and shop", "") }}
+  <p>
+    First you will need to <a href="//scanpay.dk/opret">create a user</a> and then you can <a href="//dashboard.scanpay.dk/newshop">create a shop</a>.
+
+    When you create a shop you will become its technical owner/admin <i>(transferable)</i>. You can <a href="//dashboard.scanpay.dk/settings/team">invite your colleagues</a> to the shop and give them privileges that determine what actions they can perform. Users should have only the minimal set of privileges required to ensure a system of <a href="//en.wikipedia.org/wiki/Principle_of_least_privilege">least privilege</a>.
+  </p>
+
+  {{ h(3, "Setup acquirers", "") }}
+  <p>
+    Before you can accept payments you will need a merchant agreement with an acquiring bank. This agreement will determine what payment methods you can accept. You can read more about this process, and see a full list of supported acquiring banks <a href="/acquiring-banks">here</a>.
+  </p>
+
+  {{ h(3, "Integrate", "") }}
+  <p>
+    We develop and maintain modules for the most popular e-commerce platforms: <a href="/ecommerce-modules#woocommerce">WooCommerce</a> and <a href="/ecommerce-modules#magento-2">Magento 2</a>. We also provide API libraries for <a href="//github.com/scanpaydk/php-scanpay">PHP</a> and <a href="//github.com/scanpaydk/node-scanpay">node.js</a> – more libraries/modules coming soon.
+  </p>
+
+{% endblock %}

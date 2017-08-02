@@ -1,0 +1,65 @@
+{% extends "default.html" %}
+{% set title = "Security" | settitle %}
+{% block meta %}
+<title>Security - Scanpay</title>
+<meta name="description" content="Scanpay is PCI-DSS certified and security is very important to us.">
+{% endblock %}
+
+{% block article %}
+  <h1>Security</h1>
+  <p>
+    Security is very important to us. If you have any security concerns or issues, please disclose this information directly to <a href="mailto:security@scanpay.dk">security@scanpay.dk</a>. Please do not disclose security issues publicly until they have been handled by the security team.
+  </p>
+
+  {{ h(2, "PCI DSS", "") }}
+  <p>
+    Scanpay is <a href="//en.wikipedia.org/wiki/Payment_Card_Industry_Data_Security_Standard">PCI-DSS</a> level 1 certified by FortConsult A/S. PCI-DSS is a information security standard. The standard enforces strict requirements for the handling of credit card data to secure the end user.
+  </p>
+
+  {{ h(2, "Transport Layer Security", "") }}
+  <p>
+    We use Elliptic Curve Cryptography (ECC), SHA-2 certificates and Transport Layer Security version 1.2 (TLSv1.2). Below is a list of ciphers we can currently guarantee support for.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Cipher</th>
+        <th>TLS</th>
+        <th>Key size</th>
+        <th>Kx</th>
+        <th>Mac</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ECDHE-ECDSA-AES128-GCM-SHA256</td>
+        <td>v1.2</td>
+        <td>128 Bit</td>
+        <td>ECDH</td>
+        <td>AEAD</td>
+      </tr>
+      <tr>
+        <td>ECDHE-ECDSA-AES256-GCM-SHA384</td>
+        <td>v1.2</td>
+        <td>256 Bit</td>
+        <td>ECDH</td>
+        <td>AEAD</td>
+      </tr>
+      <tr>
+        <td>ECDHE-ECDSA-AES128-SHA256</td>
+        <td>v1.2</td>
+        <td>128 Bit</td>
+        <td>ECDH</td>
+        <td>SHA256</td>
+      </tr>
+      <tr>
+        <td>ECDHE-ECDSA-AES256-SHA384</td>
+        <td>v1.2</td>
+        <td>256 Bit</td>
+        <td>ECDH</td>
+        <td>SHA384</td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}

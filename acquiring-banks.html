@@ -1,0 +1,120 @@
+{% extends "default.html" %}
+{% set title = "Acquiring banks" | settitle %}
+{% block meta %}
+<title>Acquiring banks - Scanpay</title>
+<meta name="description" content="Accept payments online through one of our acquiring banks.">
+{% endblock %}
+
+{% block article %}
+  <h1>Acquiring banks</h1>
+  <p>
+    In order to accept payments online you must have a merchant agreement with an acquiring bank. Your choice of acquirers decide which payment methods your shop can accept. Your acquirer will send you an API key that you will need to insert in the dashboard (<a href="//dashboard.scanpay.dk/settings/acquirers">here</a>).
+  </p>
+
+  {{ h(2, "Supported acquiring banks", "Supported acquirers") }}
+  <p>Here is a list of acquirers we support:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Supported cards</th>
+        <th class="acq--apply">Apply</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="acq--name">
+          <a target="_blank" href="//www.nets.eu/en/payments/e-commerce/acquiring/">
+            <img src="/img/acquirer/nets.svg" height="25" alt="Nets">
+          </a>
+        </td>
+        <td>
+          Dankort, Forbrugsforeningen, MobilePay*</td>
+        <td class="acq--apply">
+          <a target="_blank" rel="nofollow" href="//apply.dankort.dk/landingpage?landingPageId=DANKORT">DK</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="acq--name">
+          <a target="_blank" href="//www.nets.eu/en/payments/e-commerce/acquiring/">
+            <img src="/img/acquirer/teller.svg" width="130.9" height="16" alt="Teller">
+          </a>
+        </td>
+        <td>
+          Visa, MasterCard, Diner's Club, JCB, China UnionPay, MobilePay*
+        </td>
+        <td class="acq--apply">
+          <a target="_blank" rel="nofollow" href="//apply.teller.com/landingpage?landingPageId=DK&language=da">DK</a>
+          <a target="_blank" rel="nofollow" href="//apply.teller.com/landingpage?landingPageId=SE&language=se">SE</a>
+          <a target="_blank" rel="nofollow" href="//apply.teller.com/landingpage?landingPageId=NO&language=no">NO</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="acq--name">
+          <a target="_blank" href="//www.clearhaus.com/">
+            <img class="clearhaus--logo" src="/img/acquirer/clearhaus.svg" width="140" height="31.5" alt="Clearhaus">
+          </a>
+        </td>
+        <td>
+          Visa, MasterCard, MobilePay*
+        </td>
+        <td class="acq--apply">
+          <a target="_blank" rel="nofollow" href="//apply.clearhaus.com/#/auth/register">ALL</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="acq--name">
+          <a target="_blank" href="//www.swedbank.dk/card-services/index.htm">
+            <img src="/img/acquirer/swedbank.png" width="113" height="18" alt="Swedbank">
+          </a>
+        </td>
+        <td>
+          Visa, MasterCard, MobilePay*
+        </td>
+        <td class="acq--apply">
+          <a target="_blank" rel="nofollow" href="//www.swedbank.dk/card-services/ansog-om-aftale/">DK</a>
+          <a target="_blank" rel="nofollow" href="//www.swedbank.se/foretag/betala-och-ta-betalt/ta-betalt/ta-betalt-med-kort/kortinlosen-via-internet/">SE</a>
+          <a target="_blank" rel="nofollow" href="//www.swedbank.no/bedrift/kortinnl%C3%B8sning-og-terminaler/netthandel/">NO</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="acq--name">
+          <a target="_blank" href="//www.handelsbanken.se/">
+            <img src="/img/acquirer/handelsbanken.svg" width="140" height="14" alt="Handelsbanken">
+          </a>
+        </td>
+        <td>
+          Visa, MasterCard
+        </td>
+        <td class="acq--apply">
+          <a target="_blank" rel="nofollow" href="//handelsbanken.dk/shb/inet/icentda.nsf/Default/qC21926A235427DE6C12578810023DBB9?Opendocument">DK</a>
+          <a target="_blank" rel="nofollow" href="http://handelsbanken.se/shb/INeT/ICentSv.nsf/Default/qB8BE6D10FFC19AEAC1256EED0037F5C2?Opendocument">SE</a>
+          <a target="_blank" rel="nofollow" href="http://handelsbanken.no/shb/inet/icentno.nsf/Default/q33D5B5B8737E5C0EC12573F4003F0ED6?Opendocument">NO</a>
+        </td>
+      </tr>
+      <tr>
+        <td class="acq--name">
+          <a target="_blank" href="//www.elavon.com/">
+            <img class="elavon--logo" src="/img/acquirer/elavon.svg" width="79" height="36.86" alt="Elavon">
+          </a>
+        </td>
+        <td>
+          Visa, MasterCard, MobilePay*
+        </td>
+        <td class="acq--apply">
+          <a target="_blank" rel="nofollow" href="//www.elavon.dk/v%C3%A5re-tjenester/sm%C3%A5-bedrifter">DK</a>
+          <a target="_blank" rel="nofollow" href="//www.elavon.se/our-services/sm%C3%A5-bedrifter">SE</a>
+          <a target="_blank" rel="nofollow" href="//www.elavon.no/v%C3%A5re-tjenester/sm%C3%A5-bedrifter">NO</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    <small>* To accept MobilePay you also need to enable it in the dashboard (<a href="//dashboard.scanpay.dk/settings/acquirers/mobilepay">here</a>).</small>
+  </p>
+
+
+
+{% endblock %}
