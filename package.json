@@ -1,0 +1,13 @@
+{
+    "private": true,
+    "dependencies": {
+        "gulp": "gulpjs/gulp#4.0",
+        "gulp-connect": "*",
+        "less": "*",
+        "minimist": "*",
+        "highlight.js": "*",
+        "through2": "*",
+        "nunjucks": "*",
+        "babel-plugin-transform-es2015-block-scoping": "*"
+    }
+}
