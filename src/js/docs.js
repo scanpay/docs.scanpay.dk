@@ -21,31 +21,27 @@ function setProgrammingLanguage(btn, parent) {
 
 
 /*
-    Fetch polyfill (for Safari < 10.1)
+    Very simple fetch polyfill (for Safari < 10.1)
 */
 if (!self.fetch) {
-    self.fetch = function (url) {
-        return new Promise(function (resolve, reject) {
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function (o) {
-                const data = this.response;
-                resolve({
-                    body: data,
-                    json() {
-                        return JSON.parse(data);
-                    }
-                });
-            };
+    self.fetch = (url) => new Promise(function (resolve, reject) {
+        const xhr = new XMLHttpRequest();
 
-            function fetchErr() {
-                reject(new TypeError('Network request failed'));
-            }
-            xhr.onerror = fetchErr();
-            xhr.ontimeout = fetchErr();
-            xhr.open('GET', url, true);
-            xhr.send();
-        });
-    };
+        xhr.onload = (o) => {
+            const data = this.response;
+            resolve({
+                body: data,
+                json() {
+                    return JSON.parse(data);
+                }
+            });
+        };
+
+        xhr.onerror = () => reject(new TypeError('Network request failed'));
+        xhr.ontimeout = () => reject(new TypeError('Network request failed'));
+        xhr.open('GET', url, true);
+        xhr.send();
+    });
 }
 
 function search(query) {
@@ -62,9 +58,8 @@ function search(query) {
         '_wvJ-yCaBmc&cx=009375899607126965623:qrd_0f4w284&fields=items(title,snippet,link)&q=';
 
     fetch(url + encodeURI(query))
-    .then(function (res) {
-        return res.json();
-    }).then(function (o) {
+    .then(res => res.json())
+    .then(o => {
         if (!o.items) {
             results.textContent = 'No search results.';
             spinner.remove();
@@ -88,8 +83,9 @@ function search(query) {
         }
         spinner.remove();
         results.appendChild(list);
-
-    }).catch(function (err) {
+    })
+    .catch(err => {
+        console.log(err);
         spinner.remove();
         results.textContent = 'Error: Please try to reload this page';
     });
