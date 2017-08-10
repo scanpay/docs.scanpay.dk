@@ -15,7 +15,9 @@ npm install
 gulp
 ```
 
-# browser support
+## Browser support
+
+Compatibility table where struckthrough means fixed with babel:
 
 Feature              | Chrome | Safari | Firefox |  Edge  |  IE    |  Opera
 -------------------- | :-----:| :----: | :-----: | :----: | :----: | :----:
