@@ -4,7 +4,7 @@ This repository contains the files used to generate [docs.scanpay.dk](https://do
 
 ## Contributing
 
-So, you are interested in contributing? Welcome! Every single contribution is very much encouraged and appreciated. If you find a bug, typo or something that could be improved, please submit a bug report ([github issue](issues)) or contact us on e-mail, IRC or Slack.
+So, you are interested in contributing? Welcome! Every single contribution is very much encouraged and appreciated. If you find a bug, typo or something that could be improved, please submit a bug report ([github issue](https://github.com/scanpaydk/docs.scanpay.dk/issues/new)) or contact us on e-mail, IRC or Slack.
 
 To build it locally, you will need to install [Node.js](https://nodejs.org/en/) and [Gulp4](http://gulpjs.com).
 
