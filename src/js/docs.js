@@ -27,12 +27,11 @@ if (!self.fetch) {
     self.fetch = (url) => new Promise(function (resolve, reject) {
         const xhr = new XMLHttpRequest();
 
-        xhr.onload = (o) => {
-            const data = this.response;
+        xhr.onload = () => {
             resolve({
-                body: data,
+                body: xhr.response,
                 json() {
-                    return JSON.parse(data);
+                    return JSON.parse(xhr.response);
                 }
             });
         };
