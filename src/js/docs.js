@@ -84,7 +84,6 @@ function search(query) {
         results.appendChild(list);
     })
     .catch(err => {
-        console.log(err);
         spinner.remove();
         results.textContent = 'Error: Please try to reload this page';
     });
