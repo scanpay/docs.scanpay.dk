@@ -144,7 +144,11 @@ ping := <span class="hljs-built_in">jsondecode</span>(body)
 {% include "pseudocode/seq-mssql.code" %}{% include "pseudocode/seq-mysql.code" %}{% include "pseudocode/seq-generic.code" %}
 <b>end</b>
 
-<span class="hljs-built_in mysql">MySQL</span><span class="hljs-built_in postgresql">PostgreSQL</span><span class="hljs-built_in mssql">MSSQL</span><span class="mysql postgresql mssql">(<span class="hljs-keyword">UPDATE</span> globals <span class="hljs-keyword">SET</span> seq = 'data.seq')</span><span class="generic"><span class="hljs-built_in">atomic-transaction</span>(<span class="hljs-built_in">set</span> globals.seq = data.seq)</span>
+<span class="hljs-built_in mysql">MySQL</span><span class="hljs-built_in postgresql">PostgreSQL</span><span class="hljs-built_in mssql">MSSQL</span><span class="mysql postgresql mssql">(<span class="hljs-keyword">UPDATE</span> globals <span class="hljs-keyword">SET</span> seq = 'data.seq' <span class="hljs-keyword">WHERE</span> seq &lt; 'data.seq')</span><span class="generic"><span class="hljs-built_in">atomic-transaction</span>(
+    <b>if</b> <i>data.seq &gt; globals.seq</i> <b>then</b>
+        <span class="hljs-built_in">set</span> globals.seq = data.seq
+    <b>end</b>
+)</span>
 </code></pre>
 
 {% endblock %}
