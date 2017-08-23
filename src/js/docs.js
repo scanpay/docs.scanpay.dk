@@ -135,4 +135,38 @@ function selectAll() {
         code[i].addEventListener('click', selectAll);
     }
 
+    /**
+    *   A tiny Google Analytics client
+    */
+    function _ga(o) {
+        const time = '' + Date.now();
+        let cid = localStorage._ga;
+        if (!cid) {
+            localStorage._ga = cid = ((Math.random() * 10e7) | 0) + time;
+        }
+
+        let d = 'v=1&tid=UA-45595918-2&ds=web&cid=' + cid;
+        for (let k in o) {
+            d += '&' + k + '=' + o[k];
+        }
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '/_ga/collect?' + d + '&z=' + time);
+        xhr.send();
+    }
+
+    _ga({
+        t: 'pageview',
+        dr: encodeURIComponent(document.referrer),
+        dl: encodeURIComponent(location.href), // URL
+        dh: encodeURIComponent(location.hostname), // Document Host Name
+        dp: encodeURIComponent(location.pathname), // Document Path
+        dt: encodeURIComponent(document.title), // Document Title
+
+        // System Info
+        sr: screen.width + 'x' + screen.height,
+        vp: document.documentElement.clientWidth + 'x' + document.documentElement.clientHeight,
+        sd: screen.colorDepth + '-bits',
+        ul: navigator.language
+    });
+
 })();
