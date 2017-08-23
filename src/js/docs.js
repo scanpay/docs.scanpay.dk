@@ -53,8 +53,8 @@ function search(query) {
         return;
     }
 
-    const url = 'https://www.googleapis.com/customsearch/v1?key=AIzaSyCih1rqEHYK71VhxLI0jsDG' +
-        '_wvJ-yCaBmc&cx=009375899607126965623:qrd_0f4w284&fields=items(title,snippet,link)&q=';
+    const url = '/_gapi/v1?&cx=009375899607126965623:qrd_0f4w284&' +
+        'fields=items(title,snippet,link)&q=';
 
     fetch(url + encodeURI(query))
     .then(res => res.json())
