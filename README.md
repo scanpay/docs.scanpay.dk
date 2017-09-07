@@ -17,11 +17,12 @@ gulp
 
 ## Browser support
 
-Compatibility table where struckthrough means fixed with babel:
+Compatibility table for [docs.scanpay.dk](https://docs.scanpay.dk) where struckthrough means fixed with babel:
 
 Feature              | Chrome | Safari | Firefox |  Edge  |  IE    |  Opera
 -------------------- | :-----:| :----: | :-----: | :----: | :----: | :----:
 TLS 1.2              | 30     | 7      | 27      | 12     | 9/11   | 17
+Promises             | 32     | 7.1    | 27      | 12     | :x:    | 19
 ~~Let~~              | 49     | 10     | 44      | 12     | 11     | 36
 ~~Const~~            | 49     | 10     | 36      | 12     | 11     | 36
 ~~Arrow Functions~~  | 45     | 10     | 22      | 12     | :x:    | 32
