@@ -27,7 +27,7 @@ function less() {
     return through.obj((file, enc, cb) => {
         lessjs.render(file.contents.toString(), null, (err, res) => {
             if (err) { throw err; }
-            file.contents = new Buffer(res.css);
+            file.contents = Buffer.from(res.css);
             file.path = file.path.substring(0, file.path.lastIndexOf('.')) + '.css';
             cb(null, file);
         });
@@ -98,7 +98,7 @@ function html() {
         env.filename = file.path.substring(file.path.lastIndexOf('/') + 1);
         nenv.renderString(file.contents.toString('utf8'), env, (err, res) => {
             if (err) { throw err; }
-            file.contents = new Buffer(res);
+            file.contents = Buffer.from(res);
             cb(null, file);
         });
     }))
