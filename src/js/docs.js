@@ -24,7 +24,7 @@ function setProgrammingLanguage(btn, parent) {
     Very simple fetch polyfill (for Safari < 10.1)
 */
 if (!self.fetch) {
-    self.fetch = (url) => new Promise(function (resolve, reject) {
+    self.fetch = (url) => new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 
         xhr.onload = () => {
@@ -99,7 +99,7 @@ function selectAll() {
 }
 
 
-(function () {
+(() => {
     // Code blocks (examples)
     const blocks = document.getElementsByClassName('code--');
     for (let i = 0; i < blocks.length; i++) {
