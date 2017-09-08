@@ -55,7 +55,7 @@ function loadIncludes(done) {
     done();
 }
 
-const pages = ['/index', '/payment-link', '/synchronization',
+const pages = ['/index', '/payment-link', '/subscriptions', '/synchronization',
     '/acquiring-banks', '/ecommerce-modules', '/API-libraries', '/security'];
 
 function index() {
