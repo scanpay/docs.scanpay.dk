@@ -9,7 +9,7 @@
 {% block article %}
   <h1>Payment Link</h1>
   <p>
-    Use this API to generate links to the payment window. This API is designed to be fault-tolerant and forgiving. You have to use <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Auth</a> and submit at least one item, but everything else is optional. Here is some pseudocode to show how simple it is:
+    Use this API to generate links to the payment window. This API is designed to be fault-tolerant and forgiving. Here is some pseudocode to show how simple it is:
   </p>
 
 <pre><code class="pcode"><span class="hljs-built_in">POST</span> https://api.scanpay.dk/v1/new
@@ -25,7 +25,7 @@
 }
 </code></pre>
 
-We do, however, strongly encourage you to send all headers and fields. The more information you include the better we can protect your business against fraud.
+The more information you include the better we can protect your business against fraud.
 
   {{ h(3, "Request Headers", "") }}
   The request endpoint is: <code class="code">https://api.scanpay.dk/v1/new</code>
@@ -42,7 +42,7 @@ We do, however, strongly encourage you to send all headers and fields. The more 
           <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTI5Ok5vRkJNZy9Q133DJ&hellip;</span>
         </td>
         <td>
-          HTTP basic authentication with your Base64-encoded API-key.
+          HTTP basic authentication. <a href="#">Read more</a>.
         </td>
       </tr>
       <tr>
@@ -54,7 +54,7 @@ We do, however, strongly encourage you to send all headers and fields. The more 
 
   {{ h(3, "Request Fields", "") }}
   <p>
-    All request fields are listed below.
+    All request fields are listed below. All fields are optional.
   </p>
 
   <table class="table--fixed">
@@ -71,12 +71,12 @@ We do, however, strongly encourage you to send all headers and fields. The more 
       </tr>
       <tr>
         <td class="paylink--tcode"><span class="type--name">"language"</span>: <span class="type--str">"da"</span></td>
-        <td class="td--desc">Preferred language.</td>
+        <td class="td--desc">Preferred language for payment window.</td>
       </tr>
       <tr>
         <td class="paylink--tcode"><span class="type--name">"autocapture"</span>: <span class="type--int">true</span></td>
         <td class="td--desc">
-          Automatically capture payment. This is useful for software, e-services etc. Default is false.
+          Automatically capture the payment. Default is false.
         </td>
       </tr>
       <tr>
@@ -87,12 +87,12 @@ We do, however, strongly encourage you to send all headers and fields. The more 
       <tr>
         <td class="paylink--tcode field--required"><pre>{% include "JSON/items.html" %}</pre></td>
         <td class="td--desc">
-          An array with at least one item-object.
+          An array with items.
           <ul class="table--ul">
             <li><b>name:</b> The name of the item.</li>
             <li><b>quantity:</b> The number of items (integer).</li>
             <li><b>price:</b> The price of <u>one unit</u> with an ISO 4217 currency code.</li>
-            <li><b>sku:</b> An <a href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this particular product.</li>
+            <li><b>sku:</b> An <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this particular product.</li>
           </ul>
           <span class="td--note">In this example the total price is 13397.9986 DKK. Most acquires only support 2 digits after the decimal point. If this is the case we will truncate to 13397.99.</span>
         </td>
