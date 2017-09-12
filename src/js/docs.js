@@ -53,7 +53,7 @@ function search(query) {
         return;
     }
 
-    const url = '/_gapi/v1?&cx=009375899607126965623:qrd_0f4w284&' +
+    const url = '/_gapi/v1?cx=009375899607126965623:qrd_0f4w284&' +
         'fields=items(title,snippet,link)&q=';
 
     fetch(url + encodeURI(query))
