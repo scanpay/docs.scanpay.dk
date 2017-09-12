@@ -700,11 +700,12 @@ td {
     Ecommerce modules :: /ecommerce-modules
 */
 
-#modules--magento-2, #modules--woocommerce {
+#modules--magento-2, #modules--woocommerce, #modules--opencart {
     display: none;
 }
 
-#magento-2:target ~ #modules--magento-2, #woocommerce:target ~ #modules--woocommerce {
+#magento-2:target ~ #modules--magento-2, #woocommerce:target ~ #modules--woocommerce,
+#opencart:target ~ #modules--opencart {
     display: block;
 }
 

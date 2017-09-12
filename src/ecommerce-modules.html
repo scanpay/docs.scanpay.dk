@@ -100,8 +100,34 @@
         <img class="picture" width="595" height="67" alt="Scanpay API key" src="/img/woocommerce/apikey.png">
       </li>
       <li>Press 'Save changes' to finalize the configuration process. A Scanpay payment method should now appear upon checkout.</li>
-      <li>Copy the content of the Ping URL field into the callback address field at <a href="//dashboard.scanpay.dk/settings/api">https://dashboard.scanpay.dk/settings/api</a> and save it.</li>
+      <li>Copy the content of the Ping URL field into the dashboard "Your Ping URL" field at <a href="//dashboard.scanpay.dk/settings/api">https://dashboard.scanpay.dk/settings/api</a> and save it.</li>
       <li>Pressing the 'ping' button should now cause a ping to register in the Magento 2 Scanpay configuration, making the ping URL box green.</li>
+    </ol>
+  </div>
+
+  {{ ah(2, "OpenCart", "") }}
+  <div id="modules--opencart">
+    This module works for OpenCart version 2.3+ and 3.0+.
+    <h4>Installation</h4>
+    <ol class="modules--ol">
+      <li>Download the OpenCart Scanpay extension <a href="https://github.com/scanpaydk/opencart-scanpay/archive/master.zip">here</a>.</li>
+      <li>Rename the file to "scanpay.ocmod.zip"</li>
+      <li>Enter the admin and navigate to <code class="code">Extensions > Installer</code>.</li>
+      <li>
+        Click "Upload" and select the file you just renamed (See below).
+        <img class="picture" width="600" alt="Upload module to your OpenCart shop" src="/img/opencart/upload.png">
+      </li>
+      <li>Navigate to <code class="code">Extensions > Extensions</code> and change extension type to "Payments".</li>
+      <li>Find "Scanpay" and press "Install".</li>
+    </ol>
+    <h4>Configuration</h4>
+    <ol class="modules--ol">
+      <li>Enter the admin, navigate to <code class="code">Extensions > Extensions"</code> and change extension type to "Payments.</li>
+      <li>Find "Scanpay" and press "Edit".</li>
+      <li>Set status to "Enabled"</li>
+      <li>Locate the API-key field and copy an API-key from <a href="//dashboard.scanpay.dk/settings/api">the dashboard</a> into the field.
+      <li>Copy the content of the Ping URL field into the <a href="//dashboard.scanpay.dk/settings/api">corresponding field in the Scanpay dashboard</a> and save it.</li>
+      <li>Return to the OpenCart admin and press "Save" in the upper right corner.</li>
     </ol>
   </div>
 {% endblock %}
