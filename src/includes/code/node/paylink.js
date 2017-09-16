@@ -3,7 +3,7 @@ const scanpay = require('scanpay')(apikey);
 
 const order = {
     orderid: 'a766409',
-    language: '',
+    language: 'da',
     successurl: 'https://example.dk/success',
     items: [
         {
@@ -49,9 +49,12 @@ const options = {
     headers: {
         'X-Cardholder-IP': '189.127.159.146' // Customer IP address
     },
-    auth: apikey // Set an API key for this request (optional)
+    auth: apikey // Overwrite API key (optional)
 };
 
-scanpay.new(order, options).then(res => {
-    console.log('Payment link: ' + res.url);
+scanpay.newURL(order, options).then(url => {
+    console.log('newURL: ' + url);
+}, err => {
+    console.log(err);
 });
+
