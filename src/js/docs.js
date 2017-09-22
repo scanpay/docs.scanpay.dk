@@ -16,7 +16,8 @@ function setProgrammingLanguage(btn, parent) {
     parent.getElementsByClassName('code--btn--active')[0].className = '';
     btn.classList.add('code--btn--active');
     parent.getElementsByClassName('code--active')[0].classList.remove('code--active');
-    parent.getElementsByClassName(btn.textContent.toLowerCase())[0].classList.add('code--active');
+    const lang = btn.textContent.toLowerCase();
+    parent.getElementsByClassName(lang)[0].classList.add('code--active');
 }
 
 
@@ -24,7 +25,7 @@ function setProgrammingLanguage(btn, parent) {
     Very simple fetch polyfill (for Safari < 10.1)
 */
 if (!self.fetch) {
-    self.fetch = (url) => new Promise((resolve, reject) => {
+    self.fetch = url => new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 
         xhr.onload = () => {
@@ -58,7 +59,7 @@ function search(query) {
 
     fetch(url + encodeURI(query))
     .then(res => res.json())
-    .then(o => {
+    .then((o) => {
         if (!o.items) {
             results.textContent = 'No search results.';
             spinner.remove();
@@ -83,7 +84,7 @@ function search(query) {
         spinner.remove();
         results.appendChild(list);
     })
-    .catch(err => {
+    .catch(() => {
         spinner.remove();
         results.textContent = 'Error: Please try to reload this page';
     });
@@ -136,17 +137,19 @@ function selectAll() {
     }
 
     /**
-    *   A tiny Google Analytics client
+    *   A tiny Google Analytics client (Measurement Protocol)
     */
     function _ga(o) {
-        const time = '' + Date.now();
+        const time = Date.now();
         let cid = localStorage._ga;
         if (!cid) {
-            localStorage._ga = cid = ((Math.random() * 10e7) | 0) + time;
+            // Pseudo-unique string with 32 chars UUIDv4 w/o hyphens.
+            localStorage._ga = cid = (Math.random() +
+                '00000000000000000000').substring(2, 21) + time;
         }
 
-        let d = 'v=1&tid=UA-45595918-2&ds=web&cid=' + cid;
-        for (let k in o) {
+        let d = 'v=1&tid=UA-45595918-1&ds=web&cid=' + cid;
+        for (const k in o) {
             d += '&' + k + '=' + o[k];
         }
         const xhr = new XMLHttpRequest();
@@ -164,7 +167,8 @@ function selectAll() {
 
         // System Info
         sr: screen.width + 'x' + screen.height,
-        vp: document.documentElement.clientWidth + 'x' + document.documentElement.clientHeight,
+        vp: document.documentElement.clientWidth + 'x' +
+            document.documentElement.clientHeight,
         sd: screen.colorDepth + '-bits',
         ul: navigator.language
     });
