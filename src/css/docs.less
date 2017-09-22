@@ -721,6 +721,12 @@ td {
     }
 }
 
+input[type=checkbox].modules--optional {
+    display:none;
+    &:not(:checked) + * {
+        display: none;
+    }
+}
 
 /*
     API Libraries :: /API-libraries
