@@ -1,26 +1,24 @@
-/**
-*   @author ScanPay ApS
-**/
-'use strict';
+/* @author ScanPay ApS */
+/* eslint-env node */
 const gulp = require('gulp');
 const connect = require('gulp-connect');
 const nunjucks = require('nunjucks');
 const lessjs = require('less');
 const hljs = require('highlight.js');
 const through = require('through2');
-let env = require('minimist')(process.argv.slice(2));
+const env = require('minimist')(process.argv.slice(2));
 env.currentYear = (new Date()).getFullYear();
 env.code = {}; // used to store highlighted code
 
 function highlight() {
     return gulp.src(['src/includes/code/*/*.*'], { since: gulp.lastRun(highlight) })
-    .pipe(through.obj((file, enc, cb) => {
-        const filename = file.path.split('/').pop();
-        const ext = filename.split('.').splice(1).pop();
-        const hlobj = hljs.highlight(ext, file.contents.toString('utf8'), false);
-        env.code[filename] = hlobj.value;
-        cb(null, file);
-    }));
+        .pipe(through.obj((file, enc, cb) => {
+            const filename = file.path.split('/').pop();
+            const ext = filename.split('.').splice(1).pop();
+            const hlobj = hljs.highlight(ext, file.contents.toString('utf8'), false);
+            env.code[filename] = hlobj.value;
+            cb(null, file);
+        }));
 }
 
 function less() {
@@ -38,7 +36,7 @@ function webserver() {
     connect.server({
         root: 'www',
         livereload: true,
-        middleware: (connect, opt) => ([(req, res, next) => {
+        middleware: () => ([(req, res, next) => {
             const path = req.url.split('?')[0];
             const ext = path.slice((path.lastIndexOf('.') - 1 >>> 0) + 2);
             if (!ext && path !== '/') {
@@ -62,30 +60,30 @@ function index() {
     let i = 0;
     env.index = [];
     return gulp.src(pages.map(s => 'src/' + s + '.html'))
-    .pipe(through.obj((file, enc, cb) => {
-        const nenv = new nunjucks.Environment(includes, {});
-        const o = {
-            sublist: []
-        };
+        .pipe(through.obj((file, enc, cb) => {
+            const nenv = new nunjucks.Environment(includes, {});
+            const o = {
+                sublist: []
+            };
 
-        nenv.addFilter('settitle', str => {
-            o.title = str; return str;
-        });
-        nenv.addFilter('setlabel', str => {
-            o.label = str; return str;
-        });
-        nenv.addGlobal('addsublist', (name, id) => {
-            o.sublist.push({ name: name, id: id });
-        });
+            nenv.addFilter('settitle', (str) => {
+                o.title = str; return str;
+            });
+            nenv.addFilter('setlabel', (str) => {
+                o.label = str; return str;
+            });
+            nenv.addGlobal('addsublist', (name, id) => {
+                o.sublist.push({ name: name, id: id });
+            });
 
-        nenv.renderString(file.contents.toString('utf8'), {}, (err, res) => {
-            if (err) { throw err; }
-            o.path = pages[i++];
-            if (o.path === '/index') { o.path = '/'; }
-            env.index.push(o);
-            cb(null, file);
-        });
-    }));
+            nenv.renderString(file.contents.toString('utf8'), {}, (err) => {
+                if (err) { throw err; }
+                o.path = pages[i++];
+                if (o.path === '/index') { o.path = '/'; }
+                env.index.push(o);
+                cb(null, file);
+            });
+        }));
 }
 
 function html() {
@@ -102,27 +100,27 @@ function html() {
             cb(null, file);
         });
     }))
-    .pipe(gulp.dest('www'))
-    .pipe(connect.reload());
+        .pipe(gulp.dest('www'))
+        .pipe(connect.reload());
 }
 
 function css() {
     return gulp.src(['src/css/docs.less'])
-    .pipe(less())
-    .pipe(gulp.dest('www/a/'))
-    .pipe(connect.reload());
+        .pipe(less())
+        .pipe(gulp.dest('www/a/'))
+        .pipe(connect.reload());
 }
 
 function assets() {
     return gulp.src(['src/font/*.*', 'src/js/**'])
-    .pipe(gulp.dest('www/a/'))
-    .pipe(connect.reload());
+        .pipe(gulp.dest('www/a/'))
+        .pipe(connect.reload());
 }
 
 function images() {
     return gulp.src('src/img/**')
-    .pipe(gulp.dest('www/img/'))
-    .pipe(connect.reload());
+        .pipe(gulp.dest('www/img/'))
+        .pipe(connect.reload());
 }
 
 function stalker() {
@@ -134,6 +132,9 @@ function stalker() {
     gulp.watch(['src/includes/code/**'], gulp.series(highlight, html));
 }
 
-gulp.task('build', gulp.parallel(assets, images, gulp.series(loadIncludes, gulp.parallel(highlight, index), html), css));
+gulp.task('build', gulp.parallel(
+    assets, images,
+    gulp.series(loadIncludes, gulp.parallel(highlight, index), html), css
+));
 gulp.task('serve', gulp.parallel(stalker, webserver));
 gulp.task('default', gulp.series('build', 'serve'));

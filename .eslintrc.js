@@ -9,7 +9,6 @@ module.exports = {
     "extends": "eslint:recommended",
     "rules": {
         "accessor-pairs": 2,
-        "array-bracket-newline": 2,
         "array-bracket-spacing": 2,
         "array-callback-return": 2,
         "arrow-body-style": 2,
@@ -34,7 +33,7 @@ module.exports = {
                 "allowSingleLine": true
             }
         ],
-        "camelcase": 2,
+        //"camelcase": 1,
         "comma-dangle": 2,
         "comma-spacing": [
             2,
@@ -54,7 +53,6 @@ module.exports = {
         ],
         "consistent-return": 0,
         "curly": 2,
-        "default-case": 2,
         "dot-location": [
             2,
             "property"
@@ -68,7 +66,7 @@ module.exports = {
             2,
             "declaration"
         ],
-        "function-paren-newline": 2,
+        "function-paren-newline": 1,
         "generator-star-spacing": 2,
         "getter-return": 2,
         "global-require": 2,
@@ -76,8 +74,7 @@ module.exports = {
         "id-blacklist": 2,
         "id-length": 0,
         "id-match": 2,
-        "indent": 0,
-        "indent-legacy": 2,
+        "indent": [1, 4, { "SwitchCase": 1 }],
         "init-declarations": 0,
         "jsx-quotes": 2,
         "key-spacing": 2,
@@ -93,7 +90,6 @@ module.exports = {
             2,
             "unix"
         ],
-        "lines-around-comment": 2,
         "lines-around-directive": 2,
         "max-depth": 2,
         "max-len": [1, 90],
@@ -138,7 +134,7 @@ module.exports = {
         "no-magic-numbers": 0,
         "no-mixed-operators": 2,
         "no-mixed-requires": 2,
-        "no-multi-spaces": 2,
+        "no-multi-spaces": [1, { ignoreEOLComments: true }],
         "no-multi-str": 2,
         "no-native-reassign": 2,
         "no-negated-condition": 2,
@@ -154,7 +150,6 @@ module.exports = {
         "no-process-env": 2,
         "no-process-exit": 2,
         "no-proto": 2,
-        "no-prototype-builtins": 2,
         "no-redeclare": [
             2,
             {
@@ -174,7 +169,6 @@ module.exports = {
         "no-shadow": 0,
         "no-shadow-restricted-names": 2,
         "no-spaced-func": 2,
-        "no-sync": 2,
         "no-tabs": 2,
         "no-template-curly-in-string": 2,
         "no-throw-literal": 0,
