@@ -16,7 +16,7 @@ data := <span class="hljs-built_in">jsondecode</span>(<b>GET</b> <span class="ty
 
     <b>if</b> trnid = <span class="hljs-literal">0</span> <b>then</b>
         <span class="hljs-built_in">sendmail</span>(email, <span class="type--str">"Order confirmation ..."</span>)
-    <b>end</b></span>
+    <b>end</b>
 <b>end</b>
 
-<span class="hljs-built_in">PostgreSQL</span>(<span class="hljs-keyword">UPDATE</span> globals <span class="hljs-keyword">SET</span> seq = 'data.seq' <span class="hljs-keyword">WHERE</span> seq &lt; 'data.seq')</span>
+<span class="hljs-built_in">PostgreSQL</span>(<span class="hljs-keyword">UPDATE</span> globals <span class="hljs-keyword">SET</span> seq = 'data.seq' <span class="hljs-keyword">WHERE</span> seq &lt; 'data.seq')
