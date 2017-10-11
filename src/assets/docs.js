@@ -25,10 +25,11 @@ if (!self.fetch) {
     });
 }
 
-function onBtnClick(evt) {
+function changeCodeEx(evt) {
     const btn = evt.target;
     if (btn.tagName === 'BUTTON') {
         fetchCode(btn.dataset.file, this);
+        this.querySelector('.code--active').classList.remove('code--active');
         btn.classList.add('code--active');
 
         if (btn.dataset.lang) {
@@ -38,20 +39,16 @@ function onBtnClick(evt) {
 }
 
 function fetchCode(file, div) {
+    div.classList.add('code--loading');
     fetch('/code/' + file)
         .then(res => res.text())
         .then((txt) => {
             div.querySelector('.code--code').innerHTML = txt;
             div.classList.remove('code--loading');
         });
-    div.classList.add('code--loading');
-    div.querySelector('.code--active').classList.remove('code--active');
 }
 
-/*
-    selectAll(): Select text inside the clicked element.
-*/
-
+// selectAll(): Select text inside the clicked element.
 function selectAll() {
     window.getSelection().selectAllChildren(this);
 }
@@ -82,22 +79,32 @@ const postman = {
 (() => {
     const prefLang = sessionStorage && sessionStorage.getItem('lang');
 
-    // Code blocks (examples)
-    const blocks = document.getElementsByClassName('code--');
-    for (let i = 0; i < blocks.length; i++) {
-        blocks[i].addEventListener('click', onBtnClick);
+    // Code examples
+    const codeSamples = document.getElementsByClassName('code--');
+    for (let i = 0; i < codeSamples.length; i++) {
+        codeSamples[i].addEventListener('click', changeCodeEx);
 
         if (prefLang) {
-            const children = blocks[i].children;
+            const children = codeSamples[i].children;
             for (let j = 0; j < children.length - 1; j++) {
                 const btn = children[j];
                 if (btn.dataset.lang === prefLang &&
                     !btn.classList.contains('code--active')) {
-                    fetchCode(btn.dataset.file, blocks[i]);
+                    fetchCode(btn.dataset.file, codeSamples[i]);
+                    codeSamples[i].querySelector('.code--active')
+                        .classList.remove('code--active');
                     btn.classList.add('code--active');
                 }
             }
         }
+    }
+
+    const egSync = document.getElementById('eg--sync');
+    if (egSync) {
+        egSync.onchange = (e) => {
+            fetchCode('/sync/db.' + e.target.value.toLowerCase() +
+             '.html', e.target.parentNode);
+        };
     }
 
     // Attach events to "run code" buttons
