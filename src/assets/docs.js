@@ -48,7 +48,6 @@ function fetchCode(file, div) {
     div.querySelector('.code--active').classList.remove('code--active');
 }
 
-
 /*
     selectAll(): Select text inside the clicked element.
 */
@@ -56,7 +55,6 @@ function fetchCode(file, div) {
 function selectAll() {
     window.getSelection().selectAllChildren(this);
 }
-
 
 const postman = {
     'paymentLink': () => {
@@ -74,9 +72,9 @@ const postman = {
                 'Do you want to check it out? ' + o.url)) {
                 window.location.href = o.url;
             }
-        }).catch(() => {
+        })).catch(() => {
             alert('Sorry. The test environment is offline. Try again later.');
-        }));
+        });
     }
 };
 
