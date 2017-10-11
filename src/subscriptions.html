@@ -1,14 +1,5 @@
-{% extends "default.html" %}
-{% set title = "Subscriptions" | settitle %}
-{% set label = "API" | setlabel %}
-{% block meta %}
-<title>Subscriptions - Scanpay</title>
-<meta name="description" content="...">
-{% endblock %}
 
-{% block article %}
-  <h1>Subscriptions</h1>
-
+<h1>Subscriptions</h1>
 
 <pre><code class="pcode">
 GET /v1/subscribers/$id-$id
@@ -38,8 +29,3 @@ POST /v1/subscribers/$id/renew
 
 </code></pre>
 
-
-
-
-
-{% endblock %}

@@ -1,0 +1,20 @@
+data := <span class="hljs-built_in">jsondecode</span>(<b>GET</b> <span class="type--str">https://api.scanpay.dk/seq/</span> + localseq)
+<b>for</b> trn <b>in</b> data.changes <b>do</b>
+    <b>if</b> <i>trn.error is set</i> <b>then</b>
+        log trn.error <span class="hljs-comment">// Contact us if this happens</span>
+        <b>continue</b>
+    <b>end</b>
+
+    trnid, email := <span class="hljs-built_in">MSSQL</span>(
+        <span class="hljs-keyword">UPDATE</span> orders
+        <span class="hljs-keyword">SET</span> trnid = 'trn.id', rev = 'trn.rev', ...
+            <span class="hljs-keyword">WHERE</span> (trnid = 'trn.id' <span class="hljs-keyword">OR</span> orderid = 'trn.orderid') <span class="hljs-keyword">AND</span> rev &lt; 'trn.rev'
+        <span class="hljs-keyword">OUTPUT</span> DELETED.trnid, orders.email;
+    )
+
+    <b>if</b> trnid = <span class="hljs-literal">0</span> <b>then</b>
+        <span class="hljs-built_in">sendmail</span>(email, <span class="type--str">"Order confirmation ..."</span>)
+    <b>end</b></span>
+<b>end</b>
+
+<span class="hljs-built_in">MSSQL</span>(<span class="hljs-keyword">UPDATE</span> globals <span class="hljs-keyword">SET</span> seq = 'data.seq' <span class="hljs-keyword">WHERE</span> seq &lt; 'data.seq')

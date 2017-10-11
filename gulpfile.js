@@ -1,35 +1,48 @@
 /* @author ScanPay ApS */
 /* eslint-env node */
+const fs = require('fs');
 const gulp = require('gulp');
 const connect = require('gulp-connect');
-const nunjucks = require('nunjucks');
 const lessjs = require('less');
 const hljs = require('highlight.js');
 const through = require('through2');
+const mo3place = require('mo3place')();
 const env = require('minimist')(process.argv.slice(2));
 env.currentYear = (new Date()).getFullYear();
-env.code = {}; // used to store highlighted code
+const index = JSON.parse(fs.readFileSync('src/index.json', 'utf8'));
+const files = {};
 
-function highlight() {
-    return gulp.src(['src/includes/code/*/*.*'], { since: gulp.lastRun(highlight) })
-        .pipe(through.obj((file, enc, cb) => {
-            const filename = file.path.split('/').pop();
-            const ext = filename.split('.').splice(1).pop();
-            const hlobj = hljs.highlight(ext, file.contents.toString('utf8'), false);
-            env.code[filename] = hlobj.value;
-            cb(null, file);
-        }));
+function createSidebar(active) {
+    let str = '';
+    for (let i = 0; i < index.length; i++) {
+        const o = index[i];
+        if (!o.path) { o.path = o.title.toLowerCase().replace(/ /g, '-') + '.html'; }
+        if (!o.url) { o.url = '/' + o.path.substring(0, o.path.length - 5); }
+
+        if (o.hidden) { continue; }
+        const APIlabel = o.API ? '<span class="sidebar--label">API</span>' : '';
+
+        if (i === active) {
+            let sublinks = '';
+            for (const p of o.pages) {
+                const url = p.url || '#' + p.title.toLowerCase().replace(/ /g, '-');
+                sublinks += '<li><a href="' + url + '">' + p.title + '</a></li>';
+            }
+            str += `<li class="sidebar--active">
+                        <a href="${o.url}">${o.title + APIlabel}</a>
+                        <ol class="sidebar--sub">${sublinks}</ol>
+                    </li>`;
+        } else {
+            str += '<li><a href="' + o.url + '">' + o.title + APIlabel + '</a></li>';
+        }
+    }
+    return str;
 }
 
-function less() {
-    return through.obj((file, enc, cb) => {
-        lessjs.render(file.contents.toString(), null, (err, res) => {
-            if (err) { throw err; }
-            file.contents = Buffer.from(res.css);
-            file.path = file.path.substring(0, file.path.lastIndexOf('.')) + '.css';
-            cb(null, file);
-        });
-    });
+for (let i = 0; i < index.length; i++) {
+    const o = index[i];
+    o.sidebar = createSidebar(i);
+    files[o.path] = o;
 }
 
 function webserver() {
@@ -47,72 +60,72 @@ function webserver() {
     });
 }
 
-let includes;
-function loadIncludes(done) {
-    includes = new nunjucks.FileSystemLoader(['src/includes/']);
-    done();
-}
-
-const pages = ['/index', '/payment-link', '/subscriptions', '/synchronization',
-    '/acquiring-banks', '/ecommerce-modules', '/API-libraries', '/security'];
-
-function index() {
-    let i = 0;
-    env.index = [];
-    return gulp.src(pages.map(s => 'src/' + s + '.html'))
-        .pipe(through.obj((file, enc, cb) => {
-            const nenv = new nunjucks.Environment(includes, {});
-            const o = {
-                sublist: []
-            };
-
-            nenv.addFilter('settitle', (str) => {
-                o.title = str; return str;
-            });
-            nenv.addFilter('setlabel', (str) => {
-                o.label = str; return str;
-            });
-            nenv.addGlobal('addsublist', (name, id) => {
-                o.sublist.push({ name: name, id: id });
-            });
-
-            nenv.renderString(file.contents.toString('utf8'), {}, (err) => {
-                if (err) { throw err; }
-                o.path = pages[i++];
-                if (o.path === '/index') { o.path = '/'; }
-                env.index.push(o);
-                cb(null, file);
-            });
-        }));
-}
-
 function html() {
-    const nenv = new nunjucks.Environment(includes, {});
-    nenv.addFilter('settitle', str => str);
-    nenv.addFilter('setlabel', str => str);
-    nenv.addGlobal('addsublist', () => {});
+    return gulp.src('src/*.html')
+        .pipe(through.obj((file, enc, cb) => {
+            // Get meta data from links{}
+            env.filename = file.path.substring(__dirname.length + 5);
+            if (files[env.filename]) {
+                for (const key in files[env.filename]) {
+                    env[key] = files[env.filename][key];
+                }
+            }
 
-    return gulp.src('src/*.html').pipe(through.obj((file, enc, cb) => {
-        env.filename = file.path.substring(file.path.lastIndexOf('/') + 1);
-        nenv.renderString(file.contents.toString('utf8'), env, (err, res) => {
-            if (err) { throw err; }
-            file.contents = Buffer.from(res);
+            // mo3place w. template.
+            file.contents = Buffer.from(mo3place.render(mo3place
+                .getStr('src/code/header.tpl.html') + file.contents.toString() +
+                    mo3place.getStr('src/code/footer.tpl.html'), env));
             cb(null, file);
-        });
-    }))
+        }))
         .pipe(gulp.dest('www'))
         .pipe(connect.reload());
 }
 
-function css() {
-    return gulp.src(['src/css/docs.less'])
-        .pipe(less())
-        .pipe(gulp.dest('www/a/'))
-        .pipe(connect.reload());
+function code() {
+    return gulp.src(['src/code/**/*.*', '!src/code/**/*.html'])
+        .pipe(through.obj((file, enc, cb) => {
+            const ext = file.path.split('.').splice(1).pop();
+            let str = file.contents.toString();
+            if (ext === 'json' && str[0] !== '{') {
+                // Hack for json w/o start braces.
+                str = hljs.highlight(ext, '{' + str + '}', true).value;
+                str = str.substring(1, str.length - 1);
+            } else {
+                str = hljs.highlight(ext, str, true).value;
+            }
+            // Save highlighted code to mo3place's cache
+            mo3place.setCache(file.path.substring(__dirname.length + 1), str);
+            file.contents = Buffer.from(str);
+            cb(null, file);
+        }))
+        .pipe(gulp.dest('www/code'));
+}
+
+function htmlCode() {
+    return gulp.src('src/code/**/*.html')
+        .pipe(through.obj((file, enc, cb) => {
+            const str = mo3place.render(file.contents.toString());
+            mo3place.setCache(file.path.substring(__dirname.length + 1), str);
+            file.contents = Buffer.from(str);
+            cb(null, file);
+        }))
+        .pipe(gulp.dest('www/code'));
 }
 
 function assets() {
-    return gulp.src(['src/font/*.*', 'src/js/**'])
+    return gulp.src(['src/assets/*.*', 'src/assets/font/*.*'])
+        .pipe(through.obj((file, enc, cb) => {
+            // Convert LESS to CSS.
+            const lastDot = file.path.lastIndexOf('.');
+            if (file.path.substring(lastDot) === '.less') {
+                lessjs.render(file.contents.toString(), null, (err, res) => {
+                    if (err) { throw err; }
+                    file.contents = Buffer.from(res.css);
+                    file.path = file.path.substring(0, lastDot) + '.css';
+                    cb(null, file);
+                });
+            } else { cb(null, file); }
+        }))
         .pipe(gulp.dest('www/a/'))
         .pipe(connect.reload());
 }
@@ -123,18 +136,14 @@ function images() {
         .pipe(connect.reload());
 }
 
+
 function stalker() {
-    gulp.watch(['src/includes/**'], gulp.series(loadIncludes, index, html));
-    gulp.watch(['src/*.html'], gulp.series(index, html));
-    gulp.watch(['src/css/docs.less'], css);
-    gulp.watch(['src/font/*.{woff,woff2}', 'src/js/**'], assets);
+    gulp.watch(['src/*.html'], html);
+    gulp.watch(['src/assets/**/*.*'], assets);
     gulp.watch(['src/img/**'], images);
-    gulp.watch(['src/includes/code/**'], gulp.series(highlight, html));
+    gulp.watch('src/code/**/*.*', gulp.series(code, htmlCode, html));
 }
 
-gulp.task('build', gulp.parallel(
-    assets, images,
-    gulp.series(loadIncludes, gulp.parallel(highlight, index), html), css
-));
+gulp.task('build', gulp.series(gulp.parallel(assets, images, code), htmlCode, html));
 gulp.task('serve', gulp.parallel(stalker, webserver));
 gulp.task('default', gulp.series('build', 'serve'));

@@ -1,0 +1,84 @@
+[
+    {
+        "title": "Getting Started",
+        "path": "index.html",
+        "url": "/",
+        "meta": "Getting started with Scanpay and online payments.",
+        "pages": [
+            { "title": "Create user and shop" },
+            { "title": "Setup acquirers" },
+            { "title": "Integrate" }
+        ]
+    },
+    {
+        "title": "Payment Link",
+        "meta": "Use this API to generate payment links that you can send to your customers.",
+        "API": true,
+        "pages": [
+            { "title": "Request Headers" },
+            { "title": "Request Fields" },
+            { "title": "Response Fields" },
+            { "title": "Examples" }
+        ]
+    },
+    {
+        "title": "Subscriptions",
+        "meta": "...",
+        "API": true,
+        "pages": [
+            { "title": "Request Headers" }
+        ],
+        "hidden": true
+    },
+    {
+        "title": "Synchronization",
+        "meta": "Synchronization API to keep all your systems up-to-date with changes to your payments.",
+        "API": true,
+        "pages": [
+            { "title": "Ping Service" },
+            { "title": "Sequence Request" }
+        ]
+    },
+    {
+        "title": "Acquiring banks",
+        "meta": "Accept payments online through one of our acquiring banks.",
+        "pages": [
+            { "title": "Supported acquirers" }
+        ]
+    },
+    {
+        "title": "Ecommerce modules",
+        "meta": "Ecommerce modules &amp; plugins for easy integration with Scanpay.",
+        "pages": [
+            { "title": "Magento 2" },
+            { "title": "WooCommerce" },
+            { "title": "OpenCart" }
+        ]
+    },
+    {
+        "title": "API Libraries",
+        "path": "API-libraries.html",
+        "meta": "Scanpay has official client libraries for popular programming languages.",
+        "pages": [
+            { "title": "PHP" },
+            { "title": "Node.js" },
+            { "title": "Ruby" },
+            { "title": "Go" },
+            { "title": ".NET" }
+        ]
+    },
+    {
+        "title": "Security",
+        "meta": "Scanpay is PCI DSS certified and security is very important to us.",
+        "pages": [
+            { "title": "Basic authentication" },
+            { "title": "Transport Layer Security" },
+            { "title": "PCI DSS" }
+        ]
+    },
+    {
+        "title": "Search",
+        "meta": "...",
+        "hidden": true
+    }
+]

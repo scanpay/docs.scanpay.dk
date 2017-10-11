@@ -4,7 +4,7 @@ $scanpay = new Scanpay\Scanpay($apikey);
 $order = [
     'orderid'    => 'a766409',
     'language'   => 'da',
-    'successurl' => 'https://insertyoursuccesspage.dk',
+    'successurl' => 'https://din-shop.dk/success',
     'items'    => [
         [
             'name'     => 'Pink Floyd: The Dark Side Of The Moon',
@@ -46,14 +46,14 @@ $order = [
 ];
 
 $options = [
-    'headers' => [ // Array of headers
+    'headers' => [
         'X-Cardholder-IP: ' . $_SERVER['REMOTE_ADDR'],
     ],
-    'auth'  =>  $apikey, // Overwrite the api-key (Optional)
+    'auth'  =>  $apikey, // per request api-key (Optional)
 ];
 
 try {
-    print_r ($new = $scanpay->new($order, $options));
+    print_r ($URL = $scanpay->newURL($order, $options));
 } catch (Exception $e) {
     die('Caught Scanpay client exception: ' . $e->getMessage() . "\n");
 }

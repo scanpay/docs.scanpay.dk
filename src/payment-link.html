@@ -1,158 +1,134 @@
-{% extends "default.html" %}
-{% set title = "Payment Link" | settitle %}
-{% set label = "API" | setlabel %}
-{% block meta %}
-<title>Payment Link - Scanpay</title>
-<meta name="description" content="Use this API to generate payment links that you can send to your customers.">
-{% endblock %}
 
-{% block article %}
-  <h1>Payment Link</h1>
-  <p>
-    Use this API to generate links to the payment window. This API is designed to be fault-tolerant and forgiving. Here is some pseudocode to show how simple it is:
-  </p>
+<h1>Payment Link</h1>
+<p>
+  Use this API to generate payment links. This API is designed to be fault-tolerant and forgiving. Here is some pseudocode to show how simple it is:
+</p>
 
-<pre><code class="pcode"><span class="hljs-built_in">POST</span> https://api.scanpay.dk/v1/new
-<span class="hljs-attribute">Authorization</span>: Basic MTI5Ok5vRkJNZy9Q133DJjaJ=
-{
-    <span class="hljs-attr">"items"</span>: [
-        {
-            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Monty Python and the Holy Grail (Blu-ray)"</span>,
-            <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">2</span>,
-            <span class="hljs-attr">"price"</span>: <span class="hljs-string">"79.95 DKK"</span>  <span class="hljs-comment">// total is 159.9 DKK</span>
-        }
-    ]
-}
-</code></pre>
+<pre><code class="pcode">{% include "src/code/paylink/pseudo.html" %}<button class="postman" data-fn="paymentLink">run code</button></code></pre>
+<p>
+  This is the absolute minimum you can send to create a payment link. The more information you include the better we can protect your business against fraud.
+</p>
 
-The more information you include the better we can protect your business against fraud.
+<h3 id="request-headers">Request Headers</h3>
+<p>The request endpoint is: <code class="code">https://api.scanpay.dk/v1/new</code></p>
+<table class="table--fixed">
+  <thead>
+    <tr>
+      <th>HTTP/1.1 headers</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="paylink--tcode field--required">
+        <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</span>
+      </td>
+      <td>
+        HTTP Basic authentication. <a href="/security#basic-authentication">Read more</a>.
+      </td>
+    </tr>
+    <tr>
+      <td class="paylink--tcode"><span class="hljs-attribute">X-Cardholder-IP</span>: <span class="">47.105.175.99</span></td>
+      <td>The IPv4 or IPv6 address of the customer.</td>
+    </tr>
+  </tbody>
+</table>
 
-  {{ h(3, "Request Headers", "") }}
-  The request endpoint is: <code class="code">https://api.scanpay.dk/v1/new</code>
-  <table class="table--fixed">
-    <thead>
-      <tr>
-        <th>HTTP/1.1 headers</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="paylink--tcode field--required">
-          <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTI5Ok5vRkJNZy9Q133DJ&hellip;</span>
-        </td>
-        <td>
-          HTTP basic authentication. <a href="#">Read more</a>.
-        </td>
-      </tr>
-      <tr>
-        <td class="paylink--tcode"><span class="hljs-attribute">X-Cardholder-IP</span>: <span class="">47.105.175.99</span></td>
-        <td>The IPv4 or IPv6 address of the customer.</td>
-      </tr>
-    </tbody>
-  </table>
+<h3 id="request-fields">Request Fields</h3>
+<p>All request fields are listed below. All fields are optional.</p>
 
-  {{ h(3, "Request Fields", "") }}
-  <p>
-    All request fields are listed below. All fields are optional.
-  </p>
+<table class="table--fixed">
+  <thead>
+    <tr>
+      <th>JSON fields</th>
+      <th class="td--desc">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="paylink--tcode"><span class="type--name">"orderid"</span>: <span class="type--str">"1234zx"</span></td>
+      <td class="td--desc">A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.</td>
+    </tr>
+    <tr>
+      <td class="paylink--tcode"><span class="type--name">"language"</span>: <span class="type--str">"da"</span></td>
+      <td class="td--desc">Preferred language for payment window.</td>
+    </tr>
+    <tr>
+      <td class="paylink--tcode"><span class="type--name">"autocapture"</span>: <span class="type--int">true</span></td>
+      <td class="td--desc">
+        Automatically capture the payment. Default is false.
+      </td>
+    </tr>
+    <tr>
+      <td class="paylink--tcode"><span class="type--name">"successurl"</span>: <span class="type--str">"http://blixen.dk/success"</span></td>
+      <td class="td--desc">Redirect to this URL after succesful payment. If omitted we will show a generic success message.
+      </td>
+    </tr>
+    <tr>
+      <td class="paylink--tcode field--required"><pre>{% include "src/code/paylink/items.json" %}</pre></td>
+      <td class="td--desc">
+        An array with items.
+        <ul class="table--ul">
+          <li><b>name:</b> The name of the item.</li>
+          <li><b>quantity:</b> The number of items (integer).</li>
+          <li><b>price:</b> The price of <u>one unit</u> with an ISO 4217 currency code.</li>
+          <li><b>sku:</b> An <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this particular product.</li>
+        </ul>
+        <span class="td--note">In this example the total price is 13397.9986 DKK. Most acquires only support 2 digits after the decimal point. If this is the case we will truncate to 13397.99.</span>
+      </td>
+    </tr>
+    <tr>
+      <td class="paylink--tcode"><pre>{% include "src/code/paylink/billing.json" %}</pre></td>
+      <td class="td--desc td--vtop">
+        Customer billing and shipping address.
+        <ul class="table--ul">
+          <li><b>name:</b> The full name.</li>
+          <li><b>company:</b> Legal company name.</li>
+          <li><b>vatin:</b> EU VAT identification number.</li>
+          <li><b>gln:</b> Global Location Number or European Article Numbering (EAN-number).</li>
+          <li><b>email:</b> E-mail address.</li>
+          <li><b>phone:</b> Phone number with country prefix.</li>
+          <li><b>address:</b> An address array where each element is a new line.</li>
+          <li><b>zip:</b> Postal code.</li>
+          <li><b>city:</b> City.</li>
+          <li><b>state:</b> State or region.</li>
+          <li><b>country:</b> Two-letter country code (<a href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-  <table class="table--fixed">
-    <thead>
-      <tr>
-        <th>JSON fields</th>
-        <th class="td--desc">Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="paylink--tcode"><span class="type--name">"orderid"</span>: <span class="type--str">"1234zx"</span></td>
-        <td class="td--desc">A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.</td>
-      </tr>
-      <tr>
-        <td class="paylink--tcode"><span class="type--name">"language"</span>: <span class="type--str">"da"</span></td>
-        <td class="td--desc">Preferred language for payment window.</td>
-      </tr>
-      <tr>
-        <td class="paylink--tcode"><span class="type--name">"autocapture"</span>: <span class="type--int">true</span></td>
-        <td class="td--desc">
-          Automatically capture the payment. Default is false.
-        </td>
-      </tr>
-      <tr>
-        <td class="paylink--tcode"><span class="type--name">"successurl"</span>: <span class="type--str">"http://blixen.dk/success"</span></td>
-        <td class="td--desc">Redirect to this URL after succesful payment. If omitted we will show a generic success message.
-        </td>
-      </tr>
-      <tr>
-        <td class="paylink--tcode field--required"><pre>{% include "JSON/items.html" %}</pre></td>
-        <td class="td--desc">
-          An array with items.
-          <ul class="table--ul">
-            <li><b>name:</b> The name of the item.</li>
-            <li><b>quantity:</b> The number of items (integer).</li>
-            <li><b>price:</b> The price of <u>one unit</u> with an ISO 4217 currency code.</li>
-            <li><b>sku:</b> An <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this particular product.</li>
-          </ul>
-          <span class="td--note">In this example the total price is 13397.9986 DKK. Most acquires only support 2 digits after the decimal point. If this is the case we will truncate to 13397.99.</span>
-        </td>
-      </tr>
-      <tr>
-        <td class="paylink--tcode"><pre>{% include "JSON/billing.html" %}</pre></td>
-        <td class="td--desc td--vtop">
-          Customer billing and shipping address.
-          <ul class="table--ul">
-            <li><b>name:</b> The full name.</li>
-            <li><b>company:</b> Legal company name.</li>
-            <li><b>vatin:</b> EU VAT identification number.</li>
-            <li><b>gln:</b> Global Location Number or European Article Numbering (EAN-number).</li>
-            <li><b>email:</b> E-mail address.</li>
-            <li><b>phone:</b> Phone number with country prefix.</li>
-            <li><b>address:</b> An address array where each element is a new line.</li>
-            <li><b>zip:</b> Postal code.</li>
-            <li><b>city:</b> City.</li>
-            <li><b>state:</b> State or region.</li>
-            <li><b>country:</b> Two-letter country code (<a href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).</li>
-          </ul>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<h3 id="response-fields">Response Fields</h3>
+<p>
+  Successful responses have a <code class="code">200</code> HTTP status code with the following JSON field:
+</p>
+<table class="table--fixed">
+  <thead>
+    <tr>
+      <th>JSON field</th>
+      <th class="td--desc">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="paylink--tcode"><span class="type--name">"url"</span>: <span class="type--str">"https://betal.scanpay.dk/9qdvbx2r"</span></td>
+      <td class="td--desc">A payment link. Default lifetime is 1 hour, but this can be increased.</td>
+    </tr>
+  </tbody>
+</table>
 
+<h3 id="examples">Examples</h3>
+<p>
+  Here are a few examples. We recommend that you take a look at our official <a href="/API-libraries">client libraries</a>.
+</p>
 
-  {{ h(3, "Response Fields", "") }}
-  <p>
-    Successful responses have a <code class="code">200</code> HTTP status code with the following JSON field:
-  </p>
-  <table class="table--fixed">
-    <thead>
-      <tr>
-        <th>JSON field</th>
-        <th class="td--desc">Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="paylink--tcode"><span class="type--name">"url"</span>: <span class="type--str">"https://betal.scanpay.dk/9qdvbx2r"</span></td>
-        <td class="td--desc">A payment link. Default lifetime is 1 hour, but this can be increased.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  {{ h(3, "Examples", "") }}
-  <p>
-    Here are a few examples. We recommend that you take a look at our official clients for <a href="//github.com/scanpaydk/node-scanpay">NodeJS</a> and <a href="//github.com/scanpaydk/php-scanpay">PHP</a>.
-  </p>
-
-  <div class="code--">
-    <button class="code--btn--active">curl</button>
-    <button>PHP</button>
-    <button>NodeJS</button>
-    <pre class="curl code--active"><code class="example">curl https://api.scanpay.dk/v1/new \
-  -u <span class="type--str">'Your scanpay API key'</span> \
-  --data-binary '{{ code['paylink_bash.json']|safe }}'</code></pre>
-      <pre class="php"><code class="example">{{ code['paylink.php']|safe }}</code></pre>
-      <pre class="nodejs"><code class="example">{{ code['paylink.js']|safe }}</code></pre>
-  </div>
-
-{% endblock %}
+<div class="code--">
+  <button data-lang="curl" data-file="paylink/newURL.bash.html" class="code--active">Curl</button>
+  <button data-lang="php" data-file="paylink/newURL.php">PHP</button>
+  <button data-lang="node" data-file="paylink/newURL.js">Node</button>
+  <button data-lang="go" data-file="paylink/newURL.go">Go</button>
+  <button data-lang="rb" data-file="paylink/newURL.rb">Ruby</button>
+  <button data-lang="net" data-file="paylink/newURL.cs">.NET</button>
+  <pre><code class="code--code">{% include "src/code/paylink/newURL.bash.html" %}</code></pre>
+</div>

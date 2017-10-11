@@ -12,7 +12,7 @@
         "html-minifier": "*",
         "less": "*",
         "minimist": "*",
-        "nunjucks": "*",
+        "mo3place": "*",
         "through2": "*",
         "uglify-es": "*"
     }

@@ -1,4 +1,11 @@
-<span class="generic">email := <span class="hljs-built_in">atomic-transaction</span>(
+data := <span class="hljs-built_in">jsondecode</span>(<b>GET</b> <span class="type--str">https://api.scanpay.dk/seq/</span> + localseq)
+<b>for</b> trn <b>in</b> data.changes <b>do</b>
+    <b>if</b> <i>trn.error is set</i> <b>then</b>
+        log trn.error <span class="hljs-comment">// Contact us if this happens</span>
+        <b>continue</b>
+    <b>end</b>
+
+    email := <span class="hljs-built_in">atomic-transaction</span>(
         find row where trnid = trn.id
         <b>if</b> row exists <b>then</b>
             <b>if</b> row.rev &lt; change.rev <b>then</b>
@@ -14,4 +21,11 @@
 
     <b>if</b> email is not <span class="hljs-literal">null</span> <b>then</b>
         <span class="hljs-built_in">sendmail</span>(email, <span class="type--str">"Order confirmation ..."</span>)
-    <b>end</b></span>
+    <b>end</b>
+<b>end</b>
+
+<span class="hljs-built_in">atomic-transaction</span>(
+    <b>if</b> <i>data.seq &gt; globals.seq</i> <b>then</b>
+        <span class="hljs-built_in">set</span> globals.seq = data.seq
+    <b>end</b>
+)

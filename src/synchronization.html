@@ -1,154 +1,131 @@
-{% extends "default.html" %}
-{% set title = "Synchronization" | settitle %}
-{% set label = "API" | setlabel %}
-{% block meta %}
-<title>Synchronization - Scanpay</title>
-<meta name="description" content="Synchronization API to keep all your systems up-to-date with changes to your payments.">
-{% endblock %}
 
-{% block article %}
-  <h1>Synchronization</h1>
-  <p>
+<h1>Synchronization</h1>
+<p>
   There are two requests in our Synchronization API: Ping and Sequence. <em>Ping</em> is a tiny request that you receive from us, both periodically and after certain events. <em>Sequence</em> is a request that you make when you want to pull changes.
-  </p>
+</p>
 
-  {{ h(2, "Ping Service", "") }}
-  <p>
-    You can configure as many <a href="//dashboard.scanpay.dk/settings/api">endpoints</a> as you like.
-     We recommend that you use TLS, but this is not a requirement. <em>Pings</em> are HTTP POST requests with the following headers and JSON fields:
-  </p>
+<h2 id="ping-service">Ping Service</h2>
+<p>
+  You can configure as many <a href="//dashboard.scanpay.dk/settings/api">endpoints</a> as you like.
+  We recommend that you use TLS, but this is not a requirement. <em>Pings</em> are HTTP POST requests with the following headers and JSON fields:
+</p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>HTTP/1.1 headers</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="paylink--tcode"><span class="type--name">X-Signature</span>: <span class="type--str">L41Pop7i91dvOaWxCH9lEHZI8zZ&hellip;</span></td>
-        <td>
-          Base64 encoded HMAC-SHA2-256 signature of the body signed with your API key. You should always validate this signature.
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<table>
+  <thead>
+    <tr>
+      <th>HTTP/1.1 headers</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="paylink--tcode"><span class="hljs-attribute">X-Signature</span>: 17FUWCstyodDzsCkG5/gU/2VA2vUEcHfvFxGh8RCElo=</td>
+      <td>
+        Base64 encoded HMAC-SHA2-256 signature of the body signed with your API key. <a href="/security#x-signature">Read more</a>.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-  <table>
-    <thead>
-      <tr>
-        <th>JSON fields</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="paylink--tcode"><span class="type--name">"seq"</span>: <span class="type--int">23591</span></td>
-        <td>
-          Global seq counter for your shop. This will increment with every new transaction, capture and refund.
-        </td>
-      </tr>
-      <tr>
-        <td class="paylink--tcode"><span class="type--name">"shopid"</span>: <span class="type--int">129</span></td>
-        <td>
-          The shopid associated with this ping.
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<table>
+  <thead>
+    <tr>
+      <th>JSON fields</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="paylink--tcode"><span class="type--name">"seq"</span>: <span class="type--int">23591</span></td>
+      <td>
+        Global seq counter for your shop. This will increment with every new transaction, capture and refund.
+      </td>
+    </tr>
+    <tr>
+      <td class="paylink--tcode"><span class="type--name">"shopid"</span>: <span class="type--int">129</span></td>
+      <td>
+        The shopid associated with this ping.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-  <p>
-    We will <em>ping</em> you every time your global <code class="code">seq</code> increases and every 5 minutes (periodic pings). You will have to store a local seq counter and use this to determine if your system is synchronized. If this is not the case then you should pull the changes with a Sequence Request. Explained with pseudocode:
-  </p>
+<p>
+  We will <em>ping</em> you every time your global <code class="code">seq</code> increases and every 5 minutes (periodic pings). You will have to store a local seq counter and use this to determine if your system is synchronized. If this is not the case then you should pull the changes with a Sequence Request. Explained with pseudocode:
+</p>
 
-<pre class="sync--pcode1"><code class="pcode"><b>if</b> <span class="hljs-built_in">Base64</span>(<span class="hljs-built_in">HMAC-SHA2-256</span>(body, apikey)) <span class="fsize15">≠</span> headers[<span class="type--str">'X-Signature'</span>] <b>then</b>
-    log <span class="type--str">'Warning: Invalid ping signature!'</span>
-    <b>exit</b>
-<b>end</b>
-ping := <span class="hljs-built_in">jsondecode</span>(body)
-<b>if</b> ping.seq > localseq <b>then</b>
-    <span class="hljs-comment">// Pull changes with a sequence request...</span>
-<b>end</b></code></pre>
+<pre class="sync--pcode1"><code class="pcode">{% include "src/code/sync/ping.pseudo.html" %}</code></pre>
+
+<h2 id="sequence-request">Sequence Request</h2>
+<p>
+  To get changes send a HTTP GET request to <code class="code">https://api.scanpay.dk/v1/seq/$localseq</code>, where <code class="code">$localseq</code> is your locally stored seq counter. Your request will need to have the following header:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>HTTP/1.1 headers</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="paylink--tcode field--required">
+        <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</span>
+      </td>
+      <td>
+        HTTP Basic authentication. <a href="/security#basic-authentication">Read more</a>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Response</h4>
+<p>
+  All successful responses have a <code class="code">200</code> HTTP status code and a JSON object with the following fields:
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>JSON fields</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="paylink--tcode"><span class="type--name">"seq"</span>: <span class="type--int">23591</span></td>
+      <td>The seq of the last change in this response. This is your new <em>$localseq</em>, but not necessarily your global seq counter.</td>
+    </tr>
+    <tr>
+      <td class="paylink--tcode"><pre>{% include "src/code/sync/changes.json" %}</pre></td>
+      <td class="td--vtop">
+        An array with zero or more changes since the requested seq, but not necessarily all changes.
+
+        <ul class="table--ul">
+          <li><b>id:</b> Transaction id.</li>
+          <li><b>rev:</b> Transaction revision number representing the number of changes made to this transaction. Rev will start at 1 and increment with actions (e.g. capture/refund) and other changes to this transaction.</li>
+          <li><b>orderid:</b> The orderid that you assigned when you created the payment link (<a href="/payment-link#request-fields">here</a>).</li>
+          <li><b>time:</b> Unix timestamps.</li>
+          <li><b>acts:</b> Cumulative array of actions in this transaction.</li>
+          <li><b>totals:</b> The relevant values for this transaction.</li>
+          <li><b>error:</b> An error message. You should skip the change if this happens.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Now you will have to loop through the response and apply the changes to your database. It's important that you do this transactionally, and/or handle <a href="//en.wikipedia.org/wiki/Time_of_check_to_time_of_use">race conditions</a>. Explained with pseudocode:
+</p>
 
 
-  {{ h(2, "Sequence Request", "") }}
-  <p>
-    To get changes send a HTTP GET request to <code class="code">https://api.scanpay.dk/v1/seq/$localseq</code>, where <code class="code">$localseq</code> is your locally stored seq counter. Your request will need to have the following header:
-  </p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>HTTP/1.1 headers</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="paylink--tcode paylink--auth field--required"><pre><span class="type--name">Authorization</span>: <span class="type--str">Basic MTI5Ok5vRkJNZy9Q...</span>
-<small class="type--small arr--upr">'Basic ' + base64 encoded API key</small></pre></td>
-        <td>
-          HTTP basic authentication with your base64 encoded API key. This is a required header.
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h4>Response</h4>
-  <p>
-    All successful responses have a <code class="code">200</code> HTTP status code and a JSON object with the following fields:
-  </p>
-  <table>
-    <thead>
-      <tr>
-        <th>JSON fields</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="paylink--tcode"><span class="type--name">"seq"</span>: <span class="type--int">23591</span></td>
-        <td>The seq of the last change in this response. This is your new <em>$localseq</em>, but not necessarily your global seq counter.</td>
-      </tr>
-      <tr>
-        <td class="paylink--tcode"><pre>{% include "JSON/seq_changes.html" %}</pre></td>
-        <td class="td--vtop">
-          An array with zero or more changes since the requested seq, but not necessarily all changes.
-
-          <ul class="table--ul">
-            <li><b>id:</b> Transaction id.</li>
-            <li><b>rev:</b> Transaction revision number representing the number of changes made to this transaction. Rev will start at 1 and increment with actions (e.g. capture/refund) and other changes to this transaction.</li>
-            <li><b>orderid:</b> The orderid that you assigned when you created the payment link (<a href="/payment-link#request-fields">here</a>).</li>
-            <li><b>time:</b> Unix timestamps.</li>
-            <li><b>acts:</b> Cumulative array of actions in this transaction.</li>
-            <li><b>totals:</b> The relevant values for this transaction.</li>
-            <li><b>error:</b> An error message. You should skip the change if this happens.</li>
-          </ul>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>
-    Now you will have to loop through the response and apply the changes to your database. It's important that you do this transactionally, and/or handle <a href="//en.wikipedia.org/wiki/Time_of_check_to_time_of_use">race conditions</a>. Explained with pseudocode:
-  </p>
-
-<pre class="seq--pseudo"><select id="seq--selectdb"><option>MySQL</option><option>PostgreSQL</option><option>MSSQL</option><option>Generic</option></select><code class="pcode show--mysql">data := <span class="hljs-built_in">jsondecode</span>(<b>GET</b> <span class="type--str">https://api.scanpay.dk/seq/</span> + localseq)
-<b>for</b> trn <b>in</b> data.changes <b>do</b>
-    <b>if</b> <i>trn.error is set</i> <b>then</b>
-        log trn.error <span class="hljs-comment">// Contact us if this happens</span>
-        <b>continue</b>
-    <b>end</b>
-
-{% include "pseudocode/seq-mssql.code" %}{% include "pseudocode/seq-mysql.code" %}{% include "pseudocode/seq-generic.code" %}
-<b>end</b>
-
-<span class="hljs-built_in mysql">MySQL</span><span class="hljs-built_in postgresql">PostgreSQL</span><span class="hljs-built_in mssql">MSSQL</span><span class="mysql postgresql mssql">(<span class="hljs-keyword">UPDATE</span> globals <span class="hljs-keyword">SET</span> seq = 'data.seq' <span class="hljs-keyword">WHERE</span> seq &lt; 'data.seq')</span><span class="generic"><span class="hljs-built_in">atomic-transaction</span>(
-    <b>if</b> <i>data.seq &gt; globals.seq</i> <b>then</b>
-        <span class="hljs-built_in">set</span> globals.seq = data.seq
-    <b>end</b>
-)</span>
-</code></pre>
-
-{% endblock %}
+<div class="rel">
+  <select id="seq--selectdb">
+    <option data-file="sync/db.mysql.html">MySQL</option>
+    <option data-file="sync/db.postgresql.html">PostgreSQL</option>
+    <option data-file="sync/db.mssql.html">MSSQL</option>
+    <option data-file="sync/db.generic.html">Generic</option>
+  </select>
+  <pre><code class="pcode">{% include "src/code/sync/db.mysql.html" %}</code></pre>
+</div>

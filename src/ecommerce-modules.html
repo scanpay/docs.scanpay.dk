@@ -1,132 +1,126 @@
-{% extends "default.html" %}
-{% set title = "Ecommerce modules" | settitle %}
-{% block meta %}
-<title>Ecommerce modules - Scanpay</title>
-<meta name="description" content="Ecommerce modules &amp; plugins for easy integration with Scanpay.">
 
-{% endblock %}
+<h1>Ecommerce modules</h1>
+<p>
+  Scanpay has developed modules to enable easy integration with the most popular ecommerce platforms.
+</p>
 
-{% block article %}
-  <h1>Ecommerce modules</h1>
+<h2 id="magento-2"><a href="#magento-2">Magento 2</a></h2>
+<div id="modules--magento-2">
   <p>
-    Scanpay has developed modules to enable easy integration with the most popular ecommerce platforms.
+    The Magento 2 module will be available in the Magento Marketsplace at a future date.
+    Until then you can install the extension manually by going through the following steps:
+  </p>
+  <h4>Manual Installation</h4>
+  <ol class="modules--ol">
+    <li> Download the module <a href="//github.com/scanpaydk/magento2-scanpay/archive/master.zip">here</a>.
+    </li>
+    <li>
+      Navigate to your Magento 2 root folder and copy the downloaded folder content to the app/code/Scanpay/PaymentModule.
+    </li>
+    <li>
+      <p>
+        Navigate to your Magento 2 root folder and run the following commands starting from the top:
+      </p>
+      <code class="bashcmd"><span class="hljs-built_in">php</span> bin/magento module:enable Scanpay_PaymentModule</code>
+      <code class="bashcmd"><span class="hljs-built_in">php</span> bin/magento setup:upgrade</code>
+      <code class="bashcmd"><span class="hljs-built_in">php</span> bin/magento setup:di:compile</code>
+    </li>
+  </ol>
+
+  <!--
+  You can install the Magento 2 module through the Magento Marketsplace.
+  <ol class="modules--ol">
+    <li>If you have not done so already, create a Magento Marketsplace account at //www.magentocommerce.com/products/applications/customer/create/</li>
+    <li>Get the free scanpay extension at [Insert Marketsplace URL here]</li>
+    <li>
+      Enter your magento admin panel and navigate to System > Web Setup Wizard (see the image below). If the Web Setup Wizard is not present, you may be able to fix it by removing /pub from the magento root folder in your http server configuration (e.g. your Apache and NGiNX configruation file)
+      <img height="800px" src="/img/magento/nav-to-websetupwizard-marked.png">
+    </li>
+    <li>
+      Enter the component manager
+      <img src="/img/magento/nav-to-componentmanager.png">
+    </li>
+    <li>If you have not connected the Magento Marketsplace account to your Magento, create a new access keypair at //marketplace.magento.com/customer/accessKeys/list/ and use this keypair to sign in at System > Web Setup Wizard.</li>
+    <li>
+      Synchronize the list (see the image below). Then there should be a number describing how many new purchases you have. Click the 'install' text below (see the image).
+      <img src="/img/magento/components-sync-install.png">
+    </li>
+    <li>
+      You should now see a list of newly installed extensions. Find scanpay/payment-module and click install. [INSERT IMAGE HERE AFTER SCANPAY IS ON MARKETSPLACE]
+    </li>
+    <li>
+      Go through the installation process including readiness check, backup and actual component installation.
+    </li>
+  </ol>
+    -->
+  <h4>Configuration</h4>
+  <p>
+    Now that you have installed the Scanpay Payment Module, you must configure it.
+  </p>
+  <ol class="modules--ol">
+    <li>Enter your magento admin panel and navigate to Stores > Configuration > Sales > Payment Methods and select the Scanpay Paymen Module
+      <div>
+          <img class="picture" width="450" alt="Magento configuration" src="/img/magento/nav-to-store-configuration.png">
+          <img class="picture" width="250" src="/img/magento/nav-to-sales-paymentmethods.png" alt="Magento navigation">
+      </div>
+    </li>
+    <li>Enable the module</li>
+    <li>Locate the API-key field and copy an API-key from <a href="//dashboard.scanpay.dk/settings/api">the dashboard</a> into the field (see below).
+      <div><img class="picture" height="497" width="449" alt="Scanpay: Magento API key" src="/img/magento/scanpay-config.png"></div>
+    </li>
+    <li>Press 'Save changes' to finalize the configuration process. A Scanpay payment method should now appear upon checkout.</li>
+    <li>Copy the content of the Ping URL field into the callback address field <a href="//dashboard.scanpay.dk/settings/api">here</a>.</li>
+    <li>Pressing the 'ping' button should now cause a ping to register in the Magento 2 Scanpay configuration, making the ping URL box green.</li>
+  </ol>
+</div>
+
+
+<h2 id="woocommerce"><a href="#woocommerce">WooCommerce</a></h2>
+
+<div id="modules--woocommerce">
+  <h4>Installation</h4>
+  <p>You can install the Woocommerce module directly from your Wordpress admin. Login to your Wordpress admin and navigate to <code class="code">Plugins > Add New</code>. Search for <em>'scanpay'</em> and you should see the following plugin:
   </p>
 
-  {{ ah(2, "Magento 2", "") }}
-  <div id="modules--magento-2">
-    <p>
-      The Magento 2 module will be available in the Magento Marketsplace at a future date.
-    Until then you can install the extension manually by going through the following steps:
-    </p>
-    {{ h(4, "Manual Installation") }}
-    <ol class="modules--ol">
-      <li> Download the module <a href="//github.com/scanpaydk/magento2-scanpay/archive/master.zip">here</a>.
-      </li>
-      <li>
-        Navigate to your Magento 2 root folder and copy the downloaded folder content to the app/code/Scanpay/PaymentModule.
-      </li>
-      <li>
-        <p>
-          Navigate to your Magento 2 root folder and run the following commands starting from the top:
-        </p>
-        <code class="bashcmd"><span class="hljs-built_in">php</span> bin/magento module:enable Scanpay_PaymentModule</code>
-        <code class="bashcmd"><span class="hljs-built_in">php</span> bin/magento setup:upgrade</code>
-        <code class="bashcmd"><span class="hljs-built_in">php</span> bin/magento setup:di:compile</code>
-      </li>
-    </ol>
+  <img class="woo--img1" alt="Install Scanpay in WooCommerce Admin" width="586" height="167" src="/img/woocommerce/install-scanpay.png">
 
-    <!--
-    You can install the Magento 2 module through the Magento Marketsplace.
-    <ol class="modules--ol">
-      <li>If you have not done so already, create a Magento Marketsplace account at //www.magentocommerce.com/products/applications/customer/create/</li>
-      <li>Get the free scanpay extension at [Insert Marketsplace URL here]</li>
-      <li>
-        Enter your magento admin panel and navigate to System > Web Setup Wizard (see the image below). If the Web Setup Wizard is not present, you may be able to fix it by removing /pub from the magento root folder in your http server configuration (e.g. your Apache and NGiNX configruation file)
-        <img height="800px" src="/img/magento/nav-to-websetupwizard-marked.png">
-      </li>
-      <li>
-        Enter the component manager
-        <img src="/img/magento/nav-to-componentmanager.png">
-      </li>
-      <li>If you have not connected the Magento Marketsplace account to your Magento, create a new access keypair at //marketplace.magento.com/customer/accessKeys/list/ and use this keypair to sign in at System > Web Setup Wizard.</li>
-      <li>
-        Synchronize the list (see the image below). Then there should be a number describing how many new purchases you have. Click the 'install' text below (see the image).
-        <img src="/img/magento/components-sync-install.png">
-      </li>
-      <li>
-        You should now see a list of newly installed extensions. Find scanpay/payment-module and click install. [INSERT IMAGE HERE AFTER SCANPAY IS ON MARKETSPLACE]
-      </li>
-      <li>
-        Go through the installation process including readiness check, backup and actual component installation.
-      </li>
-    </ol>
-      -->
-    <h4>Configuration</h4>
-    <p>
-      Now that you have installed the Scanpay Payment Module, you must configure it.
-    </p>
-    <ol class="modules--ol">
-      <li>Enter your magento admin panel and navigate to Stores > Configuration > Sales > Payment Methods and select the Scanpay Paymen Module
-        <div>
-            <img class="picture" width="450" alt="Magento configuration" src="/img/magento/nav-to-store-configuration.png">
-            <img class="picture" width="250" src="/img/magento/nav-to-sales-paymentmethods.png" alt="Magento navigation">
-        </div>
-      </li>
-      <li>Enable the module</li>
-      <li>Locate the API-key field and copy an API-key from <a href="//dashboard.scanpay.dk/settings/api">the dashboard</a> into the field (see below).
-        <div><img class="picture" height="497" width="449" alt="Scanpay: Magento API key" src="/img/magento/scanpay-config.png"></div>
-      </li>
-      <li>Press 'Save changes' to finalize the configuration process. A Scanpay payment method should now appear upon checkout.</li>
-      <li>Copy the content of the Ping URL field into the callback address field <a href="//dashboard.scanpay.dk/settings/api">here</a>.</li>
-      <li>Pressing the 'ping' button should now cause a ping to register in the Magento 2 Scanpay configuration, making the ping URL box green.</li>
-    </ol>
-  </div>
+  <h4>Configuration</h4>
+  <ol class="modules--ol">
+    <li>Navigate to <code class="code">Plugins > Installed Plugins</code>.</li>
+    <li>Find the 'Scanpay for Woocommerce' plugin in the list and press 'Activate'.</li>
+    <li>A 'Settings' link should now appear where the 'Activate' link was before. Press it.</li>
+    <li>
+      Enter a Scanpay API key in the API key field. You can find your API key <a href="//dashboard.scanpay.dk/settings/api">here</a>.
+      <img class="picture" width="595" height="67" alt="Scanpay API key" src="/img/woocommerce/apikey.png">
+    </li>
+    <li>Press 'Save changes' to finalize the configuration process. A Scanpay payment method should now appear upon checkout.</li>
+    <li>Copy the content of the Ping URL field into the dashboard "Your Ping URL" field at <a href="//dashboard.scanpay.dk/settings/api">https://dashboard.scanpay.dk/settings/api</a> and save it.</li>
+    <li>Pressing the 'ping' button should now cause a ping to register in the Magento 2 Scanpay configuration, making the ping URL box green.</li>
+  </ol>
+</div>
 
-  {{ ah(2, "WooCommerce", "") }}
-  <div id="modules--woocommerce">
-    <h4>Installation</h4>
-    <p>You can install the Woocommerce module directly from your Wordpress admin. Login to your Wordpress admin and navigate to <code class="code">Plugins > Add New</code>. Search for <em>'scanpay'</em> and you should see the following plugin:
-    </p>
+<h2 id="opencart"><a href="#opencart">OpenCart</a></h2>
 
-    <img class="woo--img1" alt="Install Scanpay in WooCommerce Admin" width="586" height="167" src="/img/woocommerce/install-scanpay.png">
-
-    <h4>Configuration</h4>
-    <ol class="modules--ol">
-      <li>Navigate to <code class="code">Plugins > Installed Plugins</code>.</li>
-      <li>Find the 'Scanpay for Woocommerce' plugin in the list and press 'Activate'.</li>
-      <li>A 'Settings' link should now appear where the 'Activate' link was before. Press it.</li>
-      <li>
-        Enter a Scanpay API key in the API key field. You can find your API key <a href="//dashboard.scanpay.dk/settings/api">here</a>.
-        <img class="picture" width="595" height="67" alt="Scanpay API key" src="/img/woocommerce/apikey.png">
-      </li>
-      <li>Press 'Save changes' to finalize the configuration process. A Scanpay payment method should now appear upon checkout.</li>
-      <li>Copy the content of the Ping URL field into the dashboard "Your Ping URL" field at <a href="//dashboard.scanpay.dk/settings/api">https://dashboard.scanpay.dk/settings/api</a> and save it.</li>
-      <li>Pressing the 'ping' button should now cause a ping to register in the Magento 2 Scanpay configuration, making the ping URL box green.</li>
-    </ol>
-  </div>
-
-  {{ ah(2, "OpenCart", "") }}
-  <div id="modules--opencart">
-    This module works for OpenCart version 3.0 or newer.
-    <h4>Installation</h4>
-    <ol>
-      <li>Download the OpenCart Scanpay extension <a href="//github.com/scanpaydk/opencart-scanpay/releases/download/v0.1/opencart-scanpay.ocmod.zip">here</a>.</li>
-      <li>Enter the admin and navigate to <code class="code">Extensions > Installer</code>.</li>
-      <li>
-        Click "Upload" and select the file you just downloaded (See below).
-        <img class="picture" width="600" alt="Upload module to your OpenCart shop" src="/img/opencart/upload.png">
-      </li>
-      <li>Navigate to <code class="code">Extensions > Extensions</code> and change extension type to "Payments".</li>
-      <li>Find "Scanpay" and press "Install".</li>
-    </ol>
-    <h4>Configuration</h4>
-    <ol class="modules--ol">
-      <li>Enter the admin, navigate to <code class="code">Extensions > Extensions"</code> and change extension type to "Payments.</li>
-      <li>Find "Scanpay" and press "Edit".</li>
-      <li>Set status to "Enabled"</li>
-      <li>Locate the API-key field and copy an API-key from <a href="//dashboard.scanpay.dk/settings/api">the dashboard</a> into the field.
-      <li>Copy the content of the Ping URL field into the <a href="//dashboard.scanpay.dk/settings/api">corresponding field in the Scanpay dashboard</a> and save it.</li>
-      <li>Return to the OpenCart admin and press "Save" in the upper right corner.</li>
-    </ol>
-  </div>
-{% endblock %}
+<div id="modules--opencart">
+  This module works for OpenCart version 3.0 or newer.
+  <h4>Installation</h4>
+  <ol>
+    <li>Download the OpenCart Scanpay extension <a href="//github.com/scanpaydk/opencart-scanpay/releases/download/v0.1/opencart-scanpay.ocmod.zip">here</a>.</li>
+    <li>Enter the admin and navigate to <code class="code">Extensions > Installer</code>.</li>
+    <li>
+      Click "Upload" and select the file you just downloaded (See below).
+      <img class="picture" width="600" alt="Upload module to your OpenCart shop" src="/img/opencart/upload.png">
+    </li>
+    <li>Navigate to <code class="code">Extensions > Extensions</code> and change extension type to "Payments".</li>
+    <li>Find "Scanpay" and press "Install".</li>
+  </ol>
+  <h4>Configuration</h4>
+  <ol class="modules--ol">
+    <li>Enter the admin, navigate to <code class="code">Extensions > Extensions"</code> and change extension type to "Payments.</li>
+    <li>Find "Scanpay" and press "Edit".</li>
+    <li>Set status to "Enabled"</li>
+    <li>Locate the API-key field and copy an API-key from <a href="//dashboard.scanpay.dk/settings/api">the dashboard</a> into the field.
+    <li>Copy the content of the Ping URL field into the <a href="//dashboard.scanpay.dk/settings/api">corresponding field in the Scanpay dashboard</a> and save it.</li>
+    <li>Return to the OpenCart admin and press "Save" in the upper right corner.</li>
+  </ol>
+</div>

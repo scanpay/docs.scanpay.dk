@@ -10,13 +10,13 @@ const order = {
             name: 'Pink Floyd: The Dark Side Of The Moon',
             quantity: 2,
             price: '99.99 DKK',
-            sku: 'fadf23',
+            sku: 'fadf23'
         },
         {
             name: '巨人宏偉的帽子',
             quantity: 2,
             price: '420 DKK',
-            sku: '124',
+            sku: '124'
         }
     ],
     billing: {
@@ -42,7 +42,7 @@ const order = {
         zip: '1235',
         state: '',
         country: 'DK'
-    },
+    }
 };
 
 const options = {
@@ -52,9 +52,9 @@ const options = {
     auth: apikey // Overwrite API key (optional)
 };
 
-scanpay.newURL(order, options).then(url => {
+scanpay.newURL(order, options).then((url) => {
     console.log('newURL: ' + url);
-}, err => {
+}, (err) => {
     console.log(err);
 });
 

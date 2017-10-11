@@ -75,7 +75,7 @@ h1, h2, h3, h4 {
 
 h1 {
     font-size: 1.8em;
-    margin: 1.4em 0 .85em;
+    margin: 1.4em 0 .8em;
 }
 
 h2 {
@@ -101,6 +101,9 @@ h4 {
     }
 }
 
+.rel {
+    position: relative;
+}
 
 /*
     Sidebar
@@ -327,9 +330,9 @@ small {
 }
 
 
-.bashcmd, .pcode, .example {
+.bashcmd, .pcode, .code--code {
     display: block;
-    padding: 8px 3px 8px 9px;
+    padding: 8px;
     font: 13px/19px DejaVu Sans Mono, Consolas, monospace;
     color: #252525;
     background: #f9f9f9;
@@ -350,6 +353,7 @@ small {
 }
 
 .pcode {
+    position: relative;
     margin: 21px 0;
     border-radius: 3px;
     border: 1px solid #dcdcdc;
@@ -364,28 +368,10 @@ small {
     border-radius: 3px;
 }
 
-
-.code-- {
-    margin: 21px 0 0;
-    border: 1px solid #e3e3e3;
-
-    > pre {
-        display: none;
-        margin: 0;
-        border-top: 1px solid #e3e3e3;
-    }
-
-    > .code--active {
-        display: block;
-    }
-
-    & > button:first-child {
-        margin-left: 10px;
-    }
-}
-
-.code--btn--active {
-    border-bottom: 2px solid #1c83c7;
+.authheader {
+    display: block;
+    max-width: 480px;
+    margin-bottom: -1em;
 }
 
 .paylink--tcode {
@@ -394,7 +380,11 @@ small {
     font-size: 13px;
     padding-left: 13px;
     font-family: DejaVu Sans Mono, Consolas, monospace;
+    color: #444;
     word-break: break-all;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     > pre {
         background: none;
@@ -405,17 +395,36 @@ small {
     }
 }
 
+.nobr {
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+}
+
+
+.code-- {
+    margin: 21px 0 0;
+    border: 1px solid #e3e3e3;
+
+    > pre {
+        margin: 0;
+        border-top: 1px solid #e3e3e3;
+    }
+
+    > button:first-child {
+        margin-left: 12px;
+    }
+}
+
+.code--active {
+    border-bottom: 2px solid #1c83c7;
+}
+
 button {
     background: none;
     cursor: pointer;
     border: 0;
-    color: #757575;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'O';
-    line-height: 40px;
-    padding: 2px 6px 0;
-    margin-bottom: -1px;
+    margin: 0;
 
     &:focus {
         outline: none;
@@ -425,6 +434,30 @@ button {
         padding: 0; // Remove inner padding and border in Firefox 4+ (normalize)
     }
 }
+
+.code-- > button {
+    padding: 2px 6px 0;
+    margin: 0 5px -1px;
+    font: 600 14px / 40px 'O', sans-serif;
+    height: 43px;
+    color: #757575;
+}
+
+
+.postman {
+    border-radius: 3px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 25px;
+    font: 600 12px / normal 'O', sans-serif;
+    padding: 0 7px;
+    background: #f4f4f4 linear-gradient(rgba(255, 255, 255, .08), rgba(0, 0, 0, .08));
+    border: 1px solid #b5c0cb;
+    color: #333;
+}
+
+
 
 
 .header--auth {
@@ -612,6 +645,7 @@ td {
 
 #seq--selectdb {
     position: absolute;
+    z-index: 9;
     top: 10px;
     right: 12px;
 }
@@ -666,7 +700,7 @@ td {
 }
 
 .fsize15 {
-    font-size: 15px
+    font-size: 15px;
 }
 
 
