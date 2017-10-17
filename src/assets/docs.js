@@ -3,8 +3,8 @@
 **/
 
 // Very simple fetch polyfill (for Safari < 10.1)
-if (!self.fetch) {
-    self.fetch = url => new Promise((resolve, reject) => {
+if (!window.fetch) {
+    window.fetch = url => new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
 
         xhr.onload = () => {
