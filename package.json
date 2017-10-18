@@ -2,18 +2,18 @@
     "private": true,
     "dependencies": {
         "babel-cli": "*",
-        "babel-plugin-transform-es2015-arrow-functions": "*",
-        "babel-plugin-transform-es2015-block-scoping": "*",
-        "csso": "*",
-        "csso-cli": "*",
+        "babel-plugin-transform-es2015-arrow-functions": "latest",
+        "babel-plugin-transform-es2015-block-scoping": "latest",
+        "csso": "latest",
+        "csso-cli": "latest",
         "gulp": "github:gulpjs/gulp#4.0",
-        "gulp-connect": "*",
-        "highlight.js": "*",
-        "html-minifier": "*",
-        "less": "*",
-        "minimist": "*",
-        "mo3place": "*",
-        "through2": "*",
-        "uglify-es": "*"
+        "gulp-connect": "latest",
+        "highlight.js": "latest",
+        "html-minifier": "latest",
+        "less": "latest",
+        "minimist": "latest",
+        "mo3place": "latest",
+        "through2": "latest",
+        "uglify-es": "latest"
     }
 }
