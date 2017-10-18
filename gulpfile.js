@@ -115,9 +115,9 @@ function htmlCode() {
 function assets() {
     return gulp.src(['src/assets/*.*', 'src/assets/font/*.*'])
         .pipe(through.obj((file, enc, cb) => {
-            // Convert LESS to CSS.
             const lastDot = file.path.lastIndexOf('.');
             if (file.path.substring(lastDot) === '.less') {
+                // Convert LESS to CSS.
                 lessjs.render(file.contents.toString(), null, (err, res) => {
                     if (err) { throw err; }
                     file.contents = Buffer.from(res.css);
