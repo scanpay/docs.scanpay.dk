@@ -1,9 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "babel-cli": "*",
-        "babel-plugin-transform-es2015-arrow-functions": "latest",
-        "babel-plugin-transform-es2015-block-scoping": "latest",
         "csso": "latest",
         "csso-cli": "latest",
         "gulp": "github:gulpjs/gulp#4.0",
