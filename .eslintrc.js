@@ -33,7 +33,6 @@ module.exports = {
                 "allowSingleLine": true
             }
         ],
-        //"camelcase": 1,
         "comma-dangle": 2,
         "comma-spacing": [
             2,
@@ -59,7 +58,7 @@ module.exports = {
         ],
         "dot-notation": 2,
         "eol-last": 2,
-        "eqeqeq": 2,
+        "eqeqeq": 1,
         "for-direction": 2,
         "func-call-spacing": 2,
         "func-style": [
@@ -110,10 +109,12 @@ module.exports = {
         "no-confusing-arrow": 2,
         "no-constant-condition": 0,
         "no-console": 0,
+        "no-continue": 1,
         "no-div-regex": 2,
         "no-duplicate-imports": 2,
         "no-else-return": 2,
-        "no-empty-function": 2,
+        "no-empty": 1,
+        "no-empty-function": 1,
         "no-eq-null": 2,
         "no-eval": 2,
         "no-extend-native": 2,
@@ -144,6 +145,7 @@ module.exports = {
         "no-new-require": 2,
         "no-new-wrappers": 2,
         "no-octal-escape": 2,
+        "no-param-reassign": 2,
         "no-path-concat": 2,
         "no-process-env": 2,
         "no-process-exit": 2,
@@ -221,7 +223,8 @@ module.exports = {
         "quote-props": 0,
         "quotes": [
             2,
-            "single"
+            "single",
+            { "avoidEscape": true }
         ],
         "radix": 2,
         "require-await": 2,
