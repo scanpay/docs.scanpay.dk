@@ -116,7 +116,7 @@ function images() {
     return gulp.src('src/img/**').pipe(gulp.dest('www/img/')).pipe(connect.reload());
 }
 
-function webserver() {
+gulp.task('serve', () => {
     connect.server({
         root: 'www',
         livereload: true,
@@ -133,8 +133,7 @@ function webserver() {
     gulp.watch(['src/assets/**/*.*'], assets);
     gulp.watch(['src/img/**'], images);
     gulp.watch('src/code/**/*.*', gulp.series(code, htmlCode, html));
-}
+});
 
 gulp.task('build', gulp.series(assets, images, code, htmlCode, html));
-gulp.task('serve', gulp.series(webserver));
 gulp.task('default', gulp.series('build', 'serve'));
