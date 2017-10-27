@@ -4,7 +4,7 @@ const fs = require('fs');
 const Path = require('path');
 const gulp = require('gulp');
 const connect = require('gulp-connect');
-const lessjs = require('less');
+const sass = require('node-sass');
 const hljs = require('highlight.js');
 const through = require('through2');
 const mo3 = require('mo3place')();
@@ -98,15 +98,11 @@ function htmlCode() {
 function assets() {
     return gulp.src(['src/assets/*.*', 'src/assets/font/*.*'])
         .pipe(through.obj((file, enc, cb) => {
-            if (Path.extname(file.path) === '.less') {
-                // Convert LESS to CSS.
-                lessjs.render(file.contents.toString(), null, (err, res) => {
-                    if (err) { throw err; }
-                    file.contents = Buffer.from(res.css);
-                    file.path = file.path.slice(0, -4) + 'css';
-                    cb(null, file);
-                });
-            } else { cb(null, file); }
+            if (Path.extname(file.path) === '.sass') {
+                file.contents = sass.renderSync({ data: file.contents.toString() }).css;
+                file.path = file.path.slice(0, -4) + 'css';
+            }
+            cb(null, file);
         }))
         .pipe(gulp.dest('www/a/'))
         .pipe(connect.reload());

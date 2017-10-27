@@ -7,7 +7,7 @@
         "gulp-connect": "latest",
         "highlight.js": "latest",
         "html-minifier": "latest",
-        "less": "latest",
+        "node-sass": "latest",
         "minimist": "latest",
         "mo3place": "latest",
         "through2": "latest",
