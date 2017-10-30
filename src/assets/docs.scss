@@ -6,32 +6,32 @@
 @font-face {
     font-family: 'B';
     font-weight: 700;
-    src: url('B700.woff2') format('woff2'), url('B700.woff') format('woff');
+    src: url('font/B700.woff2') format('woff2'), url('font/B700.woff') format('woff');
 }
 
 // Noto Sans (UI): 2017-05-21
 @font-face {
     font-family: 'N';
-    src: url('N400.woff2') format('woff2'), url('N400.woff') format('woff');
+    src: url('font/N400.woff2') format('woff2'), url('font/N400.woff') format('woff');
 }
 
 @font-face {
     font-family: 'N';
     font-weight: 700;
-    src: url('N700.woff2') format('woff2'), url('N700.woff') format('woff');
+    src: url('font/N700.woff2') format('woff2'), url('font/N700.woff') format('woff');
 }
 
 @font-face {
     font-family: 'N';
     font-style: italic;
-    src: url('N400i.woff2') format('woff2'), url('N400i.woff') format('woff');
+    src: url('font/N400i.woff2') format('woff2'), url('font/N400i.woff') format('woff');
 }
 
 // Open Sans: 2017-05-16
 @font-face {
     font-family: 'O';
     font-weight: 600;
-    src: url('O600.woff2') format('woff2'), url('O600.woff') format('woff');
+    src: url('font/O600.woff2') format('woff2'), url('font/O600.woff') format('woff');
 }
 
 body {
