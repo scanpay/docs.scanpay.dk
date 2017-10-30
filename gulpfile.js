@@ -86,7 +86,7 @@ function code() {
             file.contents = Buffer.from(str);
             cb(null, file);
         }))
-        .pipe(gulp.dest('www/code'));
+        .pipe(gulp.dest('www/a'));
 }
 
 function assets() {
@@ -98,7 +98,7 @@ function assets() {
             }
             cb(null, file);
         }))
-        .pipe(gulp.dest('www/a/'))
+        .pipe(gulp.dest('www/a'))
         .pipe(connect.reload());
 }
 

@@ -40,7 +40,7 @@ function changeCodeEx(evt) {
 
 function fetchCode(file, div) {
     div.classList.add('code--loading');
-    fetch('/code/' + file)
+    fetch('/a/' + file)
         .then(res => res.text())
         .then((txt) => {
             div.querySelector('.code--code').innerHTML = txt;
