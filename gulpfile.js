@@ -12,6 +12,8 @@ const env = require('minimist')(process.argv.slice(2));
 env.currentYear = (new Date()).getFullYear();
 const index = JSON.parse(fs.readFileSync('src/index.json', 'utf8'));
 const files = {};
+env.server = env.server || 'docs.test.scanpay.dk';
+env.proxy = (env.publish) ? '' : 'http://localhost:9090/';
 if (!env.publish) { env.jst = env.csst = '1'; }
 
 function createSidebar(active) {
@@ -92,9 +94,12 @@ function code() {
 function assets() {
     return gulp.src(['src/assets/**/*.*'])
         .pipe(through.obj((file, enc, cb) => {
-            if (Path.extname(file.path) === '.scss') {
+            const ext = Path.extname(file.path);
+            if (ext === '.scss') {
                 file.contents = sass.renderSync({ data: file.contents.toString() }).css;
                 file.path = file.path.slice(0, -4) + 'css';
+            } else if (ext === '.js') {
+                file.contents = Buffer.from(mo3.render(file.contents.toString(), env));
             }
             cb(null, file);
         }))
@@ -107,6 +112,9 @@ function images() {
 }
 
 gulp.task('serve', () => {
+    const https = require('https');
+    const { URL } = require('url');
+
     connect.server({
         root: 'www',
         livereload: true,
@@ -119,6 +127,26 @@ gulp.task('serve', () => {
             next();
         }])
     });
+    connect.server({
+        port: 9090,
+        middleware: () => ([(req, res, next) => {
+            const url = new URL(req.url.substring(req.url.lastIndexOf('/http') + 1));
+            const opts = {
+                hostname: url.hostname,
+                path: url.pathname,
+                headers: req.headers,
+                method: req.method
+            };
+            opts.headers.host = opts.hostname; // Nginx security
+
+            req.pipe(https.request(opts, (response) => {
+                response.headers['access-control-allow-origin'] = '*';
+                res.writeHead(response.statusCode, response.headers);
+                response.pipe(res);
+            }).on('error', () => next()));
+        }])
+    });
+
     gulp.watch(['src/*.html'], html);
     gulp.watch(['src/assets/**/*.*'], assets);
     gulp.watch(['src/img/**'], images);
