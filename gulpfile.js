@@ -12,6 +12,7 @@ const env = require('minimist')(process.argv.slice(2));
 env.currentYear = (new Date()).getFullYear();
 const index = JSON.parse(fs.readFileSync('src/index.json', 'utf8'));
 const files = {};
+if (!env.publish) { env.jst = env.csst = '1'; }
 
 function createSidebar(active) {
     let str = '';
@@ -65,7 +66,8 @@ function html() {
 }
 
 function code() {
-    return gulp.src(['src/code/**/*.*', '!src/code/**/*.html'])
+    // NB: We want '.html' last, since they often include other code.
+    return gulp.src(['src/code/**/*.*', '!src/code/**/*.html', 'src/code/**/*.html'])
         .pipe(through.obj((file, enc, cb) => {
             const ext = file.path.split('.').splice(1).pop();
             let str = file.contents.toString();
@@ -73,6 +75,9 @@ function code() {
                 // Hack for json w/o start braces.
                 str = hljs.highlight(ext, '{' + str + '}', true).value;
                 str = str.substring(1, str.length - 1);
+            } else if (ext === 'html') {
+                // Already highlighted (handcrafted)
+                str = mo3.render(str);
             } else {
                 str = hljs.highlight(ext, str, true).value;
             }
@@ -84,21 +89,10 @@ function code() {
         .pipe(gulp.dest('www/code'));
 }
 
-function htmlCode() {
-    return gulp.src('src/code/**/*.html')
-        .pipe(through.obj((file, enc, cb) => {
-            const str = mo3.render(file.contents.toString());
-            mo3.setCache(file.path.substring(__dirname.length + 1), str);
-            file.contents = Buffer.from(str);
-            cb(null, file);
-        }))
-        .pipe(gulp.dest('www/code'));
-}
-
 function assets() {
-    return gulp.src(['src/assets/*.*', 'src/assets/font/*.*'])
+    return gulp.src(['src/assets/**/*.*'])
         .pipe(through.obj((file, enc, cb) => {
-            if (Path.extname(file.path) === '.sass') {
+            if (Path.extname(file.path) === '.scss') {
                 file.contents = sass.renderSync({ data: file.contents.toString() }).css;
                 file.path = file.path.slice(0, -4) + 'css';
             }
@@ -117,9 +111,9 @@ gulp.task('serve', () => {
         root: 'www',
         livereload: true,
         middleware: () => ([(req, res, next) => {
-            const path = req.url.split('?')[0];
-            const ext = path.slice((path.lastIndexOf('.') - 1 >>> 0) + 2);
-            if (!ext && path !== '/') {
+            const isDir = req.url.slice(-1) === '/';
+            if (isDir || req.url.indexOf('.') === -1) {
+                const path = req.url.split('?')[0] + ((isDir) ? 'index' : '');
                 req.url = path + '.html';
             }
             next();
@@ -128,8 +122,8 @@ gulp.task('serve', () => {
     gulp.watch(['src/*.html'], html);
     gulp.watch(['src/assets/**/*.*'], assets);
     gulp.watch(['src/img/**'], images);
-    gulp.watch('src/code/**/*.*', gulp.series(code, htmlCode, html));
+    gulp.watch('src/code/**/*.*', gulp.series(code, html));
 });
 
-gulp.task('build', gulp.series(assets, images, code, htmlCode, html));
+gulp.task('build', gulp.series(assets, images, code, html));
 gulp.task('default', gulp.series('build', 'serve'));
