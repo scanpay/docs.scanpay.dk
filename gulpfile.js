@@ -10,23 +10,27 @@ const through = require('through2');
 const mo3 = require('mo3place')();
 const env = require('minimist')(process.argv.slice(2));
 env.currentYear = (new Date()).getFullYear();
-const index = JSON.parse(fs.readFileSync('src/index.json', 'utf8'));
-const files = {};
 env.server = env.server || 'docs.test.scanpay.dk';
 env.proxy = (env.publish) ? '' : 'http://localhost:9090/';
 if (!env.publish) { env.jst = env.csst = '1'; }
 
+let index;
+gulp.task('sidebar', (cb) => {
+    index = JSON.parse(fs.readFileSync('i18n/index.json'));
+    for (const x in index) {
+        index[x].sidebar = createSidebar(index[x]);
+    }
+    cb(null);
+});
+
 function createSidebar(active) {
     let str = '';
-    for (let i = 0; i < index.length; i++) {
-        const o = index[i];
-        if (!o.path) { o.path = o.title.toLowerCase().replace(/ /g, '-') + '.html'; }
-        if (!o.url) { o.url = '/' + o.path.substring(0, o.path.length - 5); }
-
+    for (const file in index) {
+        const o = index[file];
         if (o.hidden) { continue; }
         const APIlabel = o.API ? '<span class="sidebar--label">API</span>' : '';
 
-        if (i === active) {
+        if (o.url === active.url) {
             let sublinks = '';
             for (const p of o.pages) {
                 const url = p.url || '#' + p.title.toLowerCase().replace(/ /g, '-');
@@ -43,24 +47,23 @@ function createSidebar(active) {
     return str;
 }
 
-for (let i = 0; i < index.length; i++) {
-    const o = index[i];
-    o.sidebar = createSidebar(i);
-    files[o.path] = o;
-}
-
 function html() {
     return gulp.src('src/*.html')
         .pipe(through.obj((file, enc, cb) => {
             // Get meta data from links{}
             const filename = Path.basename(file.path);
-            const obj = mo3.flatten([env, files[filename]]);
+            const obj = mo3.flatten([env, index[filename]]);
             obj.filename = filename;
 
             // mo3 w. template.
             file.contents = Buffer.from(mo3.render(mo3
                 .getStr('src/code/header.tpl.html') + file.contents.toString() +
                     mo3.getStr('src/code/footer.tpl.html'), obj));
+
+            let upath = obj.url.substring(obj.url.indexOf('/'));
+            if (upath.slice(-1) === '/') { upath += 'index'; }
+            file.path = Path.join(__dirname, 'src', upath + '.html');
+
             cb(null, file);
         }))
         .pipe(gulp.dest('www'))
@@ -150,8 +153,28 @@ gulp.task('serve', () => {
     gulp.watch(['src/*.html'], html);
     gulp.watch(['src/assets/**/*.*'], assets);
     gulp.watch(['src/img/**'], images);
+    gulp.watch(['i18n/**'], gulp.series('build'));
     gulp.watch('src/code/**/*.*', gulp.series(code, html));
 });
 
-gulp.task('build', gulp.series(assets, images, code, html));
+gulp.task('sitemap', (cb) => {
+    let map = '<?xml version="1.0" encoding="UTF-8"?><urlset ' +
+    'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+    for (const x in index) {
+        const o = index[x];
+        if (o.hidden) { continue; }
+        const path = o.url + ((o.url.slice(-1) === '/') ? 'index.html' : '.html');
+        const stat = fs.statSync(Path.join(__dirname, 'www', path));
+        map += '<url><loc>https://docs.scanpay.dk' + o.url + '</loc>';
+        map += '<lastmod>' + stat.mtime.toISOString() + '</lastmod></url>';
+    }
+    map += '</urlset>';
+    const fd = fs.openSync(Path.join(__dirname, 'www', 'sitemap.xml'), 'w');
+    fs.writeSync(fd, map);
+    fs.closeSync(fd);
+    cb(null);
+});
+
+gulp.task('build', gulp.series('sidebar', assets, images, code, html, 'sitemap'));
 gulp.task('default', gulp.series('build', 'serve'));
