@@ -1,19 +1,18 @@
-[
-    {
+{
+    "getting-started.html" : {
         "title": "Getting Started",
-        "path": "index.html",
-        "url": "/",
         "meta": "Getting started with Scanpay and online payments.",
+        "url": "/",
         "pages": [
             { "title": "Create user and shop" },
             { "title": "Setup acquirers" },
             { "title": "Integrate" }
         ]
     },
-    {
+    "payment-link.html": {
         "title": "Payment Link",
         "meta": "Use this API to generate payment links that you can send to your customers.",
-        "API": true,
+        "url": "/payment-link",
         "pages": [
             { "title": "Request Headers" },
             { "title": "Request Fields" },
@@ -21,44 +20,48 @@
             { "title": "Examples" }
         ]
     },
-    {
+    "subscriptions.html": {
+        "API": true,
         "title": "Subscriptions",
         "meta": "...",
-        "API": true,
+        "url": "/subscriptions",
         "pages": [
             { "title": "Request Headers" }
         ],
         "hidden": true
     },
-    {
+    "synchronization.html": {
+        "API": true,
         "title": "Synchronization",
         "meta": "Synchronization API to keep all your systems up-to-date with changes to your payments.",
-        "API": true,
+        "url": "/synchronization",
         "pages": [
             { "title": "Ping Service" },
             { "title": "Sequence Request" }
         ]
     },
-    {
+    "acquiring-banks.html": {
         "title": "Acquiring banks",
         "meta": "Accept payments online through one of our acquiring banks.",
+        "url": "/acquiring-banks",
         "pages": [
             { "title": "Supported acquirers" }
         ]
     },
-    {
-        "title": "Ecommerce modules",
-        "meta": "Ecommerce modules &amp; plugins for easy integration with Scanpay.",
+    "ecommerce-modules.html": {
+        "title": "eCommerce modules",
+        "meta": "eCommerce modules &amp; plugins for easy integration with Scanpay.",
+        "url": "/ecommerce-modules",
         "pages": [
             { "title": "Magento 2" },
             { "title": "WooCommerce" },
             { "title": "OpenCart" }
         ]
     },
-    {
+    "API-libraries.html": {
         "title": "API Libraries",
-        "path": "API-libraries.html",
         "meta": "Scanpay has official client libraries for popular programming languages.",
+        "url": "/API-client-libraries",
         "pages": [
             { "title": "PHP" },
             { "title": "Node.js" },
@@ -67,18 +70,20 @@
             { "title": ".NET" }
         ]
     },
-    {
+    "security.html": {
         "title": "Security",
         "meta": "Scanpay is PCI DSS certified and security is very important to us.",
+        "url": "/security",
         "pages": [
             { "title": "Basic authentication" },
             { "title": "Transport Layer Security" },
             { "title": "PCI DSS" }
         ]
     },
-    {
+    "search.html": {
         "title": "Search",
-        "meta": "...",
+        "meta": "",
+        "url": "/search",
         "hidden": true
     }
-]
+}
