@@ -129,7 +129,7 @@ const postman = {
             localStorage._ga = cid = (Math.random() +
                 '00000000000000000000').substring(2, 21) + time;
         }
-        let url = '/_ga/collect?v=1&tid=UA-45595918-1&ds=web&cid=' +
+        let url = '/_ga/collect?v=1&tid=UA-45595918-2&ds=web&cid=' +
                     cid + '&z=' + time;
         for (const k in o) {
             url += '&' + k + '=' + o[k];
