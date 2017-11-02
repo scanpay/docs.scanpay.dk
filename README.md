@@ -27,3 +27,13 @@ Let                  | 49     | 10     | 44      | 12     | 11     | 36
 Const                | 49     | 10     | 36      | 12     | 11     | 36
 Arrow Functions      | 45     | 10     | 22      | 12     | :x:    | 32
 ~~Fetch~~            | 42     | 10.1   | 39      | 14     | :x:    | 29
+
+
+## TODO
+
+* ecommerce -> eCommerce
+* Describe 'X-Signature' in /security
+* Add .NET library
+* Add maxSeq() to /API-libraries
+* Update and align some libs
+* Add missing #links to <h2> tags
