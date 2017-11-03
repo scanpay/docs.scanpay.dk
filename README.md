@@ -31,8 +31,6 @@ Arrow Functions      | 45     | 10     | 22      | 12     | :x:    | 32
 
 ## TODO
 
-* Remove unused CSS
-* Make sure that all headins have an id.
 * Add subpages to e-commerce modules (SEO)
 * Describe 'X-Signature' in /security
 * Add .NET library

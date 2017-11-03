@@ -80,7 +80,7 @@
 
 <pre class="sync--pcode1"><code class="pcode">{% include "src/code/sync/ping.pseudo.html" %}</code></pre>
 
-<h2 id="sequence-request">Sequence Request</h2>
+<h2 id="seq-request">Sequence Request</h2>
 <p>
   To get changes send a HTTP GET request to <code class="code">https://api.scanpay.dk/v1/seq/$localseq</code>, where <code class="code">$localseq</code> is your locally stored seq counter. Your request will need to have the following header:
 </p>
@@ -104,7 +104,7 @@
   </tbody>
 </table>
 
-<h4>Response</h4>
+<h4 id="seq-response">Response</h4>
 <p>
   All successful responses have a <code class="code">200</code> HTTP status code and a JSON object with the following fields:
 </p>
