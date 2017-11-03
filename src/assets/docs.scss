@@ -92,13 +92,9 @@ h4 {
 }
 
 .hlink {
-    display: none;
+    display: inline-block;
     position: absolute;
-    margin: 2px 0 0 6px;
-
-    h3:hover > & {
-        display: inline-block;
-    }
+    margin: 0 0 0 8px;
 }
 
 .rel {

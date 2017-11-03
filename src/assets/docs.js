@@ -75,6 +75,20 @@ const postman = {
     }
 };
 
+function showHash() {
+    const a = document.createElement('a');
+    a.className = 'hlink';
+    a.href = '#' + this.id;
+    const img = new Image();
+    img.src = '/img/link.svg';
+    a.appendChild(img);
+    this.appendChild(a);
+}
+
+function removeHash() {
+    this.querySelector('.hlink').remove();
+}
+
 
 (() => {
     const prefLang = sessionStorage && sessionStorage.getItem('lang');
@@ -116,6 +130,12 @@ const postman = {
     const code = document.getElementsByClassName('code');
     for (let i = 0; i < code.length; i++) {
         code[i].addEventListener('click', selectAll);
+    }
+
+    const headings = document.querySelectorAll('h2, h3, h4');
+    for (let i = 0; i < headings.length; i++) {
+        headings[i].addEventListener('mouseenter', showHash);
+        headings[i].addEventListener('mouseleave', removeHash);
     }
 
     /**

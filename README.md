@@ -31,9 +31,8 @@ Arrow Functions      | 45     | 10     | 22      | 12     | :x:    | 32
 
 ## TODO
 
-* ecommerce -> eCommerce
+* Add subpages to e-commerce modules (SEO)
 * Describe 'X-Signature' in /security
 * Add .NET library
 * Add maxSeq() to /API-libraries
 * Update and align some libs
-* Add missing #links to <h2> tags
