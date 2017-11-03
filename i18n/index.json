@@ -10,6 +10,7 @@
         ]
     },
     "payment-link.html": {
+        "API": true,
         "title": "Payment Link",
         "meta": "Use this API to generate payment links that you can send to your customers.",
         "url": "/payment-link",
@@ -49,8 +50,8 @@
         ]
     },
     "ecommerce-modules.html": {
-        "title": "eCommerce modules",
-        "meta": "eCommerce modules &amp; plugins for easy integration with Scanpay.",
+        "title": "E-commerce modules",
+        "meta": "E-commerce modules &amp; plugins for easy integration with Scanpay.",
         "url": "/ecommerce-modules",
         "pages": [
             { "title": "Magento 2" },
@@ -61,7 +62,7 @@
     "API-libraries.html": {
         "title": "API Libraries",
         "meta": "Scanpay has official client libraries for popular programming languages.",
-        "url": "/API-client-libraries",
+        "url": "/api-client-libraries",
         "pages": [
             { "title": "PHP" },
             { "title": "Node.js" },
