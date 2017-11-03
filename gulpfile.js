@@ -37,6 +37,7 @@ function createSidebar(active) {
                 sublinks += '<li><a href="' + url + '">' + p.title + '</a></li>';
             }
             str += `<li class="sidebar--active">
+                        ${ mo3.getStr('src/img/fold.svg') }
                         <a href="${o.url}">${o.title + APIlabel}</a>
                         <ol class="sidebar--sub">${sublinks}</ol>
                     </li>`;
@@ -52,13 +53,18 @@ function html() {
         .pipe(through.obj((file, enc, cb) => {
             // Get meta data from links{}
             const filename = Path.basename(file.path);
+            if (!index[filename]) { throw filename + ' was not found'; }
             const obj = mo3.flatten([env, index[filename]]);
             obj.filename = filename;
 
+            // Sass and minify inline css.
+            const str = file.contents.toString()
+                .replace(/<style>([\S\s]*?)<\/style>/g, (m, data) => '<style>' + sass
+                    .renderSync({ data, outputStyle: 'compressed' }).css + '</style>');
+
             // mo3 w. template.
-            file.contents = Buffer.from(mo3.render(mo3
-                .getStr('src/code/header.tpl.html') + file.contents.toString() +
-                    mo3.getStr('src/code/footer.tpl.html'), obj));
+            file.contents = Buffer.from(mo3.render(mo3.getStr('src/code/header.tpl') +
+                str + mo3.getStr('src/code/footer.tpl'), obj));
 
             let upath = obj.url.substring(obj.url.indexOf('/'));
             if (upath.slice(-1) === '/') { upath += 'index'; }
@@ -72,7 +78,8 @@ function html() {
 
 function code() {
     // NB: We want '.html' last, since they often include other code.
-    return gulp.src(['src/code/**/*.*', '!src/code/**/*.html', 'src/code/**/*.html'])
+    return gulp.src(['src/code/**/*.*', '!src/code/**/*.tpl',
+        '!src/code/**/*.html', 'src/code/**/*.html'])
         .pipe(through.obj((file, enc, cb) => {
             const ext = file.path.split('.').splice(1).pop();
             let str = file.contents.toString();
