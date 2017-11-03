@@ -251,7 +251,6 @@ module.exports = {
         ],
         "switch-colon-spacing": 2,
         "symbol-description": 2,
-        "template-curly-spacing": 2,
         "template-tag-spacing": 2,
         "unicode-bom": [
             2,
