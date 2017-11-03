@@ -59,7 +59,7 @@
             { "title": "OpenCart" }
         ]
     },
-    "API-libraries.html": {
+    "api-libraries.html": {
         "title": "API Libraries",
         "meta": "Scanpay has official client libraries for popular programming languages.",
         "url": "/api-client-libraries",

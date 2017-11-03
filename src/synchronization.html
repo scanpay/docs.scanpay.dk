@@ -1,3 +1,27 @@
+<style>
+.mysql, .mssql, .postgresql, .generic {
+  display: none;
+}
+
+.show--mysql > .mysql, .show--mssql > .mssql, .show--postgresql > .postgresql, .show--generic > .generic {
+  display: inline;
+}
+
+.sync--pcode1 {
+  margin: 25px 0 36px;
+}
+
+.fsize15 {
+  font-size: 15px;
+}
+
+#eg--sync {
+    position: absolute;
+    z-index: 9;
+    top: 10px;
+    right: 12px;
+}
+</style>
 
 <h1>Synchronization</h1>
 <p>
@@ -36,13 +60,13 @@
   </thead>
   <tbody>
     <tr>
-      <td class="paylink--tcode"><span class="type--name">"seq"</span>: <span class="type--int">23591</span></td>
+      <td class="paylink--tcode"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">23591</span></td>
       <td>
         Global seq counter for your shop. This will increment with every new transaction, capture and refund.
       </td>
     </tr>
     <tr>
-      <td class="paylink--tcode"><span class="type--name">"shopid"</span>: <span class="type--int">129</span></td>
+      <td class="paylink--tcode"><span class="hljs-attr">"shopid"</span>: <span class="hljs-number">129</span></td>
       <td>
         The shopid associated with this ping.
       </td>
@@ -93,7 +117,7 @@
   </thead>
   <tbody>
     <tr>
-      <td class="paylink--tcode"><span class="type--name">"seq"</span>: <span class="type--int">23591</span></td>
+      <td class="paylink--tcode"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">23591</span></td>
       <td>The seq of the last change in this response. This is your new <em>$localseq</em>, but not necessarily your global seq counter.</td>
     </tr>
     <tr>

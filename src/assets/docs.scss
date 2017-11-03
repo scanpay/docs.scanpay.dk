@@ -318,14 +318,9 @@ article {
     color: #3d4a52;
 }
 
-svg, img {
-    vertical-align: middle;
-}
-
 small {
     font-size: 0.9em;
 }
-
 
 .bashcmd, .pcode, .code--code {
     display: block;
@@ -371,6 +366,7 @@ small {
     margin-bottom: -1em;
 }
 
+// TODO: Rename this
 .paylink--tcode {
     width: 50%;
     max-width: 26em;
@@ -440,28 +436,6 @@ button {
     color: #757575;
 }
 
-
-.postman {
-    border-radius: 3px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    height: 25px;
-    font: 600 12px / normal 'O', sans-serif;
-    padding: 0 7px;
-    background: #f4f4f4 linear-gradient(rgba(255, 255, 255, .08), rgba(0, 0, 0, .08));
-    border: 1px solid #b5c0cb;
-    color: #333;
-}
-
-
-
-
-.header--auth {
-    display: block;
-    word-break: break-all;
-}
-
 /*
 Tables
 */
@@ -475,6 +449,7 @@ table {
     border: 1px solid #d5d5d5;
     margin: 22px 0 26px;
 }
+
 .table--fixed {
     table-layout: fixed;
 }
@@ -524,112 +499,26 @@ td {
     margin-top: 4px;
 }
 
-.paylink--th--name {
-    width: 11em;
-}
+.hljs-attr { color: #bd143e; }
+.hljs-string { color: #138061; }
+.hljs-number { color: #fa755a; }
+.hljs-comment { color: #9a9a8e; font-style: italic; }
+.hljs-keyword { color: #a71d5d; }
+.hljs-literal { color: #008080; }
+.hljs-attribute, .hljs-name { color: #000080; font-weight: normal; }
+.hljs-built_in { color: #0086b3; }
+.hljs-meta { color: #999; font-weight: bold; }
 
-.paylink--th--value {
-    width: 16em;
-}
-
-.type--name, .hljs-attr {
-    color: #bd143e;
-}
-.type--str, .hljs-string {
-    color: #138061;
-}
-.type--int, .hljs-number {
-    color: #fa755a;
-}
-
-.type--small {
-    color: #666;
-}
-
-.hljs-comment, .hljs-quote {
-    color: #9a9a8e;
-    font-style: italic;
-}
-
-.hljs-keyword {
-    color: #a71d5d;
-}.hljs-selector-tag,
-.hljs-subst {
-    color: #333;
-    font-weight: bold;
-}
-
-.hljs-literal,
-.hljs-tag .hljs-attr,
-.hljs-template-variable,
-.hljs-variable {
-    color: #008080;
-}
-
-.hljs-section,
-.hljs-selector-id,
-.hljs-title {
-    color: #900;
-    font-weight: bold;
-}
-
-.hljs-subst {
-    font-weight: normal;
-}
-
-.hljs-class .hljs-title,
-.hljs-type {
-    color: #458;
-    font-weight: bold;
-}
-
-.hljs-attribute,
-.hljs-name,
-.hljs-tag {
-    color: #000080;
-    font-weight: normal;
-}
-
-.hljs-link,
-.hljs-regexp {
-    color: #009926;
-}
-
-.hljs-bullet,
-.hljs-symbol {
-    color: #990073;
-}
-
-.hljs-built_in,
-.hljs-builtin-name {
-    color: #0086b3;
-}
-
-.hljs-meta {
-    color: #999;
-    font-weight: bold;
-}
-
-.hljs-deletion {
-    background: #fdd;
-}
-
-.hljs-addition {
-    background: #dfd;
-}
-
-.hljs-emphasis {
-    font-style: italic;
-}
-
-.hljs-strong {
-    font-weight: bold;
-}
-
-.paylink--shipping {
-    display: inline-block;
-    margin-top: 4px;
-}
+// .hljs-selector-tag, .hljs-subst { color: #333; font-weight: bold; }
+//  hljs-section, .hljs-title { color: #900; font-weight: bold; }
+// .hljs-subst { font-weight: normal; }
+// .hljs-type { color: #458; font-weight: bold; }
+// .hljs-link, .hljs-regexp { color: #009926; }
+// .hljs-bullet, .hljs-symbol { color: #990073; }
+// .hljs-deletion { background: #fdd; }
+// .hljs-addition { background: #dfd; }
+// .hljs-emphasis { font-style: italic; }
+// .hljs-strong { font-weight: bold; }
 
 .table--ul {
     margin: 12px 0 0;
@@ -640,129 +529,3 @@ td {
     }
 }
 
-#eg--sync {
-    position: absolute;
-    z-index: 9;
-    top: 10px;
-    right: 12px;
-}
-
-.seq--pseudo {
-    margin: 25px 0 22px;
-    position: relative;
-}
-
-.picture {
-    display: inline-block;
-    margin: 13px 0 6px;
-    padding: 3px;
-    border-radius: 3px;
-    border: 1px solid #d0d0d0;
-}
-
-
-
-
-/*
-    Search :: /search
-*/
-
-.search--h2 {
-    font-size: 18px;
-    margin: 15px 0 0;
-    padding: 7px 0;
-}
-
-#search--ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-
-/*
-    Synchronization :: /synchronization
-*/
-
-.mysql, .mssql, .postgresql, .generic {
-    display: none;
-}
-
-.show--mysql > .mysql, .show--mssql > .mssql, .show--postgresql > .postgresql, .show--generic > .generic {
-  display: inline;
-}
-
-.sync--pcode1 {
-    margin: 25px 0 36px;
-}
-
-.fsize15 {
-    font-size: 15px;
-}
-
-
-/*
-    Acquiring banks :: /acquiring-banks
-*/
-
-.acq--apply {
-    width: 70px;
-    word-spacing: 2px;
-    text-align: center;
-}
-
-.acq--name {
-    width: 168px;
-    height: 66px;
-    padding: 0 0 0 15px;
-    color: #555;
-}
-
-.clearhaus--logo {
-    margin-bottom: 2px
-}
-
-.elavon--logo {
-    margin-bottom: 10px
-}
-
-
-/*
-    Ecommerce modules :: /ecommerce-modules
-*/
-
-#modules--magento-2, #modules--woocommerce, #modules--opencart {
-    display: none;
-}
-
-#magento-2:target ~ #modules--magento-2, #woocommerce:target ~ #modules--woocommerce,
-#opencart:target ~ #modules--opencart {
-    display: block;
-}
-
-.woo--img1 {
-    margin: 10px 0 0;
-}
-
-.modules--ol {
-    padding: 0 0 0 16px;
-
-    > li {
-        margin: 8px 0;
-    }
-}
-
-input[type=checkbox].modules--optional {
-    display:none;
-    &:not(:checked) + * {
-        display: none;
-    }
-}
-
-/*
-    API Libraries :: /API-libraries
-*/
-
-.libs--ul {
-    margin-top: 18px;
-}

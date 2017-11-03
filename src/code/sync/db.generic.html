@@ -1,4 +1,4 @@
-data := <span class="hljs-built_in">jsondecode</span>(<b>GET</b> <span class="type--str">https://api.scanpay.dk/seq/</span> + localseq)
+data := <span class="hljs-built_in">jsondecode</span>(<b>GET</b> <span class="hljs-string">https://api.scanpay.dk/seq/</span> + localseq)
 <b>for</b> trn <b>in</b> data.changes <b>do</b>
     <b>if</b> <i>trn.error is set</i> <b>then</b>
         log trn.error <span class="hljs-comment">// Contact us if this happens</span>
@@ -20,7 +20,7 @@ data := <span class="hljs-built_in">jsondecode</span>(<b>GET</b> <span class="ty
     )
 
     <b>if</b> email is not <span class="hljs-literal">null</span> <b>then</b>
-        <span class="hljs-built_in">sendmail</span>(email, <span class="type--str">"Order confirmation ..."</span>)
+        <span class="hljs-built_in">sendmail</span>(email, <span class="hljs-string">"Order confirmation ..."</span>)
     <b>end</b>
 <b>end</b>
 

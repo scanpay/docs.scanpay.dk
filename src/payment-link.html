@@ -1,3 +1,17 @@
+<style>
+.postman {
+    border-radius: 3px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 25px;
+    font: 600 12px / normal 'O', sans-serif;
+    padding: 0 7px;
+    background: #f4f4f4 linear-gradient(rgba(255, 255, 255, .08), rgba(0, 0, 0, .08));
+    border: 1px solid #b5c0cb;
+    color: #333;
+}
+</style>
 
 <h1>Payment Link</h1>
 <p>
@@ -50,21 +64,21 @@
   </thead>
   <tbody>
     <tr>
-      <td class="paylink--tcode"><span class="type--name">"orderid"</span>: <span class="type--str">"1234zx"</span></td>
+      <td class="paylink--tcode"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"1234zx"</span></td>
       <td class="td--desc">A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.</td>
     </tr>
     <tr>
-      <td class="paylink--tcode"><span class="type--name">"language"</span>: <span class="type--str">"da"</span></td>
+      <td class="paylink--tcode"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></td>
       <td class="td--desc">Preferred language for payment window.</td>
     </tr>
     <tr>
-      <td class="paylink--tcode"><span class="type--name">"autocapture"</span>: <span class="type--int">true</span></td>
+      <td class="paylink--tcode"><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></td>
       <td class="td--desc">
         Automatically capture the payment. Default is false.
       </td>
     </tr>
     <tr>
-      <td class="paylink--tcode"><span class="type--name">"successurl"</span>: <span class="type--str">"http://blixen.dk/success"</span></td>
+      <td class="paylink--tcode"><span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span></td>
       <td class="td--desc">Redirect to this URL after succesful payment. If omitted we will show a generic success message.
       </td>
     </tr>
@@ -116,7 +130,7 @@
   </thead>
   <tbody>
     <tr>
-      <td class="paylink--tcode"><span class="type--name">"url"</span>: <span class="type--str">"https://betal.scanpay.dk/9qdvbx2r"</span></td>
+      <td class="paylink--tcode"><span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span></td>
       <td class="td--desc">A payment link. Default lifetime is 1 hour, but this can be increased.</td>
     </tr>
   </tbody>

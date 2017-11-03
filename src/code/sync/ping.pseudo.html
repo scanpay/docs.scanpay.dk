@@ -1,5 +1,5 @@
-<b>if</b> <span class="hljs-built_in">Base64</span>(<span class="hljs-built_in">HMAC-SHA2-256</span>(body, apikey)) <span class="fsize15">≠</span> headers[<span class="type--str">'X-Signature'</span>] <b>then</b>
-    log <span class="type--str">'Warning: Invalid ping signature!'</span>
+<b>if</b> <span class="hljs-built_in">Base64</span>(<span class="hljs-built_in">HMAC-SHA2-256</span>(body, apikey)) <span class="fsize15">≠</span> headers[<span class="hljs-string">'X-Signature'</span>] <b>then</b>
+    log <span class="hljs-string">'Warning: Invalid ping signature!'</span>
     <b>exit</b>
 <b>end</b>
 ping := <span class="hljs-built_in">jsondecode</span>(body)

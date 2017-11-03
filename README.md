@@ -17,7 +17,7 @@ gulp
 
 ## Browser support
 
-Compatibility table for [docs.scanpay.dk](https://docs.scanpay.dk) where struckthrough means fixed with babel:
+Compatibility table for [docs.scanpay.dk](https://docs.scanpay.dk) where struckthrough means fixed with babel or polyfill:
 
 Feature              | Chrome | Safari | Firefox |  Edge  |  IE    |  Opera
 -------------------- | :-----:| :----: | :-----: | :----: | :----: | :----:
@@ -31,6 +31,8 @@ Arrow Functions      | 45     | 10     | 22      | 12     | :x:    | 32
 
 ## TODO
 
+* Remove unused CSS
+* Make sure that all headins have an id.
 * Add subpages to e-commerce modules (SEO)
 * Describe 'X-Signature' in /security
 * Add .NET library
