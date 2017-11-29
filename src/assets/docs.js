@@ -61,7 +61,7 @@ const postman = {
                 items: [{
                     name: 'test',
                     quantity: 2,
-                    price: '79.95 DKK'
+                    total: '159.95 DKK'
                 }]
             })
         }).then(res => res.json().then((o) => {

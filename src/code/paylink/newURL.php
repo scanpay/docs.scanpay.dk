@@ -9,13 +9,13 @@ $order = [
         [
             'name'     => 'Pink Floyd: The Dark Side Of The Moon',
             'quantity' => 2,
-            'price'    => '99.99 DKK',
+            'total'    => '199.98 DKK',
             'sku'      => 'fadf23',
         ],
         [
             'name'     => '巨人宏偉的帽子',
             'quantity' => 2,
-            'price'    => '420 DKK',
+            'total'    => '840 DKK',
             'sku'      => '124',
         ],
     ],
@@ -48,8 +48,7 @@ $order = [
 $options = [
     'headers' => [
         'X-Cardholder-IP: ' . $_SERVER['REMOTE_ADDR'],
-    ],
-    'auth'  =>  $apikey, // per request api-key (Optional)
+    ]
 ];
 
 try {
