@@ -18,6 +18,7 @@
             { "title": "Request Headers" },
             { "title": "Request Fields" },
             { "title": "Response Fields" },
+            { "title": "MobilePay" },
             { "title": "Examples" }
         ]
     },

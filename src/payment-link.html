@@ -136,6 +136,17 @@
   </tbody>
 </table>
 
+<h3 id="mobilepay">MobilePay</h3>
+<p>
+  Redirect customers to MobilePay Online by appending a <code class="code">?go=mobilepay</code> query to the payment URL. Here is a full payment link:
+</p>
+<code class="code">https://betal.scanpay.dk/9qdvbx2r?go=mobilepay</span></code>
+<p>
+MobilePay requires than an <a href="/acquiring-banks">acquirer which supports it</a>, is enabled.
+</p>
+<p>
+Note that if MobilePay fails, the user will be sent to the standard card payment window.
+</p>
 <h3 id="examples">Examples</h3>
 <p>
   Here are a few examples. We recommend that you take a look at our official <a href="/API-libraries">client libraries</a>.
