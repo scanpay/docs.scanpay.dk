@@ -1,10 +1,10 @@
 <style>
-#modules--magento-2, #modules--woocommerce, #modules--opencart {
+#modules--magento-2, #modules--woocommerce, #modules--opencart, #modules--prestashop {
   display: none;
 }
 
 #magento-2:target ~ #modules--magento-2, #woocommerce:target ~ #modules--woocommerce,
-#opencart:target ~ #modules--opencart {
+#opencart:target ~ #modules--opencart, #prestashop:target ~ #modules--prestashop {
   display: block;
 }
 
@@ -143,7 +143,7 @@ input[type=checkbox].modules--optional:not(:checked) {
   This module works for OpenCart version 3.0 or newer.
   <h4>Installation</h4>
   <ol>
-    <li>Download the OpenCart Scanpay extension <a href="//github.com/scanpaydk/opencart-scanpay/releases/download/v0.3/opencart-scanpay-0.3.ocmod.zip">here</a>.</li>
+    <li>Download the OpenCart Scanpay extension <a href="//github.com/scanpaydk/opencart-scanpay/releases/download/v0.31/opencart-scanpay-0.31.ocmod.zip">here</a>.</li>
     <li>Enter the admin and navigate to <code class="code">Extensions > Installer</code>.</li>
     <li>
       Click "Upload" and select the file you just downloaded (See below).
@@ -160,5 +160,26 @@ input[type=checkbox].modules--optional:not(:checked) {
     <li>Locate the API-key field and copy an API-key from <a href="//dashboard.scanpay.dk/settings/api">the dashboard</a> into the field.
     <li>Copy the content of the Ping URL field into the <a href="//dashboard.scanpay.dk/settings/api">corresponding field in the Scanpay dashboard</a> and save it.</li>
     <li>Return to the OpenCart admin and press "Save" in the upper right corner.</li>
+  </ol>
+</div>
+
+<h2 id="prestashop"><a href="#prestashop">PrestaShop</a></h2>
+
+<div id="modules--prestashop">
+  This module works for PrestaShop version 1.7 or newer.
+  <h4>Installation</h4>
+  <ol>
+    <li>Download the PrestaShop Scanpay extension <a href="//github.com/scanpaydk/prestashop-scanpay/releases/download/v0.1.0/prestashop-scanpay-0.1.0.zip">here</a>.</li>
+    <li>Enter the PrestaShop admin and navigate to <code class="code">Modules</code>.</li>
+    <li>Click the <code class="code">UPLOAD A MODULE</code> button and select the zip file you just downloaded.</li>
+  </ol>
+  <h4>Configuration</h4>
+  <ol class="modules--ol">
+    <li>Enter the admin, navigate to <code class="code">Modules</code> and press the <code class="code">Installed modules</code> tab.</li>
+    <li>Find "Scanpay" and press <code class="code">CONFIGURE</code>.</li>
+    <li>Locate the API-key field and copy an API-key from <a href="//dashboard.scanpay.dk/settings/api">the dashboard</a> into the field.
+    <li>Copy the content of the Ping URL field into the <a href="//dashboard.scanpay.dk/settings/api">corresponding field in the Scanpay dashboard</a> and <code class="code">Save</code> it. After saving press the <code class="code">Test Ping</code> button.</li>
+    <li>Return to the PrestaShop admin and press the <code class="code">Save</code> button in the lower right corner.</li>
+    <li>Verify that the previously yellow box below Ping URL has turned green and says "Ok!".</li>
   </ol>
 </div>
