@@ -57,7 +57,8 @@
         "pages": [
             { "title": "Magento 2" },
             { "title": "WooCommerce" },
-            { "title": "OpenCart" }
+            { "title": "OpenCart" },
+            { "title": "PrestaShop" }
         ]
     },
     "api-libraries.html": {
