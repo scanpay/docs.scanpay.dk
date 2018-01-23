@@ -19,14 +19,14 @@ gulp
 
 Compatibility table for [docs.scanpay.dk](https://docs.scanpay.dk) where struckthrough means fixed with babel or polyfill:
 
-Feature              | Chrome | Safari | Firefox |  Edge  |  IE    |  Opera
--------------------- | :-----:| :----: | :-----: | :----: | :----: | :----:
-TLS 1.2              | 30     | 7      | 27      | 12     | 9/11   | 17
-Promises             | 32     | 7.1    | 27      | 12     | :x:    | 19
-Let                  | 49     | 10     | 44      | 12     | 11     | 36
-Const                | 49     | 10     | 36      | 12     | 11     | 36
-Arrow Functions      | 45     | 10     | 22      | 12     | :x:    | 32
-~~Fetch~~            | 42     | 10.1   | 39      | 14     | :x:    | 29
+Feature              | Chrome | Safari | Firefox | Edge   | Opera
+-------------------- | :-----:| :----: | :-----: | :----: | :----:
+TLS 1.2              | 30     | 7      | 27      | 12     | 17
+Promises             | 32     | 7.1    | 27      | 12     | 19
+Let                  | **49** | **10** | **44**  | 12     | **36**
+Const                | 49     | 10     | 36      | 12     | 36
+Arrow Functions      | 45     | 10     | 22      | 12     | 32
+~~Fetch~~            | 42     | 10.1   | 39      | **14** | 29
 
 
 ## TODO
