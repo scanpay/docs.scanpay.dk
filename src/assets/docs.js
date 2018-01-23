@@ -59,8 +59,6 @@ const postman = {
             method: 'POST',
             body: JSON.stringify({
                 items: [{
-                    name: 'test',
-                    quantity: 2,
                     total: '159.95 DKK'
                 }]
             })
