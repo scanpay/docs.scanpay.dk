@@ -55,7 +55,7 @@ function selectAll() {
 
 const postman = {
     'paymentLink': () => {
-        fetch('{{ proxy }}https://docs.scanpay.dk/_v1/new', {
+        fetch('{{ proxy }}/_v1/new', {
             method: 'POST',
             body: JSON.stringify({
                 items: [{

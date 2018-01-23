@@ -11,7 +11,7 @@ const mo3 = require('mo3place')();
 const env = require('minimist')(process.argv.slice(2));
 env.currentYear = (new Date()).getFullYear();
 env.server = env.server || 'docs.test.scanpay.dk';
-env.proxy = (env.publish) ? '' : 'http://localhost:9090/';
+env.proxy = (env.publish) ? '' : 'http://localhost:9090/https://docs.test.scanpay.dk';
 if (!env.publish) { env.jst = env.csst = '1'; }
 
 let index;
