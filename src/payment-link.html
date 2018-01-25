@@ -68,16 +68,6 @@
       <td class="td--desc">A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.</td>
     </tr>
     <tr>
-      <td class="paylink--tcode"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></td>
-      <td class="td--desc">Preferred language for payment window.</td>
-    </tr>
-    <tr>
-      <td class="paylink--tcode"><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></td>
-      <td class="td--desc">
-        Automatically capture the payment. Default is false.
-      </td>
-    </tr>
-    <tr>
       <td class="paylink--tcode"><span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span></td>
       <td class="td--desc">Redirect to this URL after succesful payment. If omitted we will show a generic success message.
       </td>
@@ -114,6 +104,22 @@
         </ul>
       </td>
     </tr>
+    <tr>
+      <td class="paylink--tcode"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></td>
+      <td class="td--desc">Preferred language for the payment window. We fallback to the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.</td>
+    </tr>
+    <tr>
+      <td class="paylink--tcode"><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></td>
+      <td class="td--desc">
+        Automatically capture the payment. Default is false.
+      </td>
+    </tr>
+    <tr>
+      <td class="paylink--tcode"><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span></td>
+      <td class="td--desc">
+        Set payment link lifetime in days (d), hours (h) or minutes (m). Default is <code class="code hljs-string" style="font-size: 12px">"1h"</code> and max is <code class="code hljs-string" style="font-size: 12px">"30d"</code>
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -131,22 +137,15 @@
   <tbody>
     <tr>
       <td class="paylink--tcode"><span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span></td>
-      <td class="td--desc">A payment link. Default lifetime is 1 hour, but this can be increased.</td>
+      <td class="td--desc">The returned payment link.</td>
     </tr>
   </tbody>
 </table>
 
 <h3 id="mobilepay">MobilePay</h3>
 <p>
-  Redirect customers to MobilePay Online by appending a <code class="code">?go=mobilepay</code> query to the payment URL. Here is a full payment link:
-</p>
-<code class="code">https://betal.scanpay.dk/9qdvbx2r?go=mobilepay</span></code>
+  Redirect customers to MobilePay Online by appending a <code class="code hljs-string">?go=mobilepay</code> query string to the payment link. This will only work if MobilePay is enabled (<a href="https://dashboard.scanpay.dk/settings/acquirers">here</a>) and if your <a href="/acquiring-banks">acquirer</a> support MobilePay.
 <p>
-MobilePay requires that an <a href="/acquiring-banks">acquirer which supports it</a>, is enabled.
-</p>
-<p>
-Note that if MobilePay fails, the user will be sent to the standard card payment window.
-</p>
 <h3 id="examples">Examples</h3>
 <p>
   Here are a few examples. We recommend that you take a look at our official <a href="/api-client-libraries">client libraries</a>.
