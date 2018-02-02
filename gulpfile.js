@@ -63,7 +63,7 @@ function html() {
                     .renderSync({ data, outputStyle: 'compressed' }).css + '</style>');
 
             // mo3 w. template.
-            file.contents = Buffer.from(mo3.render(mo3.getStr('src/code/header.tpl') +
+            file.contents = Buffer.from(mo3.fromString(mo3.getStr('src/code/header.tpl') +
                 str + mo3.getStr('src/code/footer.tpl'), obj));
 
             let upath = obj.url.substring(obj.url.indexOf('/'));
@@ -89,7 +89,7 @@ function code() {
                 str = str.substring(1, str.length - 1);
             } else if (ext === 'html') {
                 // Already highlighted (handcrafted)
-                str = mo3.render(str);
+                str = mo3.fromString(str);
             } else {
                 str = hljs.highlight(ext, str, true).value;
             }
@@ -109,7 +109,7 @@ function assets() {
                 file.contents = sass.renderSync({ data: file.contents.toString() }).css;
                 file.path = file.path.slice(0, -4) + 'css';
             } else if (ext === '.js') {
-                file.contents = Buffer.from(mo3.render(file.contents.toString(), env));
+                mo3.render(file, env);
             }
             cb(null, file);
         }))
