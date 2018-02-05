@@ -37,7 +37,7 @@ function createSidebar(active) {
                 sublinks += '<li><a href="' + url + '">' + p.title + '</a></li>';
             }
             str += `<li class="sidebar--active">
-                        ${ mo3.getStr('src/img/fold.svg') }
+                        ${ mo3.getFile('src/img/fold.svg').str }
                         <a href="${o.url}">${o.title + APIlabel}</a>
                         <ol class="sidebar--sub">${sublinks}</ol>
                     </li>`;
@@ -63,8 +63,8 @@ function html() {
                     .renderSync({ data, outputStyle: 'compressed' }).css + '</style>');
 
             // mo3 w. template.
-            file.contents = Buffer.from(mo3.fromString(mo3.getStr('src/code/header.tpl') +
-                str + mo3.getStr('src/code/footer.tpl'), obj));
+            file.contents = Buffer.from(mo3.fromString(mo3.getFile('src/code/header.tpl').str +
+                str + mo3.getFile('src/code/footer.tpl').str, obj));
 
             let upath = obj.url.substring(obj.url.indexOf('/'));
             if (upath.slice(-1) === '/') { upath += 'index'; }
