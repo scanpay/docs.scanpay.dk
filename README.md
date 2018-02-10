@@ -33,6 +33,4 @@ Arrow Functions      | 45     | 10       | 22      | 12     | 32
 
 * Add subpages to e-commerce modules (SEO)
 * Describe 'X-Signature' in /security
-* Add .NET library
 * Update and align some libs
-* Update mo3place to fix timestamp issue.
