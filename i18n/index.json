@@ -58,7 +58,8 @@
             { "title": "Magento 2" },
             { "title": "WooCommerce" },
             { "title": "OpenCart" },
-            { "title": "PrestaShop" }
+            { "title": "PrestaShop" },
+            { "title": "Thirty Bees" }
         ]
     },
     "api-libraries.html": {

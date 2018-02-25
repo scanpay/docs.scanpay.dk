@@ -1,10 +1,12 @@
 <style>
-#modules--magento-2, #modules--woocommerce, #modules--opencart, #modules--prestashop {
+#modules--magento-2, #modules--woocommerce, #modules--opencart, #modules--prestashop,
+#modules--thirty-bees {
   display: none;
 }
 
 #magento-2:target ~ #modules--magento-2, #woocommerce:target ~ #modules--woocommerce,
-#opencart:target ~ #modules--opencart, #prestashop:target ~ #modules--prestashop {
+#opencart:target ~ #modules--opencart, #prestashop:target ~ #modules--prestashop,
+#thirty-bees:target ~ #modules--thirty-bees {
   display: block;
 }
 
@@ -182,5 +184,27 @@ input[type=checkbox].modules--optional:not(:checked) {
     <li>Return to the PrestaShop admin and press the <code class="code">Save</code> button in the lower right corner.</li>
     <li>Verify that the previously yellow box below Ping URL has turned green and says "Ok!".</li>
     <li>Navigate away to <code class="code">Payment</code>&gt;<code class="code">Preferences</code> in the left sidebar. Scroll down to "Country Restrictions" and enable Scanpay for the countries you see fit, then press <code class="code">Save</code>. Now scroll down to "Carrier Restrictions" and enable Scanpay for all carriers and press <code class="code">Save.</code></li>
+  </ol>
+</div>
+
+<h2 id="thirty-bees"><a href="#thirty-bees">Thirty Bees</a></h2>
+
+<div id="modules--thirty-bees">
+  <h4>Installation</h4>
+  <ol>
+    <li>Download the Thirty Bees Scanpay extension <a href="//github.com/scanpaydk/prestashop-1.6-scanpay/releases/download/v0.1.2/prestashop-1.6-scanpay-0.1.2.zip">here</a>.</li>
+    <li>Enter the Thirty Bees admin and navigate to <code class="code">Modules and Services</code>.</li>
+    <li>Click the <code class="code">Add a new module</code> button in the upper right corner. Select the zip file you just downloaded and press <code class="code">Upload this module.</code></li>
+    <li>Scroll down to find the Scanpay module and press the green <code class="code">Install</code> button</li>
+  </ol>
+  <h4>Configuration</h4>
+  <ol class="modules--ol">
+    <li>Enter the admin, navigate to <code class="code">Modules and Services</code> and press the <code class="code">Payment and Gateways</code> category.</li>
+    <li>Find "Scanpay" and press <code class="code">Configure</code>.</li>
+    <li>Locate the API-key field and copy an API-key from <a href="//dashboard.scanpay.dk/settings/api">the dashboard</a> into the field.
+    <li>Copy the content of the Ping URL field into the <a href="//dashboard.scanpay.dk/settings/api">corresponding field in the Scanpay dashboard</a> and <code class="code">Save</code> it. After saving press the <code class="code">Test Ping</code> button.</li>
+    <li>Return to the Thirty Bees admin and press the <code class="code">Save</code> button in the lower right corner.</li>
+    <li>Verify that the previously yellow box below Ping URL has turned green and says "Ok!".</li>
+    <li>Navigate away to <code class="code">Modules and Services</code>&gt;<code class="code">Payment</code> in the left sidebar. Scroll down to "Group Restrictions" and enable Scanpay for the groups you see fit, then press <code class="code">Save</code>.Scroll down to "Country Restrictions" and enable Scanpay for the countries you see fit, then press <code class="code">Save</code>. Now scroll down to "Carrier Restrictions" and enable Scanpay for all carriers and press <code class="code">Save.</code></li>
   </ol>
 </div>
