@@ -3,7 +3,7 @@
     "dependencies": {
         "csso": "latest",
         "csso-cli": "latest",
-        "gulp": "github:gulpjs/gulp#4.0",
+        "gulp": "^4.0.0",
         "gulp-connect": "latest",
         "highlight.js": "latest",
         "html-minifier": "latest",
