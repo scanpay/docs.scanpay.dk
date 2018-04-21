@@ -19,7 +19,7 @@
   </thead>
   <tbody>
     <tr>
-      <td class="paylink--tcode"><span class="hljs-attribute">X-Signature</span>: 17FUWCstyodDzsCkG5/gU/2VA2vUEcHfvFxGh8RCElo=</td>
+      <td class="tablecode"><span class="hljs-attribute">X-Signature</span>: 17FUWCstyodDzsCkG5/gU/2VA2vUEcHfvFxGh8RCElo=</td>
       <td>
         Base64 encoded HMAC-SHA2-256 signature of the body signed with your API key. <a href="/security#x-signature">Read more</a>.
       </td>
@@ -36,13 +36,13 @@
   </thead>
   <tbody>
     <tr>
-      <td class="paylink--tcode"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">23591</span></td>
+      <td class="tablecode"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">23591</span></td>
       <td>
         Global seq counter for your shop. This will increment with every new transaction, capture and refund.
       </td>
     </tr>
     <tr>
-      <td class="paylink--tcode"><span class="hljs-attr">"shopid"</span>: <span class="hljs-number">129</span></td>
+      <td class="tablecode"><span class="hljs-attr">"shopid"</span>: <span class="hljs-number">129</span></td>
       <td>
         The shopid associated with this ping.
       </td>
@@ -70,7 +70,7 @@
   </thead>
   <tbody>
     <tr>
-      <td class="paylink--tcode field--required">
+      <td class="tablecode field--required">
         <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</span>
       </td>
       <td>
@@ -93,11 +93,11 @@
   </thead>
   <tbody>
     <tr>
-      <td class="paylink--tcode"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">23591</span></td>
+      <td class="tablecode"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">23591</span></td>
       <td>The seq of the last change in this response. This is your new <em>localseq</em>, but not necessarily your global seq counter.</td>
     </tr>
     <tr>
-      <td class="paylink--tcode"><pre>{% include "src/code/sync/changes.json" %}</pre></td>
+      <td class="tablecode"><pre>{% include "src/code/sync/changes.json" %}</pre></td>
       <td class="td--vtop">
         An array with zero or more changes since the requested seq, but not necessarily all changes.
 
