@@ -2,14 +2,12 @@
 *   @author ScanPay ApS.
 **/
 
-// Bitter: 2015-04-27
 @font-face {
     font-family: 'B';
     font-weight: 700;
     src: url('font/B700.woff2') format('woff2'), url('font/B700.woff') format('woff');
 }
 
-// Noto Sans (UI): 2017-05-21
 @font-face {
     font-family: 'N';
     src: url('font/N400.woff2') format('woff2'), url('font/N400.woff') format('woff');
@@ -17,21 +15,14 @@
 
 @font-face {
     font-family: 'N';
-    font-weight: 700;
-    src: url('font/N700.woff2') format('woff2'), url('font/N700.woff') format('woff');
+    font-weight: 600;
+    src: url('font/N600.woff2') format('woff2'), url('font/N600.woff') format('woff');
 }
 
 @font-face {
     font-family: 'N';
     font-style: italic;
     src: url('font/N400i.woff2') format('woff2'), url('font/N400i.woff') format('woff');
-}
-
-// Open Sans: 2017-05-16
-@font-face {
-    font-family: 'O';
-    font-weight: 600;
-    src: url('font/O600.woff2') format('woff2'), url('font/O600.woff') format('woff');
 }
 
 body {
@@ -64,27 +55,35 @@ p {
     margin: .7em 0;
 }
 
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -.5em;
+  font-size: .8em;
+}
+
+b, strong { font-weight: 600; }
 
 h1, h2, h3, h4 {
     font: 700 15px / normal 'B', serif;
-    margin: 1.8em 0 0.7em;
+    margin: 1.4em 0 0.6em;
     color: #404040;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 h1 {
-    font-size: 1.8em;
+    font-size: 1.85em;
     margin: 1.4em 0 .8em;
 }
 
 h2 {
-    font-size: 1.4em;
-    margin: 1.5em 0 .65em;
+    font-size: 1.5em;
+    margin: 1.4em 0 .6em;
 }
 
 h3 {
-    font-size: 1.25em;
+    font-size: 1.15em;
 }
 
 h4 {
@@ -133,7 +132,8 @@ h4 {
 .sidebar--home {
     display: inline-block;
     padding: 2px 6px 3px;
-    font: 600 17px / normal 'O';
+    font-size: 16px;
+    font-weight: 600;
     color: #fcfcfc;
     margin-left: -3px;
     border-radius: 2px;
@@ -256,7 +256,7 @@ article {
     flex: 2;
     margin: 0 8% 0;
     position: relative;
-    padding-bottom: 100px;
+    padding-bottom: 9em;
 }
 
 .header {
@@ -299,7 +299,6 @@ article {
     background: #6ab0de;
     color: #fff;
     font-weight: 600;
-    font-family: 'O';
     padding: 2px 15px;
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
@@ -362,7 +361,7 @@ small {
 
 .authheader {
     display: block;
-    max-width: 480px;
+    max-width: 520px;
     margin-bottom: -1em;
 }
 
@@ -431,7 +430,7 @@ button {
 .code-- > button {
     padding: 2px 6px 0;
     margin: 0 5px -1px;
-    font: 600 14px / 40px 'O', sans-serif;
+    font: 600 14px / 40px 'N', sans-serif;
     height: 43px;
     color: #757575;
 }
@@ -444,10 +443,10 @@ table {
     border-spacing: 0;
     border-collapse: collapse;
     empty-cells: show;
-    font-size: 90%;
     width: 100%;
     border: 1px solid #d5d5d5;
     margin: 22px 0 26px;
+    font-size: 13.5px;
 }
 
 .table--fixed {
@@ -458,10 +457,11 @@ th {
     background: #eee;
     color: #333;
     border: 1px solid #d9d9d9;
-    font: 600 13px / normal 'O', sans-serif;
+    font-weight: 600;
+    font-size: .9em;
     text-align: left;
     margin: 0;
-    padding: 7px 13px;
+    padding: 0.55em 1.1em 0.5em;
 }
 
 td {
@@ -469,16 +469,8 @@ td {
     border-left: 1px solid #ddd;
     text-align: left;
     margin: 0;
-    padding: 11px 15px 10px 15px;
+    padding: .8em 1.1em .8em;
     position: relative;
-}
-
-.field--required::after {
-    //content: "required";
-    font-size: 9px;
-    font-family: 'N';
-    display: block;
-    color: red;
 }
 
 .td--vtop {
@@ -487,8 +479,7 @@ td {
 }
 
 .td--desc {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 11px 16px 10px 16px;
 }
 
 .td--note {
@@ -522,10 +513,139 @@ td {
 
 .table--ul {
     margin: 12px 0 0;
-    padding: 0 5px 0 18px;
+    padding: 0 5px 0 1.2em;
 
     > li {
         margin: 10px 0;
     }
+}
+
+.postman {
+    border-radius: 3px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 25px;
+    font: 600 12px / normal 'N', sans-serif;
+    padding: 0 7px;
+    background: #f4f4f4 linear-gradient(rgba(255, 255, 255, .08), rgba(0, 0, 0, .08));
+    border: 1px solid #b5c0cb;
+    color: #333;
+}
+
+/*
+    Synchronization
+*/
+
+.mysql, .mssql, .postgresql, .generic {
+  display: none;
+}
+
+.show--mysql > .mysql, .show--mssql > .mssql, .show--postgresql > .postgresql, .show--generic > .generic {
+  display: inline;
+}
+
+
+.sync--pcode1 {
+  margin: 24px 0 19px;
+}
+
+.sync--pcode2 {
+  margin: 25px 0 36px;
+}
+
+.fsize15 {
+  font-size: 15px;
+}
+
+#eg--sync {
+    position: absolute;
+    z-index: 9;
+    top: 10px;
+    right: 12px;
+}
+
+
+/*
+    Acquiring banks
+*/
+
+#modules--magento-2, #modules--woocommerce, #modules--opencart, #modules--prestashop {
+  display: none;
+}
+
+#magento-2:target ~ #modules--magento-2, #woocommerce:target ~ #modules--woocommerce,
+#opencart:target ~ #modules--opencart, #prestashop:target ~ #modules--prestashop {
+  display: block;
+}
+
+.woo--img1 {
+  margin: 10px 0 0;
+}
+
+.modules--ol {
+  padding: 0 0 0 16px;
+}
+.modules--ol > li {
+  margin: 8px 0;
+}
+
+input[type=checkbox].modules--optional {
+  display:none;
+}
+
+input[type=checkbox].modules--optional:not(:checked) {
+  display: none;
+}
+
+.picture {
+    display: inline-block;
+    margin: 13px 0 6px;
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid #d0d0d0;
+}
+
+
+/*
+    Acquiring banks
+*/
+
+.acq--apply {
+    width: 70px;
+    word-spacing: 2px;
+    text-align: center;
+}
+
+.acq--name {
+    width: 168px;
+    height: 66px;
+    padding: 0 0 0 15px;
+    color: #555;
+}
+
+.clearhaus--logo {
+    margin-bottom: 2px;
+}
+
+.elavon--logo {
+    margin-bottom: 10px;
+}
+
+
+/*
+    Search
+*/
+
+.search--h2 {
+    font-size: 18px;
+    margin: 15px 0 0;
+    padding: 7px 0;
+}
+
+#search--ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
