@@ -23,7 +23,7 @@
   <header class="header">
     <a href="/">Docs</a> <span class="raquo">»</span> {{ title }}
 
-    <a href="https://github.com/scanpaydk/docs.scanpay.dk/blob/master/src/{{ filename }}" class="git">
+    <a rel="nofollow" href="https://github.com/scanpaydk/docs.scanpay.dk/blob/main/src/{{ filename }}" class="git">
       {% include "src/img/github.svg" %} Edit on GitHub
     </a>
   </header>
