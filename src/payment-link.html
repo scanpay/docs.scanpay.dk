@@ -14,7 +14,9 @@
 </p>
 
 <h3 id="request-headers">Request Headers</h3>
-<p>The request endpoint is: <code class="code">https://api.scanpay.dk/v1/new</code></p>
+<p>
+  The request endpoint is: <code class="code">https://api.scanpay.dk/v1/new</code>
+</p>
 <table class="table--fixed">
   <thead>
     <tr>
@@ -24,16 +26,22 @@
   </thead>
   <tbody>
     <tr>
-      <td class="tablecode field--required">
-        <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</span>
+      <td class="tablecode">
+        <div class="ellipsis">
+          <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</span>
+        </div>
       </td>
       <td>
         HTTP Basic authentication. <a href="/security#basic-authentication">Read more</a>.
       </td>
     </tr>
     <tr>
-      <td class="tablecode"><span class="hljs-attribute">X-Cardholder-IP</span>: <span class="">47.105.175.99</span></td>
-      <td>The IPv4 or IPv6 address of the customer.</td>
+      <td class="tablecode">
+        <span class="hljs-attribute">X-Cardholder-IP</span>: <span class="">47.105.175.99</span>
+      </td>
+      <td>
+        The IPv4 or IPv6 address of the customer.
+      </td>
     </tr>
   </tbody>
 </table>
@@ -50,16 +58,25 @@
   </thead>
   <tbody>
     <tr>
-      <td class="tablecode"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"1234zx"</span></td>
-      <td class="td--desc">A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.</td>
-    </tr>
-    <tr>
-      <td class="tablecode"><span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span></td>
-      <td class="td--desc">Redirect to this URL after succesful payment. If omitted we will show a generic success message.
+      <td class="tablecode">
+        <span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"1234zx"</span>
+      </td>
+      <td class="td--desc">
+        A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.
       </td>
     </tr>
     <tr>
-      <td class="tablecode field--required"><pre>{% include "src/code/paylink/items.json" %}</pre></td>
+      <td class="tablecode">
+        <span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span>
+      </td>
+      <td class="td--desc">
+        Redirect to this URL after succesful payment. If omitted we will show a generic success message.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "src/code/paylink/items.json" %}</pre>
+      </td>
       <td class="td--desc">
         An array with items.
         <ul class="table--ul">
@@ -72,7 +89,9 @@
       </td>
     </tr>
     <tr>
-      <td class="tablecode"><pre>{% include "src/code/paylink/billing.json" %}</pre></td>
+      <td class="tablecode">
+        <pre>{% include "src/code/paylink/billing.json" %}</pre>
+      </td>
       <td class="td--desc td--vtop">
         Customer billing and shipping address.
         <ul class="table--ul">
@@ -91,17 +110,25 @@
       </td>
     </tr>
     <tr>
-      <td class="tablecode"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></td>
-      <td class="td--desc">Preferred language for the payment window. We fallback to the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.</td>
+      <td class="tablecode">
+        <span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span>
+      </td>
+      <td class="td--desc">
+        Preferred language for the payment window. We fallback to the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
+      </td>
     </tr>
     <tr>
-      <td class="tablecode"><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></td>
+      <td class="tablecode">
+        <span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span>
+      </td>
       <td class="td--desc">
         Automatically capture the payment. Default is false.
       </td>
     </tr>
     <tr>
-      <td class="tablecode"><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span></td>
+      <td class="tablecode">
+        <span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span>
+      </td>
       <td class="td--desc">
         Set payment link lifetime in days (d), hours (h) or minutes (m). Default is <code class="code hljs-string" style="font-size: 12px">"1h"</code> and max is <code class="code hljs-string" style="font-size: 12px">"30d"</code>
       </td>
@@ -122,7 +149,9 @@
   </thead>
   <tbody>
     <tr>
-      <td class="tablecode"><span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span></td>
+      <td class="tablecode">
+        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span>
+      </td>
       <td class="td--desc">The returned payment link.</td>
     </tr>
   </tbody>
