@@ -1,0 +1,92 @@
+{
+    "/index.html" : {
+        "title": "Getting Started",
+        "meta": "Getting started with Scanpay and online payments.",
+        "pages": ["Create user and shop", "Setup acquirers", "Integrate"]
+    },
+
+    "/payment-link.html": {
+        "title": "Payment Link",
+        "meta": "Use this API to generate payment links that you can send to your customers.",
+        "pages": ["Request Headers", "Request Fields", "Response Fields", "MobilePay", "Examples"],
+        "API": true
+    },
+
+    "/synchronization.html": {
+        "title": "Synchronization",
+        "meta": "Synchronization API to keep all your systems up-to-date with changes to your payments.",
+        "pages": ["Ping Service", "Sequence Request"],
+        "API": true
+    },
+
+    "/subscriptions/index.html": {
+        "title": "Subscriptions",
+        "meta": "...",
+        "pages": {
+            "/subscriptions/create-subscriber.html": {
+                "title": "Create Subscriber",
+                "meta": "..."
+            },
+            "/subscriptions/charge-subscriber.html": {
+                "title": "Charge Subscriber",
+                "meta": "..."
+            },
+            "/subscriptions/renew-subscriber.html": {
+                "title": "Renew Subscriber",
+                "meta": "..."
+            }
+        },
+        "API": true
+    },
+
+    "/acquiring-banks.html": {
+        "title": "Acquiring banks",
+        "meta": "Accept payments online through one of our acquiring banks.",
+        "pages": ["Supported acquirers"]
+    },
+
+    "/modules/index.html": {
+        "title": "E-commerce modules",
+        "meta": "E-commerce modules &amp; plugins for easy integration with Scanpay.",
+        "pages": {
+            "/modules/woocommerce.html": {
+                "title": "WooCommerce",
+                "meta": "..."
+            },
+            "/modules/magento-2.html": {
+                "title": "Magento 2",
+                "meta": "..."
+            },
+            "/modules/prestashop.html": {
+                "title": "PrestaShop",
+                "meta": "..."
+            },
+            "/modules/thirty-bees.html": {
+                "title": "Thirty Bees",
+                "meta": "..."
+            },
+            "/modules/opencart.html": {
+                "title": "OpenCart",
+                "meta": "..."
+            }
+        }
+    },
+
+    "/api-libraries.html": {
+        "title": "API Libraries",
+        "meta": "Scanpay has official client libraries for popular programming languages.",
+        "pages": ["PHP", "Node.js", "Ruby", "Go", ".NET"]
+    },
+
+    "/security.html": {
+        "title": "Security",
+        "meta": "Scanpay is PCI DSS certified and security is very important to us.",
+        "pages": ["Basic authentication", "Transport Layer Security", "PCI DSS"]
+    },
+
+    "/search.html": {
+        "title": "Search",
+        "meta": "",
+        "hidden": true
+    }
+}
