@@ -55,7 +55,7 @@ function selectAll() {
 
 const postman = {
     'paymentLink': () => {
-        fetch('{{ proxy }}/_v1/new', {
+        fetch('/_v1/new', {
             method: 'POST',
             body: JSON.stringify({
                 items: [{
