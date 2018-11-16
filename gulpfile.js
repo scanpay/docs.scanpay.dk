@@ -11,14 +11,40 @@ const mo3 = require('mo3place')();
 const env = require('minimist')(process.argv.slice(2));
 env.currentYear = (new Date()).getFullYear();
 env.server = env.server || 'docs.test.scanpay.dk';
-env.proxy = (env.publish) ? '' : 'http://localhost:9090/https://docs.test.scanpay.dk';
 if (!env.publish) { env.jst = env.csst = '1'; }
+
 
 let index;
 gulp.task('sidebar', (cb) => {
-    index = JSON.parse(fs.readFileSync('i18n/index.json'));
+    index = JSON.parse(fs.readFileSync('index.json'));
+
     for (const x in index) {
-        index[x].sidebar = createSidebar(index[x]);
+        const o = index[x];
+        o.path = x.substring(1);
+        o.url = x.slice(0, -5); // rm .html from links
+
+        if (o.pages && !Array.isArray(o.pages)) {
+            for (const page in o.pages) {
+                o.pages[page].subpage = true;
+                o.pages[page].url = page.slice(0, -5);
+                o.pages[page].path = page;
+                index[page] = o.pages[page];
+            }
+        }
+        if (o.url.slice(-6) === '/index') {
+            o.url = o.url.substring(0, o.url.length - 5);
+        }
+    }
+    for (const x in index) {
+        const o = index[x];
+        if (!o.hidden && !o.subpage) {
+            o.sidebar = createSidebar(o);
+            if (o.pages && !Array.isArray(o.pages)) {
+                for (const page in o.pages) {
+                    o.pages[page].sidebar = o.sidebar;
+                }
+            }
+        }
     }
     cb(null);
 });
@@ -27,17 +53,24 @@ function createSidebar(active) {
     let str = '';
     for (const file in index) {
         const o = index[file];
-        if (o.hidden) { continue; }
+        if (o.hidden || o.subpage) { continue; }
         const APIlabel = o.API ? '<span class="sidebar--label">API</span>' : '';
 
         if (o.url === active.url) {
             let sublinks = '';
-            for (const p of o.pages) {
-                const url = p.url || '#' + p.title.toLowerCase().replace(/ /g, '-');
-                sublinks += '<li><a href="' + url + '">' + p.title + '</a></li>';
+            if (Array.isArray(o.pages)) {
+                for (const p of o.pages) {
+                    sublinks += '<li><a href="#' + p.toLowerCase().replace(/ /g, '-') +
+                        '">' + p + '</a></li>';
+                }
+            } else {
+                for (const p in o.pages) {
+                    sublinks += '<li><a href="' + o.pages[p].url + '">' +
+                        o.pages[p].title + '</a></li>';
+                }
             }
             str += `<li class="sidebar--active">
-                        ${ mo3.getFile('src/img/fold.svg').str }
+                        ${ mo3.getFile('src/assets/img/fold.svg').str }
                         <a href="${o.url}">${o.title + APIlabel}</a>
                         <ol class="sidebar--sub">${sublinks}</ol>
                     </li>`;
@@ -49,13 +82,12 @@ function createSidebar(active) {
 }
 
 function html() {
-    return gulp.src('src/*.html')
+    return gulp.src(['src/**/*.html', '!src/assets/**'])
         .pipe(through.obj((file, enc, cb) => {
-            // Get meta data from links{}
-            const filename = Path.basename(file.path);
-            if (!index[filename]) { throw filename + ' was not found'; }
-            const obj = mo3.flatten([env, index[filename]]);
-            obj.filename = filename;
+            const filename = file.path.substring(file._base.length);
+            const meta = index[filename];
+            if (!meta) { throw filename + ' was not found'; }
+            const obj = mo3.flatten([env, meta]);
 
             // Sass and minify inline css.
             const str = file.contents.toString()
@@ -63,13 +95,9 @@ function html() {
                     .renderSync({ data, outputStyle: 'compressed' }).css + '</style>');
 
             // mo3 w. template.
-            file.contents = Buffer.from(mo3.fromString(mo3.getFile('src/code/header.tpl').str +
-                str + mo3.getFile('src/code/footer.tpl').str, obj));
-
-            let upath = obj.url.substring(obj.url.indexOf('/'));
-            if (upath.slice(-1) === '/') { upath += 'index'; }
-            file.path = Path.join(__dirname, 'src', upath + '.html');
-
+            file.contents = Buffer.from(mo3.fromString(mo3
+                .getFile('src/assets/code/header.tpl').str +
+                str + mo3.getFile('src/assets/code/footer.tpl').str, obj));
             cb(null, file);
         }))
         .pipe(gulp.dest('www'))
@@ -78,9 +106,10 @@ function html() {
 
 function code() {
     // NB: We want '.html' last, since they often include other code.
-    return gulp.src(['src/code/**/*.*', '!src/code/**/*.tpl',
-        '!src/code/**/*.html', 'src/code/**/*.html'])
+    return gulp.src(['src/assets/code/**/*.*', '!src/assets/code/**/*.tpl',
+        '!src/assets/code/**/*.html', 'src/assets/code/**/*.html'])
         .pipe(through.obj((file, enc, cb) => {
+
             const ext = file.path.split('.').splice(1).pop();
             let str = file.contents.toString();
             if (ext === 'json' && str[0] !== '{') {
@@ -102,7 +131,7 @@ function code() {
 }
 
 function assets() {
-    return gulp.src(['src/assets/**/*.*'])
+    return gulp.src(['src/assets/**/*.*', '!src/assets/code/**'])
         .pipe(through.obj((file, enc, cb) => {
             const ext = Path.extname(file.path);
             if (ext === '.scss') {
@@ -117,14 +146,7 @@ function assets() {
         .pipe(connect.reload());
 }
 
-function images() {
-    return gulp.src('src/img/**').pipe(gulp.dest('www/img/')).pipe(connect.reload());
-}
-
 gulp.task('serve', () => {
-    const https = require('https');
-    const { URL } = require('url');
-
     connect.server({
         root: 'www',
         livereload: true,
@@ -133,35 +155,17 @@ gulp.task('serve', () => {
             if (isDir || req.url.indexOf('.') === -1) {
                 const path = req.url.split('?')[0] + ((isDir) ? 'index' : '');
                 req.url = path + '.html';
+            } else if (req.url.substring(0, 5) === '/img/') {
+                req.url = '/a' + req.url;
             }
             next();
         }])
     });
-    connect.server({
-        port: 9090,
-        middleware: () => ([(req, res, next) => {
-            const url = new URL(req.url.substring(req.url.lastIndexOf('/http') + 1));
-            const opts = {
-                hostname: url.hostname,
-                path: url.pathname,
-                headers: req.headers,
-                method: req.method
-            };
-            opts.headers.host = opts.hostname; // Nginx security
 
-            req.pipe(https.request(opts, (response) => {
-                response.headers['access-control-allow-origin'] = '*';
-                res.writeHead(response.statusCode, response.headers);
-                response.pipe(res);
-            }).on('error', () => next()));
-        }])
-    });
-
-    gulp.watch(['src/*.html'], html);
+    gulp.watch(['src/**/*.html'], html);
     gulp.watch(['src/assets/**/*.*'], assets);
-    gulp.watch(['src/img/**'], images);
-    gulp.watch(['i18n/**'], gulp.series('build'));
-    gulp.watch('src/code/**/*.*', gulp.series(code, html));
+    gulp.watch(['index.json'], gulp.series('build'));
+    gulp.watch('src/assets/code/**/*.*', gulp.series(code, html));
 });
 
 gulp.task('sitemap', (cb) => {
@@ -183,5 +187,5 @@ gulp.task('sitemap', (cb) => {
     cb(null);
 });
 
-gulp.task('build', gulp.series('sidebar', assets, images, code, html, 'sitemap'));
+gulp.task('build', gulp.series('sidebar', assets, code, html, 'sitemap'));
 gulp.task('default', gulp.series('build', 'serve'));
