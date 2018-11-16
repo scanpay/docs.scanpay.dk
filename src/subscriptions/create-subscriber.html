@@ -1,0 +1,137 @@
+
+<h1>Create Subscriber</h1>
+<p>
+  The create subscriber API call will return a link to a payment page, where the customer can enter their payment details (<i>i.e. subscribe</i>). When the customer has subscribed you will be able to retrieve a subscriber ID through the <a href="/synchronization">Synchronization API</a>.
+</p>
+
+<h3 id="request-headers">Request Headers</h3>
+<p>
+  The request endpoint is: <code class="code">https://api.scanpay.dk/v1/new</code>.
+</p>
+
+<table class="table--fixed">
+  <thead>
+    <tr>
+      <th>HTTP/1.1 headers</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tablecode">
+        <div class="ellipsis">
+          <span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX
+        </div>
+      </td>
+      <td>
+        HTTP Basic authentication. This HTTP header is required. <a href="/security#basic-authentication">Read more</a>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="request-fields">Request Fields</h3>
+<p>
+  All request fields are listed below. All fields except <code class="code code--small">subscriber</code> are optional.
+</p>
+
+<table class="table--fixed">
+  <thead>
+    <tr>
+      <th>JSON fields</th>
+      <th class="td--desc">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"395"</span>
+      </td>
+      <td class="td--desc">
+        A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span>
+      </td>
+      <td class="td--desc">
+        Redirect to this URL after succesful payment. If omitted we will show a generic success message.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode"><pre><span class="hljs-attr">"subscriber"</span>: {<br>   <span class="hljs-attr">"ref"</span>: <span class="hljs-string">"239"</span><br>}</pre></td>
+      <td class="td--desc">
+        This object tells us that you want to create a subscriber. The object is required, but you can leave it empty:
+        <ul class="table--ul">
+          <li><b>ref:</b> A reference to the subscriber in your system.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre><span class="hljs-attr">"billing"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Øjvind Jakobsen"</span>,
+    <span class="hljs-attr">"company"</span>: <span class="hljs-string">"Karen Blixen Museet ApS"</span>,
+    <span class="hljs-attr">"vatin"</span>: <span class="hljs-string">"DK14915508"</span>,
+    <span class="hljs-attr">"gln"</span>: <span class="hljs-string">"5790002195341"</span>,
+    <span class="hljs-attr">"email"</span>: <span class="hljs-string">"øjvind@blixen.dk"</span>,
+    <span class="hljs-attr">"phone"</span>: <span class="hljs-string">"+45 45571057"</span>,
+    <span class="hljs-attr">"address"</span>: [<span class="hljs-string">"Rungsted Strandvej 111"</span>],
+    <span class="hljs-attr">"city"</span>: <span class="hljs-string">"Rungsted Kyst"</span>,
+    <span class="hljs-attr">"zip"</span>: <span class="hljs-string">"2960"</span>,
+    <span class="hljs-attr">"state"</span>: <span class="hljs-string">"Hovedstaden"</span>,
+    <span class="hljs-attr">"country"</span>: <span class="hljs-string">"DK"</span>
+},
+<span class="hljs-attr">"shipping"</span>: {
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Thomas Fasti Dinesen"</span>,
+    <span class="hljs-attr">"company"</span>: <span class="hljs-string">"Karen Blixen Museet ApS"</span>,
+    <span class="hljs-attr">"email"</span>: <span class="hljs-string">"thomas@dinesen.dk"</span>,
+    <span class="hljs-attr">"phone"</span>: <span class="hljs-string">"0045 45571057"</span>,
+    <span class="hljs-attr">"address"</span>: [
+        <span class="hljs-string">"Att. Thomas Fasti Dinesen"</span>,
+        <span class="hljs-string">"Rungsted Strandvej 111"</span>
+    ],
+    <span class="hljs-attr">"city"</span>: <span class="hljs-string">"Rungsted Kyst"</span>,
+    <span class="hljs-attr">"zip"</span>: <span class="hljs-string">"2960"</span>,
+    <span class="hljs-attr">"state"</span>: <span class="hljs-string">""</span>,
+    <span class="hljs-attr">"country"</span>: <span class="hljs-string">"DK"</span>
+}</pre>
+      </td>
+      <td class="td--desc td--vtop">
+        <p>
+          Customer billing and shipping address.
+        </p>
+        <ul class="table--ul">
+          <li><b>name:</b> The full name.</li>
+          <li><b>company:</b> Legal company name.</li>
+          <li><b>vatin:</b> EU VAT identification number.</li>
+          <li><b>gln:</b> Global Location Number or European Article Numbering (EAN-number).</li>
+          <li><b>email:</b> E-mail address.</li>
+          <li><b>phone:</b> Phone number with country prefix.</li>
+          <li><b>address:</b> An address array where each element is a new line.</li>
+          <li><b>zip:</b> Postal code.</li>
+          <li><b>city:</b> City.</li>
+          <li><b>state:</b> State or region.</li>
+          <li><b>country:</b> Two-letter country code (<a href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span>
+      </td>
+      <td class="td--desc">
+        Preferred language for the payment window. We fallback to the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span>
+      </td>
+      <td class="td--desc">
+        Set payment link lifetime in days (d), hours (h) or minutes (m). Default is <code class="code hljs-string" style="font-size: 12px">"1h"</code> and max is <code class="code hljs-string" style="font-size: 12px">"30d"</code>
+      </td>
+    </tr>
+  </tbody>
+</table>

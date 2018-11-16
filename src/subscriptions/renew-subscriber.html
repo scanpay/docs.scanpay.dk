@@ -1,0 +1,97 @@
+
+<h1 id="ping-service">Renew Subscriber</h1>
+<p>
+  The renew subscriber API call will return a link to a payment page, where the subscriber can update their payment details. This is useful if the subscriber wants to change payment method or replace an expired credit card.
+</p>
+
+<h3 id="request-headers">Request Headers</h3>
+<p>
+  The request endpoint is: <code class="code">https://api.scanpay.dk/v1/subscriber/<span class="hljs-string">$id</span>/renew</code>, where <code class="code hljs-string">$id</code> is the subscriber ID that you want to charge.
+</p>
+<table class="table--fixed">
+  <thead>
+    <tr>
+      <th>HTTP/1.1 headers</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tablecode">
+        <div class="ellipsis">
+          <span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX
+        </div>
+      </td>
+      <td>
+        HTTP Basic authentication. This HTTP header is required. <a href="/security#basic-authentication">Read more</a>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="request-fields">Request Fields</h3>
+<p>
+  All request fields are listed below. Note that if the billing address and/or shipping address is unspecified, they will default to the addresses specified in the subscriber.
+</p>
+
+<table class="table--fixed">
+  <thead>
+    <tr>
+      <th>JSON fields</th>
+      <th class="td--desc">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span>
+      </td>
+      <td class="td--desc">
+        Redirect to this URL after succesful payment. If omitted we will show a generic success message.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span>
+      </td>
+      <td class="td--desc">
+        Preferred language for the payment window. We fallback to the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span>
+      </td>
+      <td class="td--desc">
+        Set payment link lifetime in days (d), hours (h) or minutes (m). Default is <code class="code hljs-string" style="font-size: 12px">"1h"</code> and max is <code class="code hljs-string" style="font-size: 12px">"30d"</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response-fields">Response Fields</h3>
+<p>
+  Successful responses have a <code class="code">200</code> HTTP status code with the following JSON field:
+</p>
+<table class="table--fixed">
+  <thead>
+    <tr>
+      <th>
+        JSON field
+      </th>
+      <th class="td--desc">
+        Description
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span>
+      </td>
+      <td class="td--desc">
+        The returned renewal link which the customer should be directed to.
+      </td>
+    </tr>
+  </tbody>
+</table>
