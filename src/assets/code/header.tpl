@@ -7,9 +7,9 @@
 
 <nav class="sidebar--">
   <div class="sidebar--head">
-    <div class="sidebar--logo">
+    <div class="sidebar--c">
       <a href="https://scanpay.dk" class="sidebar--home" title="Back to Scanpay frontpage">
-        {% include "src/img/home.svg" %} scanpay
+        {% include "src/assets/img/home.svg" %} scanpay
       </a>
     </div>
     <form id="search" action="/search">
@@ -19,12 +19,13 @@
   <ul class="sidebar--ul">{{ sidebar }}</ul>
 </nav>
 
-<main>
-  <header class="header">
-    <a href="/">Docs</a> <span class="raquo">»</span> {{ title }}
-
-    <a rel="nofollow" href="https://github.com/scanpaydk/docs.scanpay.dk/blob/main/src/{{ filename }}" class="git">
-      {% include "src/img/github.svg" %} Edit on GitHub
-    </a>
-  </header>
-  <article>
+<div class="c">
+  <div id="bg">
+    <main>
+      <header class="header">
+        <a href="/">Docs</a> <span class="raquo">»</span> {{ title }}
+        <a rel="nofollow" href="https://github.com/scanpaydk/docs.scanpay.dk/blob/main/src/{{ path }}" class="git">
+          {% include "src/assets/img/github.svg" %} Edit on GitHub
+        </a>
+      </header>
+      <article>

@@ -1,12 +1,8 @@
 "changes": [
     {
-        "id": 1234,
-        "rev": 7,
+        "id": 2942,
         "orderid": "abc123",
-        "time": {
-            "created": 1479384780,
-            "authorized": 1479384799
-        },
+        "rev": 7,
         "acts": [
             {
                 "act": "capture",
@@ -24,10 +20,10 @@
             "captured": "100.45 DKK",
             "refunded": "42.78 DKK",
             "left": "23.00 DKK"
+        },
+        "time": {
+            "created": 1479384780,
+            "authorized": 1479384799
         }
-    },
-    {
-        "id": 5678,
-        "error": "datacenter obliterated"
     }
 ]

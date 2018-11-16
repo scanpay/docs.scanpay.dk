@@ -2,7 +2,5 @@
     log <span class="hljs-string">'Warning: Invalid ping signature!'</span>
     <b>exit</b>
 <b>end</b>
-ping := <span class="hljs-built_in">jsondecode</span>(body)
-<b>if</b> ping.seq > localseq <b>then</b>
-    <span class="hljs-comment">// Pull changes with a sequence request...</span>
-<b>end</b>
+ping := <span class="hljs-built_in">json_decode</span>(body)
+<b>if</b> ping.seq > localseq <b>then</b> <span class="hljs-comment">// Pull changes with a sequence request</span>
