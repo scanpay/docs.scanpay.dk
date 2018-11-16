@@ -89,7 +89,7 @@ module.exports = {
             "unix"
         ],
         "lines-around-directive": 2,
-        "max-depth": 2,
+        "max-depth": 0,
         "max-len": [1, 90],
         "max-nested-callbacks": 2,
         "max-params": 2,
