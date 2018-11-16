@@ -1,0 +1,38 @@
+
+<h1>WooCommerce</h1>
+<p>
+  We have developed an official payment module for WooCommerce 4.0 and higher. The module is developed and maintained by scanpay. We have uploaded the source code to <a target="_blank" href="https://github.com/scanpaydk/woocommerce-scanpay">GitHub</a> and the plugin can be installed from Wordpress Plugins (<a href="https://da.wordpress.org/plugins/scanpay-for-woocommerce/">here</a>). We encourage you to help us improve the module – all contributions are much appreciated.
+</p>
+
+<h2>Installation</h2>
+<p>
+  You can install the WooCommerce module directly from your Wordpress admin. Login to your Wordpress admin and navigate to <code class="code code--small">Plugins &gt; Add New</code>. Search for <em>'scanpay'</em> and you should see the following plugin:
+</p>
+
+<img class="woo--img1" alt="Install Scanpay in WooCommerce Admin" width="586" height="167" src="/img/woocommerce/install-scanpay.png">
+
+<h3>Configuration</h3>
+<ol class="modules--ol">
+  <li>
+    Navigate to <code class="code code--small">Plugins &gt; Installed Plugins</code>.
+  </li>
+  <li>
+    Find the <i>'Scanpay for WooCommerce'</i> plugin in the list and press <i>'Activate'</i>.
+  </li>
+  <li>
+    A <i>'Settings'</i> link should now appear where the <i>'Activate'</i> link was before. Press it.
+  </li>
+  <li>
+    Enter a Scanpay API key in the API key field. You can find your API key <a href="//dashboard.scanpay.dk/settings/api">here</a>.
+    <img class="picture" width="595" height="67" alt="Scanpay API key" src="/img/woocommerce/apikey.png">
+  </li>
+  <li>
+    Press <i>'Save changes'</i> to finalize the configuration process. A Scanpay payment method should now appear upon checkout.
+  </li>
+  <li>
+    Copy the content of the Ping URL field into the dashboard <i>'Your Ping URL'</i> field at <a href="//dashboard.scanpay.dk/settings/api">https://dashboard.scanpay.dk/settings/api</a> and save it.
+  </li>
+  <li>
+    Pressing the 'ping' button should now cause a ping to register in the WooCommerce configuration, making the ping URL box green.
+  </li>
+</ol>
