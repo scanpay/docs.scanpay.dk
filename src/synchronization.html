@@ -1,13 +1,12 @@
 
 <h1>Synchronization</h1>
 <p>
-  There are two requests in our Synchronization API: Ping and Sequence. <em>Ping</em> is a tiny request that you receive from us, both periodically and after certain events. <em>Sequence</em> is a request that you make when you want to pull changes.
+  There are two requests in our Synchronization API: Ping and Sequence. <em>Ping</em> is a request that you receive from us, both periodically and after certain events. <em>Sequence</em> is a request that you make when you want to pull changes.
 </p>
 
-<h2 id="ping-service">Ping Service</h2>
+<h2 id="ping-service">Ping service</h2>
 <p>
-  You can configure as many <a href="//dashboard.scanpay.dk/settings/api">endpoints</a> as you like.
-  We recommend that you use TLS, but this is not a requirement. <em>Pings</em> are HTTP POST requests with the following headers and JSON fields:
+  All accounts have a consecutive sequence number called <code class="code">seq</code>, which is a counter that increases when your transaction data changes. When this happens, we will send you a <em>ping</em>, which is a tiny HTTP POST request with the following headers and JSON fields:
 </p>
 
 <table>
@@ -19,9 +18,13 @@
   </thead>
   <tbody>
     <tr>
-      <td class="tablecode"><span class="hljs-attribute">X-Signature</span>: 17FUWCstyodDzsCkG5/gU/2VA2vUEcHfvFxGh8RCElo=</td>
+      <td class="tablecode">
+        <div class="ellipsis">
+          <span class="hljs-attribute">X-Signature</span>: 17FUWCstyodDzsCkG5/gU/2VA2vUEcHfvFxGh8RCElo=
+        </div>
+      </td>
       <td>
-        Base64 encoded HMAC-SHA2-256 signature of the body signed with your API key. <a href="/security#x-signature">Read more</a>.
+        Base64 encoded HMAC-SHA2-256 signature of the body signed with your API key.
       </td>
     </tr>
   </tbody>
@@ -36,13 +39,17 @@
   </thead>
   <tbody>
     <tr>
-      <td class="tablecode"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">23591</span></td>
+      <td class="tablecode">
+        <span class="hljs-attr">"seq"</span>: <span class="hljs-number">200</span>
+      </td>
       <td>
-        Global seq counter for your shop. This will increment with every new transaction, capture and refund.
+        Consecutive sequence number for your shop.
       </td>
     </tr>
     <tr>
-      <td class="tablecode"><span class="hljs-attr">"shopid"</span>: <span class="hljs-number">129</span></td>
+      <td class="tablecode">
+        <span class="hljs-attr">"shopid"</span>: <span class="hljs-number">129</span>
+      </td>
       <td>
         The shopid associated with this ping.
       </td>
@@ -51,40 +58,21 @@
 </table>
 
 <p>
-  We will <em>ping</em> you every time your global <code class="code">seq</code> increases and every 5 minutes (periodic pings). You will have to store a local seq counter and use this to determine if your system is synchronized. If this is not the case then you should pull the changes with a Sequence Request. Explained with pseudocode:
+  In addition, we ping you every 5 minutes to ensure that your system is up to date. When you receive a ping, it is important that you verify the authenticity of the request. Afterwards you can look at <code class="code">seq</code> to determine if there are any changes. Explained with pseudocode:
 </p>
 
-<pre class="sync--pcode1"><code class="pcode">{% include "src/code/sync/ping.pseudo.html" %}</code></pre>
+<pre><code class="pcode">{% include "src/assets/code/sync/ping.pseudo.html" %}</code></pre>
+
+<p>
+  You can configure your ping endpoint in our dashboard (<a href="https://dashboard.scanpay.dk/settings/api">here</a>). We recommend that you use Transport Layer Security (TLS), but this is not a requirement.
+</p>
 
 <h2 id="seq-request">Sequence Request</h2>
 <p>
-  To get changes send a HTTP GET request to <code class="code">https://api.scanpay.dk/v1/seq/$localseq</code>, where <code class="code">$localseq</code> is your locally stored seq counter. Your request will need to have the following header:
+  A sequence request is a HTTP GET request that you make when you want to pull changes from our servers. The endpoint is <code class="code">https://api.scanpay.dk/v1/seq/<span class="hljs-string">$num</span></code>, where <code class="code hljs-string">$num</code> is your local version of the sequence number. All requests have to be authenticated with HTTP basic authentication (<a href="/security#basic-authentication">more info</a>). Successful responses have a <code class="code hljs-number">200</code> status code and a JSON body:
 </p>
 
-<table>
-  <thead>
-    <tr>
-      <th>HTTP/1.1 headers</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="tablecode field--required">
-        <span class="hljs-attribute">Authorization</span>: <span class="">Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</span>
-      </td>
-      <td>
-        HTTP Basic authentication. <a href="/security#basic-authentication">Read more</a>.
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<h4 id="seq-response">Response</h4>
-<p>
-  All successful responses have a <code class="code">200</code> HTTP status code and a JSON object with the following fields:
-</p>
-<table>
+<table class="table--seqreq">
   <thead>
     <tr>
       <th>JSON fields</th>
@@ -93,32 +81,262 @@
   </thead>
   <tbody>
     <tr>
-      <td class="tablecode"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">23591</span></td>
-      <td>The seq of the last change in this response. This is your new <em>localseq</em>, but not necessarily your global seq counter.</td>
+      <td class="tablecode">
+        <span class="hljs-attr">"seq"</span>: <span class="hljs-number">164</span>
+      </td>
+      <td>
+        The sequence number for the last change in the changes array.
+      </td>
     </tr>
     <tr>
-      <td class="tablecode"><pre>{% include "src/code/sync/changes.json" %}</pre></td>
+      <td class="tablecode">
+        <pre><span class="hljs-attr">"changes"</span>: [
+    {
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"transaction"</span>,
+        <span class="">…</span>
+    }
+]</pre>
+      </td>
       <td class="td--vtop">
-        An array with zero or more changes since the requested seq, but not necessarily all changes.
-
-        <ul class="table--ul">
-          <li><b>id:</b> Transaction id.</li>
-          <li><b>rev:</b> Transaction revision number representing the number of changes made to this transaction. Rev will start at 1 and increment with actions (e.g. capture/refund) and other changes to this transaction.</li>
-          <li><b>orderid:</b> The orderid that you assigned when you created the payment link (<a href="/payment-link#request-fields">here</a>).</li>
-          <li><b>time:</b> Unix timestamps.</li>
-          <li><b>acts:</b> Cumulative array of actions in this transaction.</li>
-          <li><b>totals:</b> The relevant values for this transaction.</li>
-          <li><b>error:</b> An error message. You should skip the change if this happens.</li>
-        </ul>
+        An array with changes after the requested sequence number in chronological order. There are 3 types of changes: <a href="#seq-transaction">transaction</a>, <a href="#seq-subscriber">subscriber</a> and <a href="#seq-charge">charge</a>.
       </td>
     </tr>
   </tbody>
 </table>
 
+<h4 id="seq-transaction">Transaction</h4>
+<p>
+  In this context, transactions are regular payment transactions.
+</p>
+
+<table class="table--seqreq">
+  <thead>
+    <tr>
+      <th>JSON fields</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"transaction"</span>
+      </td>
+      <td>
+        The type of the entry.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">2942</span>
+      </td>
+      <td>
+        The scanpay transaction ID.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"INV3803"</span>
+      </td>
+      <td>
+        The order ID that you assigned to the transaction when you created the <a href="/payment-link#request-fields">payment link</a>.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"rev"</span>: <span class="hljs-number">3</span>
+      </td>
+      <td>
+        A revision number. It starts at <code class="code code--small hljs-number">1</code> and it increments every time the transaction data change.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "src/assets/code/sync/transaction-acts.json" %}</pre>
+      </td>
+      <td>
+        A cumulative array of actions made to this transaction. There are 3 types of actions:
+        <ul class="table--ul">
+          <li><b>capture:</b> you captured some or all of the authorized funds.</li>
+          <li><b>refund:</b> you refunded some/all of the captured funds.</li>
+          <li><b>void:</b> the transaction was cancelled. This can only happen if nothing has been captured (<a href="/a/sync/transaction-acts.json">example</a>).</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "src/assets/code/sync/transaction-totals.json" %}</pre>
+      </td>
+      <td>
+        The relevant values for this transaction.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "src/assets/code/sync/transaction-time.json" %}</pre>
+      </td>
+      <td>
+        Unix timestamps.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="seq-subscriber">Subscriber</h4>
+<p>
+  You will receive this <i>change</i> if you <a href="/subscriptions/create-subscriber">create</a> or <a href="/subscriptions/renew-subscriber">renew</a> a subscriber through our subscriptions API.
+</p>
+
+<table class="table--seqreq">
+  <thead>
+    <tr>
+      <th>JSON fields</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"subscriber"</span>
+      </td>
+      <td>
+        The type of the entry.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">2942</span>
+      </td>
+      <td>
+        The subscriber ID.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"ref"</span>: <span class="hljs-string">"user301"</span>
+      </td>
+      <td>
+        The reference ID that you assigned to the subscriber when you created it (<a href="/subscriptions/create-subscriber">more details</a>).
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"rev"</span>: <span class="hljs-number">2</span>
+      </td>
+      <td>
+        A revision number. It starts at <code class="code code--small hljs-number">1</code> and it increments every time the subcriber data change.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "src/assets/code/sync/subscriber-acts.json" %}</pre>
+      </td>
+      <td>
+        A cumulative array of actions made to this subscriber. As of now, there is only one type of action:
+        <ul class="table--ul">
+          <li><b>renew:</b> when the payment details were renewed. See <a href="/subscriptions/renew-subscriber">renew subscriber</a> for more details.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "src/assets/code/sync/subscriber-time.json" %}</pre>
+      </td>
+      <td>
+        Unix timestamps.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h4 id="seq-charge">Charge</h4>
+<p>
+  You will receive this <i>change</i> if you <a href="/subscriptions/charge-subscriber">charge</a> a subscriber through our subscriptions API.
+</p>
+<table class="table--seqreq">
+  <thead>
+    <tr>
+      <th>JSON fields</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"type"</span>: <span class="hljs-string">"charge"</span>
+      </td>
+      <td>
+        The type of the entry.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">38189</span>
+      </td>
+      <td>
+        The scanpay transaction ID.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"c123"</span>
+      </td>
+      <td>
+        The order ID that you assigned to the charge when you created it (<a href="/subscriptions/charge-subscriber">more details</a>).
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"rev"</span>: <span class="hljs-number">7</span>
+      </td>
+      <td>
+        A revision number. It starts at <code class="code code--small hljs-number">1</code> and it increments every time the subcriber data change.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "src/assets/code/sync/transaction-acts.json" %}</pre>
+      </td>
+      <td>
+        A cumulative array of actions made to this charge. There are 2 types of actions:
+        <ul class="table--ul">
+          <li><b>capture:</b> you captured some or all of the authorized funds.</li>
+          <li><b>refund:</b> you refunded some/all of the captured funds.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "src/assets/code/sync/charge-subscriber.json" %}</pre>
+      </td>
+      <td>
+        ...
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "src/assets/code/sync/charge-totals.json" %}</pre>
+      </td>
+      <td>
+        The relevant values for this transaction.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "src/assets/code/sync/charge-time.json" %}</pre>
+      </td>
+      <td>
+        Unix timestamps.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!--
 <p>
   Now you will have to loop through the response and apply the changes to your database. It's important that you do this transactionally, and/or handle <a href="//en.wikipedia.org/wiki/Time_of_check_to_time_of_use">race conditions</a>. Explained with pseudocode:
 </p>
-
 
 <div class="rel">
   <select id="eg--sync">
@@ -127,5 +345,7 @@
     <option data-file="sync/db.mssql.html">MSSQL</option>
     <option data-file="sync/db.generic.html">Generic</option>
   </select>
-  <pre><code class="code--code pcode">{% include "src/code/sync/db.mysql.html" %}</code></pre>
+  <pre><code class="code--code pcode">{% include "src/assets/code/sync/db.mysql.html" %}</code></pre>
 </div>
+--->
+

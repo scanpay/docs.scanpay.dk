@@ -84,6 +84,7 @@ h2 {
 
 h3 {
     font-size: 1.2em;
+    margin: 1.7em 0 .65em;
 }
 
 h4 {
@@ -342,10 +343,10 @@ small {
 
 .code {
     display: inline-block;
-    font: 13px/19px DejaVu Sans Mono, Consolas, monospace;
+    font: 12.5px/16px DejaVu Sans Mono, Consolas, monospace;
     color: #bd143e;
     border: solid 1px #e1e4e5;
-    padding: 0 4px;
+    padding: 0 4px 1px;
     border-radius: 3px;
 }
 
@@ -396,7 +397,6 @@ small {
     vertical-align: middle;
     padding: 15px 40px 8px 8px;
     width: 50%;
-    border-right: 1px solid #cecece;
     box-sizing: border-box;
 }
 .pcode--res {
@@ -404,7 +404,14 @@ small {
     vertical-align: top;
     padding: 8px 10px;
     width: 50%;
+    border-left: 1px solid #cecece;
     box-sizing: border-box;
+}
+
+.pcode--reqtxt {
+    font-size: 10px;
+    color: #999;
+    font-family: "N", sans-serif;
 }
 
 
@@ -495,7 +502,7 @@ table {
     empty-cells: show;
     width: 100%;
     border: 1px solid #d5d5d5;
-    margin: 22px 0 26px;
+    margin: 22px 0 28px;
     font-size: 13.5px;
 }
 
@@ -511,7 +518,7 @@ th {
     font-size: .9em;
     text-align: left;
     margin: 0;
-    padding: 0.55em 1.1em 0.5em;
+    padding: 7px 13px 7px
 }
 
 td {
@@ -691,6 +698,10 @@ input[type=checkbox].modules--optional:not(:checked) {
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+#tls-table {
+    margin-bottom: 20px;
 }
 
 
