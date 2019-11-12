@@ -69,7 +69,7 @@
 
 <h2 id="seq-request">Sequence Request</h2>
 <p>
-  A sequence request is a HTTP GET request that you make when you want to pull changes from our servers. The endpoint is <code class="code">https://api.scanpay.dk/v1/seq/<span class="hljs-string">$num</span></code>, where <code class="code hljs-string">$num</code> is your local version of the sequence number. All requests have to be authenticated with HTTP basic authentication (<a href="/security#basic-authentication">more info</a>). Successful responses have a <code class="code hljs-number">200</code> status code and a JSON body:
+  A sequence request is a HTTP GET request that you make when you want to pull changes from our servers. The endpoint is <code class="code">https://api.scanpay.dk/v1/seq/<span class="hljs-string">$num</span></code>, where <code class="code hljs-string">$num</code> is your local version of the sequence number. All requests have to be authenticated with HTTP basic authentication (<a href="/security#request-authentication">more info</a>). Successful responses have a <code class="code hljs-number">200</code> status code and a JSON body:
 </p>
 
 <table class="table--seqreq">

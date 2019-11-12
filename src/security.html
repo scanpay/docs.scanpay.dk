@@ -1,160 +1,228 @@
 <h1>Security at Scanpay</h1>
 
 <p>
-  We have built our system from the ground up, with a security by design approach, making security considerations the core of our engineering process. You can therefore rest assured that we have implemented multiple layers of security to protect your data. If you have any questions or concerns, please do not hesitate to <a href="mailto:security@scanpay.dk">contact us</a>.
+  We have built our system from the ground up, with a security by design approach, making security considerations the core of our engineering process. You can therefore rest assured that we have implemented multiple layers of security to protect your data.
 </p>
 
-<div>
-  <h2 id="transport-layer-security">Data protection</h2>
+<p>
+  If you have any questions or concerns, please do not hesitate to <a target="_blank" href="mailto:security@scanpay.dk">contact us</a>.
+</p>
+
+<section>
+  <h2 id="data-protection">Data protection</h2>
   <p>
-    We are fully compliant with the General Data Protection Regulation (GDPR) and the Payment Card Industry Data Security Standard (PCI DSS). Sensitive data is encrypted with AES-256-GCM and stored in multiple data centers within the European Union. The encryption key is protected with <a target="_blank" href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing">Shamir's Secret Sharing</a> and only a few trusted employees have a <i>share</i> of the key. This ensures that no single employee can access your data on their own.
+    We are fully compliant with the General Data Protection Regulation (GDPR) and the Payment Card Industry Data Security Standard (PCI DSS).<sup><a href="#ref-1">[1]</a></sup> Sensitive data is encrypted with AES-256-GCM and stored in multiple data centers within the European Union. The encryption key is protected with <a target="_blank" href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing">Shamir's Secret Sharing</a> and only a few trusted employees have a <i>share</i> of the key. This ensures that no single employee can access your data on their own.
   </p>
 
   <p>
-    We process and store sensitive information in the following locations:
+    We process and store sensitive data in the following locations:
   </p>
 
   <table>
     <thead>
       <tr>
-        <th width="200">Company</th>
+        <th width="210">Company</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><b>Amazon Web Services</b><br><em>Elastic Compute Cloud (EC2)</em></td>
         <td>
-          AWS EC2 is our primary hosting provider. All sensitive data is encrypted and stored in two EC2 regions within the EU.
+          <a target="_blank" rel="nofollow" href="https://aws.amazon.com/ec2/">Amazon Web Services</a><br>
+          Elastic Compute Cloud (EC2)<br>
+          <i>Germany &amp; Ireland</i>
+        </td>
+        <td>
+          We receive, process and store all our data in two AWS EC2 regions within the European Union. Sensitive data is encrypted with AES-256-GCM.
         </td>
       </tr>
       <tr>
-        <td><b>Amazon Web Services</b><br><em>Simple Storage Service (S3)</em></td>
         <td>
-          We continuously make backups of all data. Backups are encrypted and they are stored for 365 days in Amazon S3 within the EU.
+          <a target="_blank" rel="nofollow" href="https://aws.amazon.com/s3/">Amazon Web Services</a><br>
+          Simple Storage Service (S3)<br>
+          <i>European Union</i>
+        </td>
+        <td>
+          We continuously make backups. Backups are encrypted and stored for 365 days in Amazon S3 within the European Union.
         </td>
       </tr>
       <tr>
-        <td><b>Google Cloud</b><br><em>Google Compute Engine (GCE)</em></td>
         <td>
-          GCE is our fallback hosting provider.
+          <a target="_blank" rel="nofollow" href="https://cloud.google.com/">Google Cloud</a><br>
+          Google Compute Engine (GCE)<br>
+          <i>Germany</i>
+        </td>
+        <td>
+          GCE is our fallback hosting provider. We do not use this environment unless necessary due to technical issues at AWS or DoS attacks.
         </td>
       </tr>
     </tbody>
   </table>
 
   <p>
-    In order to complete transactions, we have to share some transaction data with acquiring banks and the 3-D Secure network. This is limited to the following trusted partners:
+    We share some transaction data with your acquiring bank and the 3-D Secure network. This is limited to the following trusted partners:
   </p>
 
   <table>
     <thead>
       <tr>
-        <th width="200">Company</th>
+        <th width="140">Company</th>
         <th>Description</th>
+        <th>Data</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Clearhaus A/S</td>
+        <td>Nets Denmark A/S</td>
         <td>
-          Clearhaus is an acquiring bank with a pan-European license from the Danish FSA (<a target="_blank" rel="nofollow" href="https://virksomhedsregister.finanstilsynet.dk/virksomhed-under-tilsyn.html?v=4DD409FD-293B-E311-9E18-0050568340B9">link</a>). We share some transaction details with Clearhaus.
+          Nets is an acquiring bank with a pan-European license.
+        </td>
+        <td>
+          Transaction data.<sup><a href="#ref-2">[2]</a></sup>
         </td>
       </tr>
       <tr>
-        <td>Nets Denmark A/S</td>
+        <td>Clearhaus A/S</td>
         <td>
-          Nets is an acquiring bank with a pan-European license from the Danish FSA (<a target="_blank" rel="nofollow" href="https://virksomhedsregister.finanstilsynet.dk/virksomhed-under-tilsyn.html?v=45D409FD-293B-E311-9E18-0050568340B9">link</a>). We share some transaction details with Nets.
+          Clearhaus is an acquiring bank with a pan-European license.
+        </td>
+        <td>
+          Transaction data and the IP address of the cardholder.<sup><a href="#ref-3">[3]</a></sup>
         </td>
       </tr>
       <tr>
         <td>3dsecure.io</td>
         <td>
-          <a href="https://www.3dsecure.io/">3dsecure.io</a> is a 3-D Secure MPI by Clearhaus. We share some transaction details with them.
+          <a target="_blank" href="https://www.3dsecure.io/">3dsecure.io</a> is a 3-D Secure MPI by Clearhaus.
+        </td>
+        <td>
+          Transaction data and the IP address of the cardholder.<sup><a href="#ref-4">[4]</a></sup>
         </td>
       </tr>
     </tbody>
   </table>
-  <p>We do not sell or share data with any other third-party.</p>
-</div>
 
-<div>
-  <h2 id="transport-layer-security">Transmission security</h2>
+  <h3 id="software-security">Software security</h3>
   <p>
-    For security reasons, we only support Transport Layer Security (TLS) version 1.2 and higher. All our websites are served with HTTP Strict Transport Security (HSTS) and we are on the Google HSTS <a href="https://hstspreload.org/?domain=scanpay.dk">preload list</a>.
-    We only support Elliptic Curve Cryptography and the following cipher suites:
+    When we started Scanpay, we decided to build our payment platform from scratch, in the programming language C. From the very beginning, the emphasis has been on developing a secure, stable and efficient platform, with a small and auditable code base. To this end, we developed a key-value database system, that is immune to many attack vectors, including SQL injections.
+  </p>
+  <p>
+    Most security breaches occur because of vulnerabilities in third-party software. For this reason, we use very little third-party software. Here is a list of third-party software that we use and trust:
   </p>
 
-  <table id="tls-table">
+  <table>
     <thead>
       <tr>
-        <th>Cipher</th>
-        <th width="50">TLS</th>
-        <th width="60">Kx</th>
-        <th width="60">Mac</th>
+        <th width="120">Software</th>
+        <th>Description</th>
+        <th width="70">Risk</th>
+        <th width="70">Impact</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>AES_256_GCM_SHA384</td>
-        <td>v1.3</td>
-        <td>ECDH</td>
-        <td>AEAD</td>
+        <td><a target="_blank" href="https://www.gentoo.org/">Gentoo Linux</a></td>
+        <td>
+          Source-based Linux distribution
+        </td>
+        <td>Very low</td>
+        <td>High</td>
       </tr>
       <tr>
-        <td>CHACHA20_POLY1305_SHA256</td>
-        <td>v1.3</td>
-        <td>ECDH</td>
-        <td>AEAD</td>
+        <td><a target="_blank" href="https://nginx.org/en/">NGINX</a></td>
+        <td>
+          Web server and reverse proxy
+        </td>
+        <td>Low</td>
+        <td>Medium</td>
       </tr>
       <tr>
-        <td>AES_128_GCM_SHA256</td>
-        <td>v1.3</td>
-        <td>ECDH</td>
-        <td>AEAD</td>
+        <td><a target="_blank" href="https://nginx.org/en/">NAXSI</a></td>
+        <td>
+          NGINX Web Application Firewall (WAF)
+        </td>
+        <td>Low</td>
+        <td>Very low</td>
       </tr>
       <tr>
-        <td>ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</td>
-        <td>v1.2</td>
-        <td>ECDH</td>
-        <td>AEAD</td>
+        <td><a target="_blank" href="https://www.openssl.org/">OpenSSL</a></td>
+        <td>
+          TLS and crypto library
+        </td>
+        <td>Medium</td>
+        <td>Medium</td>
       </tr>
       <tr>
-        <td>ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</td>
-        <td>v1.2</td>
-        <td>ECDH</td>
-        <td>AEAD</td>
-      </tr>
-      <tr>
-        <td>ECDHE-ECDSA-AES128-SHA256</td>
-        <td>v1.2</td>
-        <td>ECDH</td>
-        <td>SHA256</td>
-      </tr>
-      <tr>
-        <td>ECDHE-ECDSA-AES256-SHA384</td>
-        <td>v1.2</td>
-        <td>ECDH</td>
-        <td>SHA384</td>
+        <td><a target="_blank" href="https://www.wireguard.com/">WireGuard</a></td>
+        <td>
+          Fast and secure kernelspace VPN <sup><a href="#ref-5">[5]</a></sup>
+        </td>
+        <td>Medium</td>
+        <td>Very low</td>
       </tr>
     </tbody>
   </table>
 
   <p>
-    Internal data transmission is encrypted with AES-256 and tunneled through <a href="https://www.wireguard.com/">wireguard</a>.
+    We continuously monitor and scan our systems for vulnerabilities and, in accordance with PCI DSS, we regularly perform ASV scans and pentesting.
   </p>
 
+  <h2 id="transmission-security">Transmission security</h2>
 
-  <h2 id="basic-authentication">API authentication</h2>
+  <div style="float: right; margin-left: 50px;">
+    <a target="_blank" href="https://www.ssllabs.com/ssltest/analyze.html?d=betal.scanpay.dk&latest">
+      <img class="picture" width="260" src="/img/ssllabs.png">
+    </a>
+    <div style="font-size: 12px; color: #777; text-align: center; font-style: italic; margin-top: 6px;">
+      2019 Q4 SSL report from ssllabs.com
+    </div>
+  </div>
+
   <p>
-    All API requests have to be authenticated via <a rel="nofollow" href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Auth</a> with API keys as credentials. API keys are unique and they contain your shopid and a random key, i.e. <code class="code">shopid:key</code>. If you use our API client libraries or e-commerce modules then we will take care of the authentication.
+    For security reasons, we only support HTTPS with <code class="code">TLSv1.2</code> and <code class="code">TLSv1.3</code> on port 443. We only support Elliptic Curve Cryptography (ECC) with the following cipher suites:
+  </p>
+
+  <ul>
+    <li>ECDHE-ECDSA-AES128-GCM-SHA256</li>
+    <li>ECDHE-ECDSA-AES256-GCM-SHA384</li>
+    <li>ECDHE-ECDSA-AES128-CBC-SHA256</li>
+    <li>ECDHE-ECDSA-AES256-CBC-SHA384</li>
+    <li>ECDHE-ECDSA-AES128-CBC-SHA</li>
+  </ul>
+
+  <p>
+    We support HSTS preload, DNS CAA and other security features. You can view a SSL/TLS report <a href="https://www.ssllabs.com/ssltest/analyze.html?d=betal.scanpay.dk">here</a>.
+  </p>
+
+  <h3 id="request-authentication">Request authentication</h3>
+  <p>
+    Before you can use our platform, you must have an API key, which is a unique key used to authenticate API requests. API keys contain a shopid and a randomly generated code, i.e. <code class="code">shopid:code</code>. You can generate an API key in our dashboard after you have created a shop.
+  </p>
+
+  <p>
+    API requests are authenticated with HTTP Basic Authentication with your API key:
 
     <code class="pcode"><span class="hljs-string">"Authorization: Basic "</span> + <span class="hljs-built_in">base64_encode(</span>apikey<span class="hljs-built_in">)</span></code>
   </p>
-</div>
+</section>
 
-<h2 id="pci-dss">Compliance</h2>
-<p>
-  The Payment Card Industry Data Security Standard (PCI DSS) is a security standard for businesses that store, process or transmit credit cards. PCI DSS is a continuous process and since 2017, we have successfully completed two level 1 certifications and one SAQ D certification. You can view our current Attestation of Compliance (AOC) <a rel="nofollow" href="https://scanpay.dk/pdf/AOC.pdf">here</a>.
-</p>
-<br>
+<hr>
+
+<h3 id="footnotes">Footnotes</h3>
+<ul class="citations">
+  <li id="ref-1">
+    [1] PCI DSS is a security standard for businesses that store, process or transmit credit cards. Since 2017, we have completed two level 1 certifications and two SAQ D certifications. You can view our current AOC <a target="_blank" rel="nofollow" href="https://scanpay.dk/pdf/AOC.pdf">here</a>.
+  </li>
+  <li id="ref-2">
+    [2] This includes cardholder data, amount, currency and text-on-statement.
+  </li>
+  <li id="ref-3">
+    [3] <a href="https://docs.gateway.clearhaus.com/#authorizations" target="_blank">https://docs.gateway.clearhaus.com/#authorizations</a>
+  </li>
+  <li id="ref-4">
+    [4] <a href="https://docs.3dsecure.io/#get-enrollment-status" target="_blank">https://docs.3dsecure.io/#get-enrollment-status</a>
+  </li>
+  <li id="ref-5">
+    [6] We use WireGuard for internal communication between Scanpay servers.
+  </li>
+</ul>

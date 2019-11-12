@@ -1,7 +1,7 @@
 <!DOCTYPE HTML><html lang="en">
 <link href="/a/docs.css?{{ csst }}" rel="stylesheet">
 <script defer src="/a/docs.js?{{ jst }}"></script>
-<title>{{ title }} - Scanpay</title>
+<title>{{ title }}</title>
 <meta name="description" content="{{ meta }}">
 <link rel="canonical" href="https://docs.scanpay.dk{{ url }}">
 

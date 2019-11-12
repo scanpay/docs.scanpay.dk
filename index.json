@@ -81,7 +81,7 @@
     "/security.html": {
         "title": "Security",
         "meta": "Scanpay is PCI DSS certified and security is very important to us.",
-        "pages": ["Basic authentication", "Transport Layer Security", "PCI DSS"]
+        "pages": ["Data Protection", "Transmission Security"]
     },
 
     "/search.html": {

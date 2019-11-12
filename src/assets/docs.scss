@@ -15,14 +15,14 @@
 
 @font-face {
     font-family: 'N';
-    font-weight: 600;
-    src: url('font/N600.woff2') format('woff2'), url('font/N600.woff') format('woff');
+    font-style: italic;
+    src: url('font/N400i.woff2') format('woff2'), url('font/N400i.woff') format('woff');
 }
 
 @font-face {
     font-family: 'N';
-    font-style: italic;
-    src: url('font/N400i.woff2') format('woff2'), url('font/N400i.woff') format('woff');
+    font-weight: 600;
+    src: url('font/N600.woff2') format('woff2'), url('font/N600.woff') format('woff');
 }
 
 body {
@@ -58,8 +58,8 @@ p {
 sup, sub {
   vertical-align: baseline;
   position: relative;
-  top: -.5em;
-  font-size: .8em;
+  top: -.4em;
+  font-size: .9em;
 }
 
 b, strong { font-weight: 600; }
@@ -73,18 +73,18 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-    font-size: 1.85em;
+    font-size: 1.9em;
     margin: 1.4em 0 .8em;
 }
 
 h2 {
-    font-size: 1.4em;
-    margin: 1.5em 0 .6em;
+    font-size: 1.6em;
+    margin: 1.45em 0 .55em;
 }
 
 h3 {
-    font-size: 1.25em;
-    margin: 1.7em 0 .65em;
+    font-size: 1.3em;
+    margin: 1.75em 0 .65em;
 }
 
 h4 {
@@ -94,7 +94,7 @@ h4 {
 .hlink {
     display: inline-block;
     position: absolute;
-    margin: 0 0 0 8px;
+    margin: 1px 0 0 8px;
 }
 
 .rel {
@@ -105,6 +105,10 @@ hr {
     margin: 50px 0;
     border: 0;
     border-top: 1px solid #e1e4e5;
+}
+
+section {
+    margin-bottom: 3.4em;
 }
 
 /*
@@ -502,7 +506,7 @@ table {
     empty-cells: show;
     width: 100%;
     border: 1px solid #d5d5d5;
-    margin: 22px 0 28px;
+    margin: 1.9em 0 1.9em;
     font-size: 13.5px;
 }
 
@@ -518,7 +522,7 @@ th {
     font-size: .9em;
     text-align: left;
     margin: 0;
-    padding: 7px 13px 7px
+    padding: .6em 13px .5em
 }
 
 td {
@@ -526,7 +530,7 @@ td {
     border-left: 1px solid #ddd;
     text-align: left;
     margin: 0;
-    padding: .6em 1em .6em;
+    padding: .5em 13px .5em;
     position: relative;
 }
 
@@ -618,15 +622,6 @@ td {
     Acquiring banks
 */
 
-#modules--magento-2, #modules--woocommerce, #modules--opencart, #modules--prestashop {
-  display: none;
-}
-
-#magento-2:target ~ #modules--magento-2, #woocommerce:target ~ #modules--woocommerce,
-#opencart:target ~ #modules--opencart, #prestashop:target ~ #modules--prestashop {
-  display: block;
-}
-
 .woo--img1 {
   margin: 10px 0 0;
 }
@@ -638,17 +633,9 @@ td {
   margin: 8px 0;
 }
 
-input[type=checkbox].modules--optional {
-  display:none;
-}
-
-input[type=checkbox].modules--optional:not(:checked) {
-  display: none;
-}
-
 .picture {
-    display: inline-block;
-    margin: 13px 0 6px;
+    display: block;
+    margin: 1px 0 5px;
     padding: 3px;
     border-radius: 3px;
     border: 1px solid #d0d0d0;
@@ -702,6 +689,20 @@ input[type=checkbox].modules--optional:not(:checked) {
 
 #tls-table {
     margin-bottom: 20px;
+}
+
+.citations {
+    font-size: 0.9em;
+    list-style: none;
+    padding: 0;
+}
+
+.citations > li {
+    padding: 2px 0 2px 2px;
+}
+
+.citations > li:target {
+    background-color: #e6efff;
 }
 
 
