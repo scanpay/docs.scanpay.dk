@@ -2,28 +2,53 @@
 *   @author ScanPay ApS.
 **/
 
+// Bitter (2019-11)
 @font-face {
     font-family: 'B';
     font-weight: 700;
     src: url('font/B700.woff2') format('woff2'), url('font/B700.woff') format('woff');
 }
 
+// Nota Sans (2019-11)
 @font-face {
     font-family: 'N';
     src: url('font/N400.woff2') format('woff2'), url('font/N400.woff') format('woff');
 }
-
 @font-face {
     font-family: 'N';
     font-style: italic;
     src: url('font/N400i.woff2') format('woff2'), url('font/N400i.woff') format('woff');
 }
-
 @font-face {
     font-family: 'N';
     font-weight: 600;
     src: url('font/N600.woff2') format('woff2'), url('font/N600.woff') format('woff');
 }
+
+// Hack (2019-11)
+@font-face {
+    font-family: 'H';
+    font-weight: 400;
+    src: url('font/H400.woff2') format('woff2'), url('font/H400.woff') format('woff');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 400;
+    font-style: italic;
+    src: url('font/H400i.woff2') format('woff2'), url('font/H400i.woff') format('woff');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 700;
+    src: url('font/H700.woff2') format('woff2'), url('font/H700.woff') format('woff');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 700;
+    font-style: italic;
+    src: url('font/H700i.woff2') format('woff2'), url('font/H700i.woff') format('woff');
+}
+
 
 body {
     display: flex;
@@ -190,6 +215,7 @@ section {
     > li {
         color: #b3b3b3;
         position: relative;
+        margin: 0;
 
         > a {
             display: block;
@@ -211,6 +237,10 @@ section {
     padding: 0;
     margin-bottom: 3px;
     border-right: solid 1px #c9c9c9;
+
+    > li {
+        margin: 0;
+    }
 
     a {
         display: block;
@@ -347,7 +377,7 @@ small {
 
 .code {
     display: inline-block;
-    font: 12.5px/16px DejaVu Sans Mono, Consolas, monospace;
+    font: 12.5px/16px "H", monospace;
     color: #bd143e;
     border: solid 1px #e1e4e5;
     padding: 0 4px 1px;
@@ -360,7 +390,7 @@ small {
 
 .bashcmd, .pcode, .code--code {
     display: block;
-    font: 13px/19px DejaVu Sans Mono, Consolas, monospace;
+    font: 13px/19px "H", monospace;
     color: #252525;
     white-space: pre-wrap;
     word-break: break-all;
@@ -427,7 +457,7 @@ small {
 .tablecode {
     font-size: 13px;
     padding-left: 12px;
-    font-family: DejaVu Sans Mono, Consolas, monospace;
+    font-family: "H", monospace;
     color: #444;
 
     > pre {
@@ -623,14 +653,22 @@ td {
 */
 
 .woo--img1 {
-  margin: 10px 0 0;
+    margin: 10px 0 0;
 }
 
 .modules--ol {
-  padding: 0 0 0 30px;
+    padding: 0 0 0 30px;
 }
 .modules--ol > li {
-  margin: 8px 0;
+    margin: 8px 0;
+}
+
+li {
+    margin: 4px 0;
+}
+
+ul {
+    margin: 11px 0;
 }
 
 .picture {
