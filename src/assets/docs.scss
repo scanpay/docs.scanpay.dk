@@ -220,7 +220,7 @@ section {
         > a {
             display: block;
             color: #b3b3b3;
-            padding: 5.5px 24px;
+            padding: 4.5px 24px;
             text-decoration: none;
         }
 
@@ -244,7 +244,7 @@ section {
 
     a {
         display: block;
-        color: #6b6a6a;
+        color: #666;
         padding: 3.5px 33px;
         text-decoration: none;
     }
@@ -671,12 +671,19 @@ ul {
     margin: 11px 0;
 }
 
-.picture {
+.pic {
     display: block;
-    margin: 1px 0 5px;
+    margin: 9px 0 10px;
     padding: 3px;
     border-radius: 3px;
     border: 1px solid #d0d0d0;
+}
+
+.pic-flex {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around
 }
 
 .inblck {
@@ -706,6 +713,14 @@ ul {
 
 .elavon--logo {
     margin-bottom: 10px;
+}
+
+/*
+    API libraries
+*/
+
+.libs--ul {
+    margin-top: 18px;
 }
 
 
