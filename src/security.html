@@ -11,9 +11,9 @@
 <section>
   <h2 id="data-protection">Data protection</h2>
   <p>
-    We are fully compliant with the General Data Protection Regulation (GDPR) and the Payment Card Industry Data Security Standard (PCI DSS).<sup><a href="#ref-1">[1]</a></sup> Sensitive data is encrypted with AES-256-GCM and stored in multiple data centers within the European Union. The encryption key is protected with <a target="_blank" href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing">Shamir's Secret Sharing</a> and only a few trusted employees have a <i>share</i> of the key. This ensures that no single employee can access your data on their own.
+    We are fully compliant with the General Data Protection Regulation (GDPR) and the Payment Card Industry Data Security Standard (PCI DSS).<sup><a href="#ref-1">[1]</a></sup> Sensitive data is encrypted with AES-256-GCM and stored in multiple data centers within the European Union. The encryption key is protected with <a target="_blank" href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing">Shamir's Secret Sharing</a> and <i>shares</i> are split between a few trusted employees.<sup><a href="#ref-2">[2]</a></sup>
+    This ensures that no single employee can access your data on their own.
   </p>
-
   <p>
     We process and store sensitive data in the following locations:
   </p>
@@ -21,7 +21,7 @@
   <table>
     <thead>
       <tr>
-        <th width="210">Company</th>
+        <th width="220">Company</th>
         <th>Description</th>
       </tr>
     </thead>
@@ -53,50 +53,59 @@
           <i>Germany</i>
         </td>
         <td>
-          GCE is our fallback hosting provider. We do not use this environment unless necessary due to technical issues at AWS or DoS attacks.
+          GCE is our fallback hosting provider. We only use this environment in case of technical issues or DoS attacks. We do not store data in this environment.
         </td>
       </tr>
     </tbody>
   </table>
 
   <p>
-    We share some transaction data with your acquiring bank and the 3-D Secure network. This is limited to the following trusted partners:
+    Transaction data is shared with one or more of the following third parties:
   </p>
 
   <table>
     <thead>
       <tr>
-        <th width="140">Company</th>
+        <th width="110">Company</th>
         <th>Description</th>
         <th>Data</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Nets Denmark A/S</td>
+        <td><a target="_blank" href="https://www.nets.eu/">Nets A/S</a></td>
         <td>
-          Nets is an acquiring bank with a pan-European license.
+          An acquiring bank with a pan-European license.
         </td>
         <td>
-          Transaction data.<sup><a href="#ref-2">[2]</a></sup>
-        </td>
-      </tr>
-      <tr>
-        <td>Clearhaus A/S</td>
-        <td>
-          Clearhaus is an acquiring bank with a pan-European license.
-        </td>
-        <td>
-          Transaction data and the IP address of the cardholder.<sup><a href="#ref-3">[3]</a></sup>
+          Transaction data.<sup><a href="#ref-3">[3]</a></sup>
         </td>
       </tr>
       <tr>
-        <td>3dsecure.io</td>
+        <td><a target="_blank" href="https://www.clearhaus.com/en/">Clearhaus A/S</a></td>
         <td>
-          <a target="_blank" href="https://www.3dsecure.io/">3dsecure.io</a> is a 3-D Secure MPI by Clearhaus.
+          An acquiring bank with a pan-European license.
         </td>
         <td>
           Transaction data and the IP address of the cardholder.<sup><a href="#ref-4">[4]</a></sup>
+        </td>
+      </tr>
+      <tr>
+        <td><a target="_blank" href="https://www.mobilepay.dk/">MobilePay A/S</a></td>
+        <td>
+          A mobile payment application developed by Danske Bank A/S.
+        </td>
+        <td>
+          Amount, currecy, merchant name, orderID, language, phone number.
+        </td>
+      </tr>
+      <tr>
+        <td><a target="_blank" href="https://www.3dsecure.io/">3dsecure.io</a></td>
+        <td>
+          A 3-D Secure Server (3DSS) by Clearhaus A/S.
+        </td>
+        <td>
+          Transaction data and the IP address of the cardholder.<sup><a href="#ref-5">[5]</a></sup>
         </td>
       </tr>
     </tbody>
@@ -104,10 +113,7 @@
 
   <h3 id="software-security">Software security</h3>
   <p>
-    When we started Scanpay, we decided to build our payment platform from scratch, in the programming language C. From the very beginning, the emphasis has been on developing a secure, stable and efficient platform, with a small and auditable code base. To this end, we developed a key-value database system, that is immune to many attack vectors, including SQL injections.
-  </p>
-  <p>
-    Most security breaches occur because of vulnerabilities in third-party software. For this reason, we use very little third-party software. Here is a list of third-party software that we use and trust:
+    When we started Scanpay, we decided to build our platform from scratch, in the programming language C. From the very beginning, the emphasis has been on developing a secure, stable and efficient platform, with a small and auditable code base. We also insist on using very little third-party software. Here is a list of third-party software that we use and trust:
   </p>
 
   <table>
@@ -155,7 +161,7 @@
       <tr>
         <td><a target="_blank" href="https://www.wireguard.com/">WireGuard</a></td>
         <td>
-          Fast and secure kernelspace VPN <sup><a href="#ref-5">[5]</a></sup>
+          Fast and secure kernelspace VPN.<sup><a href="#ref-6">[6]</a></sup>
         </td>
         <td>Medium</td>
         <td>Very low</td>
@@ -163,18 +169,14 @@
     </tbody>
   </table>
 
-  <p>
-    We continuously monitor and scan our systems for vulnerabilities and, in accordance with PCI DSS, we regularly perform ASV scans and pentesting.
-  </p>
-
   <h2 id="transmission-security">Transmission security</h2>
 
   <div style="float: right; margin-left: 50px;">
     <a target="_blank" href="https://www.ssllabs.com/ssltest/analyze.html?d=betal.scanpay.dk&latest">
-      <img class="picture" width="260" src="/img/ssllabs.png">
+      <img class="pic" width="260" src="/img/ssllabs.png">
     </a>
     <div style="font-size: 12px; color: #777; text-align: center; font-style: italic; margin-top: 6px;">
-      2019 Q4 SSL report from ssllabs.com
+      2020 Q1 SSL report from ssllabs.com
     </div>
   </div>
 
@@ -214,15 +216,18 @@
     [1] PCI DSS is a security standard for businesses that store, process or transmit credit cards. Since 2017, we have completed two level 1 certifications and two SAQ D certifications. You can view our current AOC <a target="_blank" rel="nofollow" href="https://scanpay.dk/pdf/AOC.pdf">here</a>.
   </li>
   <li id="ref-2">
-    [2] This includes cardholder data, amount, currency and text-on-statement.
+    [2] Shamir's Secret Sharing is used to secure a secret, e.g. an encryption key, in a distributed way. The secret is split into multiple parts, called shares. Two or more shares are needed to reconstruct the original secret.
   </li>
   <li id="ref-3">
-    [3] <a href="https://docs.gateway.clearhaus.com/#authorizations" target="_blank">https://docs.gateway.clearhaus.com/#authorizations</a>
+    [3] Here transaction data refers to cardholder data, amount, currency and text-on-statement.
   </li>
   <li id="ref-4">
-    [4] <a href="https://docs.3dsecure.io/#get-enrollment-status" target="_blank">https://docs.3dsecure.io/#get-enrollment-status</a>
+    [4] <a href="https://docs.gateway.clearhaus.com/#authorizations" target="_blank">https://docs.gateway.clearhaus.com/#authorizations</a>
   </li>
   <li id="ref-5">
+    [5] <a href="https://docs.3dsecure.io/#get-enrollment-status" target="_blank">https://docs.3dsecure.io/#get-enrollment-status</a>
+  </li>
+  <li id="ref-6">
     [6] We use WireGuard for internal communication between Scanpay servers.
   </li>
 </ul>
