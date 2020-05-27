@@ -13,7 +13,7 @@ const order = {
             sku: 'fadf23'
         },
         {
-            name: '巨人宏偉的帽子',
+            name: 'Økologisk æblekage',
             quantity: 2,
             total: '840 DKK',
             sku: '124'

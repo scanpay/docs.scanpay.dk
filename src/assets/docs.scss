@@ -2,28 +2,53 @@
 *   @author ScanPay ApS.
 **/
 
+// Bitter (2019-11)
 @font-face {
     font-family: 'B';
     font-weight: 700;
     src: url('font/B700.woff2') format('woff2'), url('font/B700.woff') format('woff');
 }
 
+// Nota Sans (2019-11)
 @font-face {
     font-family: 'N';
     src: url('font/N400.woff2') format('woff2'), url('font/N400.woff') format('woff');
 }
-
+@font-face {
+    font-family: 'N';
+    font-style: italic;
+    src: url('font/N400i.woff2') format('woff2'), url('font/N400i.woff') format('woff');
+}
 @font-face {
     font-family: 'N';
     font-weight: 600;
     src: url('font/N600.woff2') format('woff2'), url('font/N600.woff') format('woff');
 }
 
+// Hack (2019-11)
 @font-face {
-    font-family: 'N';
-    font-style: italic;
-    src: url('font/N400i.woff2') format('woff2'), url('font/N400i.woff') format('woff');
+    font-family: 'H';
+    font-weight: 400;
+    src: url('font/H400.woff2') format('woff2'), url('font/H400.woff') format('woff');
 }
+@font-face {
+    font-family: 'H';
+    font-weight: 400;
+    font-style: italic;
+    src: url('font/H400i.woff2') format('woff2'), url('font/H400i.woff') format('woff');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 700;
+    src: url('font/H700.woff2') format('woff2'), url('font/H700.woff') format('woff');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 700;
+    font-style: italic;
+    src: url('font/H700i.woff2') format('woff2'), url('font/H700i.woff') format('woff');
+}
+
 
 body {
     display: flex;
@@ -58,8 +83,8 @@ p {
 sup, sub {
   vertical-align: baseline;
   position: relative;
-  top: -.5em;
-  font-size: .8em;
+  top: -.4em;
+  font-size: .9em;
 }
 
 b, strong { font-weight: 600; }
@@ -73,17 +98,18 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-    font-size: 1.85em;
+    font-size: 1.9em;
     margin: 1.4em 0 .8em;
 }
 
 h2 {
-    font-size: 1.45em;
-    margin: 1.4em 0 .5em;
+    font-size: 1.6em;
+    margin: 1.45em 0 .55em;
 }
 
 h3 {
-    font-size: 1.2em;
+    font-size: 1.3em;
+    margin: 1.55em 0 .65em;
 }
 
 h4 {
@@ -93,7 +119,7 @@ h4 {
 .hlink {
     display: inline-block;
     position: absolute;
-    margin: 0 0 0 8px;
+    margin: 1px 0 0 8px;
 }
 
 .rel {
@@ -104,6 +130,10 @@ hr {
     margin: 50px 0;
     border: 0;
     border-top: 1px solid #e1e4e5;
+}
+
+section {
+    margin-bottom: 3.4em;
 }
 
 /*
@@ -185,11 +215,12 @@ hr {
     > li {
         color: #b3b3b3;
         position: relative;
+        margin: 0;
 
         > a {
             display: block;
             color: #b3b3b3;
-            padding: 5.5px 24px;
+            padding: 4.5px 24px;
             text-decoration: none;
         }
 
@@ -207,9 +238,13 @@ hr {
     margin-bottom: 3px;
     border-right: solid 1px #c9c9c9;
 
+    > li {
+        margin: 0;
+    }
+
     a {
         display: block;
-        color: #6b6a6a;
+        color: #666;
         padding: 3.5px 33px;
         text-decoration: none;
     }
@@ -260,6 +295,7 @@ main {
     position: relative;
     min-height: 100vh;
 }
+
 
 .c {
     position: relative;
@@ -342,10 +378,10 @@ small {
 
 .code {
     display: inline-block;
-    font: 13px/19px DejaVu Sans Mono, Consolas, monospace;
+    font: 12.5px/16px "H", monospace;
     color: #bd143e;
     border: solid 1px #e1e4e5;
-    padding: 0 4px;
+    padding: 0 4px 1px;
     border-radius: 3px;
 }
 
@@ -355,7 +391,7 @@ small {
 
 .bashcmd, .pcode, .code--code {
     display: block;
-    font: 13px/19px DejaVu Sans Mono, Consolas, monospace;
+    font: 13px/19px "H", monospace;
     color: #252525;
     white-space: pre-wrap;
     word-break: break-all;
@@ -364,7 +400,7 @@ small {
 
 .bashcmd {
     padding: 8px;
-    margin: 20px 0;
+    margin: 20px 0 0px;
     background: #f4f4f4;
     border-radius: 3px;
 
@@ -396,7 +432,6 @@ small {
     vertical-align: middle;
     padding: 15px 40px 8px 8px;
     width: 50%;
-    border-right: 1px solid #cecece;
     box-sizing: border-box;
 }
 .pcode--res {
@@ -404,7 +439,14 @@ small {
     vertical-align: top;
     padding: 8px 10px;
     width: 50%;
+    border-left: 1px solid #cecece;
     box-sizing: border-box;
+}
+
+.pcode--reqtxt {
+    font-size: 10px;
+    color: #999;
+    font-family: "N", sans-serif;
 }
 
 
@@ -416,7 +458,7 @@ small {
 .tablecode {
     font-size: 13px;
     padding-left: 12px;
-    font-family: DejaVu Sans Mono, Consolas, monospace;
+    font-family: "H", monospace;
     color: #444;
 
     > pre {
@@ -495,7 +537,7 @@ table {
     empty-cells: show;
     width: 100%;
     border: 1px solid #d5d5d5;
-    margin: 22px 0 26px;
+    margin: 1.9em 0 1.9em;
     font-size: 13.5px;
 }
 
@@ -511,7 +553,7 @@ th {
     font-size: .9em;
     text-align: left;
     margin: 0;
-    padding: 0.55em 1.1em 0.5em;
+    padding: .6em 13px .5em
 }
 
 td {
@@ -519,7 +561,7 @@ td {
     border-left: 1px solid #ddd;
     text-align: left;
     margin: 0;
-    padding: .6em 1em .6em;
+    padding: .5em 13px .5em;
     position: relative;
 }
 
@@ -583,6 +625,10 @@ td {
     color: #333;
 }
 
+.flex {
+    display: flex;
+}
+
 /*
     Synchronization
 */
@@ -611,41 +657,68 @@ td {
     Acquiring banks
 */
 
-#modules--magento-2, #modules--woocommerce, #modules--opencart, #modules--prestashop {
-  display: none;
-}
-
-#magento-2:target ~ #modules--magento-2, #woocommerce:target ~ #modules--woocommerce,
-#opencart:target ~ #modules--opencart, #prestashop:target ~ #modules--prestashop {
-  display: block;
-}
-
 .woo--img1 {
-  margin: 10px 0 0;
+    margin: 10px 0 0;
 }
 
 .modules--ol {
-  padding: 0 0 0 30px;
-}
-.modules--ol > li {
-  margin: 8px 0;
+    padding: 0 0 0 19px;
+
+    > li {
+        padding: 2px 0;
+        margin: 8px 0;
+    }
 }
 
-input[type=checkbox].modules--optional {
-  display:none;
+li {
+    margin: 4px 0;
 }
 
-input[type=checkbox].modules--optional:not(:checked) {
-  display: none;
+ul {
+    margin: 11px 0;
 }
 
-.picture {
-    display: inline-block;
-    margin: 13px 0 6px;
+.pic {
+    display: block;
+    margin: 11px 0 11px;
     padding: 3px;
     border-radius: 3px;
     border: 1px solid #d0d0d0;
 }
+
+.pic-flex {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.pic-padr {
+    margin-right: 2%;
+}
+
+.enlarge {
+    cursor: zoom-in;
+}
+
+#picbg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 10;
+    cursor: zoom-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > img {
+        max-width: 96vw;
+        max-height: 96vh;
+    }
+}
+
+
+
 
 .inblck {
     display: inline-block;
@@ -676,6 +749,14 @@ input[type=checkbox].modules--optional:not(:checked) {
     margin-bottom: 10px;
 }
 
+/*
+    API libraries
+*/
+
+.libs--ul {
+    margin-top: 18px;
+}
+
 
 /*
     Search
@@ -691,6 +772,24 @@ input[type=checkbox].modules--optional:not(:checked) {
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+#tls-table {
+    margin-bottom: 20px;
+}
+
+.citations {
+    font-size: 0.9em;
+    list-style: none;
+    padding: 0;
+}
+
+.citations > li {
+    padding: 2px 0 2px 2px;
+}
+
+.citations > li:target {
+    background-color: #e6efff;
 }
 
 

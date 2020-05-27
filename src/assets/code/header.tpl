@@ -1,7 +1,7 @@
 <!DOCTYPE HTML><html lang="en">
 <link href="/a/docs.css?{{ csst }}" rel="stylesheet">
 <script defer src="/a/docs.js?{{ jst }}"></script>
-<title>{{ title }} - Scanpay</title>
+<title>{{ title }}</title>
 <meta name="description" content="{{ meta }}">
 <link rel="canonical" href="https://docs.scanpay.dk{{ url }}">
 
@@ -23,9 +23,11 @@
   <div id="bg">
     <main>
       <header class="header">
-        <a href="/">Docs</a> <span class="raquo">»</span> {{ title }}
         <a rel="nofollow" href="https://github.com/scanpaydk/docs.scanpay.dk/blob/main/src/{{ path }}" class="git">
           {% include "src/assets/img/github.svg" %} Edit on GitHub
         </a>
+        <nav class="breadcrumb">
+          <a href="/">Docs</a> {{ breadcrumb }}
+        </nav>
       </header>
       <article>

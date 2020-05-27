@@ -13,35 +13,18 @@ env.currentYear = (new Date()).getFullYear();
 env.server = env.server || 'docs.test.scanpay.dk';
 if (!env.publish) { env.jst = env.csst = '1'; }
 
-
 let index;
 gulp.task('sidebar', (cb) => {
     index = JSON.parse(fs.readFileSync('index.json'));
 
-    for (const x in index) {
-        const o = index[x];
-        o.path = x.substring(1);
-        o.url = x.slice(0, -5); // rm .html from links
-
-        if (o.pages && !Array.isArray(o.pages)) {
-            for (const page in o.pages) {
-                o.pages[page].subpage = true;
-                o.pages[page].url = page.slice(0, -5);
-                o.pages[page].path = page;
-                index[page] = o.pages[page];
-            }
-        }
-        if (o.url.slice(-6) === '/index') {
-            o.url = o.url.substring(0, o.url.length - 5);
-        }
-    }
-    for (const x in index) {
-        const o = index[x];
-        if (!o.hidden && !o.subpage) {
+    for (const name in index) {
+        const o = index[name];
+        if (!o.hidden) {
             o.sidebar = createSidebar(o);
+            // Add the sidebar to subpages
             if (o.pages && !Array.isArray(o.pages)) {
-                for (const page in o.pages) {
-                    o.pages[page].sidebar = o.sidebar;
+                for (const name in o.pages) {
+                    o.pages[name].sidebar = o.sidebar;
                 }
             }
         }
@@ -51,48 +34,70 @@ gulp.task('sidebar', (cb) => {
 
 function createSidebar(active) {
     let str = '';
-    for (const file in index) {
-        const o = index[file];
-        if (o.hidden || o.subpage) { continue; }
+    for (const name in index) {
+        const o = index[name];
+        if (o.hidden) { continue; }
         const APIlabel = o.API ? '<span class="sidebar--label">API</span>' : '';
 
         if (o.url === active.url) {
             let sublinks = '';
             if (Array.isArray(o.pages)) {
-                for (const p of o.pages) {
-                    sublinks += '<li><a href="#' + p.toLowerCase().replace(/ /g, '-') +
-                        '">' + p + '</a></li>';
+                for (const name of o.pages) {
+                    sublinks += '<li><a href="#' + name.toLowerCase().replace(/ /g, '-') +
+                        '">' + name + '</a></li>';
                 }
             } else {
-                for (const p in o.pages) {
-                    sublinks += '<li><a href="' + o.pages[p].url + '">' +
-                        o.pages[p].title + '</a></li>';
+                for (const name in o.pages) {
+                    sublinks += '<li><a href="' + o.pages[name].url + '">' +
+                        name + '</a></li>';
                 }
             }
             str += `<li class="sidebar--active">
                         ${ mo3.getFile('src/assets/img/fold.svg').str }
-                        <a href="${o.url}">${o.title + APIlabel}</a>
+                        <a href="${o.url}">${name + APIlabel}</a>
                         <ol class="sidebar--sub">${sublinks}</ol>
                     </li>`;
         } else {
-            str += '<li><a href="' + o.url + '">' + o.title + APIlabel + '</a></li>';
+            str += '<li><a href="' + o.url + '">' + name + APIlabel + '</a></li>';
         }
     }
     return str;
 }
 
+
+function lookup(filename) {
+    let url = filename.slice(0, -5); // rm .html from links
+    if (url.substr(-5) === 'index') { url = url.slice(0, -5); }
+
+    for (const key in index) {
+        const obj = index[key];
+        if (obj.url === url) {
+            obj.breadcrumb = '<span class="raquo">»</span> ' + key;
+            return obj;
+        }
+        if (obj.pages && !Array.isArray(obj.pages)) {
+            for (const subkey in obj.pages) {
+                if (obj.pages[subkey].url === url) {
+                    obj.pages[subkey].breadcrumb = '<span class="raquo">»</span> ' +
+                        '<a href="./">' + key + '</a> <span class="raquo">»</span> ' + subkey;
+                    return obj.pages[subkey];
+                }
+            }
+        }
+    }
+    throw filename + ' was not found in index.json';
+}
+
+
 function html() {
     return gulp.src(['src/**/*.html', '!src/assets/**'])
         .pipe(through.obj((file, enc, cb) => {
             const filename = file.path.substring(file._base.length);
-            const meta = index[filename];
-            if (!meta) { throw filename + ' was not found'; }
+            const meta = lookup(filename);
             const obj = mo3.flatten([env, meta]);
 
             // Sass and minify inline css.
-            const str = file.contents.toString()
-                .replace(/<style>([\S\s]*?)<\/style>/g, (m, data) => '<style>' + sass
-                    .renderSync({ data, outputStyle: 'compressed' }).css + '</style>');
+            const str = file.contents.toString();
 
             // mo3 w. template.
             file.contents = Buffer.from(mo3.fromString(mo3
@@ -103,6 +108,7 @@ function html() {
         .pipe(gulp.dest('www'))
         .pipe(connect.reload());
 }
+
 
 function code() {
     // NB: We want '.html' last, since they often include other code.

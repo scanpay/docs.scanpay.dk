@@ -136,9 +136,34 @@ function removeHash() {
         headings[i].addEventListener('mouseleave', removeHash);
     }
 
+    // TODO: Improve performance and class/ID names
+    const pics = document.getElementsByClassName('enlarge');
+    for (let i = 0; i < pics.length; i++) {
+        pics[i].onclick = imageZoom;
+    }
+
+    function imageZoom(e) {
+        const bg = document.createElement('div');
+        bg.id = 'picbg';
+        const img = document.createElement('img');
+        img.src = e.target.src;
+        bg.appendChild(img);
+        bg.onclick = () => {
+            document.getElementById('picbg').remove();
+        };
+        document.body.appendChild(bg);
+        document.addEventListener('keydown', (evt) => {
+            if (evt.key === 'Escape') {
+                const picbg = document.getElementById('picbg');
+                if (picbg) { picbg.remove(); }
+            }
+        }, { once: true });
+    }
+
     /**
     *   A tiny Google Analytics client (Measurement Protocol)
     */
+
     function _ga(o) {
         const time = Date.now();
         let cid = localStorage._ga;
@@ -170,5 +195,7 @@ function removeHash() {
         sd: screen.colorDepth + '-bits',
         ul: navigator.language
     });
+
+
 
 })();

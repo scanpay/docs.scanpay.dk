@@ -4,7 +4,7 @@
   The Subscriptions API allows you to handle recurring payments. You can use it to charge customers on a regular basis or to save a customer's payment details, so the customer does not have to enter the information again. There are three API calls: <a href="/subscriptions/create-subscriber">Create subscriber</a>, <a href="/subscriptions/charge-subscriber">Charge subscriber</a> and <a href="/subscriptions/renew-subscriber">Renew Subscriber</a>. Here we will show you how to use the API:
 </p>
 
-<h4>Create subscriber</h4>
+<h4 id="create-subscriber">Create subscriber</h4>
 <p>
   The <a href="/subscriptions/create-subscriber">create subscriber</a> API call will return a link to a payment page, where the customer can enter their payment details. The only required field is <code class="code code--small">subscriber</code>, but we recommend that you provide us with as much information as possible.
 </p>
@@ -18,7 +18,7 @@
   You will receive a <a href="/synchronization#ping-service">ping</a> when the customer has completed the process. You can then use the Synchronization API to retrieve the subscriber ID.
 </p>
 
-<h4>Charge subscriber</h4>
+<h4 id="charge-subscriber">Charge subscriber</h4>
 <p>
   The <a href="/subscriptions/charge-subscriber">charge subscriber</a> API call will charge the specified subscriber, in this case subscriber <code class="code code--small hljs-number">186</code>. The only required field is <code class="code code--small">items</code>, but we recommend that you provide us with as much information as possible.
 </p>
@@ -27,7 +27,7 @@
   <pre><code class="pcode">{% include "src/assets/code/subscriptions/pseudo-charge.html" %}</code></pre>
 </div>
 
-<h4>Renew subscriber</h4>
+<h4 id="renew-subscriber">Renew subscriber</h4>
 <p>
   The <a href="/subscriptions/renew-subscriber">renew subscriber</a> API call will return a link to a payment page, where the customer can update their payment details e.g. if the card has expired. There are no required fields.
 </p>

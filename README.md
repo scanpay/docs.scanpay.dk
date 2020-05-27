@@ -8,10 +8,12 @@ So, you are interested in contributing? Welcome! Every single contribution is ve
 
 To build it locally, you will need to install [Node.js](https://nodejs.org/en/) and [Gulp4](http://gulpjs.com).
 
+
 ```bash
 git clone git@github.com:scanpaydk/docs.scanpay.dk.git
 cd docs.scanpay.dk
 npm install
+npm link gulp
 gulp
 ```
 
@@ -31,6 +33,5 @@ Arrow Functions      | 45     | 10       | 22      | 12     | 32
 
 ## TODO
 
-* Add subpages to e-commerce modules (SEO)
 * Describe 'X-Signature' in /security
-* Update and align some libs
+* Check composer Magento 2
