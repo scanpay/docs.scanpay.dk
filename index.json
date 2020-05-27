@@ -1,37 +1,44 @@
 {
-    "/index.html" : {
-        "title": "Getting Started",
+    "Getting Started" : {
+        "url": "/",
+        "title": "Getting Started with Scanpay",
         "meta": "Getting started with Scanpay and online payments.",
         "pages": ["Create user and shop", "Setup acquirers", "Integrate"]
     },
 
-    "/payment-link.html": {
-        "title": "Payment Link",
-        "meta": "Use this API to generate payment links that you can send to your customers.",
+    "Payment Link": {
+        "url": "/payment-link",
+        "title": "Payment Link API",
+        "meta": "Generate payment links, that you can send to your customers.",
         "pages": ["Request Headers", "Request Fields", "Response Fields", "MobilePay", "Examples"],
         "API": true
     },
 
-    "/synchronization.html": {
-        "title": "Synchronization",
-        "meta": "Synchronization API to keep all your systems up-to-date with changes to your payments.",
+    "Synchronization": {
+        "url": "/synchronization",
+        "title": "Synchronization API",
+        "meta": "The synchronization API will keep all your systems up-to-date with changes to your payments.",
         "pages": ["Ping Service", "Sequence Request"],
         "API": true
     },
 
-    "/subscriptions/index.html": {
-        "title": "Subscriptions",
-        "meta": "...",
+    "Subscriptions": {
+        "url": "/subscriptions/",
+        "title": "Subscriptions API",
+        "meta": "The Subscriptions API allows you to handle recurring payments. You can use it to charge customers regularly or after certain events.",
         "pages": {
-            "/subscriptions/create-subscriber.html": {
+            "Create Subscriber": {
+                "url": "/subscriptions/create-subscriber",
                 "title": "Create Subscriber",
                 "meta": "..."
             },
-            "/subscriptions/charge-subscriber.html": {
+            "Charge Subscriber": {
+                "url": "/subscriptions/charge-subscriber",
                 "title": "Charge Subscriber",
                 "meta": "..."
             },
-            "/subscriptions/renew-subscriber.html": {
+            "Renew Subscriber": {
+                "url": "/subscriptions/renew-subscriber",
                 "title": "Renew Subscriber",
                 "meta": "..."
             }
@@ -39,52 +46,62 @@
         "API": true
     },
 
-    "/acquiring-banks.html": {
-        "title": "Acquiring banks",
+    "Acquiring banks": {
+        "url": "/acquiring-banks",
+        "title": "Supported acquiring banks",
         "meta": "Accept payments online through one of our acquiring banks.",
         "pages": ["Supported acquirers"]
     },
 
-    "/modules/index.html": {
-        "title": "E-commerce modules",
+    "E-commerce modules": {
+        "url": "/modules/",
+        "title": "Scanpay E-commerce modules",
         "meta": "E-commerce modules &amp; plugins for easy integration with Scanpay.",
         "pages": {
-            "/modules/woocommerce.html": {
-                "title": "WooCommerce",
-                "meta": "..."
+            "WooCommerce": {
+                "url": "/modules/woocommerce",
+                "title": "WooCommerce Payment Plugin - Scanpay",
+                "meta": "Scanpay payment plugin for WooCommerce. Accept payment cards and MobilePay in WooCommerce."
             },
-            "/modules/magento-2.html": {
-                "title": "Magento 2",
-                "meta": "..."
+            "Magento 2": {
+                "url": "/modules/magento-2",
+                "title": "Magento 2 Payment Module - Scanpay",
+                "meta": "Scanpay payment module for Magento 2. Accept payment cards and MobilePay in Magento."
             },
-            "/modules/prestashop.html": {
-                "title": "PrestaShop",
-                "meta": "..."
+            "PrestaShop": {
+                "url": "/modules/prestashop",
+                "title": "PrestaShop Payment Module - Scanpay",
+                "meta": "Scanpay payment module for PrestaShop. Accept payment cards and MobilePay in PrestaShop."
             },
-            "/modules/thirty-bees.html": {
-                "title": "Thirty Bees",
-                "meta": "..."
+            "Thirty Bees": {
+                "url": "/modules/thirty-bees",
+                "title": "Thirty Bees Payment Module - Scanpay",
+                "meta": "Scanpay payment module for Thirty Bees. Accept payment cards and MobilePay in Thirty Bees."
             },
-            "/modules/opencart.html": {
-                "title": "OpenCart",
-                "meta": "..."
+            "OpenCart": {
+                "url": "/modules/opencart",
+                "title": "OpenCart Payment Module - Scanpay",
+                "meta": "Scanpay payment module for OpenCart. Accept payment cards and MobilePay in OpenCart."
             }
         }
     },
 
-    "/api-libraries.html": {
+    "API Libraries": {
+        "url": "/api-libraries",
         "title": "API Libraries",
         "meta": "Scanpay has official client libraries for popular programming languages.",
         "pages": ["PHP", "Node.js", "Ruby", "Go", ".NET"]
     },
 
-    "/security.html": {
+    "Security": {
+        "url": "/security",
         "title": "Security",
         "meta": "Scanpay is PCI DSS certified and security is very important to us.",
         "pages": ["Data Protection", "Transmission Security"]
     },
 
-    "/search.html": {
+    "Search": {
+        "url": "/search",
         "title": "Search",
         "meta": "",
         "hidden": true

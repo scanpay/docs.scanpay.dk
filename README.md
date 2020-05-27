@@ -33,6 +33,5 @@ Arrow Functions      | 45     | 10       | 22      | 12     | 32
 
 ## TODO
 
-* Add subpages to e-commerce modules (SEO)
 * Describe 'X-Signature' in /security
-* Update and align some libs
+* Check composer Magento 2
