@@ -1,38 +1,65 @@
 
 <h1>WooCommerce</h1>
 <p>
-  We have developed an official payment module for WooCommerce 4.0 and higher. The module is developed and maintained by scanpay. We have uploaded the source code to <a target="_blank" href="https://github.com/scanpaydk/woocommerce-scanpay">GitHub</a> and the plugin can be installed from Wordpress Plugins (<a href="https://da.wordpress.org/plugins/scanpay-for-woocommerce/">here</a>). We encourage you to help us improve the module – all contributions are much appreciated.
+  We have developed a payment plugin for <a target="_blank" href="https://da.wordpress.org/plugins/scanpay-for-woocommerce/">WooCommerce</a>. WooCommerce is an open-source e-commerce plugin for WordPress. Our WooCommerce plugin is developed and maintained by our development team in Copenhagen. The source code is available on <a target="_blank" href="https://github.com/scanpaydk/woocommerce-scanpay">GitHub</a>. The plugin is compatible with WooCommerce Subscriptions.
 </p>
 
-<h2>Installation</h2>
-<p>
-  You can install the WooCommerce module directly from your Wordpress admin. Login to your Wordpress admin and navigate to <code class="code code--small">Plugins &gt; Add New</code>. Search for <em>'scanpay'</em> and you should see the following plugin:
-</p>
+<section>
+  <h2>Installation</h2>
+  <p>
+    You can install the plugin directly from your WordPress. Log in to your WordPress admin area and navigate to <code class="code code--small">Plugins &gt; Add New</code>. Search for <em>"scanpay"</em> and install the following plugin:
+  </p>
 
-<img class="woo--img1" width="586" height="167" src="/img/woocommerce/install-scanpay.png" alt="Install Scanpay in WooCommerce Admin">
+  <img class="woo--img1" width="586" height="167" src="/img/woocommerce/install-scanpay.png" alt="Install Scanpay for WooCommerce">
 
-<h3>Configuration</h3>
-<ol class="modules--ol">
-  <li>
-    Navigate to <code class="code code--small">Plugins &gt; Installed Plugins</code>.
-  </li>
-  <li>
-    Find the <i>'Scanpay for WooCommerce'</i> plugin in the list and press <i>'Activate'</i>.
-  </li>
-  <li>
-    A <i>'Settings'</i> link should now appear where the <i>'Activate'</i> link was before. Press it.
-  </li>
-  <li>
-    Enter a Scanpay API key in the API key field. You can find your API key <a href="//dashboard.scanpay.dk/settings/api">here</a>.
-    <img class="pic" width="595" height="67" alt="Scanpay API key" src="/img/woocommerce/apikey.png">
-  </li>
-  <li>
-    Press <i>'Save changes'</i> to finalize the configuration process. A Scanpay payment method should now appear upon checkout.
-  </li>
-  <li>
-    Copy the content of the Ping URL field into the dashboard <i>'Your Ping URL'</i> field at <a href="//dashboard.scanpay.dk/settings/api">https://dashboard.scanpay.dk/settings/api</a> and save it.
-  </li>
-  <li>
-    Pressing the 'ping' button should now cause a ping to register in the WooCommerce configuration, making the ping URL box green.
-  </li>
-</ol>
+  <h3>Configuration</h3>
+  <ol class="modules--ol">
+    <li>
+      Navigate to <code class="code code--small">Plugins &gt; Installed Plugins</code> and activate the <i>"Scanpay for WooCommerce"</i> plugin.
+    </li>
+
+    <li>
+      Navigate to <code class="code code--small">WooCommerce &gt; Settings &gt; Payments</code>. This is where you manage your payment settings in WooCommerce. Find the payment method called <i>"Scanpay"</i> and click <i>"Set up"</i>. This will open the configuration page, as shown on the pictures below.
+
+      <div class="pic-flex">
+        <img class="pic pic-padr enlarge" width="300" height="221.5" src="/img/woocommerce/payment-settings.png" alt="WooCommerce Payment Settings">
+        <img class="pic enlarge" width="300" height="221.5" src="/img/woocommerce/plugin-configuration.png" alt="Plugin configuration">
+      </div>
+    </li>
+
+    <li>
+      Insert your Scanpay API key in the <i>"API key"</i> field and click <i>"Save changes"</i>. You can generate an API key in our dashboard (<a target="_blank" href="https://dashboard.scanpay.dk/settings/api?module=woocommerce">here</a>). It is important to always keep your API key private and secure.
+    </li>
+
+    <li>
+      Click the <i>"send ping"</i> button at the top of the configuration page. This will take you to our dashboard, where it will set your <i>ping URL</i> and send a manual ping to your shop.
+
+      <div class="pic-flex">
+        <img class="pic pic-padr enlarge" width="300" height="152" src="/img/woocommerce/awaiting-ping.png" alt="Awaiting ping from server">
+        <img class="pic enlarge" width="300" height="152" src="/img/woocommerce/success.png" alt="Configuration successful">
+      </div>
+    </li>
+
+    <li>
+      You have now completed the installation and configuration of our WooCommerce plugin. We recommend that you perform a test order, to ensure that everything is working as intended.
+      <img class="pic enlarge" width="300" height="168" src="/img/woocommerce/checkout.png" alt="WooCommerce checkout">
+    </li>
+  </ol>
+</section>
+
+<section>
+  <h3>Frequently asked questions</h3>
+  <ol style="list-style: none; padding: 0;">
+    <li>
+      <b>How to enable MobilePay Online?</b><br>
+      First you need to enable MobilePay Online in our dashboard (<a href="https://dashboard.scanpay.dk/settings/acquirers">link</a>). Then open WooCommerce and navigate to <code class="code code--small">WooCommerce &gt; Settings &gt; Payments</code> and enable <i>"MobilePay (Scanpay)"</i>.
+    </li>
+    <li style="margin-top:14px;">
+      <b>Does this plugin support WooCommerce Subscriptions?</b><br>
+      Yes. The plugin is compatible with <a target="_blank" href="https://woocommerce.com/products/woocommerce-subscriptions/">WooCommerce Subscriptions</a>.
+    </li>
+  </ol>
+</section>
+
+
+
