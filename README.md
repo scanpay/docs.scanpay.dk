@@ -30,8 +30,3 @@ Const                | 49     | 10       | 36      | 12     | 36
 Arrow Functions      | 45     | 10       | 22      | 12     | 32
 ~~Fetch~~            | 42     | **10.1** | 39      | **14** | 29
 
-
-## TODO
-
-* Describe 'X-Signature' in /security
-* Check composer Magento 2
