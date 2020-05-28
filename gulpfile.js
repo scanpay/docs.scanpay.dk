@@ -174,6 +174,14 @@ gulp.task('serve', () => {
     gulp.watch('src/assets/code/**/*.*', gulp.series(code, html));
 });
 
+
+function sitemapEntry(url) {
+    const path = url + ((url.slice(-1) === '/') ? 'index.html' : '.html');
+    const stat = fs.statSync(Path.join(__dirname, 'www', path));
+    return '<url><loc>https://docs.scanpay.dk' + url + '</loc><lastmod>' +
+            stat.mtime.toISOString() + '</lastmod><changefreq>monthly</changefreq></url>';
+}
+
 gulp.task('sitemap', (cb) => {
     let map = '<?xml version="1.0" encoding="UTF-8"?><urlset ' +
     'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
@@ -181,10 +189,13 @@ gulp.task('sitemap', (cb) => {
     for (const x in index) {
         const o = index[x];
         if (o.hidden) { continue; }
-        const path = o.url + ((o.url.slice(-1) === '/') ? 'index.html' : '.html');
-        const stat = fs.statSync(Path.join(__dirname, 'www', path));
-        map += '<url><loc>https://docs.scanpay.dk' + o.url + '</loc>';
-        map += '<lastmod>' + stat.mtime.toISOString() + '</lastmod></url>';
+        map += sitemapEntry(o.url);
+
+        if (o.pages && !Array.isArray(o.pages)) {
+            for (const name in o.pages) {
+                map += sitemapEntry(o.pages[name].url);
+            }
+        }
     }
     map += '</urlset>';
     const fd = fs.openSync(Path.join(__dirname, 'www', 'sitemap.xml'), 'w');
