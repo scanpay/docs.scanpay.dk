@@ -95,7 +95,7 @@ function html() {
             const filename = file.path.substring(file._base.length);
             const meta = lookup(filename);
             const obj = mo3.flatten([env, meta]);
-            obj.path = filename;
+            obj.path = filename.substring(1);
             const str = file.contents.toString();
 
             // mo3 w. template.
