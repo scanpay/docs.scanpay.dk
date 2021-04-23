@@ -53,7 +53,7 @@ function createSidebar(active) {
                 }
             }
             str += `<li class="sidebar--active">
-                        ${ mo3.getFile('src/assets/img/fold.svg').str }
+                        ${ mo3.getFile('assets/img/fold.svg').str }
                         <a href="${o.url}">${name + APIlabel}</a>
                         <ol class="sidebar--sub">${sublinks}</ol>
                     </li>`;
@@ -79,7 +79,8 @@ function lookup(filename) {
             for (const subkey in obj.pages) {
                 if (obj.pages[subkey].url === url) {
                     obj.pages[subkey].breadcrumb = '<span class="raquo">»</span> ' +
-                        '<a href="./">' + key + '</a> <span class="raquo">»</span> ' + subkey;
+                        '<a href="./">' + key + '</a> <span class="raquo">»</span> ' +
+                        subkey;
                     return obj.pages[subkey];
                 }
             }
@@ -90,7 +91,7 @@ function lookup(filename) {
 
 
 function html() {
-    return gulp.src(['src/**/*.html', '!src/assets/**'])
+    return gulp.src(['html/**/*.html'])
         .pipe(through.obj((file, enc, cb) => {
             const filename = file.path.substring(file._base.length);
             const meta = lookup(filename);
@@ -100,8 +101,8 @@ function html() {
 
             // mo3 w. template.
             file.contents = Buffer.from(mo3.fromString(mo3
-                .getFile('src/assets/code/header.tpl').str +
-                str + mo3.getFile('src/assets/code/footer.tpl').str, obj));
+                .getFile('tpl/header.html').str +
+                str + mo3.getFile('tpl/footer.html').str, obj));
             cb(null, file);
         }))
         .pipe(gulp.dest('www'))
@@ -111,8 +112,7 @@ function html() {
 
 function code() {
     // NB: We want '.html' last, since they often include other code.
-    return gulp.src(['src/assets/code/**/*.*', '!src/assets/code/**/*.tpl',
-        '!src/assets/code/**/*.html', 'src/assets/code/**/*.html'])
+    return gulp.src(['code/**/*.*', '!code/**/*.html', 'code/**/*.html'])
         .pipe(through.obj((file, enc, cb) => {
 
             const ext = file.path.split('.').splice(1).pop();
@@ -122,7 +122,6 @@ function code() {
                 str = hljs.highlight('{' + str + '}', { language: 'json' }).value;
                 str = str.substring(1, str.length - 1);
             } else if (ext === 'html') {
-                // Already highlighted (handcrafted)
                 str = mo3.fromString(str);
             } else {
                 str = hljs.highlight(str, { language: ext }).value;
@@ -136,7 +135,7 @@ function code() {
 }
 
 function assets() {
-    return gulp.src(['src/assets/**/*.*', '!src/assets/code/**'])
+    return gulp.src(['assets/**/*'])
         .pipe(through.obj((file, enc, cb) => {
             const ext = Path.extname(file.path);
             if (ext === '.scss') {
@@ -167,10 +166,11 @@ gulp.task('serve', () => {
         }])
     });
 
-    gulp.watch(['src/**/*.html'], html);
-    gulp.watch(['src/assets/**/*.*'], assets);
+    gulp.watch(['tpl/**/*.html'], gulp.series('build'));
+    gulp.watch(['html/**/*.html'], html);
+    gulp.watch(['assets/**/*'], assets);
     gulp.watch(['index.json'], gulp.series('build'));
-    gulp.watch('src/assets/code/**/*.*', gulp.series(code, html));
+    gulp.watch('/code/**/*.*', gulp.series(code, html));
 });
 
 

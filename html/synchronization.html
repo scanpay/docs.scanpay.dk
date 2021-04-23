@@ -61,7 +61,7 @@
   In addition, we ping you every 5 minutes to ensure that your system is up to date. When you receive a ping, it is important that you verify the authenticity of the request. Afterwards you can look at <code class="code">seq</code> to determine if there are any changes. Explained with pseudocode:
 </p>
 
-<pre><code class="pcode">{% include "src/assets/code/sync/ping.pseudo.html" %}</code></pre>
+<pre><code class="pcode">{% include "code/sync/ping.pseudo.html" %}</code></pre>
 
 <p>
   You can configure your ping endpoint in our dashboard (<a href="https://dashboard.scanpay.dk/settings/api">here</a>). We recommend that you use Transport Layer Security (TLS), but this is not a requirement.
@@ -151,7 +151,7 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <pre>{% include "src/assets/code/sync/transaction-acts.json" %}</pre>
+        <pre>{% include "code/sync/transaction-acts.json" %}</pre>
       </td>
       <td>
         A cumulative array of actions made to this transaction. There are 3 types of actions:
@@ -164,7 +164,7 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <pre>{% include "src/assets/code/sync/transaction-totals.json" %}</pre>
+        <pre>{% include "code/sync/transaction-totals.json" %}</pre>
       </td>
       <td>
         The relevant values for this transaction.
@@ -172,7 +172,7 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <pre>{% include "src/assets/code/sync/transaction-time.json" %}</pre>
+        <pre>{% include "code/sync/transaction-time.json" %}</pre>
       </td>
       <td>
         Unix timestamps.
@@ -228,7 +228,7 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <pre>{% include "src/assets/code/sync/subscriber-acts.json" %}</pre>
+        <pre>{% include "code/sync/subscriber-acts.json" %}</pre>
       </td>
       <td>
         A cumulative array of actions made to this subscriber. As of now, there is only one type of action:
@@ -239,7 +239,7 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <pre>{% include "src/assets/code/sync/subscriber-time.json" %}</pre>
+        <pre>{% include "code/sync/subscriber-time.json" %}</pre>
       </td>
       <td>
         Unix timestamps.
@@ -295,7 +295,7 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <pre>{% include "src/assets/code/sync/transaction-acts.json" %}</pre>
+        <pre>{% include "code/sync/transaction-acts.json" %}</pre>
       </td>
       <td>
         A cumulative array of actions made to this charge. There are 2 types of actions:
@@ -307,7 +307,7 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <pre>{% include "src/assets/code/sync/charge-subscriber.json" %}</pre>
+        <pre>{% include "code/sync/charge-subscriber.json" %}</pre>
       </td>
       <td>
         ...
@@ -315,7 +315,7 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <pre>{% include "src/assets/code/sync/charge-totals.json" %}</pre>
+        <pre>{% include "code/sync/charge-totals.json" %}</pre>
       </td>
       <td>
         The relevant values for this transaction.
@@ -323,7 +323,7 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <pre>{% include "src/assets/code/sync/charge-time.json" %}</pre>
+        <pre>{% include "code/sync/charge-time.json" %}</pre>
       </td>
       <td>
         Unix timestamps.
@@ -345,7 +345,7 @@
     <option data-file="sync/db.mssql.html">MSSQL</option>
     <option data-file="sync/db.generic.html">Generic</option>
   </select>
-  <pre><code class="code--code pcode">{% include "src/assets/code/sync/db.mysql.html" %}</code></pre>
+  <pre><code class="code--code pcode">{% include "code/sync/db.mysql.html" %}</code></pre>
 </div>
 --->
 
