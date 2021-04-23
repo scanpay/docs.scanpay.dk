@@ -95,8 +95,7 @@ function html() {
             const filename = file.path.substring(file._base.length);
             const meta = lookup(filename);
             const obj = mo3.flatten([env, meta]);
-
-            // Sass and minify inline css.
+            obj.path = filename;
             const str = file.contents.toString();
 
             // mo3 w. template.
