@@ -120,13 +120,13 @@ function code() {
             let str = file.contents.toString();
             if (ext === 'json' && str[0] !== '{') {
                 // Hack for json w/o start braces.
-                str = hljs.highlight(ext, '{' + str + '}', true).value;
+                str = hljs.highlight('{' + str + '}', { language: 'json' }).value;
                 str = str.substring(1, str.length - 1);
             } else if (ext === 'html') {
                 // Already highlighted (handcrafted)
                 str = mo3.fromString(str);
             } else {
-                str = hljs.highlight(ext, str, true).value;
+                str = hljs.highlight(str, { language: ext }).value;
             }
             // Save highlighted code to mo3's cache
             mo3.setCache(file.path.substring(__dirname.length + 1), str);
