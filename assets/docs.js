@@ -140,7 +140,7 @@ function removeHash() {
     /**
     *   A tiny Google Analytics client (Measurement Protocol)
     */
-
+    /*
     function _ga(o) {
         const time = Date.now();
         let cid = localStorage._ga;
@@ -172,7 +172,6 @@ function removeHash() {
         sd: screen.colorDepth + '-bits',
         ul: navigator.language
     });
-
-
+    */
 
 })();
