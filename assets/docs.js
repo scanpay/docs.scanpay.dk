@@ -2,29 +2,6 @@
 *   @author ScanPay ApS.
 **/
 
-// Very simple fetch polyfill (for Safari < 10.1)
-if (!window.fetch) {
-    window.fetch = url => new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-
-        xhr.onload = () => {
-            resolve({
-                text() {
-                    return xhr.responseText;
-                },
-                json() {
-                    return JSON.parse(xhr.response);
-                }
-            });
-        };
-
-        xhr.onerror = () => reject(new TypeError('Network request failed'));
-        xhr.ontimeout = () => reject(new TypeError('Network request failed'));
-        xhr.open('GET', url, true);
-        xhr.send();
-    });
-}
-
 function changeCodeEx(evt) {
     const btn = evt.target;
     if (btn.tagName === 'BUTTON') {
