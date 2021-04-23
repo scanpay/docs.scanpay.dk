@@ -1,5 +1,10 @@
 <!DOCTYPE HTML><html lang="en">
 <link href="/a/docs.css?{{ csst }}" rel="stylesheet">
+<link rel="preload" href="/a/font/N400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/a/font/N400i.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/a/font/N600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/a/font/B700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/a/font/H400.woff2" as="font" type="font/woff2" crossorigin>
 <script defer src="/a/docs.js?{{ jst }}"></script>
 <title>{{ title }}</title>
 <meta name="description" content="{{ meta }}">
