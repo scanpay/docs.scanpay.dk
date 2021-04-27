@@ -19,13 +19,11 @@ gulp.task('sidebar', (cb) => {
 
     for (const name in index) {
         const o = index[name];
-        if (!o.hidden) {
-            o.sidebar = createSidebar(o);
-            // Add the sidebar to subpages
-            if (o.pages && !Array.isArray(o.pages)) {
-                for (const name in o.pages) {
-                    o.pages[name].sidebar = o.sidebar;
-                }
+        o.sidebar = createSidebar(o);
+        // Add the sidebar to subpages
+        if (o.pages && !Array.isArray(o.pages)) {
+            for (const name in o.pages) {
+                o.pages[name].sidebar = o.sidebar;
             }
         }
     }
