@@ -1,0 +1,9 @@
+"method": {
+    "type": "card",
+    "id": "BPb/9x2aAXzx6KDB5ZnSKIFJVPD8jSGfEQTX9MP/Tcc",
+    "card": {
+        "brand": "visadankort",
+        "last4": 1234,
+        "exp": 1719784799
+    }
+}

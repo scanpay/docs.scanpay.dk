@@ -67,7 +67,7 @@
   You can configure your ping endpoint in our dashboard (<a href="https://dashboard.scanpay.dk/settings/api">here</a>). We recommend that you use Transport Layer Security (TLS), but this is not a requirement.
 </p>
 
-<h2 id="seq-request">Sequence Request</h2>
+<h2 id="sequence-request">Sequence Request</h2>
 <p>
   A sequence request is a HTTP GET request that you make when you want to pull changes from our servers. The endpoint is <code class="code">https://api.scanpay.dk/v1/seq/<span class="hljs-string">$num</span></code>, where <code class="code hljs-string">$num</code> is your local version of the sequence number. All requests have to be authenticated with HTTP basic authentication (<a href="/security#request-authentication">more info</a>). Successful responses have a <code class="code hljs-number">200</code> status code and a JSON body:
 </p>
@@ -130,7 +130,7 @@
         <span class="hljs-attr">"id"</span>: <span class="hljs-number">2942</span>
       </td>
       <td>
-        The scanpay transaction ID.
+        The transaction ID.
       </td>
     </tr>
     <tr>
@@ -146,7 +146,35 @@
         <span class="hljs-attr">"rev"</span>: <span class="hljs-number">3</span>
       </td>
       <td>
-        A revision number. It starts at <code class="code code--small hljs-number">1</code> and it increments every time the transaction data change.
+        A revision number. It starts at <code class="code code--small hljs-number">1</code> and it increments every time the transaction data changes.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "code/sync/transaction-method.json" %}</pre>
+      </td>
+      <td>
+        A human-interpretable breakdown of the payment method where type represents the method used:
+        <ul class="table--ul">
+          <li><b>card:</b> a credit card transaction.</li>
+          <li><b>mobilepay:</b> a Mobilepay transaction.</li>
+        </ul>
+        and id is a per-shop opaque ID assigned to the payment device (eg. credit card number). A subobject, named for the internal method used to process the payment, contains identifiable information about the payment method to help with customer identification. Currently only "card" is supported. No subobject is guaranteed to be there and more will be added in the future as they become necessary. The card brand can be one of the following:
+        <ul class="table--ul">
+          <li><b>amex:</b> American Express.</li>
+          <li><b>dankort:</b> a pure Dankort.</li>
+          <li><b>diners:</b> Diners Club card.</li>
+          <li><b>discover:</b> Discover Network card.</li>
+          <li><b>forbrugsforening:</b> Forbrugsforeningen's Dankort.</li>
+          <li><b>jcb:</b> JCB card.</li>
+          <li><b>maestro:</b> Maestro card.</li>
+          <li><b>mastercard:</b> Mastercard.</li>
+          <li><b>paypal:</b> a PayPal branded Discover Network credit card.</li>
+          <li><b>unionpay:</b> China UnionPay card.</li>
+          <li><b>visa:</b> Visa.</li>
+          <li><b>visadankort:</b> a Visa/Dankort cobranded card.</li>
+        </ul>
+        last4 is the last 4 digits of the card number.
       </td>
     </tr>
     <tr>
@@ -167,7 +195,13 @@
         <pre>{% include "code/sync/transaction-totals.json" %}</pre>
       </td>
       <td>
-        The relevant values for this transaction.
+        The sum totals of all actions performed on this transaction.
+        <ul class="table--ul">
+          <li><b>authorized:</b> how much was originally authorized. This can differ from how much you attempted to authorize.</li>
+          <li><b>captured:</b> how much has been captured so far.</li>
+          <li><b>refunded:</b> how much has been refunded so far.</li>
+          <li><b>left:</b> how much is still left to capture.</li>
+        </ul>
       </td>
     </tr>
     <tr>
@@ -175,7 +209,7 @@
         <pre>{% include "code/sync/transaction-time.json" %}</pre>
       </td>
       <td>
-        Unix timestamps.
+        Unix timestamps denoting when the payment link was created and when the authorization succeeded.
       </td>
     </tr>
   </tbody>
@@ -204,7 +238,7 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <span class="hljs-attr">"id"</span>: <span class="hljs-number">2942</span>
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">19</span>
       </td>
       <td>
         The subscriber ID.
@@ -223,7 +257,36 @@
         <span class="hljs-attr">"rev"</span>: <span class="hljs-number">2</span>
       </td>
       <td>
-        A revision number. It starts at <code class="code code--small hljs-number">1</code> and it increments every time the subcriber data change.
+        A revision number. It starts at <code class="code code--small hljs-number">1</code> and it increments every time the subcriber data changes.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "code/sync/subscriber-method.json" %}</pre>
+      </td>
+      <td>
+        A human-interpretable breakdown of the payment method where type represents the method used:
+        <ul class="table--ul">
+          <li><b>card:</b> a credit card transaction.</li>
+          <li><b>mobilepay:</b> a Mobilepay transaction.</li>
+        </ul>
+        and id is a per-shop opaque ID assigned to the payment device (eg. credit card number). A subobject, named for the internal method used to process the payment, contains identifiable information about the payment method to help with customer identification. Currently only "card" is supported. No subobject is guaranteed to be there and more will be added in the future as they become necessary. The card brand can be one of the following:
+        <ul class="table--ul">
+          <li><b>amex:</b> American Express.</li>
+          <li><b>dankort:</b> a pure Dankort.</li>
+          <li><b>diners:</b> Diners Club card.</li>
+          <li><b>discover:</b> Discover Network card.</li>
+          <li><b>forbrugsforening:</b> Forbrugsforeningen's Dankort.</li>
+          <li><b>jcb:</b> JCB card.</li>
+          <li><b>maestro:</b> Maestro card.</li>
+          <li><b>mastercard:</b> Mastercard.</li>
+          <li><b>paypal:</b> a PayPal branded Discover Network credit card.</li>
+          <li><b>unionpay:</b> China UnionPay card.</li>
+          <li><b>visa:</b> Visa.</li>
+          <li><b>visadankort:</b> a Visa/Dankort cobranded card.</li>
+        </ul>
+        last4 is the last 4 digits of the card number.
+        exp is a UNIX timestamp of the card's latest possible expiration time.
       </td>
     </tr>
     <tr>
@@ -251,7 +314,7 @@
 
 <h4 id="seq-charge">Charge</h4>
 <p>
-  You will receive this <i>change</i> if you <a href="/subscriptions/charge-subscriber">charge</a> a subscriber through our subscriptions API.
+  You will receive this <i>change</i> if you <a href="/subscriptions/charge-subscriber">charge</a> a subscriber through our subscriptions API. Charges are fundamentally the same as <a href="#seq-transaction">transactions</a> with some extra information about the subcriber.
 </p>
 <table class="table--seqreq">
   <thead>
@@ -271,38 +334,10 @@
     </tr>
     <tr>
       <td class="tablecode">
-        <span class="hljs-attr">"id"</span>: <span class="hljs-number">38189</span>
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">3180</span>
       </td>
       <td>
-        The scanpay transaction ID.
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"c123"</span>
-      </td>
-      <td>
-        The order ID that you assigned to the charge when you created it (<a href="/subscriptions/charge-subscriber">more details</a>).
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attr">"rev"</span>: <span class="hljs-number">7</span>
-      </td>
-      <td>
-        A revision number. It starts at <code class="code code--small hljs-number">1</code> and it increments every time the subcriber data change.
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <pre>{% include "code/sync/transaction-acts.json" %}</pre>
-      </td>
-      <td>
-        A cumulative array of actions made to this charge. There are 2 types of actions:
-        <ul class="table--ul">
-          <li><b>capture:</b> you captured some or all of the authorized funds.</li>
-          <li><b>refund:</b> you refunded some/all of the captured funds.</li>
-        </ul>
+        The transaction ID.
       </td>
     </tr>
     <tr>
@@ -310,7 +345,64 @@
         <pre>{% include "code/sync/charge-subscriber.json" %}</pre>
       </td>
       <td>
-        ...
+        Identifiers for the subscriber that this charge pertains to. This is the same subscriber ID and reference as you received in the <a href="#seq-subscriber">subscriber</a> entry.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"DEC2019-1274"</span>
+      </td>
+      <td>
+        The order ID that you assigned to the transaction when you <a href="subscriptions/charge-subscriber">charged</a> the subscriber.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <span class="hljs-attr">"rev"</span>: <span class="hljs-number">2</span>
+      </td>
+      <td>
+        A revision number. It starts at <code class="code code--small hljs-number">1</code> and it increments every time the transaction data changes.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "code/sync/transaction-method.json" %}</pre>
+      </td>
+      <td>
+        A human-interpretable breakdown of the payment method where type represents the method used:
+        <ul class="table--ul">
+          <li><b>card:</b> a credit card transaction.</li>
+          <li><b>mobilepay:</b> a Mobilepay transaction.</li>
+        </ul>
+        and id is a per-shop opaque ID assigned to the payment device (eg. credit card number). A subobject, named for the internal method used to process the payment, contains identifiable information about the payment method to help with customer identification. Currently only "card" is supported. No subobject is guaranteed to be there and more will be added in the future as they become necessary. The card brand can be one of the following:
+        <ul class="table--ul">
+          <li><b>amex:</b> American Express.</li>
+          <li><b>dankort:</b> a pure Dankort.</li>
+          <li><b>diners:</b> Diners Club card.</li>
+          <li><b>discover:</b> Discover Network card.</li>
+          <li><b>forbrugsforening:</b> Forbrugsforeningen's Dankort.</li>
+          <li><b>jcb:</b> JCB card.</li>
+          <li><b>maestro:</b> Maestro card.</li>
+          <li><b>mastercard:</b> Mastercard.</li>
+          <li><b>paypal:</b> a PayPal branded Discover Network credit card.</li>
+          <li><b>unionpay:</b> China UnionPay card.</li>
+          <li><b>visa:</b> Visa.</li>
+          <li><b>visadankort:</b> a Visa/Dankort cobranded card.</li>
+        </ul>
+        last4 is the last 4 digits of the card number.
+      </td>
+    </tr>
+    <tr>
+      <td class="tablecode">
+        <pre>{% include "code/sync/charge-acts.json" %}</pre>
+      </td>
+      <td>
+        A cumulative array of actions made to this transaction. There are 3 types of actions:
+        <ul class="table--ul">
+          <li><b>capture:</b> you captured some or all of the authorized funds.</li>
+          <li><b>refund:</b> you refunded some/all of the captured funds.</li>
+          <li><b>void:</b> the transaction was cancelled. This can only happen if nothing has been captured (<a href="/a/sync/transaction-acts.json">example</a>).</li>
+        </ul>
       </td>
     </tr>
     <tr>
@@ -318,7 +410,13 @@
         <pre>{% include "code/sync/charge-totals.json" %}</pre>
       </td>
       <td>
-        The relevant values for this transaction.
+        The sum totals of all actions performed on this transaction.
+        <ul class="table--ul">
+          <li><b>authorized:</b> how much was originally authorized. This can differ from how much you attempted to authorize.</li>
+          <li><b>captured:</b> how much has been captured so far.</li>
+          <li><b>refunded:</b> how much has been refunded so far.</li>
+          <li><b>left:</b> how much is still left to capture.</li>
+        </ul>
       </td>
     </tr>
     <tr>
@@ -326,7 +424,7 @@
         <pre>{% include "code/sync/charge-time.json" %}</pre>
       </td>
       <td>
-        Unix timestamps.
+        Unix timestamps denoting when the charge was commenced and when the authorization succeeded.
       </td>
     </tr>
   </tbody>
