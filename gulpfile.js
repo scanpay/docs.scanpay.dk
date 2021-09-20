@@ -112,18 +112,12 @@ function code() {
     // NB: We want '.html' last, since they often include other code.
     return gulp.src(['code/**/*.*', '!code/**/*.html', 'code/**/*.html'])
         .pipe(through.obj((file, enc, cb) => {
-
-            const ext = file.path.split('.').splice(1).pop();
             let str = file.contents.toString();
-            if (ext === 'json' && str[0] !== '{') {
-                // Hack for json w/o start braces.
-                str = hljs.highlight('{' + str + '}', { language: 'json' }).value;
-                str = str.substring(1, str.length - 1);
-            } else if (ext === 'html') {
-                str = mo3.fromString(str);
-            } else {
+            const ext = file.path.split('.').splice(1).pop();
+            if (ext !== 'html') {
                 str = hljs.highlight(str, { language: ext }).value;
             }
+
             // Save highlighted code to mo3's cache
             mo3.setCache(file.path.substring(__dirname.length + 1), str);
             file.contents = Buffer.from(str);
