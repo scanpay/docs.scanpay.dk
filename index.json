@@ -46,58 +46,11 @@
         "API": true
     },
 
-    "Acquiring banks": {
-        "url": "/acquiring-banks",
-        "title": "Supported acquiring banks",
-        "meta": "Accept payments online through one of our acquiring banks.",
-        "pages": ["Supported acquirers"]
-    },
-
-    "E-commerce modules": {
-        "url": "/modules/",
-        "title": "Scanpay E-commerce modules",
-        "meta": "E-commerce modules &amp; plugins for easy integration with Scanpay.",
-        "pages": {
-            "WooCommerce": {
-                "url": "/modules/woocommerce",
-                "title": "WooCommerce Payment Plugin - Scanpay",
-                "meta": "Scanpay payment plugin for WooCommerce. Accept payment cards and MobilePay in WooCommerce."
-            },
-            "Magento 2": {
-                "url": "/modules/magento-2",
-                "title": "Magento 2 Payment Module - Scanpay",
-                "meta": "Scanpay payment module for Magento 2. Accept payment cards and MobilePay in Magento."
-            },
-            "PrestaShop": {
-                "url": "/modules/prestashop",
-                "title": "PrestaShop Payment Module - Scanpay",
-                "meta": "Scanpay payment module for PrestaShop. Accept payment cards and MobilePay in PrestaShop."
-            },
-            "Thirty Bees": {
-                "url": "/modules/thirty-bees",
-                "title": "Thirty Bees Payment Module - Scanpay",
-                "meta": "Scanpay payment module for Thirty Bees. Accept payment cards and MobilePay in Thirty Bees."
-            },
-            "OpenCart": {
-                "url": "/modules/opencart",
-                "title": "OpenCart Payment Module - Scanpay",
-                "meta": "Scanpay payment module for OpenCart. Accept payment cards and MobilePay in OpenCart."
-            }
-        }
-    },
-
     "API Libraries": {
         "url": "/api-libraries",
         "title": "API Libraries",
         "meta": "Scanpay has official client libraries for popular programming languages.",
         "pages": ["PHP", "Node.js", "Ruby", "Go", ".NET"]
-    },
-
-    "Security": {
-        "url": "/security",
-        "title": "Security",
-        "meta": "Scanpay is PCI DSS certified and security is very important to us.",
-        "pages": ["Data Protection", "Transmission Security"]
     },
 
     "Search": {
