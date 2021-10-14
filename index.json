@@ -10,7 +10,7 @@
         "url": "/payment-link",
         "title": "Payment Link API",
         "meta": "Generate payment links, that you can send to your customers.",
-        "pages": ["Request Headers", "Request Fields", "Response Fields", "MobilePay", "Examples"],
+        "pages": ["Request", "Response", "Examples"],
         "API": true
     },
 
@@ -18,7 +18,7 @@
         "url": "/synchronization",
         "title": "Synchronization API",
         "meta": "The synchronization API will keep all your systems up-to-date with changes to your payments.",
-        "pages": ["Ping Service", "Sequence Request"],
+        "pages": ["Ping request", "Pull Request"],
         "API": true
     },
 

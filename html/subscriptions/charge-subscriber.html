@@ -6,108 +6,132 @@
 
 <h3>Request Headers</h3>
 <p>
-  The request endpoint is: <code class="code">https://api.scanpay.dk/v1/subscribers/<span class="hljs-string">$id</span>/charge</code>, where <code class="code hljs-string">$id</code> is the subscriber ID that you want to charge. The following HTTP request headers are required:
+  The request endpoint is: <code class="code--inline">https://api.scanpay.dk/v1/subscribers/<span class="hljs-string">$id</span>/charge</code>, where <code class="code hljs-string">$id</code> is the subscriber ID that you want to charge. The following HTTP request headers are required:
 </p>
-<table class="table--fixed">
-  <thead>
-    <tr>
-      <th>HTTP/1.1 headers</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="tablecode">
-        <div class="ellipsis">
-          <span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX
-        </div>
-      </td>
-      <td>
-        HTTP Basic authentication. <a href="/security#request-authentication">Read more</a>.
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <div class="ellipsis">
-          <span class="hljs-attribute">Idempotency-Key</span>: xM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX
-        </div>
-      </td>
-      <td>
-        Sending multiple requests with the same the body and idempotency key will always give the same response and response code. To ensure the validity of the response, however, you must check for the Idempotency-Status header.
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+<div class="responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>HTTP/1.1 headers</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <pre><code class="code--tmp code--ellipsis"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code></pre>
+        </td>
+        <td>
+          HTTP Basic authentication. <a href="/security#request-authentication">Read more</a>.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="code--tmp code--ellipsis"><span class="hljs-attribute">Idempotency-Key</span>: xM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code></pre>
+        </td>
+        <td>
+          Sending multiple requests with the same the body and idempotency key will always give the same response and response code. To ensure the validity of the response, however, you must check for the Idempotency-Status header.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <h3 id="request-fields">Request Fields</h3>
 <p>
   All request fields are listed below. Note that if the billing address and/or shipping address is unspecified, they will default to the addresses specified in the subscriber.
 </p>
 
-<table class="table--fixed">
-  <thead>
-    <tr>
-      <th>JSON fields</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"123"</span>
-      </td>
-      <td class="td--desc">
-        A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <pre>{% include "code/subscriptions/items.json" %}</pre>
-      </td>
-      <td class="td--desc">
-        An array with items.
-        <ul class="table--ul">
-          <li><b>name:</b> The name of the item.</li>
-          <li><b>quantity:</b> The number of items (integer).</li>
-          <li><b>total:</b> The line total (i.e. unit-price x quantity) with an ISO 4217 currency code. This is required.</li>
-          <li><b>sku:</b> A <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this particular product.</li>
-        </ul>
-        <span class="td--note">In this example the grand total is 13397.9986 DKK. Most acquires only support 2 digits after the decimal point. If this is the case we will truncate to 13397.99.</span>
-      </td>
-    </tr>
-{% include "code/subscriptions/addr.html" %}
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span>
-      </td>
-      <td class="td--desc">
-        Automatically capture the payment. Default is true.
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>JSON fields</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"123"</span></code>
+        </td>
+        <td>
+          A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="code--tmp code--ellipsis">{% include "code/subscriptions/items.json" %}</code></pre>
+        </td>
+        <td>
+          An array with items.
+          <ul class="table--ul">
+            <li><b>name:</b> The name of the item.</li>
+            <li><b>quantity:</b> The number of items (integer).</li>
+            <li><b>total:</b> The line total (i.e. unit-price x quantity) with an ISO 4217 currency code. This is required.</li>
+            <li><b>sku:</b> A <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this particular product.</li>
+          </ul>
+          <span class="td--note">In this example the grand total is 13397.9986 DKK. Most acquires only support 2 digits after the decimal point. If this is the case we will truncate to 13397.99.</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="code--tmp code--ellipsis">{% include "code/paylink/billing.json" %}</code></pre>
+        </td>
+        <td>
+          Customer billing and shipping address.
+          <ul class="table--ul">
+            <li><b>name:</b> The full name.</li>
+            <li><b>company:</b> Legal company name.</li>
+            <li><b>vatin:</b> EU VAT identification number.</li>
+            <li><b>gln:</b> Global Location Number or European Article Numbering (EAN-number).</li>
+            <li><b>email:</b> E-mail address.</li>
+            <li><b>phone:</b> Phone number with country prefix.</li>
+            <li><b>address:</b> An address array where each element is a new line.</li>
+            <li><b>zip:</b> Postal code.</li>
+            <li><b>city:</b> City.</li>
+            <li><b>state:</b> State or region.</li>
+            <li><b>country:</b> Two-letter country code (<a href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></code>
+        </td>
+        <td>
+          Automatically capture the payment. Default is true.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <h3 id="request-headers">Response Headers</h3>
-<table class="table--fixed">
-  <thead>
-    <tr>
-      <th>HTTP/1.1 headers</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attribute">Idempotency-Status</span>: <span class="">OK</span>
-      </td>
-      <td>
-        Response header to ensure that the idempotency key has been considered.
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+<div class="responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>HTTP/1.1 headers</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attribute">Idempotency-Status</span>: <span class="">OK</span></code>
+        </td>
+        <td>
+          Response header to ensure that the idempotency key has been considered.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <h3 id="subcharge-response">Response</h3>
 <p>
-  Successful responses have a <code class="code">200</code> HTTP status code
+  Successful responses have a <code class="code--inline">200</code> HTTP status code
 </p>

@@ -1,0 +1,302 @@
+/**
+*   @author ScanPay ApS.
+**/
+
+
+pre {
+    margin: 0;
+}
+
+
+.responsive {
+    width: 100%;
+    overflow-x: auto;
+    padding: 0 0 .5em 0;
+}
+
+
+/*
+    Code
+*/
+
+// TODO: find a name for this...
+.code--tmp {
+    display: block;
+    font-size: .9em;
+    font-family: "H", monospace;
+}
+
+.code--ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.code--block {
+    display: block;
+    width: fit-content;
+    min-width: 100%; // fill entire width
+    padding: .6em .7em;
+    margin: .6em 0 0;
+    border-radius: .3em;
+    background: #f9f9f9;
+    border: 1px solid #dcdcdc;
+    font-size: .8em;
+    font-family: "H", monospace;
+    color: #252525;
+    white-space: pre;
+    box-sizing: border-box;
+}
+
+.code--inline {
+    font-size: .85em;
+    font-family: "H", monospace;
+    color: #bd143e;
+    border: solid 1px #e1e4e5;
+    margin: 0 1px;
+    padding: 1px 3px 1px;
+    border-radius: 3px;
+}
+
+.code--cmdln {
+    display: block;
+    width: fit-content;
+    min-width: 100%; // fill entire width
+    overflow: hidden;
+    font-size: .9em;
+    font-family: "H", monospace;
+    color: #252525;
+    padding: .5em;
+    margin: .5em 0 0;
+    background: #f4f4f4;
+    border-radius: 3px;
+    box-sizing: border-box;
+
+    &:before {
+        content: '$ ';
+        color: #999;
+    }
+}
+
+
+/*
+    Code examples (tab w. cURL, PHP, NodeJS etc.)
+*/
+
+.code--example {
+    margin: 21px 0 0;
+    border: 1px solid #e3e3e3;
+    min-width: 40em;
+
+    > pre {
+        border-top: 1px solid #e3e3e3;
+    }
+}
+
+.code--example--first {
+    margin-left: 12px;
+}
+
+.code--example--active {
+    border-bottom: 2px solid #1c83c7;
+}
+
+
+.ellipsis {
+    word-break: break-all;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
+
+
+.note-- {
+    margin: 21px 0 15px 0;
+}
+
+.note--head {
+    background: #6ab0de;
+    color: #fff;
+    font-weight: 600;
+    padding: 2px 15px;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.note--ico {
+    float: left;
+    margin: 4px 5px 0 0;
+}
+
+.note--body {
+    background: #e7f2fa;
+    padding: 10px 12px 12px 12px;
+    font-size: 14.5px;
+    color: #3d4a52;
+}
+
+
+
+
+
+
+
+
+.tbr {
+    display: inline-block;
+    padding-top: 6px;
+}
+
+
+.nobr {
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+}
+
+
+
+button {
+    background: none;
+    cursor: pointer;
+    border: 0;
+    margin: 0;
+
+    &:focus {
+        outline: none;
+    }
+    &::-moz-focus-inner {
+        border: 0;
+        padding: 0; // Remove inner padding and border in Firefox 4+ (normalize)
+    }
+}
+
+.code-- > button {
+    padding: 2px 6px 0;
+    margin: 0 5px -1px;
+    font: 600 14px / 40px sans-serif;
+    height: 43px;
+    color: #757575;
+}
+
+/*
+Tables
+*/
+
+.table--responsive {
+    overflow-x: auto;
+    padding: 0 0 .5em 0;
+    margin: 1.5em 0 1.9em;
+}
+
+table {
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: collapse;
+    empty-cells: show;
+    border: 1px solid #d5d5d5;
+    margin: 0;
+    font-size: .9em;
+    //word-break: break-all;
+    min-width: 40em;
+    width: 100%;
+}
+
+th {
+    background: #eee;
+    color: #333;
+    border: 1px solid #d9d9d9;
+    font-weight: 600;
+    font-size: .9em;
+    text-align: left;
+    margin: 0;
+    padding: .6em 13px .5em
+}
+
+td {
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    text-align: left;
+    margin: 0;
+    padding: .7em .9em;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.td--note {
+    //display: inline-block;
+    color: #444;
+    //font-size: 12.5px;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+.table--ul {
+    margin: 8px 0 0;
+    padding: 0 5px 0 1.2em;
+
+    > li {
+        margin: 9px 0;
+    }
+}
+
+li {
+    margin: 4px 0;
+}
+
+ul {
+    margin: 11px 0;
+}
+
+
+/*
+    API libraries
+*/
+
+.libs--ul {
+    margin-top: 18px;
+}
+
+
+/*
+    Search
+*/
+
+.search--h2 {
+    font-size: 18px;
+    margin: 15px 0 0;
+    padding: 7px 0;
+}
+
+#search--ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#tls-table {
+    margin-bottom: 20px;
+}
+
+.citations {
+    font-size: 0.9em;
+    list-style: none;
+    padding: 0;
+}
+
+.citations > li {
+    padding: 2px 0 2px 2px;
+}
+
+.citations > li:target {
+    background-color: #e6efff;
+}
+
+
+
+

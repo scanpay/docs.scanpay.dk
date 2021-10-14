@@ -1,0 +1,356 @@
+/**
+*   @author ScanPay ApS.
+**/
+
+// Bitter (2019-11)
+@font-face {
+    font-family: 'B';
+    font-weight: 700;
+    src: url('font/B700.woff2') format('woff2');
+}
+
+// Lato (2021-09-24)
+@font-face {
+    font-family: 'L';
+    font-weight: 400;
+    src: url('font/L400.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'L';
+    font-weight: 400;
+    font-style: italic;
+    src: url('font/L400i.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'L';
+    font-weight: 700;
+    src: url('font/L700.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'L';
+    font-weight: 700;
+    font-style: italic;
+    src: url('font/L700i.woff2') format('woff2');
+}
+
+// Hack (2019-11)
+@font-face {
+    font-family: 'H';
+    font-weight: 400;
+    src: url('font/H400.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 400;
+    font-style: italic;
+    src: url('font/H400i.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 700;
+    src: url('font/H700.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 700;
+    font-style: italic;
+    src: url('font/H700i.woff2') format('woff2');
+}
+
+
+body {
+    display: flex;
+    margin: 0;
+    background: #f0f0f0;
+    font-size: 1rem;
+    font-family: 'L', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.5;
+    color: #444;
+    -webkit-text-size-adjust: 100%; // Prevent adjust after orientation change.
+    box-sizing: border-box;
+    tab-size: 4;
+}
+
+a {
+    color: #3074af;
+    text-decoration: none;
+
+    &:active {
+        outline: 0;
+    }
+    &:hover {
+        outline: 0;
+        text-decoration: underline;
+    }
+}
+
+p {
+    padding: 0;
+    margin: .7em 0;
+}
+
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -.4em;
+  font-size: .9em;
+}
+
+b, strong { font-weight: 600; }
+
+h2, h3, h4 {
+    font: 700 15px / normal 'B', serif;
+    margin: 1.6em 0 .6em;
+    color: #404040;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+h1 {
+    margin: 1em 0 .8em;
+    font-family: 'B', serif;
+    font-weight: 700;
+    font-size: 1.7em;
+    line-height: normal;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 1.2em 0 .55em;
+}
+
+h3 {
+    font-size: 1.1em;
+    margin: 1.4em 0 .65em;
+}
+
+h4 {
+    font-size: 1.2em;
+}
+
+
+
+
+.hlink {
+    display: inline-block;
+    position: absolute;
+    margin: 1px 0 0 8px;
+}
+
+.rel {
+    position: relative;
+}
+
+hr {
+    margin: 50px 0;
+    border: 0;
+    border-top: 1px solid #e1e4e5;
+}
+
+section {
+    margin-bottom: 3.4em;
+}
+
+/*
+    Sidebar
+*/
+
+.sidebar-- {
+    position: relative;
+    background: #343131;
+    width: 28%;
+    min-width: 200px;
+    max-width: 270px;
+}
+
+.sidebar--head {
+    padding: 16px 0 0;
+    height: 93px;
+    background: #2980b9;
+    position: absolute;
+    position: -webkit-sticky;
+    position: -ms-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.sidebar--c {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.sidebar--home {
+    display: inline-block;
+    padding: 2px 6px 3px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fcfcfc;
+    margin-left: -3px;
+    border-radius: 2px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    > svg {
+        vertical-align: -1px;
+    }
+
+    &:hover {
+        background: #388abf;
+        color: #fcfcfc;
+        text-decoration: none;
+    }
+}
+
+.sidebar--search {
+    display: block;
+    width: 80%;
+    margin: auto;
+    box-sizing: border-box;
+    border-radius: 20px;
+    font-size: 13px;
+    padding: 6px 12px;
+    border: 1px solid #216694;
+    outline: none;
+    margin-top: 8px;
+}
+
+.sidebar--ul {
+    position: absolute;
+    position: -webkit-sticky;
+    position: -ms-sticky;
+    position: sticky;
+    width: 100%;
+    top: 120px;
+    padding: 0;
+    margin: 0;
+    line-height: 1.55;
+    list-style: none;
+
+    > li {
+        color: #b3b3b3;
+        position: relative;
+        margin: 0;
+
+        > a {
+            display: block;
+            color: #b3b3b3;
+            padding: 4.5px 24px;
+            text-decoration: none;
+        }
+
+        &:hover {
+            background: #4e4a4a;
+            text-decoration: none;
+        }
+    }
+}
+
+.sidebar--sub {
+    list-style: none;
+    background: #e3e3e3;
+    padding: 0;
+    margin-bottom: 3px;
+    border-right: solid 1px #c9c9c9;
+
+    > li {
+        margin: 0;
+    }
+
+    a {
+        display: block;
+        color: #666;
+        padding: 3.5px 33px;
+        text-decoration: none;
+    }
+    li:hover {
+        background: #d6d6d6;
+    }
+    li:last-child {
+        padding-bottom: 4px;
+    }
+}
+
+.sidebar--label {
+    display: inline-block;
+    font-size: 0.7em;
+    color: #088608;
+    border: 1px solid #088608;
+    vertical-align: 1px;
+    line-height: 14px;
+    border-radius: 3px;
+    padding: 0 4px;
+    margin: 0 0 0 7px;
+}
+
+.sidebar--fold {
+    position: absolute;
+    left: 9px;
+    margin-top: 13px;
+}
+
+.sidebar--active {
+    background: #fdfdfd !important;
+    color: #404040;
+
+    > a {
+        color: #404040 !important;
+        border-bottom: solid 1px #c9c9c9;
+        position: relative;
+    }
+}
+
+#bg {
+    background: #fdfdfd;
+    max-width: 50em;
+    padding: 0 6% 0;
+}
+
+main {
+    position: relative;
+    min-height: 100vh;
+}
+
+.c {
+    position: relative;
+    width: 100%;
+    max-width: 69em;
+}
+
+article {
+    position: relative;
+    padding-bottom: 7em;
+}
+
+.header {
+    height: 3em;
+    padding-top: 1.8em;
+    border-bottom: 1px solid #e1e4e5;
+}
+
+.footer {
+    position: absolute;
+    bottom: 26px;
+    left: 0;
+    right: 0;
+    padding-top: 22px;
+    color: #888;
+    border-top: 1px solid #e1e4e5;
+    font-size: 14px;
+}
+
+.raquo {
+    margin: 0 4px 0 6px;
+}
+
+.git {
+    float: right;
+}
+
+.git--logo {
+    display: inline-block;
+    vertical-align: -2px;
+    margin-right: 1px;
+}

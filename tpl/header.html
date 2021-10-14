@@ -1,14 +1,16 @@
 <!DOCTYPE HTML><html lang="en">
 <link href="/a/docs.css?{{ csst }}" rel="stylesheet">
-<link rel="preload" href="/a/font/N400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/a/font/N400i.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/a/font/N600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/a/font/L400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/a/font/L400i.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/a/font/L700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/a/font/L700i.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/a/font/B700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/a/font/H400.woff2" as="font" type="font/woff2" crossorigin>
 <script defer src="/a/docs.js?{{ jst }}"></script>
 <title>{{ title }}</title>
 <meta name="description" content="{{ meta }}">
 <link rel="canonical" href="https://docs.scanpay.dk{{ url }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <nav class="sidebar--">
   <div class="sidebar--head">
@@ -25,14 +27,35 @@
 </nav>
 
 <div class="c">
+  <nav class="phone--nav">
+    <div id="phone--nav--menu"></div>
+    <a href="/">Scanpay</a>
+
+    <div id="phone--nav--dropdown">
+      <input class="phone--nav--search" type="text" name="q" placeholder="Search the docs">
+      <ul class="phone--nav--ul">
+        <li><a href="/">Getting Started</a></li>
+        <li><a href="/payment-link">Payment Link <span class="sidebar--label">API</span></a></li>
+        <li><a href="/synchronization">Synchronization</a></li>
+        <li><a href="/subscriptions/">Subscriptions</a></li>
+        <li><a href="/api-libraries">API Libraries</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <div id="bg">
+    <header class="header">
+      <a rel="nofollow" href="https://github.com/scanpaydk/docs.scanpay.dk/blob/main/html/{{ path }}" class="git">
+        {% include "assets/img/github.svg" %} Edit on GitHub
+      </a>
+      <nav class="breadcrumb">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" fill="#4395cb">
+          <path d="M256 152.96 79.89 288.47v181.55H221.4V336.97h75.18v133.05h135.53V288.47z"/>
+          <path d="M439.48 183.13V90.31h-74.16v35.77L256 41.98 0 238.92l35.34 45.94L256 115.06l220.66 169.8L512 238.92z"/>
+        </svg>
+        {{ breadcrumb }}
+      </nav>
+    </header>
+
     <main>
-      <header class="header">
-        <a rel="nofollow" href="https://github.com/scanpaydk/docs.scanpay.dk/blob/main/html/{{ path }}" class="git">
-          {% include "assets/img/github.svg" %} Edit on GitHub
-        </a>
-        <nav class="breadcrumb">
-          <a href="/">Docs</a> {{ breadcrumb }}
-        </nav>
-      </header>
       <article>

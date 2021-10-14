@@ -6,8 +6,8 @@ function changeCodeEx(evt) {
     const btn = evt.target;
     if (btn.tagName === 'BUTTON') {
         fetchCode(btn.dataset.file, this);
-        this.querySelector('.code--active').classList.remove('code--active');
-        btn.classList.add('code--active');
+        this.querySelector('.code--example--active').classList.remove('code--example--active');
+        btn.classList.add('code--example--active');
 
         if (btn.dataset.lang) {
             sessionStorage.setItem('lang', btn.dataset.lang);
@@ -30,6 +30,12 @@ function selectAll() {
     window.getSelection().selectAllChildren(this);
 }
 
+/*
+// Attach events to "run code" buttons
+const postmans = document.getElementsByClassName('postman');
+for (let i = 0; i < postmans.length; i++) {
+    postmans[i].addEventListener('click', postman[postmans[i].dataset.fn]);
+}
 const postman = {
     'paymentLink': () => {
         fetch('/_v1/new', {
@@ -49,6 +55,7 @@ const postman = {
         });
     }
 };
+*/
 
 function showHash() {
     const a = document.createElement('a');
@@ -66,6 +73,10 @@ function removeHash() {
 
 
 (() => {
+    document.getElementById('phone--nav--menu').onclick = () => {
+        document.getElementById('phone--nav--dropdown').classList.toggle('show');
+    };
+
     const prefLang = sessionStorage && sessionStorage.getItem('lang');
 
     // Code examples
@@ -78,11 +89,11 @@ function removeHash() {
             for (let j = 0; j < children.length - 1; j++) {
                 const btn = children[j];
                 if (btn.dataset.lang === prefLang &&
-                    !btn.classList.contains('code--active')) {
+                    !btn.classList.contains('code--example--active')) {
                     fetchCode(btn.dataset.file, codeSamples[i]);
-                    codeSamples[i].querySelector('.code--active')
-                        .classList.remove('code--active');
-                    btn.classList.add('code--active');
+                    codeSamples[i].querySelector('.code--example--active')
+                        .classList.remove('code--example--active');
+                    btn.classList.add('code--example--active');
                 }
             }
         }
@@ -96,12 +107,6 @@ function removeHash() {
         };
     }
 
-    // Attach events to "run code" buttons
-    const postmans = document.getElementsByClassName('postman');
-    for (let i = 0; i < postmans.length; i++) {
-        postmans[i].addEventListener('click', postman[postmans[i].dataset.fn]);
-    }
-
     const code = document.getElementsByClassName('code');
     for (let i = 0; i < code.length; i++) {
         code[i].addEventListener('click', selectAll);
@@ -113,6 +118,7 @@ function removeHash() {
         headings[i].addEventListener('mouseleave', removeHash);
     }
 
+    /*
     // TODO: Improve performance and class/ID names
     const pics = document.getElementsByClassName('enlarge');
     for (let i = 0; i < pics.length; i++) {
@@ -136,6 +142,8 @@ function removeHash() {
             }
         }, { once: true });
     }
+    */
+
 
     /**
     *   A tiny Google Analytics client (Measurement Protocol)

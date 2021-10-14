@@ -1,29 +1,21 @@
-
 <h1>Getting started</h1>
 <p>
-  We are a software company from Denmark. We have developed a payment platform, that allows companies to accept payments online. The purpose of this guide is to briefly explain how it works and how you get started.
+  Scanpay is a payment platform, that allows you to accept payments online. The purpose of this guide is to briefly explain how it works and how you get started.
 </p>
 
-<div class="note--">
-  <div class="note--head">Note {% include "assets/img/exclamation.svg" %}</div>
-  <div class="note--body">
-    For security and compliance reasons you cannot iFrame or inline our Payment Window. <a href="//www.pcisecuritystandards.org/documents/PCI-DSS-v3_2-SAQ-A_EP.pdf?agreement=true">SAQ A-EP</a> certified merchants can request permission to host the payment form (<a href="mailto:contact@scanpay.dk?subject=PCI-DSS">here</a>).
-  </div>
-</div>
-
-<h3 id="create-user-and-shop">Create user and shop</h3>
+<h3 id="create-user-and-shop">1. Create user and shop</h3>
 <p>
   First you will need to <a href="//scanpay.dk/opret">create a user</a> and then you can <a href="//dashboard.scanpay.dk/newshop">create a shop</a>.
 
   When you create a shop you will become its technical owner/admin <i>(transferable)</i>. You can <a href="//dashboard.scanpay.dk/settings/team">invite your colleagues</a> to the shop and give them privileges that determine what actions they can perform. Users should have only the minimal set of privileges required to ensure a system of <a href="//en.wikipedia.org/wiki/Principle_of_least_privilege">least privilege</a>.
 </p>
 
-<h3 id="setup-acquirers">Setup acquirers</h3>
+<h3 id="setup-acquirers">2. Setup acquirers</h3>
 <p>
   Before you can accept payments you will need a merchant agreement with an acquiring bank. This agreement will determine what payment methods you can accept. You can read more about this process, and see a full list of supported acquiring banks <a href="/acquiring-banks">here</a>.
 </p>
 
-<h3 id="integrate">Integrate</h3>
+<h3 id="integrate">3. Integrate</h3>
 <p>
   We develop and maintain modules for the most popular e-commerce platforms: <a href="/modules/woocommerce">WooCommerce</a> and <a href="/modules/magento-2">Magento 2</a>. We also provide API libraries for <a href="//github.com/scanpaydk/php-scanpay">PHP</a> and <a href="//github.com/scanpaydk/node-scanpay">node.js</a> – more libraries/modules coming soon.
 </p>

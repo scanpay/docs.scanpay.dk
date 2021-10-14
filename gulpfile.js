@@ -5,6 +5,8 @@ const Path = require('path');
 const gulp = require('gulp');
 const connect = require('gulp-connect');
 const sass = require('node-sass');
+const sourcemaps = require('gulp-sourcemaps');
+const concat = require('gulp-concat');
 const hljs = require('highlight.js');
 const through = require('through2');
 const mo3 = require('mo3place')();
@@ -87,7 +89,6 @@ function lookup(filename) {
     throw filename + ' was not found in index.json';
 }
 
-
 function html() {
     return gulp.src(['html/**/*.html'])
         .pipe(through.obj((file, enc, cb) => {
@@ -106,7 +107,6 @@ function html() {
         .pipe(gulp.dest('www'))
         .pipe(connect.reload());
 }
-
 
 function code() {
     // NB: We want '.html' last, since they often include other code.
@@ -127,20 +127,35 @@ function code() {
 }
 
 function assets() {
-    return gulp.src(['assets/**/*'])
+    return gulp.src(['assets/font/**', 'assets/img/**'], { base: 'assets/' })
+        .pipe(gulp.dest('www/a'))
+        .pipe(connect.reload());
+}
+
+function js() {
+    return gulp.src(['assets/*.js'])
         .pipe(through.obj((file, enc, cb) => {
-            const ext = Path.extname(file.path);
-            if (ext === '.scss') {
-                file.contents = sass.renderSync({ data: file.contents.toString() }).css;
-                file.path = file.path.slice(0, -4) + 'css';
-            } else if (ext === '.js') {
-                mo3.render(file, env);
-            }
+            mo3.render(file, env);
             cb(null, file);
         }))
         .pipe(gulp.dest('www/a'))
         .pipe(connect.reload());
 }
+
+
+function scss() {
+    return gulp.src(['assets/css/*.scss'], { base: 'assets/css/' })
+        .pipe(through.obj((file, enc, cb) => {
+            file.contents = sass.renderSync({ data: file.contents.toString() }).css;
+            cb(null, file);
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(concat('docs.css'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('www/a/'))
+        .pipe(connect.reload());
+}
+
 
 gulp.task('serve', () => {
     connect.server({
@@ -158,9 +173,11 @@ gulp.task('serve', () => {
         }])
     });
 
-    gulp.watch(['tpl/**/*.html'], gulp.series('build'));
+    gulp.watch(['tpl/**/*.html', 'code/**'], gulp.series('build'));
     gulp.watch(['html/**/*.html'], html);
-    gulp.watch(['assets/**/*'], assets);
+    gulp.watch(['assets/font/**', 'assets/img/**'], assets);
+    gulp.watch('assets/css/*.scss', scss);
+    gulp.watch('assets/*.js', js);
     gulp.watch(['index.json'], gulp.series('build'));
     gulp.watch('/code/**/*.*', gulp.series(code, html));
 });
@@ -195,5 +212,5 @@ gulp.task('sitemap', (cb) => {
     cb(null);
 });
 
-gulp.task('build', gulp.series('sidebar', assets, code, html, 'sitemap'));
+gulp.task('build', gulp.series('sidebar', assets, js, scss, code, html, 'sitemap'));
 gulp.task('default', gulp.series('build', 'serve'));

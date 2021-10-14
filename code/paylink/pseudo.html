@@ -1,8 +1,9 @@
 <span class="hljs-built_in">POST</span> https://api.scanpay.dk/v1/new
-<span class="nobr authheader"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</span><span class="tbr">{</span>
+<div class="nobr"><span class="hljs-attribute">Authorization</span>: Basic <span class="hljs-built_in">base64_encode</span>(<span class="hljs-string">"apikey"</span>)</div><span class="tbr">{</span>
     <span class="hljs-attr">"items"</span>: [
         {
-            <span class="hljs-attr">"total"</span>: <span class="hljs-string">"159.90 DKK"</span>
+              <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Pink Floyd: The Dark Side Of The Moon"</span>,
+              <span class="hljs-attr">"total"</span>: <span class="hljs-string">"199.90 DKK"</span>
         }
     ]
 }

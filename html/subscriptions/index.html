@@ -6,12 +6,11 @@
 
 <h4 id="create-subscriber">Create subscriber</h4>
 <p>
-  The <a href="/subscriptions/create-subscriber">create subscriber</a> API call will return a link to a payment page, where the customer can enter their payment details. The only required field is <code class="code code--small">subscriber</code>, but we recommend that you provide us with as much information as possible.
+  The <a href="/subscriptions/create-subscriber">create subscriber</a> API call will return a link to a payment page, where the customer can enter their payment details. The only required field is <code class="code--inline">subscriber</code>, but we recommend that you provide us with as much information as possible.
 </p>
 
-<div class="rel">
-  <pre><code class="pcode">{% include "code/subscriptions/pseudo-create.html" %}</code></pre>
-  <!--<button class="postman" data-fn="paymentLink">run code</button>-->
+<div class="table--responsive">
+  <pre><code class="code--block">{% include "code/subscriptions/pseudo-create.html" %}</code></pre>
 </div>
 
 <p>
@@ -20,11 +19,11 @@
 
 <h4 id="charge-subscriber">Charge subscriber</h4>
 <p>
-  The <a href="/subscriptions/charge-subscriber">charge subscriber</a> API call will charge the specified subscriber, in this case subscriber <code class="code code--small hljs-number">186</code>. The only required field is <code class="code code--small">items</code>, but we recommend that you provide us with as much information as possible.
+  The <a href="/subscriptions/charge-subscriber">charge subscriber</a> API call will charge the specified subscriber, in this case subscriber <code class="code--inline hljs-number">186</code>. The only required field is <code class="code--inline">items</code>, but we recommend that you provide us with as much information as possible.
 </p>
 
-<div class="rel">
-  <pre><code class="pcode">{% include "code/subscriptions/pseudo-charge.html" %}</code></pre>
+<div class="table--responsive">
+  <pre><code class="code--block">{% include "code/subscriptions/pseudo-charge.html" %}</code></pre>
 </div>
 
 <h4 id="renew-subscriber">Renew subscriber</h4>
@@ -32,6 +31,6 @@
   The <a href="/subscriptions/renew-subscriber">renew subscriber</a> API call will return a link to a payment page, where the customer can update their payment details e.g. if the card has expired. There are no required fields.
 </p>
 
-<div class="rel">
-  <pre><code class="pcode">{% include "code/subscriptions/pseudo-renew.html" %}</code></pre>
+<div class="table--responsive">
+  <pre><code class="code--block">{% include "code/subscriptions/pseudo-renew.html" %}</code></pre>
 </div>

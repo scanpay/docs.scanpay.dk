@@ -1,177 +1,318 @@
-
 <h1>Payment Link</h1>
 <p>
-  Use this API to generate payment links. This API is designed to be fault-tolerant and forgiving. Here is some pseudocode to show how simple it is:
+  You can use the Payment Link API to generate links to our payment window, where customers can enter their payment details. You can either redirect the customer to the payment window, or you can embed the window in your website or app.
 </p>
 
-<div class="rel">
-  <pre><code class="pcode">{% include "code/paylink/pseudo.html" %}</code></pre>
-  <button class="postman" data-fn="paymentLink">run code</button>
-</div>
+<p>
+  Below is an example in pseudocode. This is the absolute minimum you can send to create a payment link.
+</p>
+
+<pre class="responsive"><code class="code--block">{% include "code/paylink/pseudo.html" %}</code></pre>
 
 <p>
-  This is the absolute minimum you can send to create a payment link. The more information you include the better we can protect your business against fraud.
+  We have designed the API to be fault-tolerant and forgiving. Invalid data will be ignored, and input errors will be visible in our <a href="https://dashboard.scanpay.dk/logs">dashboard</a>.
+</p>
+
+<h2>The Request</h2>
+
+<p>
+  The request endpoint is: <code class="code--inline">https://api.scanpay.dk/v1/new</code>
 </p>
 
 <h3 id="request-headers">Request Headers</h3>
 <p>
-  The request endpoint is: <code class="code">https://api.scanpay.dk/v1/new</code>
+  Requests are authenticated with HTTP basic authentication.
 </p>
-<table class="table--fixed">
-  <thead>
-    <tr>
-      <th>HTTP/1.1 headers</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="tablecode">
-        <div class="ellipsis">
-          <span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX
-        </div>
-      </td>
-      <td>
-        HTTP Basic authentication. <a href="/security#request-authentication">Read more</a>.
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attribute">X-Cardholder-IP</span>: 47.105.175.99
-      </td>
-      <td>
-        The IPv4 or IPv6 address of the customer.
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+<div class="table--responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>HTTP/1.1 headers</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code class="code--tmp ellipsis"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code>
+        </td>
+        <td>
+          Basic authentication, where your credentials <i>(shopid:secret)</i> are in the API key, so you only have to base64 encode the API key.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attribute">X-Cardholder-IP</span>: 47.105.175.99</code>
+        </td>
+        <td>
+          The IPv4 or IPv6 address of the customer. This is used for DoS protection and it is optional.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <h3 id="request-fields">Request Fields</h3>
-<p>All request fields are listed below. All fields are optional.</p>
+<p>
+  There is a maximum request size limit of 32 kB.
+</p>
 
-<table class="table--fixed">
-  <thead>
-    <tr>
-      <th>JSON fields</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"1234zx"</span>
-      </td>
-      <td class="td--desc">
-        A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span>
-      </td>
-      <td class="td--desc">
-        Redirect to this URL after succesful payment. If omitted we will show a generic success message.
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <pre>{% include "code/paylink/items.json" %}</pre>
-      </td>
-      <td class="td--desc">
-        An array with items.
-        <ul class="table--ul">
-          <li><b>name:</b> The name of the item.</li>
-          <li><b>quantity:</b> The number of items (integer).</li>
-          <li><b>total:</b> The line total (i.e. unit-price x quantity) with an ISO 4217 currency code.</li>
-          <li><b>sku:</b> A <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this particular product.</li>
-        </ul>
-        <span class="td--note">In this example the grand total is 13397.9986 DKK. Most acquires only support 2 digits after the decimal point. If this is the case we will truncate to 13397.99.</span>
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <pre>{% include "code/paylink/billing.json" %}</pre>
-      </td>
-      <td class="td--desc td--vtop">
-        Customer billing and shipping address.
-        <ul class="table--ul">
-          <li><b>name:</b> The full name.</li>
-          <li><b>company:</b> Legal company name.</li>
-          <li><b>vatin:</b> EU VAT identification number.</li>
-          <li><b>gln:</b> Global Location Number or European Article Numbering (EAN-number).</li>
-          <li><b>email:</b> E-mail address.</li>
-          <li><b>phone:</b> Phone number with country prefix.</li>
-          <li><b>address:</b> An address array where each element is a new line.</li>
-          <li><b>zip:</b> Postal code.</li>
-          <li><b>city:</b> City.</li>
-          <li><b>state:</b> State or region.</li>
-          <li><b>country:</b> Two-letter country code (<a href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span>
-      </td>
-      <td class="td--desc">
-        Preferred language for the payment window. We fallback to the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span>
-      </td>
-      <td class="td--desc">
-        Automatically capture the payment. Default is false.
-      </td>
-    </tr>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span>
-      </td>
-      <td class="td--desc">
-        Set payment link lifetime in days (d), hours (h) or minutes (m). Default is <code class="code hljs-string" style="font-size: 12px">"1h"</code> and max is <code class="code hljs-string" style="font-size: 12px">"30d"</code>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table--responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>JSON fields</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          <pre><code class="code--tmp code--ellipsis">{% include "code/paylink/items.json" %}</code></pre>
+        </td>
+        <td>
+          An array with items.
+          <ul class="table--ul">
+            <li><b>name:</b> The name of the item.</li>
+            <li><b>quantity:</b> The number of items (integer).</li>
+            <li>
+              <b>total:</b> The line total (i.e. unit-price x quantity) with an ISO 4217 currency code.
+            </li>
+            <li>
+              <b>sku:</b> A <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this particular product.
+            </li>
+          </ul>
+          <span class="td--note">
+            In this example the grand total is 13397.9986 DKK. Most acquires only support 2 digits after the decimal point. If this is the case we will truncate to 13397.99.
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="code--tmp code--ellipsis">{% include "code/paylink/billing.json" %}</code></pre>
+        </td>
+        <td>
+          Customer billing and shipping address. The information is used for fraud detection and it is displayed in our dashboard.
+
+          <ul class="table--ul">
+            <li><b>company:</b> Company legal name.</li>
+            <li><b>vatin:</b> EU VAT identification number with country prefix.</li>
+            <li><b>gln:</b> Global Location Number or European Article Numbering (EAN-number).</li>
+            <li><b>phone:</b> Phone number with country prefix.</li>
+            <li><b>address:</b> An address array where each element is a new line.</li>
+            <li><b>zip:</b> Postal code.</li>
+            <li><b>country:</b> Two-letter country code (<a href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"1234zx"</span></code>
+        </td>
+        <td>
+          The actual order ID is sent to your acquirer and it is displayed in the payment window.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span></code>
+        </td>
+        <td>
+          Redirect to this URL after succesful payment. If omitted we will show a generic success message.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></code>
+        </td>
+        <td>
+          Preferred language for the payment window. Default is the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></code>
+        </td>
+        <td>
+          Automatically capture the payment. Default is <code class="code--inline hljs-number">false</code>.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"7d"</span></code>
+        </td>
+        <td>
+          Payment link lifetime in days <i>(<span class="hljs-string">"d"</span>)</i>, hours <i>(<span class="hljs-string">"h"</span>)</i> or minutes <i>(<span class="hljs-string">"m"</span>)</i>. Default is <code class="code--inline hljs-string">"1h"</code> and max is <code class="code--inline hljs-string">"30d"</code>. Increasing the lifetime will also increase the length of the payment link URL.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<h3 id="mobilepay">Link Parameters</h3>
+
+<div class="table--responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>Link parameter</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+        <code class="code--tmp"><span class="hljs-string">?iframe</span></code>
+        </td>
+        <td>
+        Embed the payment window in your website or app with an iFrame. You will have to enable this feature in our dashboard.
+        </td>
+      </tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-string">?go=mobilepay</span></code>
+        </td>
+        <td>
+          Redirect the customer to MobilePay Online. You need to enable MobilePay <a href="https://dashboard.scanpay.dk/settings/acquirers">here</a>.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-string">?go=applepay</span></code>
+        </td>
+        <td>
+          The IPv4 or IPv6 address of the customer. This is used for DoS protection and it is optional.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr>
+
+<h2 id="response-fields">Response</h2>
+
 
 <h3 id="response-fields">Response Fields</h3>
 <p>
-  Successful responses have a <code class="code">200</code> HTTP status code with the following JSON field:
+  Successful responses have a <code class="code--inline">200</code> HTTP status code with the following JSON field:
 </p>
-<table class="table--fixed">
-  <thead>
-    <tr>
-      <th>JSON field</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="tablecode">
-        <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span>
-      </td>
-      <td class="td--desc">The returned payment link.</td>
-    </tr>
-  </tbody>
-</table>
 
-<h3 id="mobilepay">MobilePay</h3>
+<div class="responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>JSON field</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span></code>
+        </td>
+        <td>The returned payment link.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<h3 id="request-errors">Errors</h3>
+
 <p>
-  Redirect customers to MobilePay Online by appending a <code class="code hljs-string">?go=mobilepay</code> query string to the payment link. This will only work if MobilePay is enabled (<a href="https://dashboard.scanpay.dk/settings/acquirers">here</a>) and if your <a href="/acquiring-banks">acquirer</a> supports MobilePay.
+  The API is designed to be fault-tolerant and forgiving.
 </p>
-<h3 id="examples">Examples</h3>
+
+<div class="responsive" style="margin-top: 30px;">
+  <table style="table-layout: auto;">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Message</th>
+        <th>Retry</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>invalid json</td>
+        <td></td>
+        <td>Invalid JSON.</td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>missing items</td>
+        <td></td>
+        <td>Missing <code class="code--inline hljs-attr">items</code> array.</td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>invalid items.total</td>
+        <td></td>
+        <td>Invalid or missing <code class="code--inline hljs-attr">total</code> field.</td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">403</td>
+        <td>invalid apikey</td>
+        <td></td>
+        <td>Invalid API key.</td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">408</td>
+        <td>request timeout</td>
+        <td>✓</td>
+        <td>
+          We close slow connections after <code class="code--inline hljs-attribute">8</code> seconds. Please try again.
+        </td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">413</td>
+        <td>payload too large</td>
+        <td></td>
+        <td>The request body was larger than <code class="code--inline hljs-attribute">32 kB</code> or the HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code></td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">500</td>
+        <td>internal server error</td>
+        <td>✓</td>
+        <td>
+          Technical issue or scheduled downtime. Please try again.
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+
+<hr>
+
+
+<h2 id="examples">Examples</h2>
 <p>
   Here are a few examples. We recommend that you take a look at our official <a href="/api-libraries">client libraries</a>.
 </p>
 
-<div class="code--">
-  <button data-lang="curl" data-file="paylink/newURL.bash.html" class="code--active">Curl</button>
-  <button data-lang="php" data-file="paylink/newURL.php">PHP</button>
-  <button data-lang="node" data-file="paylink/newURL.js">Node</button>
-  <button data-lang="go" data-file="paylink/newURL.go">Go</button>
-  <button data-lang="rb" data-file="paylink/newURL.rb">Ruby</button>
-  <button data-lang="net" data-file="paylink/newURL.cs">.NET</button>
-  <pre><code class="code--code">{% include "code/paylink/newURL.bash.html" %}</code></pre>
+<div class="responsive">
+  <div class="code--example">
+    <button data-lang="curl" data-file="paylink/newURL.bash.html" class="code--example--first code--example--active">Curl</button>
+    <button data-lang="php" data-file="paylink/newURL.php">PHP</button>
+    <button data-lang="node" data-file="paylink/newURL.js">Node</button>
+    <button data-lang="go" data-file="paylink/newURL.go">Go</button>
+    <button data-lang="rb" data-file="paylink/newURL.rb">Ruby</button>
+    <button data-lang="net" data-file="paylink/newURL.cs">.NET</button>
+    <pre><code class="" style="padding: 8px;">{% include "code/paylink/newURL.bash.html" %}</code></pre>
+  </div>
 </div>
