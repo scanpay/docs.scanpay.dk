@@ -155,6 +155,10 @@
 
 
 <h3 id="mobilepay">Link Parameters</h3>
+<p>
+  The following link parameters can be appended to the payment link:
+</p>
+
 
 <div class="table--responsive">
   <table>
@@ -170,7 +174,7 @@
         <code class="code--tmp"><span class="hljs-string">?iframe</span></code>
         </td>
         <td>
-        Embed the payment window in your website or app with an iFrame. You will have to enable this feature in our dashboard.
+          Embed the payment window in your website or app with an iFrame. You will have to enable this feature in our dashboard.
         </td>
       </tr>
         <td>
@@ -178,14 +182,6 @@
         </td>
         <td>
           Redirect the customer to MobilePay Online. You need to enable MobilePay <a href="https://dashboard.scanpay.dk/settings/acquirers">here</a>.
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <code class="code--tmp"><span class="hljs-string">?go=applepay</span></code>
-        </td>
-        <td>
-          The IPv4 or IPv6 address of the customer. This is used for DoS protection and it is optional.
         </td>
       </tr>
     </tbody>
@@ -196,10 +192,9 @@
 
 <h2 id="response-fields">Response</h2>
 
-
 <h3 id="response-fields">Response Fields</h3>
 <p>
-  Successful responses have a <code class="code--inline">200</code> HTTP status code with the following JSON field:
+  Successful responses have a <code class="code--inline">200</code> status code with the following JSON field:
 </p>
 
 <div class="responsive">
@@ -234,7 +229,6 @@
       <tr>
         <th>Code</th>
         <th>Message</th>
-        <th>Retry</th>
         <th>Description</th>
       </tr>
     </thead>
@@ -242,35 +236,34 @@
       <tr>
         <td class="hljs-attr">400</td>
         <td>invalid json</td>
-        <td></td>
         <td>Invalid JSON.</td>
       </tr>
 
       <tr>
         <td class="hljs-attr">400</td>
         <td>missing items</td>
-        <td></td>
-        <td>Missing <code class="code--inline hljs-attr">items</code> array.</td>
+        <td>
+          Missing <code class="code--inline hljs-attr">items</code> array.
+        </td>
       </tr>
 
       <tr>
         <td class="hljs-attr">400</td>
         <td>invalid items.total</td>
-        <td></td>
-        <td>Invalid or missing <code class="code--inline hljs-attr">total</code> field.</td>
+        <td>
+          Invalid or missing <code class="code--inline hljs-attr">total</code> field.
+        </td>
       </tr>
 
       <tr>
         <td class="hljs-attr">403</td>
         <td>invalid apikey</td>
-        <td></td>
         <td>Invalid API key.</td>
       </tr>
 
       <tr>
         <td class="hljs-attr">408</td>
         <td>request timeout</td>
-        <td>✓</td>
         <td>
           We close slow connections after <code class="code--inline hljs-attribute">8</code> seconds. Please try again.
         </td>
@@ -279,19 +272,18 @@
       <tr>
         <td class="hljs-attr">413</td>
         <td>payload too large</td>
-        <td></td>
-        <td>The request body was larger than <code class="code--inline hljs-attribute">32 kB</code> or the HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code></td>
+        <td>
+          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code> or the HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
+        </td>
       </tr>
 
       <tr>
         <td class="hljs-attr">500</td>
         <td>internal server error</td>
-        <td>✓</td>
         <td>
           Technical issue or scheduled downtime. Please try again.
         </td>
       </tr>
-
     </tbody>
   </table>
 </div>
