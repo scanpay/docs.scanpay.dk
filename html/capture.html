@@ -1,0 +1,69 @@
+<h1>Capture API</h1>
+<p>
+  Below is an example in pseudocode. This is the absolute minimum you can send to create a payment link.
+</p>
+
+<pre class="responsive"><code class="code--block">{% include "code/capture/pseudo.html" %}</code></pre>
+
+<h3 id="request-headers">Request Headers</h3>
+<p>
+  The request endpoint is: <code class="code--inline">https://api.scanpay.dk/v1/transactions/<span class="hljs-string">$shopid</span>:<span class="hljs-string">$trnid</span>/capture</code>, where <span class="hljs-string">$shopid</span> is the shopid and <span class="hljs-string">$trnid</span> is the transaction id.
+  Requests are authenticated with HTTP basic authentication.
+</p>
+
+<div class="table--responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>HTTP/1.1 headers</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code class="code--tmp ellipsis"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code>
+        </td>
+        <td>
+          Basic authentication, where your credentials <i>(shopid:secret)</i> are in the API key, so you only have to base64 encode the API key.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+<h3 id="request-fields">Request Fields</h3>
+<p>
+  There is a maximum request size limit of 32 kB.
+</p>
+
+<div class="table--responsive">
+  <table class="table--seqreq">
+    <thead>
+      <tr>
+        <th>JSON fields</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attr">"total"</span>: <span class="hljs-string">"199.95 DKK"</span></code>
+        </td>
+        <td>
+          The sequence number for the last change in the changes array.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span></code>
+        </td>
+        <td>
+          The sequence number for the last change in the changes array.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
