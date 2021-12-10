@@ -2,26 +2,19 @@
 <p>
   You can use the Payment Link API to generate links to our payment window, where customers can enter their payment details. You can either redirect the customer to the payment window, or you can embed the window in your website or app.
 </p>
-
 <p>
-  Below is an example in pseudocode. This is the absolute minimum you can send to create a payment link.
+  The API is fault-tolerant and forgiving. Invalid data will generally be ignored, and there are no required fields, but you must include at least one item in the <code class="code--inline">items</code> array. Here is a minimal example in pseudocode.
 </p>
 
 <pre class="responsive"><code class="code--block">{% include "code/paylink/pseudo.html" %}</code></pre>
 
 <p>
-  We have designed the API to be fault-tolerant and forgiving. Invalid data will be ignored, and input errors will be visible in our <a href="https://dashboard.scanpay.dk/logs">dashboard</a>.
-</p>
-
-<h2>The Request</h2>
-
-<p>
-  The request endpoint is: <code class="code--inline">https://api.scanpay.dk/v1/new</code>
+  The response is a JSON object containing the payment link URL.
 </p>
 
 <h3 id="request-headers">Request Headers</h3>
 <p>
-  Requests are authenticated with HTTP basic authentication.
+  The request endpoint is: <code class="code--inline">https://api.scanpay.dk/v1/new</code>. Requests are authenticated with HTTP basic authentication.
 </p>
 
 <div class="table--responsive">
@@ -228,7 +221,7 @@
     <thead>
       <tr>
         <th>Code</th>
-        <th>Message</th>
+        <th>HTTP Body</th>
         <th>Description</th>
       </tr>
     </thead>
@@ -263,17 +256,25 @@
 
       <tr>
         <td class="hljs-attr">408</td>
-        <td>request timeout</td>
+        <td>Request Timeout</td>
         <td>
-          We close slow connections after <code class="code--inline hljs-attribute">8</code> seconds. Please try again.
+          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
         </td>
       </tr>
 
       <tr>
         <td class="hljs-attr">413</td>
-        <td>payload too large</td>
+        <td>Request Entity Too Large</td>
         <td>
-          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code> or the HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
+          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
+        </td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>Request Header Or Cookie Too Large</td>
+        <td>
+          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
         </td>
       </tr>
 

@@ -46,6 +46,14 @@
         "API": true
     },
 
+    "Capture": {
+        "url": "/capture",
+        "title": "Capture API",
+        "meta": "",
+        "pages": [],
+        "API": true
+    },
+
     "API Libraries": {
         "url": "/api-libraries",
         "title": "API Libraries",
