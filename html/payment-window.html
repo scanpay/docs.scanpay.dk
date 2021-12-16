@@ -1,0 +1,133 @@
+<h1>Payment Window</h1>
+
+<p>
+  The payment window is where your customers enter their payment details. The payment window is accessed through <a href="/payment-link">payment links</a>. You can either redirect the customer to the payment window, or you can embed the window in your website or app.
+</p>
+
+<p>
+  The payment window is extremely lightweight and probably the fastest in the world, but more importantly, it is auditable, secure and stable. For security and privacy reasons, we do not use any third-party frameworks or services.
+</p>
+
+<h2 id="request-headers">User interaction (UX)</h2>
+
+<div class="pic-flex">
+  <img class="pic enlarge padr" height="200" src="/a/img/payment-window.png">
+  <img class="pic enlarge" height="200" src="/a/img/payment-window-phone.jpg">
+</div>
+
+
+<h2 id="request-headers">Error messages</h2>
+<p>
+  Payments can be rejected for hundreds of different reasons, but we try to translate ...
+</p>
+
+<div class="responsive" style="margin-top: 30px;">
+  <table style="table-layout: auto;">
+    <thead>
+      <tr>
+        <th width="120">Code</th>
+        <th width="300">Error message</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>invalid card</td>
+        <td>
+          <i>Invalid card details. Please verify your card details and try again.</i>
+        </td>
+        <td>
+          The card number, CVC or expiration date is incorrect.
+        </td>
+      </tr>
+
+      <tr>
+        <td>card expired</td>
+        <td>
+          <i>The card has expired. Please use another card.</i>
+        </td>
+        <td>
+          The card has expired.
+        </td>
+      </tr>
+
+      <tr>
+        <td>declined</td>
+        <td>
+          <i>The card was declined. Please verify your card details and try again.</i>
+          <br>
+          <i>$acquirer: "suspected fraud"</i>
+        </td>
+        <td>
+          The card was declined by the acquiring bank, the card issuer or the bank.
+        </td>
+      </tr>
+
+      <tr>
+        <td>insufficient funds</td>
+        <td>
+          <i>Payment was rejected by your bank. Your card has insufficient funds.</i>
+        </td>
+        <td>
+          The card was rejected because of insufficient funds.
+        </td>
+      </tr>
+
+      <tr>
+        <td>limit exceeded</td>
+        <td>
+          <i>Payment was rejected by your bank. Your withdrawal limit has been exceeded.</i>
+        </td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>method not supported</td>
+        <td>
+          <i>Unfortunately, we do not support <code class="code--inline">$method</code>.</i>
+        </td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>card not supported</td>
+        <td>
+          <i>Unfortunately, we do not support <code class="code--inline">$card</code>. Please try with a different card.</i>
+        </td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>failed</td>
+        <td><code class="code--inline">$service</code> failed. Please try again.</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>upstream error</td>
+        <td>An error occurred at the bank. Please wait a moment and try again.</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>phase error</td>
+        <td>An error occurred. This may be because you have opened the page in multiple windows.</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>internal error</td>
+        <td>An error occurred while processing your request. Please wait a moment and try again.</td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>network error</td>
+        <td>No connection to the server. Please check your internet connection and try again.</td>
+        <td></td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+

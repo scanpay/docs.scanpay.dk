@@ -298,5 +298,46 @@ ul {
 }
 
 
+/*
+    Images
+*/
+
+#picbg {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);
+    z-index: 10;
+    cursor: zoom-out;
+    justify-content: center;
+
+    > img {
+        max-width: 96vw;
+        max-height: 96vh;
+    }
+}
+
+.pic {
+    display: block;
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid #d0d0d0;
+}
+
+.pic-flex {
+    display: flex;
+    align-items: center;
+}
+
+.enlarge {
+    cursor: zoom-in;
+}
+
+.padr {
+    margin-right: 2%;
+}
+
 
 

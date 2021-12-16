@@ -6,6 +6,13 @@
         "pages": ["Create user and shop", "Setup acquirers", "Integrate"]
     },
 
+    "Payment Window": {
+        "url": "/payment-window",
+        "title": "Payment Window",
+        "meta": "...",
+        "pages": ["User interaction", "Errors"]
+    },
+
     "Payment Link": {
         "url": "/payment-link",
         "title": "Payment Link API",

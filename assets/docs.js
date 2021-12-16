@@ -6,7 +6,8 @@ function changeCodeEx(evt) {
     const btn = evt.target;
     if (btn.tagName === 'BUTTON') {
         fetchCode(btn.dataset.file, this);
-        this.querySelector('.code--example--active').classList.remove('code--example--active');
+        this.querySelector('.code--example--active')
+            .classList.remove('code--example--active');
         btn.classList.add('code--example--active');
 
         if (btn.dataset.lang) {
@@ -118,7 +119,6 @@ function removeHash() {
         headings[i].addEventListener('mouseleave', removeHash);
     }
 
-    /*
     // TODO: Improve performance and class/ID names
     const pics = document.getElementsByClassName('enlarge');
     for (let i = 0; i < pics.length; i++) {
@@ -142,8 +142,6 @@ function removeHash() {
             }
         }, { once: true });
     }
-    */
-
 
     /**
     *   A tiny Google Analytics client (Measurement Protocol)
