@@ -18,14 +18,14 @@
 
 <h2 id="request-headers">Error messages</h2>
 <p>
-  Payments can be rejected for hundreds of different reasons, but we try to translate ...
+  Error messages are displayed in the payment window. Unfortunately, banks are inconsistent and unpredictable, but we do our very best to parse and translate their error codes. Here is a complete list of error messages that customers can receive in our payment window:
 </p>
 
 <div class="responsive" style="margin-top: 30px;">
   <table style="table-layout: auto;">
     <thead>
       <tr>
-        <th width="120">Code</th>
+        <th width="100">Code</th>
         <th width="300">Error message</th>
         <th>Description</th>
       </tr>
@@ -44,7 +44,7 @@
       <tr>
         <td>card expired</td>
         <td>
-          <i>The card has expired. Please use another card.</i>
+          <i>The card has expired. Please use a different card.</i>
         </td>
         <td>
           The card has expired.
@@ -55,8 +55,6 @@
         <td>declined</td>
         <td>
           <i>The card was declined. Please verify your card details and try again.</i>
-          <br>
-          <i>$acquirer: "suspected fraud"</i>
         </td>
         <td>
           The card was declined by the acquiring bank, the card issuer or the bank.
@@ -69,7 +67,7 @@
           <i>Payment was rejected by your bank. Your card has insufficient funds.</i>
         </td>
         <td>
-          The card was rejected because of insufficient funds.
+          The transaction was rejected by the customer's bank due to insufficient funds, that is, there was not enough money or credit available to cover the payment.
         </td>
       </tr>
 
@@ -78,53 +76,97 @@
         <td>
           <i>Payment was rejected by your bank. Your withdrawal limit has been exceeded.</i>
         </td>
-        <td></td>
-      </tr>
-
-      <tr>
-        <td>method not supported</td>
         <td>
-          <i>Unfortunately, we do not support <code class="code--inline">$method</code>.</i>
+          The transaction was rejected by the customer's bank. The customer has surpassed their withdrawal limit.
         </td>
-        <td></td>
       </tr>
 
       <tr>
-        <td>card not supported</td>
+        <td><code class="code--inline">$method</code> not supported</td>
         <td>
-          <i>Unfortunately, we do not support <code class="code--inline">$card</code>. Please try with a different card.</i>
+          <i>Unfortunately, we do not support <code class="code--inline">$method</code>. Please choose a different payment method.</i>
         </td>
-        <td></td>
+        <td>
+          The customer tried to pay with a payment method that you do not support, e.g. Apple Pay. This is typically because you forgot to enable it in our dashboard.
+        </td>
       </tr>
 
       <tr>
-        <td>failed</td>
-        <td><code class="code--inline">$service</code> failed. Please try again.</td>
-        <td></td>
+        <td><code class="code--inline">$card</code> not supported</td>
+        <td>
+          <i>Unfortunately, we do not support <code class="code--inline">$card</code>. Please use a different card.</i>
+        </td>
+        <td>
+          The customer tried to pay with a payment card that you do not support.
+        </td>
+      </tr>
+
+      <tr>
+        <td>3dsecure failed</td>
+        <td>
+          <i>3-D Secure authentication failed. Please try again or use a different card.</i>
+        </td>
+        <td>
+          3-D Secure authentication failed.
+        </td>
+      </tr>
+
+      <tr>
+        <td>dsbn failed</td>
+        <td>
+          <i>Dankort Secured by Nets failed. Please try again or use a different card.</i>
+        </td>
+        <td>
+          Dankort Secured by Nets failed.
+        </td>
+      </tr>
+
+      <tr>
+        <td><code class="code--inline">$service</code> failed</td>
+        <td>
+          <i><code class="code--inline">$service</code> failed. Please try again or use a different payment method.</i>
+        </td>
+        <td>
+          The specified service or payment method failed.
+        </td>
       </tr>
 
       <tr>
         <td>upstream error</td>
-        <td>An error occurred at the bank. Please wait a moment and try again.</td>
-        <td></td>
+        <td>
+          <i>An error occurred at the bank. Please wait a moment and try again.</i>
+        </td>
+        <td>
+          An error occurred at the acquiring bank, the card issuer or the bank.
+        </td>
       </tr>
 
       <tr>
         <td>phase error</td>
-        <td>An error occurred. This may be because you have opened the page in multiple windows.</td>
-        <td></td>
+        <td>
+          <i>An error occurred. This may be because you have opened the page in multiple windows.</i>
+        </td>
+        <td>
+          Phase errors are when someone opens the payment window, while it is busy in another state.
+        </td>
       </tr>
 
       <tr>
         <td>internal error</td>
-        <td>An error occurred while processing your request. Please wait a moment and try again.</td>
-        <td></td>
+        <td>
+          <i>An error occurred while processing your request. Please wait a moment and try again.</i>
+        </td>
+        <td>An error occured at Scanpay.</td>
       </tr>
 
       <tr>
         <td>network error</td>
-        <td>No connection to the server. Please check your internet connection and try again.</td>
-        <td></td>
+        <td>
+          <i>No connection to the server. Please check your internet connection and try again.</i>
+        </td>
+        <td>
+          No connection to our servers.
+        </td>
       </tr>
 
     </tbody>
