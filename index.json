@@ -10,7 +10,7 @@
         "url": "/payment-window",
         "title": "Payment Window",
         "meta": "...",
-        "pages": ["User interaction", "Errors"]
+        "pages": ["User interaction", "Customization", "Languages", "Error messages"]
     },
 
     "Payment Link": {

@@ -8,17 +8,118 @@
   The payment window is extremely lightweight and probably the fastest in the world, but more importantly, it is auditable, secure and stable. For security and privacy reasons, we do not use any third-party frameworks or services.
 </p>
 
-<h2 id="request-headers">User interaction (UX)</h2>
+<h2 id="request-headers">User interaction</h2>
 
 <div class="pic-flex">
   <img class="pic enlarge padr" height="200" src="/a/img/payment-window.png">
-  <img class="pic enlarge" height="200" src="/a/img/payment-window-phone.jpg">
+  <img class="pic enlarge padr" height="200" src="/a/img/payment-window-phone.jpg">
+  <img class="pic enlarge" height="200" src="/a/img/iframe-payment-window.png">
 </div>
 
 
-<h2 id="request-headers">Error messages</h2>
+<h2 id="customization">Customization</h2>
 <p>
-  Error messages are displayed in the payment window. Unfortunately, banks are inconsistent and unpredictable, but we do our very best to parse and translate their error codes. Here is a complete list of error messages that customers can receive in our payment window:
+  We recommend that you upload your company logo in our <a href="https://dashboard.scanpay.dk/settings/payment-window">dashboard</a>, we support <code class="code--inline">png</code>, <code class="code--inline">jpg</code> and <code class="code--inline">svg</code>. If you wish, you can integrate our payment form into your website with an iFrame.
+</p>
+
+<h3>iFrame</h3>
+<p>
+
+<pre class="responsive"><code class="code--block"><span class="hljs-keyword">&#60;</span><span class="hljs-attr">iframe</span> <span class="hljs-keyword">src</span><span class="hljs-name">="https://betal.scanpay.dk/n127ys?iframe"</span><span class="hljs-attr">&#62;&#60;</span><span class="hljs-attr">/iframe</span><span class="hljs-keyword">&#62;</span></code></pre>
+
+
+  <div class="note--">
+    <div class="note--head">PCI DSS requirement<svg class="note--ico" width="14" height="14" viewBox="0 0 16 16"><path fill="#fff" d="M7 11v2h2v-2zm1 5c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zM7 3v7h2V3zm0 0"></path></svg>
+    </div>
+    <div class="note--body">
+      You will need to fill out a Self-Assessment Questionnaire (<a href="https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2_1-SAQ-A.pdf?agreement=true">SAQ A</a>) if you wish to iFrame our payment window.
+    </div>
+  </div>
+</p>
+
+
+<h2 id="languages">Languages</h2>
+<p>
+  When you create a <a href="/payment-link">payment link</a>, you can select the desired language for the payment window. Our fallback is to choose the best available language, depending on the customers browser settings, i.e. the <code class="code--inline">Accept-Language</code> header. Please contact us if you would like us to support a specific language. We currently support the following languages:
+</p>
+
+<div style="display: flex;" class="flex">
+  <div class="responsives" style="margin-top: 15px; margin-right: 20px;">
+    <table style="table-layout: auto;">
+      <thead>
+        <tr>
+          <th width="100">Language</th>
+          <th width="80">ISO 639-1</th>
+          <th>Git</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>English</td>
+          <td>en</td>
+          <td>
+            <a href="#">{% include "assets/img/github_black.svg" %}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Danish</td>
+          <td>da</td>
+          <td>
+            <a href="#">{% include "assets/img/github_black.svg" %}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Swedish</td>
+          <td>sv</td>
+          <td>
+            <a href="#">{% include "assets/img/github_black.svg" %}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Norwegian</td>
+          <td>no</td>
+          <td>
+            <a href="#">{% include "assets/img/github_black.svg" %}</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="responsives" style="margin-top: 15px; margin-left: 20px;">
+    <table style="table-layout: auto;">
+      <thead>
+        <tr>
+          <th width="100">Language</th>
+          <th width="80">ISO 639-1</th>
+          <th>Git</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>German</td>
+          <td>de</td>
+          <td>
+            <a href="#">{% include "assets/img/github_black.svg" %}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>French</td>
+          <td>fr</td>
+          <td>
+            <a href="#">{% include "assets/img/github_black.svg" %}</a>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<h2 id="error-messages">Error messages</h2>
+<p>
+  Error messages are displayed in the payment window. Banks are inconsistent and unpredictable, but we do our very best to parse and translate their error codes. Here is a complete list of error messages that customers can receive in our payment window:
 </p>
 
 <div class="responsive" style="margin-top: 30px;">
@@ -31,6 +132,7 @@
       </tr>
     </thead>
     <tbody>
+
       <tr>
         <td>invalid card</td>
         <td>
