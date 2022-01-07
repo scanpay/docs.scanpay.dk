@@ -1,0 +1,98 @@
+<h1>Logs &amp; Errors</h1>
+<p>
+  ...
+</p>
+
+
+<div class="responsive" style="margin-top: 30px;">
+  <table style="table-layout: auto;">
+    <thead>
+      <tr>
+        <th width="300">Error message</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>3dsecure authentication failed</td>
+        <td>3dsecure authentication failed</td>
+      </tr>
+
+      <tr>
+        <td>3-d secure problem: parameter 'rreq', 'eci' is missing</td>
+        <td>
+          Idiotisk fejl fra Clearhaus som vi selv bør preempte. Det betyder at 3-D Secure v2 authentication ikke gik igennem
+        </td>
+      </tr>
+
+      <tr>
+        <td>3-d secure problem: parameter 'rreq', 'transStatus' (R) indicate authentication reject by issuer</td>
+        <td>
+          3-D Secure v2 gik ikke igennem fordi ACS'en sagde "reject" hvilket betyder at man skal stoppe med at forsøge at indløse
+        </td>
+      </tr>
+
+      <tr>
+        <td>3-d secure problem: pares has invalid ucaf</td>
+        <td>
+          3-D Secure v1 gik ikke igennem. Igen en skodbesked fra Clearhaus
+        </td>
+      </tr>
+
+      <tr>
+        <td>3dss: required data element missing: Elements failed validation (acctNumber does not match "^[0-9]{13,19}$")</td>
+        <td>
+          3-D Secure v2 kunne ikke startes fordi PAN'et ikke var mellem 13 og 19 karakterer
+        </td>
+      </tr>
+
+      <tr>
+        <td>3dss: required data element missing: Required elements are missing (acquirerMerchantID is required if messageCategory is 01)</td>
+        <td>
+          Kunden har ikke indtastet sit merchant ID i dashboardet
+        </td>
+      </tr>
+
+      <tr>
+        <td>3dss: transaction data not valid: No RReq has been received (No response from directory server yet)</td>
+        <td>
+          ...
+        </td>
+      </tr>
+
+      <tr>
+        <td>3dss: transaction data not valid: Unknown BIN (No CRD found, card with BIN 411111 is not enrolled with any known DS)</td>
+        <td>
+          Kortet falder ikke i nogen kendte PAN ranges i 3-D Secure v2
+        </td>
+      </tr>
+
+      <tr>
+        <td>3dss: transaction id not recognised: No transaction found (ID expired after 80 seconds or no preauth request performed)</td>
+        <td>
+          3-D Secure v2 er timed out
+        </td>
+      </tr>
+
+      <tr>
+        <td>acs: format of one or more data elements is invalid according to the specification: Data element not in the required format or [...]</td>
+        <td>
+          ...
+        </td>
+      </tr>
+
+      <tr>
+        <td>veres=N</td>
+        <td>Kortet er ikke signed up til 3-D Secure v1</td>
+      </tr>
+
+      <tr>
+        <td>ds: Access denied, invalid endpoint (acquirerBIN, acquirerMerchantID not recognized)</td>
+        <td>
+          ...
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

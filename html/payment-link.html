@@ -3,7 +3,7 @@
   You can use the Payment Link API to generate links to our <a href="/payment-window">payment window</a>, where your customers can enter their payment details. You can either redirect the customer to the payment window, or you can embed the window in your website or app.
 </p>
 <p>
-  The API is fault-tolerant and forgiving. Invalid data will generally be ignored, and there are no required fields, but you must include at least one item in the <code class="code--inline">items</code> array. Here is a minimal example in pseudocode.
+  The API is fault-tolerant and forgiving. Invalid data will generally be ignored, and there are no required fields. Here is a minimal example in pseudocode.
 </p>
 
 <pre class="responsive"><code class="code--block">{% include "code/paylink/pseudo.html" %}</code></pre>
@@ -11,7 +11,7 @@
 <p>
   The response is a JSON object containing the payment link URL.
 </p>
-
+z
 <h3 id="request-headers">Request Headers</h3>
 <p>
   The request endpoint is: <code class="code--inline">https://api.scanpay.dk/v1/new</code>. Requests are authenticated with HTTP basic authentication.

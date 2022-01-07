@@ -68,6 +68,14 @@
         "pages": ["PHP", "Node.js", "Ruby", "Go", ".NET"]
     },
 
+    "Errors": {
+        "url": "/errors",
+        "title": "Errors",
+        "meta": "Scanpay has official client libraries for popular programming languages.",
+        "pages": []
+    },
+
+
     "Search": {
         "url": "/search",
         "title": "Search",

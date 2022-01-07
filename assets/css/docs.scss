@@ -329,6 +329,7 @@ ul {
 .pic-flex {
     display: flex;
     align-items: center;
+    flex-flow: row wrap;
 }
 
 .enlarge {
