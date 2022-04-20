@@ -3,7 +3,7 @@
         "url": "/",
         "title": "Getting Started with Scanpay",
         "meta": "Getting started with Scanpay and online payments.",
-        "pages": ["Create user and shop", "Setup acquirers", "Integrate"]
+        "pages": ["Shop modules", "Client libraries"]
     },
 
     "Payment Window": {
@@ -53,19 +53,12 @@
         "API": true
     },
 
-    "Capture": {
-        "url": "/capture",
-        "title": "Capture API",
+    "Transactions": {
+        "url": "/transactions",
+        "title": "Transactions API",
         "meta": "",
         "pages": [],
         "API": true
-    },
-
-    "API Libraries": {
-        "url": "/api-libraries",
-        "title": "API Libraries",
-        "meta": "Scanpay has official client libraries for popular programming languages.",
-        "pages": ["PHP", "Node.js", "Ruby", "Go", ".NET"]
     },
 
     "Errors": {
@@ -74,7 +67,6 @@
         "meta": "Scanpay has official client libraries for popular programming languages.",
         "pages": []
     },
-
 
     "Search": {
         "url": "/search",

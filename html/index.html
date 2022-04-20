@@ -1,21 +1,167 @@
 <h1>Getting started</h1>
 <p>
-  Scanpay is a payment platform, that allows you to accept payments online. The purpose of this guide is to briefly explain how it works and how you get started.
+  <a href="https://scanpay.dk">Scanpay</a> is a blazingly fast and robust payment platform programmed in <a rel="nofollow" href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a>. The system is designed with a security by design approach, making security considerations the core of our engineering process. Our philosophy is about keeping things simple, minimal and usable.
 </p>
 
-<h3 id="create-user-and-shop">1. Create user and shop</h3>
-<p>
-  First you will need to <a href="//scanpay.dk/opret">create a user</a> and then you can <a href="//dashboard.scanpay.dk/newshop">create a shop</a>.
+<section>
+  <h2 id="shop-modules">Shop modules</h2>
 
-  When you create a shop you will become its technical owner/admin <i>(transferable)</i>. You can <a href="//dashboard.scanpay.dk/settings/team">invite your colleagues</a> to the shop and give them privileges that determine what actions they can perform. Users should have only the minimal set of privileges required to ensure a system of <a href="//en.wikipedia.org/wiki/Principle_of_least_privilege">least privilege</a>.
-</p>
+  <ol class="integrations--">
+    <li class="integrations--li">
+      <a target="_blank" href="https://github.com/scanpay/woocommerce-scanpay">
+        <div class="integrations--li--logo">
+          <img width="90" height="53.55" alt="WooCommerce" src="/img/integrations/woocommerce.svg">
+        </div>
+        <div class="integrations--li--info">
+          <h3 class="integrations--li--h3">WooCommerce</h3>
+          <p>
+            Install our plugin for WooCommerce, a popular shop system built on WordPress.
+          </p>
+          <span class="integrations--li--price">gratis</span>
+        </div>
+      </a>
+    </li>
 
-<h3 id="setup-acquirers">2. Setup acquirers</h3>
-<p>
-  Before you can accept payments you will need a merchant agreement with an acquiring bank. This agreement will determine what payment methods you can accept. You can read more about this process, and see a full list of supported acquiring banks <a href="/acquiring-banks">here</a>.
-</p>
+    <li class="integrations--li">
+      <a target="_blank" href="https://github.com/scanpay/magento2-scanpay">
+        <div class="integrations--li--logo">
+          <img width="53.7" height="61.2" alt="Magento" src="/img/integrations/magento.svg">
+        </div>
+        <div class="integrations--li--info">
+          <h3 class="integrations--li--h3">Magento</h3>
+          <p>
+            Install our module for Magento, which is a shop system for larger companies.
+          </p>
+          <span class="integrations--li--price">gratis</span>
+        </div>
+      </a>
+    </li>
 
-<h3 id="integrate">3. Integrate</h3>
-<p>
-  We develop and maintain modules for the most popular e-commerce platforms: <a href="/modules/woocommerce">WooCommerce</a> and <a href="/modules/magento-2">Magento 2</a>. We also provide API libraries for <a href="//github.com/scanpaydk/php-scanpay">PHP</a> and <a href="//github.com/scanpaydk/node-scanpay">node.js</a> – more libraries/modules coming soon.
-</p>
+    <li class="integrations--li">
+      <a target="_blank" href="https://github.com/scanpay/prestashop-scanpay">
+        <div class="integrations--li--logo">
+          <img width="69" height="69" alt="PrestaShop" src="/img/integrations/prestashop.svg">
+        </div>
+        <div class="integrations--li--info">
+          <h3 class="integrations--li--h3">PrestaShop</h3>
+          <p>
+            Install our module for PrestaShop version 1.7 and higher.
+          </p>
+          <span class="integrations--li--price">gratis</span>
+        </div>
+      </a>
+    </li>
+
+    <li class="integrations--li">
+      <a target="_blank" href="https://github.com/scanpay/thirty-bees-scanpay">
+        <div class="integrations--li--logo">
+          <img width="69" height="69" alt="Thirty Bees" src="/img/integrations/thirty-bees.svg">
+        </div>
+        <div class="integrations--li--info">
+          <h3 class="integrations--li--h3">Thirty Bees</h3>
+          <p>
+            Install our module for Thirty Bees or PrestaShop version 1.6.
+          </p>
+          <span class="integrations--li--price">gratis</span>
+        </div>
+      </a>
+    </li>
+
+    <li class="integrations--li">
+      <a target="_blank" href="https://github.com/scanpay/opencart-scanpay">
+        <div class="integrations--li--logo">
+          <img width="137.5" height="32" alt="OpenCart" src="/img/integrations/opencart.svg">
+        </div>
+        <div class="integrations--li--info">
+          <h3 class="integrations--li--h3">OpenCart</h3>
+          <p>
+            Install our module for OpenCart version 3.0 and higher.
+          </p>
+          <span class="integrations--li--price">gratis</span>
+        </div>
+      </a>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <h2 id="client-libraries">Client libraries</h2>
+
+  <ol class="integrations--">
+    <li class="integrations--li">
+      <a target="_blank" href="https://github.com/scanpay/php-scanpay">
+        <div class="integrations--li--logo">
+          <img width="101.8" height="55" alt="PHP" src="/img/integrations/php.svg">
+        </div>
+        <div class="integrations--li--info">
+          <h3 class="integrations--li--h3">PHP</h3>
+          <p>
+            Brug vores PHP bibliotek for nem og sikker API integration.
+          </p>
+          <span class="integrations--li--price">gratis</span>
+        </div>
+      </a>
+    </li>
+
+    <li class="integrations--li">
+      <a target="_blank" href="https://github.com/scanpay/node-scanpay">
+        <div class="integrations--li--logo">
+          <img width="100" height="61.3" alt="Node.js" src="/img/integrations/nodejs.svg">
+        </div>
+        <div class="integrations--li--info">
+          <h3 class="integrations--li--h3">Node.js</h3>
+          <p>
+            Brug vores Node.js bibliotek for nem og sikker API integration.
+          </p>
+          <span class="integrations--li--price">gratis</span>
+        </div>
+      </a>
+    </li>
+
+    <li class="integrations--li">
+      <a target="_blank" href="https://github.com/scanpay/ruby-scanpay">
+        <div class="integrations--li--logo">
+          <img width="60" height="60" alt="Ruby" src="/img/integrations/ruby.svg">
+        </div>
+        <div class="integrations--li--info">
+          <h3 class="integrations--li--h3">Ruby</h3>
+          <p>
+            Brug vores Ruby bibliotek for nem og sikker API integration.
+          </p>
+          <span class="integrations--li--price">gratis</span>
+        </div>
+      </a>
+    </li>
+
+    <li class="integrations--li">
+      <a target="_blank" href="https://github.com/scanpay/go-scanpay">
+        <div class="integrations--li--logo">
+          <img width="121.3" height="107" alt="Go" src="/img/integrations/go.svg">
+        </div>
+        <div class="integrations--li--info">
+          <h3 class="integrations--li--h3">Go</h3>
+          <p>
+            Brug vores Go bibliotek for nem og sikker API integration.
+          </p>
+          <span class="integrations--li--price">gratis</span>
+        </div>
+      </a>
+    </li>
+
+    <li class="integrations--li">
+      <a target="_blank" href="https://github.com/scanpay/dotnet-scanpay">
+        <div class="integrations--li--logo">
+          <img width="75" height="75" alt=".NET" src="/img/integrations/dotnet.svg">
+        </div>
+        <div class="integrations--li--info">
+          <h3 class="integrations--li--h3">.NET</h3>
+          <p>
+            Brug vores .NET bibliotek for nem og sikker API integration.
+          </p>
+          <span class="integrations--li--price">gratis</span>
+        </div>
+      </a>
+    </li>
+  </ol>
+
+</section>

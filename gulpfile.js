@@ -4,7 +4,7 @@ const fs = require('fs');
 const Path = require('path');
 const gulp = require('gulp');
 const connect = require('gulp-connect');
-const sass = require('node-sass');
+const sass = require('sass');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 const hljs = require('highlight.js');
@@ -37,28 +37,41 @@ function createSidebar(active) {
     for (const name in index) {
         const o = index[name];
         if (o.hidden) { continue; }
-        const APIlabel = o.API ? '<span class="sidebar--label">API</span>' : '';
+        const APIlabel = o.API ? '<span class="nav--label">API</span>' : '';
 
         if (o.url === active.url) {
             let sublinks = '';
             if (Array.isArray(o.pages)) {
                 for (const name of o.pages) {
-                    sublinks += '<li><a href="#' + name.toLowerCase().replace(/ /g, '-') +
-                        '">' + name + '</a></li>';
+                    sublinks += `<li class="nav--c--ul--li--ol--li">
+                        <a class="nav--c--ul--li--ol--li--a" href="#${name.toLowerCase().replace(/ /g, '-')}">
+                            ${name}
+                        </a>
+                    </li>`;
                 }
             } else {
                 for (const name in o.pages) {
-                    sublinks += '<li><a href="' + o.pages[name].url + '">' +
-                        name + '</a></li>';
+                    sublinks += `<li class="nav--c--ul--li--ol--li">
+                        <a class="nav--c--ul--li--ol--li--a" href="${o.pages[name].url}">
+                            ${name}
+                        </a>
+                    </li>`;
                 }
             }
-            str += `<li class="sidebar--active">
-                        ${ mo3.getFile('assets/img/fold.svg').str }
-                        <a href="${o.url}">${name + APIlabel}</a>
-                        <ol class="sidebar--sub">${sublinks}</ol>
+            str += `<li class="nav--c--ul--li nav--c--ul--li-active">
+                        <a class="nav--c--ul--li--a" href="${o.url}">
+                            ${name} ${APIlabel}
+                        </a>
+                        <ol class="nav--c--ul--li--ol">
+                            ${sublinks}
+                        </ol>
                     </li>`;
         } else {
-            str += '<li><a href="' + o.url + '">' + name + APIlabel + '</a></li>';
+            str += `<li class="nav--c--ul--li">
+                <a class="nav--c--ul--li--a" href="${o.url}">
+                    ${name} ${APIlabel}
+                </a>
+            </li>`;
         }
     }
     return str;
@@ -173,7 +186,7 @@ gulp.task('serve', () => {
         }])
     });
 
-    gulp.watch(['tpl/**/*.html', 'code/**'], gulp.series('build'));
+    gulp.watch(['tpl/**/*.html', 'code/**', 'svg/**'], html);
     gulp.watch(['html/**/*.html'], html);
     gulp.watch(['assets/font/**', 'assets/img/**'], assets);
     gulp.watch('assets/css/*.scss', scss);

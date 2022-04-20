@@ -1,4 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" class="sidebar--fold">
-  <rect width="9" height="9" x=".5" y=".5" fill="none" stroke="#333" rx="2" ry="2"/>
-  <path fill="#333" d="M2.5 4.5h5v1h-5z"/>
-</svg>

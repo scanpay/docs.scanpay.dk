@@ -12,47 +12,43 @@
 <link rel="canonical" href="https://docs.scanpay.dk{{ url }}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<nav class="sidebar--">
-  <div class="sidebar--head">
-    <div class="sidebar--c">
-      <a href="https://scanpay.dk" class="sidebar--home" title="Back to Scanpay frontpage">
-        {% include "assets/img/home.svg" %} scanpay
+<nav class="nav--">
+  <div class="nav--c">
+    <div class="nav--c--head">
+      <a href="https://scanpay.dk" title="Back to Scanpay">
+        <img class="nav--c--head--logo" src="/img/logo.svg" alt="Scanpay logo">
       </a>
     </div>
+
     <form id="search" action="/search">
-      <input class="sidebar--search" type="text" name="q" placeholder="Search the docs">
+      <div class="nav--c--search">
+        <div id="nav--c--burger">
+          {% include "svg/burger.svg" %}
+        </div>
+        <div style="flex: 1; display: flex; align-items: center;">
+          <input
+            class="nav--c--search--input"
+            type="text"
+            name="q"
+            autocomplete="off"
+            placeholder="Search the docs">
+        </div>
+      </div>
     </form>
+    <ul id="nav--c--ul">
+      {{ sidebar }}
+    </ul>
   </div>
-  <ul class="sidebar--ul">{{ sidebar }}</ul>
 </nav>
 
 <div class="c">
-  <nav class="phone--nav">
-    <div id="phone--nav--menu"></div>
-    <a href="/">Scanpay</a>
-
-    <div id="phone--nav--dropdown">
-      <input class="phone--nav--search" type="text" name="q" placeholder="Search the docs">
-      <ul class="phone--nav--ul">
-        <li><a href="/">Getting Started</a></li>
-        <li><a href="/payment-link">Payment Link <span class="sidebar--label">API</span></a></li>
-        <li><a href="/synchronization">Synchronization</a></li>
-        <li><a href="/subscriptions/">Subscriptions</a></li>
-        <li><a href="/api-libraries">API Libraries</a></li>
-      </ul>
-    </div>
-  </nav>
-
   <div id="bg">
     <header class="header">
-      <a rel="nofollow" href="https://github.com/scanpaydk/docs.scanpay.dk/blob/main/html/{{ path }}" class="git">
-        {% include "assets/img/github.svg" %} Edit on GitHub
+      <a rel="nofollow" href="https://github.com/scanpay/docs.scanpay.dk/blob/main/html/{{ path }}" class="git">
+        {% include "svg/github.svg" %} Edit on GitHub
       </a>
       <nav class="breadcrumb">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14" fill="#4395cb">
-          <path d="M256 152.96 79.89 288.47v181.55H221.4V336.97h75.18v133.05h135.53V288.47z"/>
-          <path d="M439.48 183.13V90.31h-74.16v35.77L256 41.98 0 238.92l35.34 45.94L256 115.06l220.66 169.8L512 238.92z"/>
-        </svg>
+        {% include "svg/breadcrumb.svg" %}
         {{ breadcrumb }}
       </nav>
     </header>

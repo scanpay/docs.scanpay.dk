@@ -58,6 +58,7 @@ const postman = {
 };
 */
 
+
 function showHash() {
     const a = document.createElement('a');
     a.className = 'hlink';
@@ -68,14 +69,15 @@ function showHash() {
     this.appendChild(a);
 }
 
+
 function removeHash() {
     this.querySelector('.hlink').remove();
 }
 
 
 (() => {
-    document.getElementById('phone--nav--menu').onclick = () => {
-        document.getElementById('phone--nav--dropdown').classList.toggle('show');
+    document.getElementById('nav--c--burger--svg').onclick = () => {
+        document.getElementById('nav--c--ul').classList.toggle('show');
     };
 
     const prefLang = sessionStorage && sessionStorage.getItem('lang');
@@ -115,8 +117,11 @@ function removeHash() {
 
     const headings = document.querySelectorAll('h2, h3, h4');
     for (let i = 0; i < headings.length; i++) {
-        headings[i].addEventListener('mouseenter', showHash);
-        headings[i].addEventListener('mouseleave', removeHash);
+        const target = headings[i];
+        if (target.id) {
+            target.addEventListener('mouseenter', showHash);
+            target.addEventListener('mouseleave', removeHash);
+        }
     }
 
     // TODO: Improve performance and class/ID names
@@ -142,42 +147,5 @@ function removeHash() {
             }
         }, { once: true });
     }
-
-    /**
-    *   A tiny Google Analytics client (Measurement Protocol)
-    */
-    /*
-    function _ga(o) {
-        const time = Date.now();
-        let cid = localStorage._ga;
-        if (!cid) {
-            // Pseudo-unique string with 32 chars UUIDv4 w/o hyphens.
-            localStorage._ga = cid = (Math.random() +
-                '00000000000000000000').substring(2, 21) + time;
-        }
-        let url = '/_ga/collect?v=1&tid=UA-45595918-2&ds=web&cid=' +
-                    cid + '&z=' + time;
-        for (const k in o) {
-            url += '&' + k + '=' + o[k];
-        }
-        fetch(url);
-    }
-
-    _ga({
-        t: 'pageview',
-        dr: encodeURIComponent(document.referrer),
-        dl: encodeURIComponent(location.href), // URL
-        dh: encodeURIComponent(location.hostname), // Document Host Name
-        dp: encodeURIComponent(location.pathname), // Document Path
-        dt: encodeURIComponent(document.title), // Document Title
-
-        // System Info
-        sr: screen.width + 'x' + screen.height,
-        vp: document.documentElement.clientWidth + 'x' +
-            document.documentElement.clientHeight,
-        sd: screen.colorDepth + '-bits',
-        ul: navigator.language
-    });
-    */
 
 })();

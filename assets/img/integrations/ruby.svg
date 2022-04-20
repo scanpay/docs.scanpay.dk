@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 198 198">
+  <defs>
+    <linearGradient id="svg--ruby--a" x1="174.1" x2="132.3" y1="215.5" y2="141.8" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fb7655"/>
+      <stop offset="0" stop-color="#fb7655"/>
+      <stop offset=".4" stop-color="#e42b1e"/>
+      <stop offset="1" stop-color="#900"/>
+      <stop offset="1" stop-color="#900"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--c" x1="194.9" x2="141" y1="153.6" y2="117.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#871101"/>
+      <stop offset="0" stop-color="#871101"/>
+      <stop offset="1" stop-color="#911209"/>
+      <stop offset="1" stop-color="#911209"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--d" x1="151.8" x2="97.9" y1="217.8" y2="181.6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#871101"/>
+      <stop offset="0" stop-color="#871101"/>
+      <stop offset="1" stop-color="#911209"/>
+      <stop offset="1" stop-color="#911209"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--e" x1="38.7" x2="47" y1="127.4" y2="181.7" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".2" stop-color="#e57252"/>
+      <stop offset=".5" stop-color="#de3b20"/>
+      <stop offset="1" stop-color="#a60003"/>
+      <stop offset="1" stop-color="#a60003"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--f" x1="96.1" x2="99.2" y1="76.7" y2="132.1" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".2" stop-color="#e4714e"/>
+      <stop offset=".6" stop-color="#be1a0d"/>
+      <stop offset="1" stop-color="#a80d00"/>
+      <stop offset="1" stop-color="#a80d00"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--g" x1="147.1" x2="156.3" y1="25.5" y2="65.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".2" stop-color="#e46342"/>
+      <stop offset=".4" stop-color="#c82410"/>
+      <stop offset="1" stop-color="#a80d00"/>
+      <stop offset="1" stop-color="#a80d00"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--h" x1="119" x2="158.7" y1="11.5" y2="-8.3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".5" stop-color="#c81f11"/>
+      <stop offset="1" stop-color="#bf0905"/>
+      <stop offset="1" stop-color="#bf0905"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--i" x1="3.9" x2="7.2" y1="113.6" y2="146.3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".3" stop-color="#de4024"/>
+      <stop offset="1" stop-color="#bf190b"/>
+      <stop offset="1" stop-color="#bf190b"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--j" x1="-18.6" x2="135" y1="155.1" y2="-2.8" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#bd0012"/>
+      <stop offset="0" stop-color="#bd0012"/>
+      <stop offset=".1" stop-color="#fff"/>
+      <stop offset=".2" stop-color="#fff"/>
+      <stop offset=".3" stop-color="#c82f1c"/>
+      <stop offset=".3" stop-color="#820c01"/>
+      <stop offset=".5" stop-color="#a31601"/>
+      <stop offset=".7" stop-color="#b31301"/>
+      <stop offset="1" stop-color="#e82609"/>
+      <stop offset="1" stop-color="#e82609"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--k" x1="99.1" x2="52.8" y1="171" y2="159.6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8c0c01"/>
+      <stop offset="0" stop-color="#8c0c01"/>
+      <stop offset=".5" stop-color="#990c00"/>
+      <stop offset="1" stop-color="#a80d0e"/>
+      <stop offset="1" stop-color="#a80d0e"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--l" x1="178.5" x2="137.4" y1="115.5" y2="78.7" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7e110b"/>
+      <stop offset="0" stop-color="#7e110b"/>
+      <stop offset="1" stop-color="#9e0c00"/>
+      <stop offset="1" stop-color="#9e0c00"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--m" x1="193.6" x2="173.2" y1="47.9" y2="26.1" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#79130d"/>
+      <stop offset="0" stop-color="#79130d"/>
+      <stop offset="1" stop-color="#9e120b"/>
+      <stop offset="1" stop-color="#9e120b"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--p" x1="26.7" x2="10" y1="197.3" y2="140.7" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8b2114"/>
+      <stop offset="0" stop-color="#8b2114"/>
+      <stop offset=".4" stop-color="#9e100a"/>
+      <stop offset="1" stop-color="#b3100c"/>
+      <stop offset="1" stop-color="#b3100c"/>
+    </linearGradient>
+    <linearGradient id="svg--ruby--q" x1="154.6" x2="192" y1="9.8" y2="26.3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b31000"/>
+      <stop offset="0" stop-color="#b31000"/>
+      <stop offset=".4" stop-color="#910f08"/>
+      <stop offset="1" stop-color="#791c12"/>
+      <stop offset="1" stop-color="#791c12"/>
+    </linearGradient>
+    <linearGradient xlink:href="#svg--ruby--a" id="svg--ruby--b" x1="174.1" x2="132.3" y1="215.5" y2="141.8" gradientUnits="userSpaceOnUse"/>
+    <radialGradient id="svg--ruby--n" cx="143.8" cy="79.4" r="50.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a80d00"/>
+      <stop offset="0" stop-color="#a80d00"/>
+      <stop offset="1" stop-color="#7e0e08"/>
+      <stop offset="1" stop-color="#7e0e08"/>
+    </radialGradient>
+    <radialGradient id="svg--ruby--o" cx="74.1" cy="145.8" r="66.9" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a30c00"/>
+      <stop offset="0" stop-color="#a30c00"/>
+      <stop offset="1" stop-color="#800e08"/>
+      <stop offset="1" stop-color="#800e08"/>
+    </radialGradient>
+  </defs>
+  <path fill="url(#svg--ruby--b)" d="M154 130 40 198l147-10 11-148z"/>
+  <path fill="url(#svg--ruby--c)" d="m187 188-12-87-35 45z"/>
+  <path fill="url(#svg--ruby--d)" d="m187 188-92-8-54 17z"/>
+  <path fill="url(#svg--ruby--e)" d="m41 197 23-75-51 11z"/>
+  <path fill="url(#svg--ruby--f)" d="m140 146-21-83-61 57z"/>
+  <path fill="url(#svg--ruby--g)" d="m193 64-57-47-16 52z"/>
+  <path fill="url(#svg--ruby--h)" d="m167 1-34 18-22-18z"/>
+  <path fill="url(#svg--ruby--i)" d="m0 158 14-26-11-30z"/>
+  <path fill="#fff" d="m2 101 11 32 50-11 57-53 17-51-26-18-43 16-41 38-25 47z"/>
+  <path fill="url(#svg--ruby--j)" d="M42 42c30-29 68-46 82-32 15 15-1 51-30 80s-67 47-82 33c-14-15 1-52 30-81z"/>
+  <path fill="url(#svg--ruby--k)" d="m41 197 23-75 76 24c-28 26-58 48-99 51z"/>
+  <path fill="url(#svg--ruby--l)" d="m121 69 19 77c23-24 44-50 54-82l-73 5z"/>
+  <path fill="url(#svg--ruby--m)" d="M193 64c8-23 10-57-27-63l-30 16 57 47z"/>
+  <path fill="#9e1209" d="M0 158c1 39 29 39 41 40l-28-65-13 25z"/>
+  <path fill="url(#svg--ruby--n)" d="m121 69 54 33c1 1 15-24 18-38l-72 5z"/>
+  <path fill="url(#svg--ruby--o)" d="m64 122 30 59c18-10 33-22 46-35l-76-24z"/>
+  <path fill="url(#svg--ruby--p)" d="m13 133-4 52c8 11 19 12 31 11-8-21-25-64-27-63z"/>
+  <path fill="url(#svg--ruby--q)" d="m136 18 61 8c-4-14-14-22-31-25l-30 17z"/>
+</svg>

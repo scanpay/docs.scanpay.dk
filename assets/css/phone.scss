@@ -1,35 +1,48 @@
+$phone-margin: 1.3rem;
+
+.phone--nav {
+    display: none;
+}
+
+.phone--nav--menu {
+    display: flex;
+    background: #0972b7;
+    color: #fff;
+    padding: 0 $phone-margin;
+    position: relative;
+    font-size: 1.15rem;
+    justify-content: center;
+}
+
+#phone--nav--menu--burger {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: $phone-margin;
+    width: 2rem;
+    height: 100%;
+    cursor: pointer;
+}
+
+.phone--nav--menu--burger--svg {
+    width: 2rem;
+    height: 2rem;
+    margin-left: -.2rem;
+}
+
+.phone--nav--menu--logo {
+    display: block;
+    height: 1.3rem;
+    padding: 20px 0 14px;
+}
+
+
 #phone--nav--dropdown {
     display: none;
 
     &.show {
         display: block;
     }
-}
-
-.phone--nav {
-    display: none;
-    background: #0972b7;
-    color: #fff;
-    padding: .4em .8em;
-    position: relative;
-    line-height: 50px;
-    text-align: center;
-
-    > a {
-        color: #fff;
-        font-weight: bold;
-    }
-}
-
-
-#phone--nav--menu {
-    background: url(/a/img/burger.svg) no-repeat center;
-    position: absolute;
-    top: 13px;
-    padding: 5px;
-    width: 26px;
-    height: 23px;
-    cursor: pointer;
 }
 
 .phone--nav--search {
@@ -52,26 +65,44 @@
     }
 }
 
-.phone--nav--ul {
+.phone--nav--c--ul {
     list-style: none;
     padding: 0;
     margin: 0;
     text-align: left;
+    font-size: 1rem;
 
     > li {
         padding: 0;
         margin: 0;
     }
 
-
-
-    a { color: #fff; }
+    a {
+        color: #fff;
+    }
 }
 
 
-@media only screen and (max-width: 780px) {
+@media only screen and (max-width: 40rem) {
     body {
         display: block;
+    }
+
+    .nav--c--head {
+        display: none;
+    }
+
+    .nav--c--search {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    #nav--c--ul {
+        display: none;
+
+        &.show {
+            display: block;
+        }
     }
 
     .git {
@@ -79,15 +110,22 @@
     }
 
     #bg {
-        padding: 0 1.5em;
-    }
-
-    .sidebar-- {
-        display: none;
+        padding: 0 $phone-margin;
     }
 
     .phone--nav {
         display: block;
     }
+
+    #nav--c--burger {
+        display: flex;
+    }
+
+    .nav-- {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
 
 }
