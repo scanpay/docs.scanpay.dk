@@ -1,0 +1,131 @@
+/**
+*   @author ScanPay ApS.
+**/
+
+// Bitter (2019-11)
+@font-face {
+    font-family: 'B';
+    font-weight: 700;
+    src: url('font/B700.woff2') format('woff2');
+}
+
+// Lato (2021-09-24)
+@font-face {
+    font-family: 'L';
+    font-weight: 400;
+    src: url('font/L400.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'L';
+    font-weight: 400;
+    font-style: italic;
+    src: url('font/L400i.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'L';
+    font-weight: 700;
+    src: url('font/L700.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'L';
+    font-weight: 700;
+    font-style: italic;
+    src: url('font/L700i.woff2') format('woff2');
+}
+
+// Hack (2019-11)
+@font-face {
+    font-family: 'H';
+    font-weight: 400;
+    src: url('font/H400.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 400;
+    font-style: italic;
+    src: url('font/H400i.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 700;
+    src: url('font/H700.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'H';
+    font-weight: 700;
+    font-style: italic;
+    src: url('font/H700i.woff2') format('woff2');
+}
+
+
+body {
+    margin: 0;
+    font-family: 'L', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #333;
+    background: #f0f0f0;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    tab-size: 4;
+    min-width: 16rem;
+    display: flex;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: #3074af;
+    text-decoration: none;
+
+    &:active {
+        outline: 0;
+    }
+    &:hover {
+        outline: 0;
+        text-decoration: underline;
+    }
+}
+
+p {
+    padding: 0;
+    margin: .7em 0;
+}
+
+h1 {
+    margin: 1em 0 .8em;
+    font-family: 'B', serif;
+    font-weight: 700;
+    font-size: 1.7em;
+    line-height: normal;
+}
+
+h2 {
+    margin: 1.2em 0 .55em;
+    color: #404040;
+    font-family: 'B', serif;
+    font-size: 1.5em;
+    font-weight: 700;
+    line-height: normal;
+}
+
+h3 {
+    margin: 1.6em 0 .6em;
+    color: #404040;
+    font-family: 'B', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: normal;
+}
+
+hr {
+    margin: 50px 0;
+    border: 0;
+    border-top: 1px solid #e1e4e5;
+}
+
+section {
+    margin-bottom: 3.4em;
+}

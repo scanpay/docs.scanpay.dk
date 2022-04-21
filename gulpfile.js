@@ -37,38 +37,38 @@ function createSidebar(active) {
     for (const name in index) {
         const o = index[name];
         if (o.hidden) { continue; }
-        const APIlabel = o.API ? '<span class="nav--label">API</span>' : '';
+        const APIlabel = o.API ? '<span class="nav--ul--li--a--label">API</span>' : '';
 
         if (o.url === active.url) {
             let sublinks = '';
             if (Array.isArray(o.pages)) {
                 for (const name of o.pages) {
-                    sublinks += `<li class="nav--c--ul--li--ol--li">
-                        <a class="nav--c--ul--li--ol--li--a" href="#${name.toLowerCase().replace(/ /g, '-')}">
+                    sublinks += `<li class="nav--ul--li--ol--li">
+                        <a class="nav--ul--li--ol--li--a" href="#${name.toLowerCase().replace(/ /g, '-')}">
                             ${name}
                         </a>
                     </li>`;
                 }
             } else {
                 for (const name in o.pages) {
-                    sublinks += `<li class="nav--c--ul--li--ol--li">
-                        <a class="nav--c--ul--li--ol--li--a" href="${o.pages[name].url}">
+                    sublinks += `<li class="nav--ul--li--ol--li">
+                        <a class="nav--ul--li--ol--li--a" href="${o.pages[name].url}">
                             ${name}
                         </a>
                     </li>`;
                 }
             }
-            str += `<li class="nav--c--ul--li nav--c--ul--li-active">
-                        <a class="nav--c--ul--li--a" href="${o.url}">
+            str += `<li class="nav--ul--li nav--ul--li-active">
+                        <a class="nav--ul--li--a" href="${o.url}">
                             ${name} ${APIlabel}
                         </a>
-                        <ol class="nav--c--ul--li--ol">
+                        <ol class="nav--ul--li--ol">
                             ${sublinks}
                         </ol>
                     </li>`;
         } else {
-            str += `<li class="nav--c--ul--li">
-                <a class="nav--c--ul--li--a" href="${o.url}">
+            str += `<li class="nav--ul--li">
+                <a class="nav--ul--li--a" href="${o.url}">
                     ${name} ${APIlabel}
                 </a>
             </li>`;
@@ -157,7 +157,7 @@ function js() {
 
 
 function scss() {
-    return gulp.src(['assets/css/*.scss'], { base: 'assets/css/' })
+    return gulp.src(['css/**/*.scss'], { base: 'css/' })
         .pipe(through.obj((file, enc, cb) => {
             file.contents = sass.renderSync({ data: file.contents.toString() }).css;
             cb(null, file);
@@ -186,10 +186,10 @@ gulp.task('serve', () => {
         }])
     });
 
-    gulp.watch(['tpl/**/*.html', 'code/**', 'svg/**'], html);
+    gulp.watch(['tpl/**/*', 'code/**'], html);
     gulp.watch(['html/**/*.html'], html);
     gulp.watch(['assets/font/**', 'assets/img/**'], assets);
-    gulp.watch('assets/css/*.scss', scss);
+    gulp.watch('css/**/*.scss', scss);
     gulp.watch('assets/*.js', js);
     gulp.watch(['index.json'], gulp.series('build'));
     gulp.watch('/code/**/*.*', gulp.series(code, html));

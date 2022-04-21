@@ -1,5 +1,5 @@
 /**
-*   @author ScanPay ApS.
+*   Highlight.
 **/
 
 .hljs-attr { color: #bd143e; }
@@ -22,3 +22,40 @@
 // .hljs-addition { background: #dfd; }
 // .hljs-emphasis { font-style: italic; }
 // .hljs-strong { font-weight: bold; }
+
+
+
+/*
+    Code examples (tab w. cURL, PHP, NodeJS etc.)
+*/
+
+.code--example {
+    margin: 21px 0 0;
+    border: 1px solid #e3e3e3;
+    min-width: 40em;
+
+    > pre {
+        border-top: 1px solid #e3e3e3;
+    }
+}
+
+.code--example--first {
+    margin-left: 12px;
+}
+
+.code--example--active {
+    border-bottom: 2px solid #1c83c7;
+}
+
+
+
+
+
+
+.code-- > button {
+    padding: 2px 6px 0;
+    margin: 0 5px -1px;
+    font: 600 14px / 40px sans-serif;
+    height: 43px;
+    color: #757575;
+}

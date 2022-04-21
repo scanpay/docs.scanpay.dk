@@ -1,0 +1,46 @@
+$phone-margin: 1.3rem;
+
+@media only screen and (max-width: 40rem) {
+    body {
+        display: block;
+    }
+
+    .menu {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .nav {
+        position: relative;
+    }
+
+    .nav--logo {
+        display: none;
+    }
+
+    .nav--search {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    #nav--burger {
+        display: flex;
+    }
+
+    #nav--ul {
+        display: none;
+
+        &.show {
+            display: block;
+        }
+    }
+
+    .git {
+        display: none;
+    }
+
+    #bg {
+        padding: 0 $phone-margin;
+    }
+}

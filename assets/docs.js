@@ -76,8 +76,8 @@ function removeHash() {
 
 
 (() => {
-    document.getElementById('nav--c--burger--svg').onclick = () => {
-        document.getElementById('nav--c--ul').classList.toggle('show');
+    document.getElementById('nav--burger').onclick = () => {
+        document.getElementById('nav--ul').classList.toggle('show');
     };
 
     const prefLang = sessionStorage && sessionStorage.getItem('lang');

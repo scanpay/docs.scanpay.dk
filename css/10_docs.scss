@@ -3,6 +3,89 @@
 **/
 
 
+
+.hlink {
+    display: inline-block;
+    position: absolute;
+    margin: 3px 0 0 .3em;
+    width: 1em;
+    height: 1em;
+}
+
+
+#bg {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    max-width: 50rem;
+    padding: 0 6% 0;
+    position: relative;
+    min-height: 100vh;
+}
+
+.c {
+    position: relative;
+    width: 100%;
+    max-width: 67rem;
+}
+
+.article {
+    position: relative;
+    flex: 1;
+    padding-bottom: 2rem;
+}
+
+.footer {
+    padding: 22px 0 30px;
+    color: #888;
+    border-top: 1px solid #e1e4e5;
+    font-size: .9em;
+}
+
+.flex {
+    display: flex;
+}
+
+
+
+.header {
+    height: 3em;
+    padding-top: 1.8em;
+    border-bottom: 1px solid #e1e4e5;
+}
+
+.breadcrumb--svg {
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    vertical-align: -3px;
+}
+
+.raquo {
+    margin: 0 4px 0 6px;
+}
+
+.git {
+    float: right;
+}
+
+.git--svg {
+    display: inline-block;
+    vertical-align: -2px;
+    margin-right: 1px;
+    width: 1rem;
+    height: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
 pre {
     margin: 0;
 }
@@ -79,29 +162,6 @@ pre {
 }
 
 
-/*
-    Code examples (tab w. cURL, PHP, NodeJS etc.)
-*/
-
-.code--example {
-    margin: 21px 0 0;
-    border: 1px solid #e3e3e3;
-    min-width: 40em;
-
-    > pre {
-        border-top: 1px solid #e3e3e3;
-    }
-}
-
-.code--example--first {
-    margin-left: 12px;
-}
-
-.code--example--active {
-    border-bottom: 2px solid #1c83c7;
-}
-
-
 .ellipsis {
     word-break: break-all;
     overflow: hidden;
@@ -171,14 +231,6 @@ button {
         border: 0;
         padding: 0; // Remove inner padding and border in Firefox 4+ (normalize)
     }
-}
-
-.code-- > button {
-    padding: 2px 6px 0;
-    margin: 0 5px -1px;
-    font: 600 14px / 40px sans-serif;
-    height: 43px;
-    color: #757575;
 }
 
 /*
@@ -337,6 +389,4 @@ ul {
 .padr {
     margin-right: 2%;
 }
-
-
 

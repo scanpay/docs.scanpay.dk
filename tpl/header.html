@@ -12,46 +12,41 @@
 <link rel="canonical" href="https://docs.scanpay.dk{{ url }}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<nav class="nav--">
-  <div class="nav--c">
-    <div class="nav--c--head">
+<div class="menu">
+  <nav class="nav">
+    <div class="nav--logo">
       <a href="https://scanpay.dk" title="Back to Scanpay">
-        <img class="nav--c--head--logo" src="/img/logo.svg" alt="Scanpay logo">
+        <img class="nav--logo--svg" src="/img/logo.svg" alt="Scanpay logo">
       </a>
     </div>
 
-    <form id="search" action="/search">
-      <div class="nav--c--search">
-        <div id="nav--c--burger">
-          {% include "svg/burger.svg" %}
-        </div>
-        <div style="flex: 1; display: flex; align-items: center;">
-          <input
-            class="nav--c--search--input"
-            type="text"
-            name="q"
-            autocomplete="off"
-            placeholder="Search the docs">
-        </div>
+    <div class="nav--search">
+      <div id="nav--burger">
+        {% include "tpl/svg/burger.svg" %}
       </div>
-    </form>
-    <ul id="nav--c--ul">
+      <form class="nav--search--form" action="/search">
+        <input class="nav--search--input"
+          type="search"
+          name="q"
+          autocomplete="off"
+          placeholder="Search the docs">
+      </form>
+    </div>
+    <ul id="nav--ul">
       {{ sidebar }}
     </ul>
-  </div>
-</nav>
+  </nav>
+</div>
 
 <div class="c">
   <div id="bg">
     <header class="header">
       <a rel="nofollow" href="https://github.com/scanpay/docs.scanpay.dk/blob/main/html/{{ path }}" class="git">
-        {% include "svg/github.svg" %} Edit on GitHub
+        {% include "tpl/svg/github.svg" %} Edit on GitHub
       </a>
       <nav class="breadcrumb">
-        {% include "svg/breadcrumb.svg" %}
+        {% include "tpl/svg/breadcrumb.svg" %}
         {{ breadcrumb }}
       </nav>
     </header>
-
-    <main>
-      <article>
+    <article class="article">
