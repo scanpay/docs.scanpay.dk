@@ -24,7 +24,6 @@
 // .hljs-strong { font-weight: bold; }
 
 
-
 /*
     Code examples (tab w. cURL, PHP, NodeJS etc.)
 */
@@ -49,13 +48,70 @@
 
 
 
-
-
-
-.code-- > button {
-    padding: 2px 6px 0;
-    margin: 0 5px -1px;
-    font: 600 14px / 40px sans-serif;
-    height: 43px;
-    color: #757575;
+// TODO: find a name for this...
+.code--tmp {
+    display: block;
+    font-size: .9em;
+    font-family: "H", monospace;
 }
+
+.code--ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.code--block {
+    display: block;
+    width: fit-content;
+    min-width: 100%; // fill entire width
+    padding: .6em .7em;
+    margin: .6em 0 0;
+    border-radius: .3em;
+    background: #f9f9f9;
+    border: 1px solid #dcdcdc;
+    font-size: .8em;
+    font-family: "H", monospace;
+    color: #252525;
+    white-space: pre;
+    box-sizing: border-box;
+}
+
+.code--inline {
+    font-size: .85em;
+    font-family: "H", monospace;
+    color: #bd143e;
+    border: solid 1px #e1e4e5;
+    margin: 0 1px;
+    padding: 1px 3px 1px;
+    border-radius: 3px;
+}
+
+.code--cmdln {
+    display: block;
+    width: fit-content;
+    min-width: 100%; // fill entire width
+    overflow: hidden;
+    font-size: .9em;
+    font-family: "H", monospace;
+    color: #252525;
+    padding: .5em;
+    margin: .5em 0 0;
+    background: #f4f4f4;
+    border-radius: 3px;
+    box-sizing: border-box;
+
+    &:before {
+        content: '$ ';
+        color: #999;
+    }
+}
+
+
+.ellipsis {
+    word-break: break-all;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+

@@ -58,8 +58,9 @@ function createSidebar(active) {
                     </li>`;
                 }
             }
-            str += `<li class="nav--ul--li nav--ul--li-active">
-                        <a class="nav--ul--li--a" href="${o.url}">
+            str += `<li class="nav--ul--li">
+                        <a class="nav--ul--li--a active" href="${o.url}">
+                            ${ mo3.getFile('tpl/svg/fold.svg').str }
                             ${name} ${APIlabel}
                         </a>
                         <ol class="nav--ul--li--ol">
@@ -85,14 +86,15 @@ function lookup(filename) {
     for (const key in index) {
         const obj = index[key];
         if (obj.url === url) {
-            obj.breadcrumb = '<span class="raquo">»</span> ' + key;
+            obj.breadcrumb = '<span class="header--nav--raquo">»</span> ' + key;
             return obj;
         }
+
         if (obj.pages && !Array.isArray(obj.pages)) {
             for (const subkey in obj.pages) {
                 if (obj.pages[subkey].url === url) {
-                    obj.pages[subkey].breadcrumb = '<span class="raquo">»</span> ' +
-                        '<a href="./">' + key + '</a> <span class="raquo">»</span> ' +
+                    obj.pages[subkey].breadcrumb = '<span class="header--nav--raquo">»</span> ' +
+                        '<a href="./">' + key + '</a> <span class="header--nav--raquo">»</span> ' +
                         subkey;
                     return obj.pages[subkey];
                 }

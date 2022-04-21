@@ -19,7 +19,6 @@
     background: #fff;
     max-width: 50rem;
     padding: 0 6% 0;
-    position: relative;
     min-height: 100vh;
 }
 
@@ -42,34 +41,34 @@
     font-size: .9em;
 }
 
-.flex {
-    display: flex;
-}
 
-
-
-.header {
-    height: 3em;
+.header-- {
+    height: 3.1em;
     padding-top: 1.8em;
     border-bottom: 1px solid #e1e4e5;
 }
 
-.breadcrumb--svg {
+.header--nav {
+    display: inline;
+}
+
+.header--nav--svg {
     width: 1rem;
     height: 1rem;
     display: inline-block;
     vertical-align: -3px;
+    margin-right: .1rem;
 }
 
-.raquo {
-    margin: 0 4px 0 6px;
+.header--nav--raquo {
+    margin: 0 .35rem;
 }
 
-.git {
+.header--git {
     float: right;
 }
 
-.git--svg {
+.header--git--svg {
     display: inline-block;
     vertical-align: -2px;
     margin-right: 1px;
@@ -81,14 +80,9 @@
 
 
 
-
-
-
-
-
-pre {
-    margin: 0;
-}
+/*
+    Code
+*/
 
 
 .responsive {
@@ -97,80 +91,9 @@ pre {
     padding: 0 0 .5em 0;
 }
 
-
-/*
-    Code
-*/
-
-// TODO: find a name for this...
-.code--tmp {
-    display: block;
-    font-size: .9em;
-    font-family: "H", monospace;
+pre {
+    margin: 0;
 }
-
-.code--ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-
-.code--block {
-    display: block;
-    width: fit-content;
-    min-width: 100%; // fill entire width
-    padding: .6em .7em;
-    margin: .6em 0 0;
-    border-radius: .3em;
-    background: #f9f9f9;
-    border: 1px solid #dcdcdc;
-    font-size: .8em;
-    font-family: "H", monospace;
-    color: #252525;
-    white-space: pre;
-    box-sizing: border-box;
-}
-
-.code--inline {
-    font-size: .85em;
-    font-family: "H", monospace;
-    color: #bd143e;
-    border: solid 1px #e1e4e5;
-    margin: 0 1px;
-    padding: 1px 3px 1px;
-    border-radius: 3px;
-}
-
-.code--cmdln {
-    display: block;
-    width: fit-content;
-    min-width: 100%; // fill entire width
-    overflow: hidden;
-    font-size: .9em;
-    font-family: "H", monospace;
-    color: #252525;
-    padding: .5em;
-    margin: .5em 0 0;
-    background: #f4f4f4;
-    border-radius: 3px;
-    box-sizing: border-box;
-
-    &:before {
-        content: '$ ';
-        color: #999;
-    }
-}
-
-
-.ellipsis {
-    word-break: break-all;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-
-
 
 
 .note-- {
@@ -198,12 +121,6 @@ pre {
 }
 
 
-
-
-
-
-
-
 .tbr {
     display: inline-block;
     padding-top: 6px;
@@ -215,8 +132,6 @@ pre {
     white-space: pre;
     text-overflow: ellipsis;
 }
-
-
 
 button {
     background: none;

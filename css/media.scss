@@ -12,11 +12,15 @@ $phone-margin: 1.3rem;
     }
 
     .nav {
-        position: relative;
+        position: static; // default
     }
 
-    .nav--logo {
+    .nav--logo, .header--git, #nav--ul {
         display: none;
+    }
+
+    #nav--ul.show {
+        display: block;
     }
 
     .nav--search {
@@ -28,19 +32,7 @@ $phone-margin: 1.3rem;
         display: flex;
     }
 
-    #nav--ul {
-        display: none;
-
-        &.show {
-            display: block;
-        }
-    }
-
-    .git {
-        display: none;
-    }
-
     #bg {
-        padding: 0 $phone-margin;
+        //padding: 0 $phone-margin;
     }
 }
