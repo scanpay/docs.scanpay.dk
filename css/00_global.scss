@@ -15,17 +15,20 @@
     font-weight: 400;
     src: url('font/L400.woff2') format('woff2');
 }
+
 @font-face {
     font-family: 'L';
     font-weight: 400;
     font-style: italic;
     src: url('font/L400i.woff2') format('woff2');
 }
+
 @font-face {
     font-family: 'L';
     font-weight: 700;
     src: url('font/L700.woff2') format('woff2');
 }
+
 @font-face {
     font-family: 'L';
     font-weight: 700;
@@ -39,17 +42,20 @@
     font-weight: 400;
     src: url('font/H400.woff2') format('woff2');
 }
+
 @font-face {
     font-family: 'H';
     font-weight: 400;
     font-style: italic;
     src: url('font/H400i.woff2') format('woff2');
 }
+
 @font-face {
     font-family: 'H';
     font-weight: 700;
     src: url('font/H700.woff2') format('woff2');
 }
+
 @font-face {
     font-family: 'H';
     font-weight: 700;
@@ -94,31 +100,6 @@ p {
     margin: .7em 0;
 }
 
-h1 {
-    margin: 1em 0 .8em;
-    font-family: 'B', serif;
-    font-weight: 700;
-    font-size: 1.7em;
-    line-height: normal;
-}
-
-h2 {
-    margin: 1.2em 0 .55em;
-    color: #404040;
-    font-family: 'B', serif;
-    font-size: 1.5em;
-    font-weight: 700;
-    line-height: normal;
-}
-
-h3 {
-    margin: 1.6em 0 .6em;
-    color: #404040;
-    font-family: 'B', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    line-height: normal;
-}
 
 hr {
     margin: 50px 0;
@@ -128,4 +109,12 @@ hr {
 
 section {
     margin-bottom: 3.4em;
+}
+
+li {
+    margin: 4px 0;
+}
+
+ul {
+    margin: 11px 0;
 }

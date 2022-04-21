@@ -161,8 +161,13 @@ function js() {
 function scss() {
     return gulp.src(['css/**/*.scss'], { base: 'css/' })
         .pipe(through.obj((file, enc, cb) => {
-            file.contents = sass.renderSync({ data: file.contents.toString() }).css;
-            cb(null, file);
+            try {
+                file.contents = sass.renderSync({ data: file.contents.toString() }).css;
+                cb(null, file);
+            } catch(err) {
+                console.error(file.path);
+                throw err;
+            }
         }))
         .pipe(sourcemaps.init())
         .pipe(concat('docs.css'))

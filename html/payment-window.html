@@ -6,19 +6,17 @@
 
 <p>
   The payment window is extremely lightweight and thoroughly tested.
-
-
   it is auditable, secure and stable. For security and privacy reasons, we do not use any third-party frameworks or services.
 </p>
 
-<h2 id="request-headers">User interaction</h2>
+<h2 id="user-interaction">User interaction</h2>
 <p>
   The payment window is optimized for computers and phones. We support autofill in accordance with the whatwg autofill <a href="https://html.spec.whatwg.org/multipage/forms.html#autofill">standard</a>.
 </p>
 
 <div class="pic-flex">
-  <img class="pic enlarge padr" height="200" src="/a/img/payment-window.png">
-  <img class="pic enlarge padr" height="200" src="/a/img/payment-window-phone.jpg">
+  <img class="pic enlarge" height="200" src="/a/img/payment-window.png">
+  <img class="pic enlarge" height="200" src="/a/img/payment-window-phone.jpg">
 </div>
 
 <div class="responsive" style="margin-top: 30px;">
@@ -90,77 +88,71 @@
   When you create a <a href="/payment-link">payment link</a>, you can select the desired language for the payment window. Our fallback is to choose the best available language, depending on the customers browser settings, i.e. the <code class="code--inline">Accept-Language</code> header. Please contact us if you would like us to support a specific language. We currently support the following languages:
 </p>
 
-<div style="display: flex;">
-  <div class="responsives" style="margin-top: 15px; margin-right: 20px;">
-    <table style="table-layout: auto;">
-      <thead>
-        <tr>
-          <th width="100">Language</th>
-          <th width="80">ISO 639-1</th>
-          <th>Git</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>English</td>
-          <td>en</td>
-          <td>
-            <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
-          </td>
-        </tr>
-        <tr>
-          <td>Danish</td>
-          <td>da</td>
-          <td>
-            <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
-          </td>
-        </tr>
-        <tr>
-          <td>Swedish</td>
-          <td>sv</td>
-          <td>
-            <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
-          </td>
-        </tr>
-        <tr>
-          <td>Norwegian</td>
-          <td>no</td>
-          <td>
-            <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="responsives" style="margin-top: 15px; margin-left: 20px;">
-    <table style="table-layout: auto;">
-      <thead>
-        <tr>
-          <th width="100">Language</th>
-          <th width="80">ISO 639-1</th>
-          <th>Git</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>German</td>
-          <td>de</td>
-          <td>
-            <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
-          </td>
-        </tr>
-        <tr>
-          <td>French</td>
-          <td>fr</td>
-          <td>
-            <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
-          </td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
+<div class="paywin--language--flex">
+  <table>
+    <thead>
+      <tr>
+        <th width="100">Language</th>
+        <th>ISO 639-1</th>
+        <th>Git</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>English</td>
+        <td>en</td>
+        <td>
+          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+        </td>
+      </tr>
+      <tr>
+        <td>Danish</td>
+        <td>da</td>
+        <td>
+          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+        </td>
+      </tr>
+      <tr>
+        <td>Swedish</td>
+        <td>sv</td>
+        <td>
+          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+        </td>
+      </tr>
+      <tr>
+        <td>Norwegian</td>
+        <td>no</td>
+        <td>
+          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th width="100">Language</th>
+        <th>ISO 639-1</th>
+        <th>Git</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>German</td>
+        <td>de</td>
+        <td>
+          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+        </td>
+      </tr>
+      <tr>
+        <td>French</td>
+        <td>fr</td>
+        <td>
+          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 

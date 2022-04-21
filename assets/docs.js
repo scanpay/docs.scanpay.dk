@@ -69,16 +69,18 @@ function showHash() {
     this.appendChild(a);
 }
 
-
 function removeHash() {
     this.querySelector('.hlink').remove();
 }
 
 
+
+
 (() => {
-    document.getElementById('nav--burger').onclick = () => {
+    document.getElementById('nav--burger').addEventListener('click', () => {
+        document.getElementById('nav--burger').classList.toggle('active');
         document.getElementById('nav--ul').classList.toggle('show');
-    };
+    });
 
     const prefLang = sessionStorage && sessionStorage.getItem('lang');
 
