@@ -3,7 +3,7 @@
 */
 
 .menu {
-    background: #343131;
+    background: #2c2b2b; //#343131;
     width: 27%;
     min-width: 12rem;
     max-width: 15.5rem;
@@ -42,6 +42,7 @@
 .nav--logo--svg {
     display: block;
     width: 5rem;
+    height: 1.10rem;
     margin: 0 auto;
 }
 
@@ -120,7 +121,7 @@
 
 .nav--ul--li--a {
     display: block;
-    color: #b3b3b3;
+    color: #b8b8b8; //#b3b3b3;
     padding: 5px .5rem 5px 1.5rem;
     text-decoration: none;
     position: relative;
@@ -148,8 +149,8 @@
 .nav--ul--li--a--label {
     display: inline-block;
     font-size: 0.7em;
-    color: #088608;
-    border: 1px solid #088608;
+    color: #39a939; //#088608;
+    border: 1px solid #138513;
     vertical-align: 1px;
     border-radius: 3px;
     padding: 0 .3em;
@@ -170,6 +171,6 @@
 
 .nav--ul--li--ol--li--a {
     display: block;
-    color: #555;
+    color: #484848;
     padding: 3px .5rem 3px 2rem;
 }
