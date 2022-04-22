@@ -34,8 +34,8 @@
 
     &.active {
         background-color: rgba(0, 0, 0, 0.1);
-        fill: #f3f0d6;
-        box-shadow: 0 0 0 0.2em rgba(255, 255, 255, 0.1);
+        fill: #fff9c5;
+        box-shadow: 0 0 0 0.2em rgba(255, 255, 255, 0.15);
     }
 }
 
@@ -84,7 +84,7 @@
         color: #212529;
         background-color: #fff;
         border-color: transparent;
-        box-shadow: 0 0 0 0.2em rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0 0.2em rgba(255, 255, 255, 0.2);
     }
 
     &::-moz-placeholder {
