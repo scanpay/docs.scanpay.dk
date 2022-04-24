@@ -19,47 +19,48 @@
   <img class="pic enlarge" width="145" height="200" src="/a/img/payment-window-phone.jpg" alt="Responsive payment window ">
 </div>
 
+
 <div class="responsive" style="margin-top: 30px;">
   <table>
-    <thead>
-      <tr>
-        <th width="100">Code</th>
-        <th width="300">Error message</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Chrome</td>
-        <td>30 (2013-09)</td>
-        <td>51 (2016-05)</td>
-      </tr>
-      <tr>
-        <td>Safari</td>
-        <td>7 (2013-10)</td>
-        <td>10.1 (2016)</td>
-      </tr>
-      <tr>
-        <td>Firefox</td>
-        <td>27 (2014-02)</td>
-        <td>44 (2016-01)</td>
-      </tr>
-      <tr>
-        <td>Edge</td>
-        <td>12 (2015-03)</td>
-        <td>14 (2016)</td>
-      </tr>
-      <tr>
-        <td>IE</td>
-        <td>11 (2013-09)</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>Opera</td>
-        <td>17 (2013-10)</td>
-        <td>38 (2016-06)</td>
-      </tr>
-    </tbody>
+    <tr style="text-align: center;">
+      <th>Chrome</th>
+      <th>Safari</th>
+      <th>Safari on iOS</th>
+      <th>Firefox</th>
+      <th>Android <br>browser</th>
+      <th>Edge</th>
+      <th>Opera</th>
+    </tr>
+    <tr>
+      <td>
+        51<br>
+        <small>2016-05</small>
+      </td>
+      <td>
+        10.1<br>
+        <small>2016-05</small>
+      </td>
+      <td>
+        10.1<br>
+        <small>2016-05</small>
+      </td>
+      <td>
+        10.1<br>
+        <small>2016-05</small>
+      </td>
+      <td>
+        44<br>
+        <small>2016-05</small>
+      </td>
+      <td>
+        14<br>
+        <small>2016-05</small>
+      </td>
+      <td>
+        38<br>
+        <small>2016-05</small>
+      </td>
+    </tr>
   </table>
 </div>
 
@@ -69,19 +70,18 @@
 </p>
 
 <h3>iFrame</h3>
-<p>
 
-<pre class="responsive"><code class="code--block"><span class="hljs-keyword">&#60;</span><span class="hljs-attr">iframe</span> <span class="hljs-keyword">src</span><span class="hljs-name">="https://betal.scanpay.dk/n127ys/iframe"</span><span class="hljs-attr">&#62;&#60;</span><span class="hljs-attr">/iframe</span><span class="hljs-keyword">&#62;</span></code></pre>
+{% include "code/paywin/iframe.html" %}
 
-  <div class="note--">
-    <div class="note--head">PCI DSS requirement<svg class="note--ico" width="14" height="14" viewBox="0 0 16 16"><path fill="#fff" d="M7 11v2h2v-2zm1 5c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zM7 3v7h2V3zm0 0"></path></svg>
-    </div>
-    <div class="note--body">
-      You will need to fill out a Self-Assessment Questionnaire (<a href="https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2_1-SAQ-A.pdf?agreement=true">SAQ A</a>) if you wish to iFrame our payment window.
-    </div>
+<div class="note--">
+  <div class="note--head">
+    {% include "tpl/svg/note.svg" %}
+    PCI DSS requirement
   </div>
-</p>
-
+  <p class="note--body">
+    You will need to fill out a Self-Assessment Questionnaire (<a href="https://www.pcisecuritystandards.org/documents/PCI-DSS-v3_2_1-SAQ-A.pdf?agreement=true">SAQ A</a>) if you wish to iFrame our payment window.
+  </p>
+</div>
 
 <h2 id="languages">Languages</h2>
 <p>
@@ -99,35 +99,35 @@
     </thead>
     <tbody>
       <tr>
-        <td>English</td>
-        <td>en</td>
-        <td>
-          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
-        </td>
-      </tr>
-      <tr>
         <td>Danish</td>
         <td>da</td>
         <td>
-          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+          <a rel="nofollow" href="#">
+            {% include "tpl/svg/payment-window/github_black.svg" %}
+          </a>
         </td>
       </tr>
       <tr>
         <td>Swedish</td>
         <td>sv</td>
         <td>
-          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+          <a rel="nofollow" href="#">
+            {% include "tpl/svg/payment-window/github_black.svg" %}
+          </a>
         </td>
       </tr>
       <tr>
         <td>Norwegian</td>
         <td>no</td>
         <td>
-          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+          <a rel="nofollow" href="#">
+            {% include "tpl/svg/payment-window/github_black.svg" %}
+          </a>
         </td>
       </tr>
     </tbody>
   </table>
+
   <table>
     <thead>
       <tr>
@@ -138,17 +138,30 @@
     </thead>
     <tbody>
       <tr>
+        <td>English</td>
+        <td>en</td>
+        <td>
+          <a rel="nofollow" href="#">
+            {% include "tpl/svg/payment-window/github_black.svg" %}
+          </a>
+        </td>
+      </tr>
+      <tr>
         <td>German</td>
         <td>de</td>
         <td>
-          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+          <a rel="nofollow" href="#">
+            {% include "tpl/svg/payment-window/github_black.svg" %}
+          </a>
         </td>
       </tr>
       <tr>
         <td>French</td>
         <td>fr</td>
         <td>
-          <a href="#"><img width="14" height="14" src="/img/github_black.svg"></a>
+          <a rel="nofollow" href="#">
+            {% include "tpl/svg/payment-window/github_black.svg" %}
+          </a>
         </td>
       </tr>
     </tbody>
@@ -162,7 +175,7 @@
 </p>
 
 <div class="responsive" style="margin-top: 30px;">
-  <table style="table-layout: auto;">
+  <table>
     <thead>
       <tr>
         <th width="100">Code</th>

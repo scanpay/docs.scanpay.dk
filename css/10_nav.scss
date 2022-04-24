@@ -5,8 +5,8 @@
 .menu {
     background: #2c2b2b; //#343131;
     width: 27%;
-    min-width: 12rem;
-    max-width: 15.5rem;
+    min-width: 12.5rem;
+    max-width: 16rem;
 }
 
 .nav {
@@ -67,10 +67,8 @@
     border: 1px solid #24648f;
     outline: none;
     padding: 6px 0.9rem;
-
     font-family: inherit;
     font-size: .9rem;
-    //line-height: 1.4;
 
     color: #212529;
     background-color: #fff;
@@ -98,10 +96,9 @@
     }
 }
 
-
 #nav--ul {
     padding: 0 0 10px;
-    margin: 10px 0 0;
+    margin: 8px 0 0;
     list-style: none;
 }
 
@@ -122,7 +119,7 @@
 .nav--ul--li--a {
     display: block;
     color: #b8b8b8; //#b3b3b3;
-    padding: 5px .5rem 5px 1.5rem;
+    padding: 5px .5rem 5px 1.7rem;
     text-decoration: none;
     position: relative;
 

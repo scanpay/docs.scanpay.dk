@@ -18,3 +18,15 @@
     align-items: flex-start;
     gap: 1rem 2rem;
 }
+
+
+.paywin--git {
+    width: 1rem;
+    height: 1rem;
+    fill: #333;
+
+    &:hover {
+        fill: #3074af;
+    }
+
+}

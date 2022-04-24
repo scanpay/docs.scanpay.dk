@@ -84,7 +84,7 @@ h2 {
     margin: 1.2em 0 .55em;
     color: #404040;
     font-family: 'B', serif;
-    font-size: 1.5em;
+    font-size: 1.4em;
     font-weight: 700;
     line-height: normal;
 }
@@ -93,7 +93,7 @@ h3 {
     margin: 1.6em 0 .6em;
     color: #404040;
     font-family: 'B', serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     line-height: normal;
 }
@@ -107,34 +107,40 @@ h3 {
 }
 
 
-
-
-
-
+/*
+    Warnings
+*/
 
 .note-- {
-    margin: 21px 0 15px 0;
+    font-size: .9rem;
+    margin: 1.2rem 0 1rem 0;
 }
 
 .note--head {
-    background: #6ab0de;
+    background: #6aa2c7;
     color: #fff;
-    font-weight: 600;
-    padding: 2px 15px;
-    font-size: 15px;
+    font-weight: 700;
+    padding: 3px .8rem 2px;
 }
 
 .note--ico {
-    float: left;
-    margin: 4px 5px 0 0;
+    display: inline-block;
+    vertical-align: -2px;
+    margin: 0 .3rem 0 0;
+    width: 1rem;
+    height: 1rem;
 }
 
 .note--body {
     background: #e7f2fa;
-    padding: 10px 12px 12px 12px;
-    font-size: 14.5px;
-    color: #3d4a52;
+    margin: 0;
+    padding: 10px .8rem 11px;
+    color: #2d363c;
 }
+
+
+
+
 
 
 .tbr {
@@ -191,7 +197,7 @@ th {
     background: #eee;
     color: #333;
     border: 1px solid #d9d9d9;
-    font-weight: 600;
+    font-weight: 700;
     font-size: .9em;
     text-align: left;
     margin: 0;
@@ -236,16 +242,18 @@ td {
     display: flex;
     align-items: center;
     position: fixed;
-    width: 100%;
-    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: rgba(0,0,0,.6);
     z-index: 10;
     cursor: zoom-out;
     justify-content: center;
 
     > img {
-        max-width: 96vw;
-        max-height: 96vh;
+        max-width: 98vw;
+        max-height: 98vh;
     }
 }
 
@@ -258,9 +266,5 @@ td {
 
 .enlarge {
     cursor: zoom-in;
-}
-
-.padr {
-    margin-right: 2%;
 }
 
