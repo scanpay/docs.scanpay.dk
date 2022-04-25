@@ -35,7 +35,7 @@
 
 .header-- {
     height: 3.1em;
-    padding-top: 1.8em;
+    padding-top: 1.85em;
     border-bottom: 1px solid #e1e4e5;
 }
 
@@ -181,16 +181,16 @@ Tables
 }
 
 table {
-    //stable-layout: fixed;
+    table-layout: fixed;
     border-spacing: 0;
     border-collapse: collapse;
     empty-cells: show;
     border: 1px solid #d5d5d5;
     margin: 0;
     font-size: .9em;
-    //word-break: break-all;
-    //min-width: 40em;
-    //width: 100%;
+    word-break: break-all;
+    min-width: 40em;
+    width: 100%;
 }
 
 th {

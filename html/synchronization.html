@@ -1,6 +1,6 @@
 <h1>Synchronization</h1>
 <p>
-  There are two requests in our Synchronization API: Ping and Pull. <em>Ping</em> is a request that you receive from us, both periodically and after certain events. <em>Pull</em> is a request that you make when you want to pull changes.
+  There are two requests in our Synchronization API: Ping and Seq. <em>Ping</em> is a request you receive from us, periodically and after certain events. <em>Seq</em> is a request that you make when you want to pull changes.
 </p>
 
 <h2 id="ping-request">Ping request</h2>
@@ -70,7 +70,7 @@
 
 <h2 id="sequence-request">Sequence request</h2>
 <p>
-  A sequence request is a HTTP GET request that you make when you want to pull changes from our servers. The endpoint is <code class="code--inline">https://api.scanpay.dk/v1/seq/<span class="hljs-string">$num</span></code>, where <code class="code--inline hljs-string">$num</code> is your local version of the sequence number. All requests have to be authenticated with HTTP basic authentication (<a href="/security#request-authentication">more info</a>). Successful responses have a <code class="code--inline hljs-number">200</code> status code and a JSON body:
+  A sequence request is an HTTP GET request that you make when you want to pull changes from our servers. The endpoint is <code class="code--inline">https://api.scanpay.dk/v1/seq/<span class="hljs-string">$num</span></code>, where <code class="code--inline hljs-string">$num</code> is your local version of the sequence number. All requests have to be authenticated with HTTP basic authentication (<a href="/security#request-authentication">more info</a>). Successful responses have a <code class="code--inline hljs-number">200</code> status code and a JSON body:
 </p>
 
 <div class="table--responsive">
