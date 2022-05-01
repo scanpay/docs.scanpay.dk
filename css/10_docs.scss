@@ -188,9 +188,10 @@ table {
     border: 1px solid #d5d5d5;
     margin: 0;
     font-size: .9em;
-    word-break: break-all;
-    min-width: 40em;
+    //word-break: break-all;
+    //min-width: 40em;
     width: 100%;
+    min-width: 40rem;
 }
 
 th {

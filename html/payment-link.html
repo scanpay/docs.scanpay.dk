@@ -22,14 +22,14 @@ z
   <table>
     <thead>
       <tr>
-        <th>HTTP/1.1 headers</th>
+        <th>HTTP</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-          <code class="code--tmp ellipsis"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code>
+          {% include "code/paylink/auth-header.html" %}
         </td>
         <td>
           Basic authentication, where your credentials <i>(shopid:secret)</i> are in the API key, so you only have to base64 encode the API key.
@@ -37,7 +37,9 @@ z
       </tr>
       <tr>
         <td>
-          <code class="code--tmp"><span class="hljs-attribute">X-Cardholder-IP</span>: 47.105.175.99</code>
+          <code class="code--tmp">
+            <span class="hljs-attribute">X-Cardholder-IP</span>: 47.105.175.99
+          </code>
         </td>
         <td>
           The IPv4 or IPv6 address of the customer. This is used for DoS protection and it is optional.
@@ -389,7 +391,7 @@ z
   <table>
     <thead>
       <tr>
-        <th width="100">Language</th>
+        <th>Language</th>
         <th>ISO 639-1</th>
         <th>Git</th>
       </tr>
@@ -428,7 +430,7 @@ z
   <table>
     <thead>
       <tr>
-        <th width="100">Language</th>
+        <th>Language</th>
         <th>ISO 639-1</th>
         <th>Git</th>
       </tr>
