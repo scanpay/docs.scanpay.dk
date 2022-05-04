@@ -114,6 +114,11 @@
     color: #404040;
     border-bottom: solid 1px #c9c9c9;
     background-color: #fff;
+
+    > .nav--ul--li--a--label {
+        border-color: #238d23;
+        color: #1e701e;
+    }
 }
 
 .nav--ul--li--a {
