@@ -1,10 +1,10 @@
-$phone-margin: 1.3rem;
-
-
 /*
     Phone
 */
-@media only screen and (max-width: 40rem) {
+
+$phone-margin: 20px;
+
+@media only screen and (max-width: 56rem) {
     body {
         display: block;
     }
@@ -29,18 +29,16 @@ $phone-margin: 1.3rem;
 
     .nav--search {
         border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-        padding-top: 17px;
-        padding-bottom: 16px;
+        padding: 17px $phone-margin 16px;
     }
 
     #nav--burger {
         display: flex;
     }
 
-
     #bg {
         display: block;
+        max-width: none;
+        padding: 0 $phone-margin;
     }
-
-
 }

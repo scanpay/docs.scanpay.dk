@@ -249,3 +249,86 @@
     </tbody>
   </table>
 </div>
+
+
+
+
+
+<h2 id="request-errors">API Errors</h2>
+
+<p>
+  The API is designed to be fault-tolerant and forgiving.
+</p>
+
+<div class="responsive" style="margin-top: 30px;">
+  <table style="table-layout: auto;">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>HTTP Body</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>invalid json</td>
+        <td>Invalid JSON.</td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>missing items</td>
+        <td>
+          Missing <code class="code--inline hljs-attr">items</code> array in payment link API request.
+        </td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>invalid items.total</td>
+        <td>
+          Invalid or missing <code class="code--inline hljs-attr">total</code> field.
+        </td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">403</td>
+        <td>invalid apikey</td>
+        <td>Invalid API key.</td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">408</td>
+        <td>Request Timeout</td>
+        <td>
+          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
+        </td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">413</td>
+        <td>Request Entity Too Large</td>
+        <td>
+          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
+        </td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>Request Header Or Cookie Too Large</td>
+        <td>
+          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">500</td>
+        <td>internal server error</td>
+        <td>
+          Technical issue or scheduled downtime. Please try again.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

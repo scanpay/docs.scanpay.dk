@@ -164,7 +164,7 @@ function scss() {
             try {
                 file.contents = sass.renderSync({ data: file.contents.toString() }).css;
                 cb(null, file);
-            } catch(err) {
+            } catch (err) {
                 console.error(file.path);
                 throw err;
             }
@@ -199,7 +199,7 @@ gulp.task('serve', () => {
     gulp.watch('css/**/*.scss', scss);
     gulp.watch('assets/*.js', js);
     gulp.watch(['index.json'], gulp.series('build'));
-    gulp.watch('/code/**/*.*', gulp.series(code, html));
+    gulp.watch('/code/**/*.*', gulp.series('build'));
 });
 
 

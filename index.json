@@ -10,7 +10,7 @@
         "url": "/payment-link",
         "title": "Payment Link API",
         "meta": "Generate payment links, that you can send to your customers.",
-        "pages": ["Request", "Response", "Examples"],
+        "pages": ["Introduction", "Create link", "Payment window"],
         "API": true
     },
 
@@ -54,7 +54,7 @@
         "API": true
     },
 
-    "Errors": {
+    "Error handling": {
         "url": "/errors",
         "title": "Errors",
         "meta": "Scanpay has official client libraries for popular programming languages.",
