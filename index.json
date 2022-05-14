@@ -10,7 +10,7 @@
         "url": "/payment-link",
         "title": "Payment Link API",
         "meta": "Generate payment links, that you can send to your customers.",
-        "pages": ["Introduction", "Create link", "Payment window"],
+        "pages": ["Introduction", "Create payment link", "Payment window"],
         "API": true
     },
 
