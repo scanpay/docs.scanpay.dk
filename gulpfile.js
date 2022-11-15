@@ -138,56 +138,49 @@ function code() {
             file.contents = Buffer.from(str);
             cb(null, file);
         }))
-        .pipe(gulp.dest('www/a'));
+        .pipe(gulp.dest('www/code'));
 }
 
 function assets() {
     return gulp.src(['assets/font/**', 'assets/img/**'], { base: 'assets/' })
-        .pipe(gulp.dest('www/a'))
+        .pipe(gulp.dest('www'))
         .pipe(connect.reload());
 }
 
 function js() {
-    return gulp.src(['assets/*.js'])
+    return gulp.src(['assets/js/*.js'])
         .pipe(through.obj((file, enc, cb) => {
             mo3.render(file, env);
             cb(null, file);
         }))
-        .pipe(gulp.dest('www/a'))
+        .pipe(gulp.dest('www/js/'))
         .pipe(connect.reload());
 }
 
-
 function scss() {
-    return gulp.src(['css/**/*.scss'], { base: 'css/' })
+    return gulp.src(['assets/css/**/*.scss'], { base: 'assets/css/' })
         .pipe(through.obj((file, enc, cb) => {
-            try {
-                file.contents = sass.renderSync({ data: file.contents.toString() }).css;
-                cb(null, file);
-            } catch (err) {
-                console.error(file.path);
-                throw err;
-            }
+            const sassobj = sass.compileString(file.contents.toString());
+            file.contents = Buffer.from(sassobj.css, 'utf-8');
+            cb(null, file);
         }))
         .pipe(sourcemaps.init())
         .pipe(concat('docs.css'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('www/a/'))
+        .pipe(gulp.dest('www/css/'))
         .pipe(connect.reload());
 }
-
 
 gulp.task('serve', () => {
     connect.server({
         root: 'www',
         livereload: true,
         middleware: () => ([(req, res, next) => {
+            // Add .html (url->file)
             const isDir = req.url.slice(-1) === '/';
             if (isDir || req.url.indexOf('.') === -1) {
                 const path = req.url.split('?')[0] + ((isDir) ? 'index' : '');
                 req.url = path + '.html';
-            } else if (req.url.substring(0, 5) === '/img/') {
-                req.url = '/a' + req.url;
             }
             next();
         }])

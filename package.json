@@ -1,8 +1,9 @@
 {
     "private": true,
     "dependencies": {
-        "gulp-connect": "latest",
+        "gulp": "latest",
         "gulp-concat": "latest",
+        "gulp-connect": "latest",
         "gulp-sourcemaps": "latest",
         "highlight.js": "latest",
         "minimist": "latest",
