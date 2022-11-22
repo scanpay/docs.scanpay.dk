@@ -189,7 +189,7 @@ gulp.task('serve', () => {
     gulp.watch(['tpl/**/*', 'code/**'], html);
     gulp.watch(['html/**/*.html'], html);
     gulp.watch(['assets/font/**', 'assets/img/**'], assets);
-    gulp.watch('css/**/*.scss', scss);
+    gulp.watch('assets/css/**/*.scss', scss);
     gulp.watch('assets/*.js', js);
     gulp.watch(['index.json'], gulp.series('build'));
     gulp.watch('/code/**/*.*', gulp.series('build'));
