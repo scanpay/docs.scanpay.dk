@@ -3,7 +3,7 @@
         "url": "/",
         "title": "Getting Started with Scanpay",
         "meta": "Getting started with Scanpay and online payments.",
-        "pages": ["Modules and plugins", "Client libraries", "Dashboard", "Partner portal"]
+        "pages": ["Modules and plugins", "Client libraries", "Dashboard", "Test environment"]
     },
 
     "Payment Link": {
