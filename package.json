@@ -9,6 +9,10 @@
         "minimist": "latest",
         "mo3place": "latest",
         "sass": "latest",
-        "through2": "latest"
+        "csso": "latest",
+        "csso-cli": "latest",
+        "through2": "latest",
+        "html-minifier": "latest",
+        "uglify-js": "latest"
     }
 }

@@ -1,25 +1,32 @@
-# docs.scanpay.dk
+# docs.scanpay.dev
 
-This repository contains the files used to generate [docs.scanpay.dk](https://docs.scanpay.dk).
+This repository contains the files used to generate [docs.scanpay.dev](https://docs.scanpay.dev).
 
-## Contributing
+### Contributing
 
-So, you are interested in contributing? Welcome! Every single contribution is very much encouraged and appreciated. If you find a bug, typo or something that could be improved, please submit a bug report ([github issue](https://github.com/scanpay/docs.scanpay.dk/issues/new)) or contact us on e-mail, IRC or Slack.
+So, you are interested in contributing? Welcome! Every single contribution is very much encouraged and appreciated. If you find a bug, typo or something that could be improved, please submit a bug report ([github issue](https://github.com/scanpay/docs.scanpay.dk/issues/new)) or contact us on e-mail or IRC.
 
-To build it locally, you will need to install [Node.js](https://nodejs.org/en/) and [Gulp4](http://gulpjs.com).
+To build it locally, you will need to install [Node.js](https://nodejs.org/en/).
 
-
+Install pnpm
 ```bash
-git clone git@github.com:scanpaydk/docs.scanpay.dk.git
-cd docs.scanpay.dk
-npm install
-npm link gulp
+corepack prepare pnpm@latest --activate
+```
+
+Install dependencies
+```bash
+pnpm install
+pnpm -g install gulp-cli
+```
+
+Now you can build the docs locally with:
+```bash
 gulp
 ```
 
-## Browser support
+### Browser support
 
-Compatibility table for [docs.scanpay.dk](https://docs.scanpay.dk) where struckthrough means fixed with babel or polyfill:
+Compatibility table for [docs.scanpay.dev](https://docs.scanpay.dev) where struckthrough means fixed with babel or polyfill:
 
 Feature              | Chrome | Safari   | Firefox | Edge   | Opera
 -------------------- | :-----:| :------: | :-----: | :----: | :----:
