@@ -4,13 +4,13 @@
         "gulp": "latest",
         "gulp-concat": "latest",
         "gulp-connect": "latest",
-        "gulp-sourcemaps": "latest",
         "highlight.js": "latest",
         "minimist": "latest",
         "mo3place": "latest",
         "through2": "latest",
         "sass": "latest",
         "html-minifier": "latest",
-        "uglify-js": "latest"
+        "uglify-js": "latest",
+        "eslint": "latest"
     }
 }

@@ -1,0 +1,13 @@
+
+
+@use 'global/global.scss';
+@use 'global/docs.scss';
+@use 'global/nav.scss';
+@use 'global/code.scss';
+@use 'global/media.scss';
+
+// Pages
+@use 'pages/getting-started.scss';
+@use 'pages/payment-window.scss';
+@use 'pages/search.scss';
+@use 'pages/synchronization.scss';
