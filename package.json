@@ -8,10 +8,8 @@
         "highlight.js": "latest",
         "minimist": "latest",
         "mo3place": "latest",
-        "sass": "latest",
-        "csso": "latest",
-        "csso-cli": "latest",
         "through2": "latest",
+        "sass": "latest",
         "html-minifier": "latest",
         "uglify-js": "latest"
     }

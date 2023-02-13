@@ -4,21 +4,46 @@ const fs = require('fs');
 const Path = require('path');
 const gulp = require('gulp');
 const connect = require('gulp-connect');
-const sass = require('sass');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 const hljs = require('highlight.js');
 const through = require('through2');
 const mo3 = require('mo3place')();
 const env = require('minimist')(process.argv.slice(2));
+const sass = require('sass');
+const uglifyJS = require("uglify-js");
+const htmlmin = require("html-minifier");
+
 env.currentYear = (new Date()).getFullYear();
 env.server = env.server || 'docs.test.scanpay.dk';
-if (!env.publish) { env.jst = env.csst = '1'; }
+if (!env.publish) env.jst = env.csst = '1';
+
+const options = {
+    sass: {
+        loadPaths: ['css/'],
+        sourceMap: true,
+        sourceMapIncludeSources: true,
+        style: 'compressed'
+    },
+    uglify: {
+        mangle: {
+            toplevel: true,
+        },
+        sourceMap: {
+            includeSources: true,
+            url: 'pay.' + env.i18n + '.js.map'
+        }
+    },
+    htmlmin: {
+        collapseWhitespace: true,
+        removeComments: true,
+    }
+}
+
 
 let index;
 gulp.task('sidebar', (cb) => {
     index = JSON.parse(fs.readFileSync('index.json'));
-
     for (const name in index) {
         const o = index[name];
         o.sidebar = createSidebar(o);
@@ -111,12 +136,12 @@ function html() {
             const meta = lookup(filename);
             const obj = mo3.flatten([env, meta]);
             obj.path = filename.substring(1);
-            const str = file.contents.toString();
 
-            // mo3 w. template.
-            file.contents = Buffer.from(mo3.fromString(mo3
-                .getFile('tpl/header.html').str +
-                str + mo3.getFile('tpl/footer.html').str, obj));
+            const header = mo3.getFile('tpl/header.html').str;
+            const footer = mo3.getFile('tpl/footer.html').str;
+            const html = mo3.fromString(header + file.contents.toString() + footer, obj);
+            const minified = htmlmin.minify(html, options.htmlmin);
+            file.contents = Buffer.from(minified, 'utf-8');
             cb(null, file);
         }))
         .pipe(gulp.dest('www'))
