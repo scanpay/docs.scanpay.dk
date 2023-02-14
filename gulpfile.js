@@ -31,7 +31,6 @@ const options = {
         },
         sourceMap: {
             includeSources: true,
-            url: 'pay.' + env.i18n + '.js.map'
         }
     },
     htmlmin: {
@@ -147,8 +146,9 @@ function html() {
     return gulp.src(['html/**/*.html'])
         .pipe(through.obj((file, enc, cb) => {
             const filename = file.path.substring(file._base.length);
-            //console.log(file._base);
-            //console.log(__dirname);
+
+            console.log(file._base);
+            console.log(__dirname);
 
             const obj = mo3.flatten([env, lookup(filename)]);
             obj.path = filename.substring(1);
@@ -196,6 +196,7 @@ function js() {
             if (results[0].warningCount || results[0].errorCount) {
                 console.error(resultText); // output ESlint errors
             }
+            options.uglify.sourceMap.url = file.relative + '.map';
             const ugly = uglifyJS.minify(str, options.uglify);
             file.contents = Buffer.from(ugly.code, 'utf-8');
             writeSourceMap('www/js/' + file.relative, ugly.map);
