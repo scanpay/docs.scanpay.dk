@@ -1,0 +1,20 @@
+{
+    "sass": {
+        "loadPaths": ["css/"],
+        "sourceMap": true,
+        "sourceMapIncludeSources": true,
+        "style": "compressed"
+    },
+    "uglify": {
+        "mangle": {
+            "toplevel": true
+        },
+        "sourceMap": {
+            "includeSources": true
+        }
+    },
+    "htmlmin": {
+        "collapseWhitespace": true,
+        "removeComments": true
+    }
+}
