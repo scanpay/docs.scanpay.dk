@@ -10,8 +10,8 @@ order: 30
 <h1>Void transaction</h1>
 
 <p>
-  With the void API request, you can void a transaction. You can only void transactions that are not yet captured and
-  you cannot undo a voided transaction.
+  You can void a transaction with the void API request. However, you can only void transactions that are not yet
+  captured, and you cannot undo a void.
 </p>
 
 {% include "tpl/v2-warning.html" %}</code>
@@ -61,6 +61,10 @@ order: 30
 
 <h3 id="request-body">Request Body</h3>
 
+<p>
+  The request body must be empty.
+</p>
+
 <h2 id="response">Response</h2>
 
 <h3 id="response-success">Success</h3>
@@ -88,13 +92,11 @@ order: 30
         <td>invalid json</td>
         <td>Invalid JSON.</td>
       </tr>
-
       <tr>
         <td class="hljs-attr">403</td>
         <td>invalid apikey</td>
         <td>Invalid API key.</td>
       </tr>
-
       <tr>
         <td class="hljs-attr">408</td>
         <td>Request Timeout</td>
@@ -102,7 +104,6 @@ order: 30
           The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
         </td>
       </tr>
-
       <tr>
         <td class="hljs-attr">413</td>
         <td>Request Entity Too Large</td>
@@ -110,7 +111,6 @@ order: 30
           The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
         </td>
       </tr>
-
       <tr>
         <td class="hljs-attr">400</td>
         <td>Request Header Or Cookie Too Large</td>
@@ -118,7 +118,6 @@ order: 30
           The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
         </td>
       </tr>
-
       <tr>
         <td class="hljs-attr">500</td>
         <td>internal server error</td>
@@ -129,3 +128,11 @@ order: 30
     </tbody>
   </table>
 </div>
+
+<h2 id="example">Example</h2>
+
+<p>
+  The following is an example in pseudo code:
+</p>
+
+<pre class="responsive"><code class="code--block">{% include "docs/transactions/code/example/void.txt" %}</code></pre>
