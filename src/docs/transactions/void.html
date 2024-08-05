@@ -14,17 +14,9 @@ order: 30
   you cannot undo a voided transaction.
 </p>
 
-<div class="note-- note--warn">
-  <div class="note--head">
-    {% include "tpl/svg/note.svg" %}
-    Warning
-  </div>
-  <p class="note--body">
-    This API request is not available yet. It will be available in the next version of our API <i>(v2)</i>.
-  </p>
-</div>
+{% include "tpl/v2-warning.html" %}</code>
 
-<h2 id="request-endpoint">Request</h2>
+<h2 id="request">Request</h2>
 
 <div class="endpoint">
   <code class="endpoint-method"><span class="hljs-attribute">POST</span></code>
@@ -69,39 +61,16 @@ order: 30
 
 <h3 id="request-body">Request Body</h3>
 
-<div class="table--responsive">
-  <table class="table--seqreq">
-    <thead>
-      <tr>
-        <th>JSON fields</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <code class="code--tmp"><span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span></code>
-        </td>
-        <td>
-          The number of <a href="/transactions/">actions</a> performed on the transaction. This is used to
-          prevent duplicate refunds.
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
 <h2 id="response">Response</h2>
 
 <h3 id="response-success">Success</h3>
 <p>
-  Successful requests return status code <code class="code--inline">200</code> and an empty JSON object.
+  Successful void requests return status code <code class="code--inline">200</code> and an empty JSON object.
 </p>
 
 <h3 id="response-errors">Errors</h3>
 <p>
-  Failed requests return an HTTP error code and a message in the HTTP body:
+  Failed void requests return an HTTP error code and a error message in the HTTP body:
 </p>
 
 <div class="responsive">

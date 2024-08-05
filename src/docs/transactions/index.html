@@ -7,6 +7,24 @@ order: 40
 -->
 
 <h1>Transactions API</h1>
+
 <p>
-  Below is an example in pseudocode. This is the absolute minimum you can send to create a payment link.
+  In our terminology, a transaction is a payment authorized by the cardholder's bank. You can create a transaction
+  through the Payment link or Subscriptions API. Once created, transactions can be captured, refunded, or voided.
 </p>
+
+<h3>Transaction types</h3>
+<p>
+  There are two types of transactions:
+</p>
+<ul>
+  <li>
+    <strong>Regular</strong> - A transaction that has been authorized by the cardholder's bank. You can capture,
+    refund,
+    or void an authorized transaction.
+  </li>
+  <li>
+    <strong>Subscription charges</strong> - A transaction that has been created by the Subscriptions API. You can
+    capture,
+  </li>
+</ul>

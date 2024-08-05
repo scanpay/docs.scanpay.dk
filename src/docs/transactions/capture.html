@@ -10,29 +10,33 @@ order: 10
 <h1>Capture transaction</h1>
 
 <p>
-  Capture an ‘authorized’ payment...
+  With the capture API request, you can perform full or partial captures on a transaction. You can perform multiple
+  captures on a transaction but cannot capture more than the authorized amount.
 </p>
 
-<h2>Request</h2>
+<h2 id="request-endpoint">Request</h2>
 
-<p>
-  The request endpoint, where <span class="hljs-string">$shopid</span> is the shopid and <span
-    class="hljs-string">$trnid</span> is the transaction id, is:
-</p>
+<div class="endpoint">
+  <code class="endpoint-method"><span class="hljs-attribute">POST</span></code>
+  <div class="endpoint-url">
+    <code>https://api.scanpay.dk/v1/<span class="hljs-attr">$trnID</span>/capture</code>
+  </div>
+</div>
 
-<code
-  class="code--inline">https://api.scanpay.dk/v1/transactions/<span class="hljs-string">$shopid</span>:<span class="hljs-string">$trnid</span>/capture</code>
+<ul class="endpoint-ul">
+  <li>
+    <span class="hljs-attr">$trnID</span> is the transaction ID. You receive this in the Synchronization API.
+  </li>
+</ul>
+
 
 <h3 id="request-headers">Request Headers</h3>
-<p>
-  Requests are authenticated with HTTP basic authentication.
-</p>
 
 <div class="table--responsive">
   <table>
     <thead>
       <tr>
-        <th>HTTP/1.1 headers</th>
+        <th>HTTP headers</th>
         <th>Description</th>
       </tr>
     </thead>
@@ -40,21 +44,17 @@ order: 10
       <tr>
         <td>
           <code
-            class="code--tmp ellipsis"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code>
+            class="code--tmp"><span class="hljs-attribute">Authorization</span>: Basic <span class="hljs-built_in">base64_<wbr>encode</span>(<span class="hljs-string">$apikey</span>)</code>
         </td>
         <td>
-          Basic authentication, where your credentials <i>(shopid:secret)</i> are in the API key, so you only have to
-          base64 encode the API key.
+          HTTP Basic authentication. <a href="#">Read more</a>.
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<h3 id="request-fields">Request Fields</h3>
-<p>
-  There is a maximum request size limit of 32 kB.
-</p>
+<h3 id="request-body">Request Body</h3>
 
 <div class="table--responsive">
   <table class="table--seqreq">
@@ -71,7 +71,7 @@ order: 10
             class="code--tmp"><span class="hljs-attr">"total"</span>: <span class="hljs-string">"199.95 DKK"</span></code>
         </td>
         <td>
-          The sequence number for the last change in the changes array.
+          The amount to capture.
         </td>
       </tr>
       <tr>
@@ -79,7 +79,23 @@ order: 10
           <code class="code--tmp"><span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span></code>
         </td>
         <td>
-          The sequence number for the last change in the changes array.
+          The number of <a href="/transactions/">actions</a> performed on the transaction. This is used to prevent
+          duplicate captures.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="code--tmp code--ellipsis">{% include "docs/transactions/code/items.json" %}</code></pre>
+        </td>
+        <td>
+          <p>
+            An <b>optional</b> array of captured items <i>(<a
+                href="/payment-links/create#request-fields">specs</a>)</i>. This is only metadata, and it does not
+            affect the actual capture. Invalid data will be discarded without returning an error.
+          </p>
+          <p>
+            We display the captured items in our dashboard.
+          </p>
         </td>
       </tr>
     </tbody>
@@ -87,17 +103,20 @@ order: 10
 </div>
 
 
-<h2>Response</h2>
+<h2 id="response">Response</h2>
 
-
-<h3 id="response-errors">Errors</h3>
-
+<h3 id="response-success">Success</h3>
 <p>
-  You can receive the following errors when using the Capture API:
+  Successful capture requests return status code <code class="code--inline">200</code> and an empty JSON object.
 </p>
 
-<div class="responsive" style="margin-top: 30px;">
-  <table style="table-layout: auto;">
+<h3 id="response-errors">Errors</h3>
+<p>
+  Failed capture requests return an HTTP error code and a error message in the HTTP body:
+</p>
+
+<div class="responsive">
+  <table class="resp-error-table">
     <thead>
       <tr>
         <th>Code</th>
@@ -161,4 +180,11 @@ order: 10
   </table>
 </div>
 
-<pre class="responsive"><code class="code--block">{% include "docs/transactions/code/pseudo.txt" %}</code></pre>
+<h2 id="example">Example</h2>
+
+<p>
+  The following is an example in pseudo code:
+</p>
+
+<pre
+  class="responsive"><code class="code--block">{% include "docs/transactions/code/example/capture.txt" %}</code></pre>

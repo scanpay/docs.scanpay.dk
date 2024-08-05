@@ -14,15 +14,7 @@ order: 20
   transaction. You can perform multiple refunds but cannot refund more than the captured amount.
 </p>
 
-<div class="note-- note--warn">
-  <div class="note--head">
-    {% include "tpl/svg/note.svg" %}
-    Warning
-  </div>
-  <p class="note--body">
-    This API request is not available yet. It will be available in the next version of our API <i>(v2)</i>.
-  </p>
-</div>
+{% include "tpl/v2-warning.html" %}</code>
 
 <h2 id="request-endpoint">Request</h2>
 
@@ -120,12 +112,12 @@ order: 20
 
 <h3 id="response-success">Success</h3>
 <p>
-  Successful requests return status code <code class="code--inline">200</code> and an empty JSON object.
+  Successful refund requests return status code <code class="code--inline">200</code> and an empty JSON object.
 </p>
 
 <h3 id="response-errors">Errors</h3>
 <p>
-  Failed requests return an HTTP error code and a message in the HTTP body:
+  Failed refund requests return an HTTP error code and a error message in the HTTP body:
 </p>
 
 <div class="responsive">
@@ -199,4 +191,4 @@ order: 20
   The following is an example in pseudo code:
 </p>
 
-<pre class="responsive"><code class="code--block">{% include "docs/transactions/code/refund-pseudo.txt" %}</code></pre>
+<pre class="responsive"><code class="code--block">{% include "docs/transactions/code/example/refund.txt" %}</code></pre>
