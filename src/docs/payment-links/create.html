@@ -10,8 +10,8 @@ order: 10
 <h1>Create payment link</h1>
 
 <p>
-  Use this API to create payment links where customers can enter their payment details. You can read more about payment
-  links and how to use them <a href="/payment-links/">here</a>.
+  A payment link is a shareable URL that will take your customers to our hosted payment page. The link can be shared and
+  used multiple times, but it expires after a certain amount of time or when the payment is completed.
 </p>
 
 <h2 id="request">Request</h2>
@@ -34,20 +34,10 @@ order: 10
       </tr>
     </thead>
     <tbody>
+      {% include "tpl/code/basic-auth.html" %}
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attribute">Authorization</span>: Basic <span class="hljs-built_in">base64_<wbr>encode</span>(<span class="hljs-string">$apikey</span>)</code>
-        </td>
-        <td>
-          HTTP Basic authentication. <a href="#">Read more</a>.
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <code class="code--tmp">
-                          <span class="hljs-attribute">X-Cardholder-IP</span>: 47.105.175.99
-                        </code>
+          <code class="code--tmp"><span class="hljs-attribute">X-Cardholder-IP</span>: 47.105.175.99</code>
         </td>
         <td>
           The IPv4 or IPv6 address of the customer making the payment. It's optional but highly recommended.
@@ -316,4 +306,5 @@ order: 10
   The following is an example in pseudo code:
 </p>
 
-<pre class="responsive"><code class="code--block">{% include "docs/payment-links/code/pseudo.txt" %}</code></pre>
+<pre
+  class="responsive"><code class="code--block">{% include "docs/payment-links/code/example/create.txt" %}</code></pre>

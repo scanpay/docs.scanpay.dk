@@ -4,12 +4,14 @@ description: The synchronization API will keep all your systems up-to-date with 
 url: /synchronization/ping
 parent: /synchronization/
 link: Ping
-order: 20
+order: 10
 -->
 
 <h1>Ping</h1>
 <p>
-  All accounts have a consecutive sequence number called <code class="code--inline">seq</code>, which is a counter that increases when your transaction data changes. When this happens, we will send you a <em>ping</em>, which is a tiny HTTP POST request with the following headers and JSON fields:
+  All accounts have a consecutive sequence number called <code class="code--inline">seq</code>, which is a counter that
+  increases when your transaction data changes. When this happens, we will send you a <em>ping</em>, which is a tiny
+  HTTP POST request with the following headers and JSON fields:
 </p>
 
 <div class="table--responsive">
@@ -63,11 +65,15 @@ order: 20
 </div>
 
 <p>
-  In addition, we ping you every 5 minutes to ensure that your system is up to date. When you receive a ping, it is important that you verify the authenticity of the request. Afterwards you can look at <code class="code--inline">seq</code> to determine if there are any changes. Explained with pseudocode:
+  In addition, we ping you every 5 minutes to ensure that your system is up to date. When you receive a ping, it is
+  important that you verify the authenticity of the request. Afterwards you can look at <code
+    class="code--inline">seq</code> to determine if there are any changes. Explained with pseudocode:
 </p>
 
-<pre class="table--responsive"><code class="code--block">{% include "docs/synchronization/code/ping.pseudo.txt" %}</code></pre>
+<pre
+  class="table--responsive"><code class="code--block">{% include "docs/synchronization/code/ping.pseudo.txt" %}</code></pre>
 
 <p>
-  You can configure your ping endpoint in our dashboard (<a href="https://dashboard.scanpay.dk/settings/api">here</a>). We recommend that you use Transport Layer Security (TLS), but this is not a requirement.
+  You can configure your ping endpoint in our dashboard (<a href="https://dashboard.scanpay.dk/settings/api">here</a>).
+  We recommend that you use Transport Layer Security (TLS), but this is not a requirement.
 </p>

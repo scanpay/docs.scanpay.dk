@@ -8,43 +8,45 @@ order: 10
 -->
 
 <h1>Create Subscriber</h1>
+
 <p>
-  The create subscriber API call will return a link to a payment page, where the customer can enter their payment details (<i>i.e. subscribe</i>). When the customer has subscribed you will be able to retrieve a subscriber ID through the <a href="/synchronization">Synchronization API</a>.
+  The create subscriber API call will return a link to a payment page, where the customer can enter their payment
+  details (<i>i.e. subscribe</i>). When the customer has subscribed you will be able to retrieve a subscriber ID through
+  the <a href="/synchronization">Synchronization API</a>.
 </p>
+
+<h2 id="request-endpoint">Request</h2>
+
+<div class="endpoint">
+  <code class="endpoint-method"><span class="hljs-attribute">POST</span></code>
+  <div class="endpoint-url">
+    <code>https://api.scanpay.dk/v1/new</code>
+  </div>
+</div>
 
 <h3 id="request-headers">Request Headers</h3>
-<p>
-  The request endpoint is: <code class="code--inline">https://api.scanpay.dk/v1/new</code>.
-</p>
 
-<div class="responsive">
+<div class="table--responsive">
   <table>
     <thead>
       <tr>
-        <th>HTTP/1.1 headers</th>
+        <th>HTTP headers</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>
-          <pre><code class="code--tmp code--ellipsis"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code></pre>
-        </td>
-        <td>
-          HTTP Basic authentication. This HTTP header is required. <a href="/security#request-authentication">Read more</a>.
-        </td>
-      </tr>
+      {% include "tpl/code/basic-auth.html" %}
     </tbody>
   </table>
 </div>
 
-<h3 id="request-fields">Request Fields</h3>
+<h3 id="request-body">Request Body</h3>
 <p>
   All request fields are listed below. All fields except <code class="code--inline">subscriber</code> are optional.
 </p>
 
-<div class="responsive">
-  <table>
+<div class="table--responsive">
+  <table class="table--seqreq">
     <thead>
       <tr>
         <th>JSON fields</th>
@@ -54,7 +56,8 @@ order: 10
     <tbody>
       <tr>
         <td>
-          <code class="code--tmp"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"395"</span></code>
+          <code
+            class="code--tmp"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"395"</span></code>
         </td>
         <td>
           A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.
@@ -62,7 +65,8 @@ order: 10
       </tr>
       <tr>
         <td>
-          <code class="code--tmp"><span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span></code>
+          <code
+            class="code--tmp"><span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span></code>
         </td>
         <td>
           Redirect to this URL after succesful payment. If omitted we will show a generic success message.
@@ -98,26 +102,130 @@ order: 10
             <li><b>zip:</b> Postal code.</li>
             <li><b>city:</b> City.</li>
             <li><b>state:</b> State or region.</li>
-            <li><b>country:</b> Two-letter country code (<a href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).</li>
+            <li><b>country:</b> Two-letter country code (<a
+                href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).
+            </li>
           </ul>
         </td>
       </tr>
       <tr>
         <td>
-          <code class="code--tmp"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></code>
+          <code
+            class="code--tmp"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></code>
         </td>
         <td>
-          Preferred language for the payment window. We fallback to the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
+          Preferred language for the payment window. We fallback to the <a
+            href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
         </td>
       </tr>
       <tr>
         <td>
-          <code class="code--tmp"><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span></code>
+          <code
+            class="code--tmp"><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span></code>
         </td>
         <td>
-          Set payment link lifetime in days (d), hours (h) or minutes (m). Default is <code class="code--inline hljs-string">"1h"</code> and max is <code class="code--inline hljs-string">"30d"</code>
+          Set payment link lifetime in days (d), hours (h) or minutes (m). Default is <code
+            class="code--inline hljs-string">"1h"</code> and max is <code class="code--inline hljs-string">"30d"</code>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<h2 id="response">Response</h2>
+
+<h3 id="response-success">Success</h3>
+<p>
+  Successful requests return status code <code class="code--inline">200</code> and a JSON object:
+</p>
+
+<div class="table--responsive">
+  <table class="table--seqreq">
+    <thead>
+      <tr>
+        <th>JSON fields</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code
+            class="code--tmp"><span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span></code>
+        </td>
+        <td>
+          The payment link. You can redirect the customer to this URL to complete the payment.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3 id="response-errors">Errors</h3>
+
+<p>
+  Failed requests return an HTTP error code and a error message in the HTTP body:
+</p>
+
+<div class="responsive">
+  <table class="resp-error-table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>HTTP Body</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>invalid json</td>
+        <td>Invalid JSON.</td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">403</td>
+        <td>invalid apikey</td>
+        <td>Invalid API key.</td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">408</td>
+        <td>Request Timeout</td>
+        <td>
+          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
+        </td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">413</td>
+        <td>Request Entity Too Large</td>
+        <td>
+          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
+        </td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>Request Header Or Cookie Too Large</td>
+        <td>
+          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
+        </td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">500</td>
+        <td>internal server error</td>
+        <td>
+          Technical issue at Scanpay. Please try again later.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+<h2 id="example">Example</h2>
+
+<p>
+  The following is an example in pseudo code:
+</p>
+
+<pre
+  class="responsive"><code class="code--block">{% include "docs/subscriptions/code/example/create.txt" %}</code></pre>
