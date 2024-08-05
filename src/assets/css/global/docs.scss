@@ -113,8 +113,9 @@ h3 {
 */
 
 .note-- {
+    background: #e7f2fa;
     font-size: .9rem;
-    margin: 1.2rem 0 1rem 0;
+    margin: 1.5rem 0 0 0;
 }
 
 .note--head {
@@ -133,16 +134,18 @@ h3 {
 }
 
 .note--body {
-    background: #e7f2fa;
     margin: 0;
     padding: 10px .8rem 11px;
     color: #2d363c;
 }
 
+.note--warn {
+    background: #ffedcc;
 
-
-
-
+    >.note--head {
+        background: #f0b37e;
+    }
+}
 
 .tbr {
     display: inline-block;
@@ -165,6 +168,7 @@ button {
     &:focus {
         outline: none;
     }
+
     &::-moz-focus-inner {
         border: 0;
         padding: 0; // Remove inner padding and border in Firefox 4+ (normalize)
@@ -229,11 +233,15 @@ td {
     margin: 8px 0 0;
     padding: 0 5px 0 1.2em;
 
-    > li {
+    >li {
         margin: 9px 0;
     }
 }
 
+.resp-error-table {
+    table-layout: auto;
+    margin-top: 10px;
+}
 
 
 /*
@@ -248,12 +256,12 @@ td {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0,0,0,.6);
+    background: rgba(0, 0, 0, .6);
     z-index: 10;
     cursor: zoom-out;
     justify-content: center;
 
-    > img {
+    >img {
         max-width: 98vw;
         max-height: 98vh;
     }

@@ -1,17 +1,17 @@
 <!--
-title: Refund API
+title: Void API
 description: ...
-url: /transactions/refund
+url: /transactions/void
 parent: /transactions/
-link: Refund
-order: 20
+link: Void
+order: 30
 -->
 
-<h1>Refund transaction</h1>
+<h1>Void transaction</h1>
 
 <p>
-  With the refund API request, you can perform full or partial refunds on a <a href="/transactions/capture">captured</a>
-  transaction. You can perform multiple refunds but cannot refund more than the captured amount.
+  With the void API request, you can void a transaction. You can only void transactions that are not yet captured and
+  you cannot undo a voided transaction.
 </p>
 
 <div class="note-- note--warn">
@@ -29,7 +29,7 @@ order: 20
 <div class="endpoint">
   <code class="endpoint-method"><span class="hljs-attribute">POST</span></code>
   <div class="endpoint-url">
-    <code>https://api.scanpay.dk/v2/<span class="hljs-attr">$shopID</span>:trn:<span class="hljs-attr">$trnID</span>/refund</code>
+    <code>https://api.scanpay.dk/v2/<span class="hljs-attr">$shopID</span>:trn:<span class="hljs-attr">$trnID</span>/void</code>
   </div>
 </div>
 
@@ -80,35 +80,11 @@ order: 20
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"total"</span>: <span class="hljs-string">"199.95 DKK"</span></code>
+          <code class="code--tmp"><span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span></code>
         </td>
         <td>
-          The amount to refund.
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <code class="code--tmp"><span class="hljs-attr">"index"</span>: <span class="hljs-number">1</span></code>
-        </td>
-        <td>
-          The number of <a href="/transactions/">actions</a> performed on the transaction. This is used to prevent
-          duplicate refunds.
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <pre><code class="code--tmp code--ellipsis">{% include "docs/transactions/code/items.json" %}</code></pre>
-        </td>
-        <td>
-          <p>
-            An <b>optional</b> array of refunded items <i>(<a
-                href="/payment-links/create#request-fields">specs</a>)</i>. This is only metadata, and it does not
-            affect the actual refund. Invalid data will be discarded without returning an error.
-          </p>
-          <p>
-            We display the refunded items in our dashboard.
-          </p>
+          The number of <a href="/transactions/">actions</a> performed on the transaction. This is used to
+          prevent duplicate refunds.
         </td>
       </tr>
     </tbody>
@@ -142,14 +118,6 @@ order: 20
         <td class="hljs-attr">400</td>
         <td>invalid json</td>
         <td>Invalid JSON.</td>
-      </tr>
-
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>invalid total</td>
-        <td>
-          Invalid or missing <code class="code--inline hljs-attr">total</code> field.
-        </td>
       </tr>
 
       <tr>
@@ -192,11 +160,3 @@ order: 20
     </tbody>
   </table>
 </div>
-
-<h2 id="example">Example</h2>
-
-<p>
-  The following is an example in pseudo code:
-</p>
-
-<pre class="responsive"><code class="code--block">{% include "docs/transactions/code/refund-pseudo.txt" %}</code></pre>

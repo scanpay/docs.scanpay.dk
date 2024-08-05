@@ -16,10 +16,12 @@ order: 10
 <h2>Request</h2>
 
 <p>
-  The request endpoint, where <span class="hljs-string">$shopid</span> is the shopid and <span class="hljs-string">$trnid</span> is the transaction id, is:
+  The request endpoint, where <span class="hljs-string">$shopid</span> is the shopid and <span
+    class="hljs-string">$trnid</span> is the transaction id, is:
 </p>
 
-<code class="code--inline">https://api.scanpay.dk/v1/transactions/<span class="hljs-string">$shopid</span>:<span class="hljs-string">$trnid</span>/capture</code>
+<code
+  class="code--inline">https://api.scanpay.dk/v1/transactions/<span class="hljs-string">$shopid</span>:<span class="hljs-string">$trnid</span>/capture</code>
 
 <h3 id="request-headers">Request Headers</h3>
 <p>
@@ -37,10 +39,12 @@ order: 10
     <tbody>
       <tr>
         <td>
-          <code class="code--tmp ellipsis"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code>
+          <code
+            class="code--tmp ellipsis"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code>
         </td>
         <td>
-          Basic authentication, where your credentials <i>(shopid:secret)</i> are in the API key, so you only have to base64 encode the API key.
+          Basic authentication, where your credentials <i>(shopid:secret)</i> are in the API key, so you only have to
+          base64 encode the API key.
         </td>
       </tr>
     </tbody>
@@ -63,7 +67,8 @@ order: 10
     <tbody>
       <tr>
         <td>
-          <code class="code--tmp"><span class="hljs-attr">"total"</span>: <span class="hljs-string">"199.95 DKK"</span></code>
+          <code
+            class="code--tmp"><span class="hljs-attr">"total"</span>: <span class="hljs-string">"199.95 DKK"</span></code>
         </td>
         <td>
           The sequence number for the last change in the changes array.

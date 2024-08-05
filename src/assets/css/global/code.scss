@@ -2,15 +2,44 @@
 *   Highlight.
 **/
 
-.hljs-attr { color: #bd143e; }
-.hljs-string { color: #138061; }
-.hljs-number { color: #fa755a; }
-.hljs-comment { color: #9a9a8e; font-style: italic; }
-.hljs-keyword { color: #a71d5d; }
-.hljs-literal { color: #008080; }
-.hljs-attribute, .hljs-name { color: #000080; }
-.hljs-built_in { color: #0086b3; }
-.hljs-meta { color: #999; font-weight: bold; }
+.hljs-attr {
+    color: #bd143e;
+}
+
+.hljs-string {
+    color: #138061;
+}
+
+.hljs-number {
+    color: #fa755a;
+}
+
+.hljs-comment {
+    color: #9a9a8e;
+    font-style: italic;
+}
+
+.hljs-keyword {
+    color: #a71d5d;
+}
+
+.hljs-literal {
+    color: #008080;
+}
+
+.hljs-attribute,
+.hljs-name {
+    color: #000080;
+}
+
+.hljs-built_in {
+    color: #0086b3;
+}
+
+.hljs-meta {
+    color: #999;
+    font-weight: bold;
+}
 
 // .hljs-selector-tag, .hljs-subst { color: #333; font-weight: bold; }
 //  hljs-section, .hljs-title { color: #900; font-weight: bold; }
@@ -33,7 +62,7 @@
     border: 1px solid #e3e3e3;
     min-width: 40em;
 
-    > pre {
+    >pre {
         border-top: 1px solid #e3e3e3;
     }
 }
@@ -137,11 +166,11 @@ pre {
     border-radius: 4px;
     background: #f8f8f8;
     display: inline-block;
-    margin: 0 0 15px;
+    margin: 10px 0 0;
     border: 1px solid #e0e0e0;
     white-space: nowrap;
     overflow: hidden;
-    font-size: 13px;
+    font-size: .8em;
 
     code {
         font-family: "H", monospace;
@@ -165,4 +194,10 @@ pre {
     padding: 9px 12px 8px 11px;
     color: #222;
     border-radius: 0 4px 4px 0;
+}
+
+.endpoint-ul {
+    padding: 0;
+    list-style: none;
+    font-style: italic;
 }
