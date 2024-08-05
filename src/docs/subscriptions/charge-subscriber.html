@@ -8,19 +8,29 @@ order: 20
 -->
 
 <h1>Charge Subscriber</h1>
+
 <p>
   The charge subscriber API call will charge a specified subscriber ID.
 </p>
 
-<h3>Request Headers</h3>
-<p>
-  The request endpoint is: <code
-    class="code--inline">https://api.scanpay.dk/v1/subscribers/<span class="hljs-string">$id</span>/charge</code>, where
-  <code class="code hljs-string">$id</code> is the subscriber ID that you want to charge. The following HTTP request
-  headers are required:
-</p>
+<h2 id="request-endpoint">Request</h2>
 
-<div class="responsive">
+<div class="endpoint">
+  <code class="endpoint-method"><span class="hljs-attribute">POST</span></code>
+  <div class="endpoint-url">
+    <code>https://api.scanpay.dk/v1/subscribers/<span class="hljs-attr">$subID</span>/charge</code>
+  </div>
+</div>
+
+<ul class="endpoint-ul">
+  <li>
+    <span class="hljs-attr">$subID</span> is the subscriber ID. You receive this in the Synchronization API.
+  </li>
+</ul>
+
+<h3 id="request-headers">Request Headers</h3>
+
+<div class="table--responsive">
   <table>
     <thead>
       <tr>
@@ -44,14 +54,11 @@ order: 20
   </table>
 </div>
 
-<h3 id="request-fields">Request Fields</h3>
-<p>
-  All request fields are listed below. Note that if the billing address and/or shipping address is unspecified, they
-  will default to the addresses specified in the subscriber.
-</p>
 
-<div class="responsive">
-  <table>
+<h3 id="request-body">Request Body</h3>
+
+<div class="table--responsive">
+  <table class="table--seqreq">
     <thead>
       <tr>
         <th>JSON fields</th>
@@ -91,6 +98,12 @@ order: 20
           <pre><code class="code--tmp code--ellipsis">{% include "docs/payment-links/code/billing.json" %}</code></pre>
         </td>
         <td>
+          <p>
+            Note that if the billing address and/or shipping address is unspecified, they
+            will default to the addresses specified in the subscriber.
+          </p>
+          <br>
+
           Customer billing and shipping address.
           <ul class="table--ul">
             <li><b>name:</b> The full name.</li>
@@ -122,13 +135,17 @@ order: 20
   </table>
 </div>
 
-<h3 id="request-headers">Response Headers</h3>
+<h2 id="response">Response</h2>
 
-<div class="responsive">
+<p>
+  The HTTP response headers will contain the following headers:
+</p>
+
+<div class="table--responsive">
   <table>
     <thead>
       <tr>
-        <th>HTTP/1.1 headers</th>
+        <th>HTTP headers</th>
         <th>Description</th>
       </tr>
     </thead>
@@ -146,7 +163,81 @@ order: 20
   </table>
 </div>
 
-<h3 id="subcharge-response">Response</h3>
+<h3 id="response-success">Success</h3>
+
 <p>
-  Successful responses have a <code class="code--inline">200</code> HTTP status code
+  Successful charge requests return status code <code class="code--inline">200</code> and an empty JSON object.
 </p>
+
+<h3 id="response-errors">Errors</h3>
+<p>
+  Failed charge requests return an HTTP error code and a error message in the HTTP body:
+</p>
+
+<div class="responsive">
+  <table class="resp-error-table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>HTTP Body</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>invalid json</td>
+        <td>Invalid JSON.</td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>invalid total</td>
+        <td>
+          Invalid or missing <code class="code--inline hljs-attr">total</code> field.
+        </td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">403</td>
+        <td>invalid apikey</td>
+        <td>Invalid API key.</td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">408</td>
+        <td>Request Timeout</td>
+        <td>
+          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
+        </td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">413</td>
+        <td>Request Entity Too Large</td>
+        <td>
+          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
+        </td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>Request Header Or Cookie Too Large</td>
+        <td>
+          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
+        </td>
+      </tr>
+      <tr>
+        <td class="hljs-attr">500</td>
+        <td>internal server error</td>
+        <td>
+          Technical issue at Scanpay. Please try again later.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="example">Example</h2>
+
+<p>
+  The following is an example in pseudo code:
+</p>
+
+<pre
+  class="responsive"><code class="code--block">{% include "docs/subscriptions/code/example/charge.txt" %}</code></pre>

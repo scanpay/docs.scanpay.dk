@@ -1,3 +1,6 @@
+'use strict';
+
+const www = '/tmp/www/docs/';
 const { Transform } = require('stream');
 const fs = require('fs');
 const path = require('node:path');
@@ -14,6 +17,12 @@ const htmlmin = require("html-minifier");
 env.currentYear = (new Date()).getFullYear();
 env.server = env.server || 'docs.scanpay.dev';
 if (!env.publish) env.jst = env.csst = '1';
+
+
+function rm(cb) {
+    fs.rmSync(www, { recursive: true, force: true });
+    cb(null);
+}
 
 function writeSourceMap(dest, str) {
     const dir = path.dirname(dest);
@@ -158,7 +167,7 @@ function html() {
                 cb();
             }
         }))
-        .pipe(gulp.dest('www'))
+        .pipe(gulp.dest(www))
         .pipe(connect.reload());
 }
 
@@ -185,18 +194,18 @@ function js() {
                 options.uglify.sourceMap.url = file.relative + '.map';
                 const ugly = uglifyJS.minify(file.contents.toString(), options.uglify);
                 file.contents = Buffer.from(ugly.code, 'utf-8');
-                writeSourceMap('www/js/' + file.relative, ugly.map);
+                writeSourceMap(www + '/js/' + file.relative, ugly.map);
                 cb(null, file);
             }
         }))
-        .pipe(gulp.dest('www'))
+        .pipe(gulp.dest(www))
         .pipe(connect.reload());
 }
 
 
 function assets() {
     return gulp.src('src/assets/{font,img}/**', { base: 'src/assets/', encoding: false })
-        .pipe(gulp.dest('www'));
+        .pipe(gulp.dest(www));
 }
 
 function scss() {
@@ -209,21 +218,21 @@ function scss() {
                     const cssobj = sass.compileString(file.contents.toString(), options.sass);
                     const str = cssobj.css + '\n /*# sourceMappingURL=' + file.relative + '.map */';
                     file.contents = Buffer.from(str, 'utf-8');
-                    writeSourceMap('www/css/' + file.relative, JSON.stringify(cssobj.sourceMap));
+                    writeSourceMap(www + '/css/' + file.relative, JSON.stringify(cssobj.sourceMap));
                     cb(null, file);
                 } catch (err) {
                     cb(err);
                 }
             }
         }))
-        .pipe(gulp.dest('www/css/'))
+        .pipe(gulp.dest(www + '/css/'))
         .pipe(connect.reload());
 }
 
 
 gulp.task('serve', () => {
     connect.server({
-        root: 'www',
+        root: www,
         livereload: true,
         middleware: () => ([(req, res, next) => {
             // Add .html (url->file)
@@ -236,6 +245,7 @@ gulp.task('serve', () => {
         }])
     });
 
+    gulp.watch('src/docs/**/code/**', html);
     gulp.watch('src/docs/**/*.html', html);
     gulp.watch('src/assets/{font,img}/**/**', assets);
     gulp.watch('src/assets/css/**/*.scss', scss);
@@ -274,5 +284,6 @@ gulp.task('sitemap', (cb) => {
 });
 */
 
+gulp.task('rm', rm);
 gulp.task('build', gulp.series(loadTemplates, code, assets, js, scss, html));
 gulp.task('default', gulp.series('build', 'serve'));
