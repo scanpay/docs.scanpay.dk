@@ -1,108 +1,15 @@
-<h1>Synchronization</h1>
+<!--
+title: Sequence Request
+description: The synchronization API will keep all your systems up-to-date with changes to your payments.
+url: /synchronization/sequence-request
+parent: /synchronization/
+link: Seq Request
+order: 10
+-->
+
+<h1>Seq Request</h1>
 <p>
-  There are two requests in our Synchronization API: Ping and Pull. <em>Ping</em> is a request that you receive from us, both periodically and after certain events. <em>Pull</em> is a request that you make when you want to pull changes.
-</p>
-
-<h2 id="ping-request">Ping request</h2>
-<p>
-  All accounts have a consecutive sequence number called <code class="code--inline">seq</code>, which is a counter that increases when your transaction data changes. When this happens, we will send you a <em>ping</em>, which is a tiny HTTP POST request with the following headers and JSON fields:
-</p>
-
-<div class="table--responsive">
-  <table>
-    <thead>
-      <tr>
-        <th>HTTP/1.1 headers</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <pre><code class="code--tmp code--ellipsis"><span class="hljs-attribute">X-Signature</span>: 17FUWCstyodDzsCkG5/gU/2VA2vUEcHfvFxGh8RCElo=</code></pre>
-        </td>
-        <td>
-          Base64 encoded HMAC-SHA2-256 signature of the body signed with your API key.
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="table--responsive">
-  <table>
-    <thead>
-      <tr>
-        <th>JSON fields</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <code class="code--tmp"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">200</span></code>
-        </td>
-        <td>
-          Consecutive sequence number for your shop.
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <code class="code--tmp"><span class="hljs-attr">"shopid"</span>: <span class="hljs-number">129</span></code>
-        </td>
-        <td>
-          The shopid associated with this ping.
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<p>
-  In addition, we ping you every 5 minutes to ensure that your system is up to date. When you receive a ping, it is important that you verify the authenticity of the request. Afterwards you can look at <code class="code--inline">seq</code> to determine if there are any changes. Explained with pseudocode:
-</p>
-
-<pre class="table--responsive"><code class="code--block">{% include "docs/synchronization/code/ping.pseudo.txt" %}</code></pre>
-
-<p>
-  You can configure your ping endpoint in our dashboard (<a href="https://dashboard.scanpay.dk/settings/api">here</a>). We recommend that you use Transport Layer Security (TLS), but this is not a requirement.
-</p>
-
-<h2 id="sequence-request">Sequence request</h2>
-<p>
-  A sequence request is a HTTP GET request that you make when you want to pull changes from our servers. The endpoint is <code class="code--inline">https://api.scanpay.dk/v1/seq/<span class="hljs-string">$num</span></code>, where <code class="code--inline hljs-string">$num</code> is your local version of the sequence number. All requests have to be authenticated with HTTP basic authentication. Successful responses have a <code class="code--inline hljs-number">200</code> status code and a JSON body:
-</p>
-
-<h3 id="request-headers">Request Headers</h3>
-<p>
-  Requests are authenticated with HTTP basic authentication.
-</p>
-
-<div class="table--responsive">
-  <table>
-    <thead>
-      <tr>
-        <th>HTTP/1.1 headers</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <code class="code--tmp ellipsis"><span class="hljs-attribute">Authorization</span>: Basic MTE1MzpZSFpJVUdRdzZOa0NJWWEzbUc2Q1djZ1NobmwxM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code>
-        </td>
-        <td>
-          Basic authentication, where your credentials <i>(shopid:secret)</i> are in the API key, so you only have to base64 encode the API key.
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-<h3 id="request-fields">Request Fields</h3>
-<p>
-  There is a maximum request size limit of 32 kB.
+  A sequence request is an HTTP GET request that you make when you want to pull changes from our servers. The endpoint is <code class="code--inline">https://api.scanpay.dk/v1/seq/<span class="hljs-string">$num</span></code>, where <code class="code--inline hljs-string">$num</code> is your local version of the sequence number. All requests have to be authenticated with HTTP basic authentication (<a href="/security#request-authentication">more info</a>). Successful responses have a <code class="code--inline hljs-number">200</code> status code and a JSON body:
 </p>
 
 <div class="table--responsive">
@@ -134,7 +41,7 @@
   </table>
 </div>
 
-<h4 id="seq-transaction">Transaction</h4>
+<h3 id="seq-transaction">Transaction</h3>
 <p>
   In this context, transactions are regular payment transactions.
 </p>
@@ -191,17 +98,17 @@
               <b>type</b>: The method type can be either <code class="code--inline hljs-string">"card"</code>, <code class="code--inline hljs-string">"mobilepay"</code> or <code class="code--inline hljs-string">"applepay"</code>
             </li>
             <li>
-              <b>id</b>: uniquely identifies this particular payment device, e.g. card number.
+              <b>id</b>: A per-shop opaque hash of the payment device.
             </li>
             <li>
-              <b>card</b>: contains information about the credit card. This object will only exist if the payment method is credit card.
+              <b>card</b>: A subobject, named for the internal method used to process the payment, contains identifiable information about the payment method to help with customer identification. Currently only "card" is supported. No subobject is guaranteed to be there and more will be added in the future as they become necessary.
 
               <ul>
                 <li>
                   <b>brand</b>: <code class="code--inline hljs-string">"amex"</code>, <code class="code--inline hljs-string">"dankort"</code>, <code class="code--inline hljs-string">"diners"</code>, <code class="code--inline hljs-string">"discover"</code>, <code class="code--inline hljs-string">"jcb"</code>, <code class="code--inline hljs-string">"maestro"</code>, <code class="code--inline hljs-string">"mastercard"</code>, <code class="code--inline hljs-string">"unionpay"</code>, <code class="code--inline hljs-string">"visa"</code>
                 </li>
                 <li>
-                  <b>last4</b>: the last four digits of the card.
+                  <b>last4</b>: the last 4 digits of the card number.
                 </li>
               </ul>
             </li>
@@ -248,7 +155,7 @@
   </table>
 </div>
 
-<h4 id="seq-subscriber">Subscriber</h4>
+<h3 id="seq-subscriber">Subscriber</h3>
 <p>
   You will receive this <i>change</i> if you <a href="/subscriptions/create-subscriber">create</a> or <a href="/subscriptions/renew-subscriber">renew</a> a subscriber through our subscriptions API.
 </p>
@@ -347,7 +254,7 @@
 </div>
 
 
-<h4 id="seq-charge">Charge</h4>
+<h3 id="seq-charge">Charge</h3>
 <p>
   You will receive this <i>change</i> if you <a href="/subscriptions/charge-subscriber">charge</a> a subscriber through our subscriptions API. Charges are fundamentally the same as <a href="#seq-transaction">transactions</a> with some extra information about the subcriber.
 </p>
@@ -467,6 +374,72 @@
     </tbody>
   </table>
 </div>
+
+
+<h3 id="request-fields">Errors</h3>
+
+<p>
+  You can receive the following errors when using the Capture API:
+</p>
+
+<div class="responsive" style="margin-top: 30px;">
+  <table style="table-layout: auto;">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>HTTP Body</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>invalid json</td>
+        <td>Invalid JSON.</td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">403</td>
+        <td>invalid apikey</td>
+        <td>Invalid API key.</td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">408</td>
+        <td>Request Timeout</td>
+        <td>
+          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
+        </td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">413</td>
+        <td>Request Entity Too Large</td>
+        <td>
+          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
+        </td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">400</td>
+        <td>Request Header Or Cookie Too Large</td>
+        <td>
+          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="hljs-attr">500</td>
+        <td>internal server error</td>
+        <td>
+          Technical issue at Scanpay. Please try again later.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 
 
 <!--

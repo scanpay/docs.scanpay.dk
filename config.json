@@ -1,6 +1,6 @@
 {
     "sass": {
-        "loadPaths": ["css/"],
+        "loadPaths": ["src/assets/css/"],
         "sourceMap": true,
         "sourceMapIncludeSources": true,
         "style": "compressed"

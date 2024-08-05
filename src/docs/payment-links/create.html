@@ -1,0 +1,298 @@
+<!--
+title: Create Payment Link
+description: ...
+url: /payment-links/create
+parent: /payment-links/
+link: Create
+order: 10
+-->
+
+<section>
+  <h1 id="create-link">Create payment link</h1>
+  <p>
+    Use this API to create payment links where customers can enter their payment details. You can read more about payment links and how to use them <a href="/payment-links/">here</a>.
+  </p>
+
+  <h2 id="request">Request</h2>
+  <p>
+    The request endpoint is: <code class="code--inline">https://api.scanpay.dk/v1/new</code>
+  </p>
+
+  <h3 id="request-headers">Request Headers</h3>
+
+  <div class="table--responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>HTTP header</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <code class="code--tmp"><span class="hljs-attribute">Authorization</span>: Basic <span class="hljs-built_in">base64_<wbr>encode</span>(<span class="hljs-string">"$apikey"</span>)</code>
+          </td>
+          <td>
+            HTTP basic authentication with your API key as credentials. You can find your API key in the <a href="https://dashboard.scanpay.dk/settings/api">dashboard</a>.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code class="code--tmp">
+              <span class="hljs-attribute">X-Cardholder-IP</span>: 47.105.175.99
+            </code>
+          </td>
+          <td>
+            The IPv4 or IPv6 address of the customer making the payment. It's optional but highly recommended.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="request-fields">Request Fields</h3>
+
+  <div class="table--responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>JSON fields</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <pre><code class="code--tmp code--ellipsis">{% include "docs/payment-links/code/items.json" %}</code></pre>
+          </td>
+          <td>
+            <p>
+              An array with one or more items. Each item needs a <code class="code--inline">total</code>, but all other fields are optional.
+            </p>
+
+            <ul class="table--ul">
+              <li><b>name:</b> the name of the item or service.</li>
+              <li><b>quantity:</b> the number of items <i>(integer)</i>.</li>
+              <li>
+                <b>total:</b> line total, i.e. unit-price times quantity, with an ISO 4217 currency code.
+              </li>
+              <li>
+                <b>sku:</b> a <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this particular item.
+              </li>
+            </ul>
+            <span class="td--note">
+              In this example, the total amount is 13497.9986 DKK. Most acquires only support two or three digits after the decimal point. We will automatically truncate the value if needed.
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <pre><code class="code--tmp code--ellipsis">{% include "docs/payment-links/code/billing.json" %}</code></pre>
+          </td>
+          <td>
+            <p>
+              Customer billing and shipping address. We use it to protect your business against fraud, and we show the details in our dashboard.
+            </p>
+
+            <ul class="table--ul">
+              <li>
+                <b>company:</b> Company legal name.
+              </li>
+              <li>
+                <b>vatin:</b> EU VAT identification number with country prefix.
+              </li>
+              <li>
+                <b>gln:</b> Global Location Number or European Article Numbering (EAN-number).
+              </li>
+              <li>
+                <b>phone:</b> Phone number with country prefix.
+              </li>
+              <li>
+                <b>address:</b> An address array where each element is a new line.
+              </li>
+              <li>
+                <b>zip:</b> Postal code.
+              </li>
+              <li>
+                <b>country:</b> Two-letter country code (<a rel="nofollow" href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).
+              </li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <code class="code--tmp"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"1234zx"</span></code>
+          </td>
+          <td>
+            An order identifier that identifies the order in your system. We send the ID to your acquirer and display it in the payment window.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code class="code--tmp"><span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span></code>
+          </td>
+          <td>
+            The success URL is where we send the customer after successful payment.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <code class="code--tmp"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></code>
+          </td>
+          <td>
+            The desired payment window language in ISO <a href="https://en.wikipedia.org/wiki/ISO_639-1">639-1</a>. Default is the browser language.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code class="code--tmp"><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></code>
+          </td>
+          <td>
+            Automatically capture the payment. Default is <code class="code--inline hljs-number">false</code>, which means that payments are authorized <i>(reserved)</i>, but not captured.
+          </td>
+        </tr>
+        <tr id="field-lifetime">
+          <td>
+            <code class="code--tmp"><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"7d"</span></code>
+          </td>
+          <td>
+            Payment link lifetime in days <i>(<span class="hljs-string">"d"</span>)</i>, hours <i>(<span class="hljs-string">"h"</span>)</i> or minutes <i>(<span class="hljs-string">"m"</span>)</i>. Default is <code class="code--inline hljs-string">"1h"</code> and max is <code class="code--inline hljs-string">"30d"</code>. Increasing the lifetime will also increase the length of the returned URL.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="request-requirements">Request Requirements</h3>
+
+  <p>
+    The API is fault-tolerant and forgiving. Apart from <code class="code--inline">items</code>, all fields are optional, and we will ignore them if they are invalid. There is a maximum request size of 32 kB but no field size restrictions.
+  </p>
+
+
+  <h2>Response</h2>
+
+  <h3 id="mobilepay">Link Parameters</h3>
+  <p>
+    The following link parameters can be appended to the payment link:
+  </p>
+
+  <div class="table--responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Link parameter</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <td>
+            <code class="code--tmp"><span class="hljs-string">?go=mobilepay</span></code>
+          </td>
+          <td>
+            Redirect the customer to MobilePay Online. You need to enable MobilePay Online <a href="https://dashboard.scanpay.dk/settings/acquirers">here</a>.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <h3 id="request-fields">Errors</h3>
+
+  <p>
+    You can receive the following errors when you create payment links:
+  </p>
+
+  <div class="responsive" style="margin-top: 30px;">
+    <table style="table-layout: auto;">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>HTTP Body</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hljs-attr">400</td>
+          <td>invalid json</td>
+          <td>Invalid JSON.</td>
+        </tr>
+
+        <tr>
+          <td class="hljs-attr">400</td>
+          <td>invalid total</td>
+          <td>
+            Invalid or missing <code class="code--inline hljs-attr">total</code> field.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="hljs-attr">403</td>
+          <td>invalid apikey</td>
+          <td>Invalid API key.</td>
+        </tr>
+
+        <tr>
+          <td class="hljs-attr">408</td>
+          <td>Request Timeout</td>
+          <td>
+            The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="hljs-attr">413</td>
+          <td>Request Entity Too Large</td>
+          <td>
+            The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
+          </td>
+        </tr>
+
+        <tr>
+          <td class="hljs-attr">400</td>
+          <td>Request Header Or Cookie Too Large</td>
+          <td>
+            The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="hljs-attr">500</td>
+          <td>internal server error</td>
+          <td>
+            Technical issue at Scanpay. Please try again later.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+  <pre class="responsive"><code class="code--block">{% include "docs/payment-links/code/pseudo.txt" %}</code></pre>
+
+
+  <p>
+    Here is a minimal example in pseudocode. You can find more examples in our <a href="/#client-libraries">client libraries</a>.
+  </p>
+
+  <pre class="responsive"><code class="code--block">{% include "docs/payment-links/code/pseudo.txt" %}</code></pre>
+
+  <p>
+    Successful responses have a <code class="code--inline">200</code> status code and a JSON body containing the payment link:
+  </p>
+
+  <pre class="responsive"><code class="code--block">{% include "docs/payment-links/code/pseudo-response.txt" %}</code></pre>
+
+  <p>
+    Invalid responses will return a <code class="code--inline">4XX</code> or <code class="code--inline">5XX</code> error code and an error message. See <a href="#">error handling</a> for more details.
+  </p>
+
+
+  {"url":"https://betal.scanpay.dev/y7wfxpuqwtr02"}
