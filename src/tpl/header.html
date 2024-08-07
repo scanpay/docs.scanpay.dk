@@ -1,4 +1,5 @@
-<!DOCTYPE HTML><html lang="en">
+<!DOCTYPE HTML>
+<html lang="en">
 <head>
   <link href="/css/docs.css?{{ csst }}" rel="stylesheet">
   <script defer src="/js/docs.js?{{ jst }}"></script>
@@ -28,11 +29,7 @@
         {% include "tpl/svg/burger.svg" %}
       </div>
       <form class="nav--search--form" action="/search">
-        <input class="nav--search--input"
-          type="search"
-          name="q"
-          autocomplete="off"
-          placeholder="Search the docs">
+        <input class="nav--search--input" type="search" name="q" autocomplete="off" placeholder="Search the docs">
       </form>
     </div>
     <ul id="nav--ul">
@@ -48,7 +45,8 @@
         {% include "tpl/svg/github.svg" %} Edit
       </a>
       <nav class="header--nav" aria-label="Breadcrumb">
-        {% include "tpl/svg/breadcrumb.svg" %} {{ breadcrumbParent }} <span class="header--nav--raquo">»</span> <span aria-current="page">{{ link }}</span>
+        {% include "tpl/svg/breadcrumb.svg" %} {{ breadcrumbParent }} <span class="header--nav--raquo">»</span> <span
+          aria-current="page">{{ link }}</span>
       </nav>
     </header>
     <article class="article">
