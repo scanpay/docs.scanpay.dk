@@ -1,7 +1,7 @@
 'use strict';
 
 const www = '/tmp/www/docs/';
-const options = require('./config.json');
+const Opts = require('./config.json');
 const mo3 = require('./lib/mo3place.js')();
 const { Transform } = require('stream');
 const fs = require('fs');
@@ -93,58 +93,63 @@ function breadcrumb(data, sorted) {
     data.BreadcrumbList = JSON.stringify(data.BreadcrumbList);
 }
 
+// Create sorted tree of links
+function sortPages(a, b) {
+    const sorted = [];
+    for (const x in fileData) {
+        if (fileData[x].link && !fileData[x].parent) {
+            const page = [fileData[x].order, x];
+            const subpages = [];
+            for (const y in fileData) {
+                if (fileData[y].parent && fileData[y].parent === fileData[x].url) {
+                    subpages.push([fileData[y].order, y]);
+                }
+            }
+            if (subpages.length) {
+                subpages.sort((a, b) => a[0] - b[0]);
+                page.push(subpages);
+            }
+            sorted.push(page);
+        }
+    }
+    sorted.sort((a, b) => a[0] - b[0]);
+    return sorted
+}
+
+function createSitemap() {
+    let s = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+    for (const x in fileData) {
+        const o = fileData[x];
+        const ts = new Date(o.mtime).toISOString();
+        s += `<url><loc>https://docs.scanpay.dev${o.url}</loc><lastmod>${ts}</lastmod></url>`;
+    }
+    s += '</urlset>';
+    fs.writeFileSync(www + 'sitemap.xml', s);
+}
 
 const fileData = {};
-const files = [];
 function html() {
+    const files = [];
     return gulp.src('src/docs/**/*.html')
         .pipe(new Transform({
             objectMode: true,
             transform(file, enc, cb) {
-                if (!fileData[file.path] || fileData[file.path].mtime !== file.stat.mtimeMs) {
-                    fileData[file.path] = mo3.parseFile(file);
+                if (!fileData[file.relative] || fileData[file.relative].mtime !== file.stat.mtimeMs) {
+                    fileData[file.relative] = mo3.parseFile(file);
                 }
                 files.push(file);
                 cb();
             },
             flush(cb) {
-                // Create sorted tree of links
-                const sorted = [];
-                for (const x in fileData) {
-                    if (fileData[x].link && !fileData[x].parent) {
-                        const page = [fileData[x].order, x];
-                        const subpages = [];
-                        for (const y in fileData) {
-                            if (fileData[y].parent && fileData[y].parent === fileData[x].url) {
-                                subpages.push([fileData[y].order, y]);
-                            }
-                        }
-                        if (subpages.length) {
-                            subpages.sort((a, b) => a[0] - b[0]);
-                            page.push(subpages);
-                        }
-                        sorted.push(page);
-                    }
-                }
-                sorted.sort((a, b) => a[0] - b[0]);
-
+                const sorted = sortPages(fileData);
                 files.forEach(file => {
-                    const data = Object.assign({}, env, fileData[file.path]);
-                    if (data.mtime !== file.stat.mtimeMs) {
-                        breadcrumb(data, sorted);
-                        data.sidebar = createSidebar(file.path, sorted);
-                        data.mtime = file.stat.mtimeMs;
-                    }
-                    file.contents = Buffer.from(
-                        htmlmin.minify(
-                            mo3.fromString(tpl.header + data.str + tpl.footer, data),
-                            options.htmlmin
-                        ),
-                        'utf-8'
-                    );
+                    const o = Object.assign({}, env, fileData[file.relative]);
+                    breadcrumb(o, sorted);
+                    o.sidebar = createSidebar(file.relative, sorted);
+                    file.contents = Buffer.from(htmlmin.minify(mo3.fromString(tpl.header + o.str + tpl.footer, o), Opts.htmlmin));
                     this.push(file);
                 });
-                files.length = 0; // reset the array
+                createSitemap();
                 cb();
             }
         }))
@@ -152,13 +157,12 @@ function html() {
         .pipe(connect.reload());
 }
 
-
 function code() {
     return gulp.src(['src/docs/**/*.json'], { base: 'src/' })
         .pipe(mo3.tap((file) => {
             mo3.cache.set(file.relative, {
                 str: highlight(file.contents.toString(), { language: 'json' }).value,
-                mtime: String(Math.floor(Date.now())),
+                mtime: Date.now(),
             });
         }))
 }
@@ -170,13 +174,13 @@ function assets() {
             mo3.tap(async (file) => {
                 if (file.extname === '.scss') {
                     file.path = file.path.replace(/\.scss$/, '.css');
-                    const { css, sourceMap } = sass.compileString(file.contents.toString(), options.sass);
+                    const { css, sourceMap } = sass.compileString(file.contents.toString(), Opts.sass);
                     const sourceMapComment = `/*# sourceMappingURL=${file.relative}.map */`;
                     file.contents = Buffer.from(`${css}\n${sourceMapComment}`, 'utf-8');
                     mo3.writeSourceMap(www + file.relative, JSON.stringify(sourceMap));
                 } else if (file.extname === '.js') {
-                    options.uglify.sourceMap.url = file.relative + '.map';
-                    const ugly = uglifyJS.minify(file.contents.toString(), options.uglify);
+                    Opts.uglify.sourceMap.url = file.relative + '.map';
+                    const ugly = uglifyJS.minify(file.contents.toString(), Opts.uglify);
                     file.contents = Buffer.from(ugly.code, 'utf-8');
                     mo3.writeSourceMap(www + file.relative, ugly.map);
                 }
@@ -206,37 +210,6 @@ gulp.task('serve', () => {
     gulp.watch('src/assets/**/**', assets);
     gulp.watch(['src/tpl/**/**', 'src/docs/**/code/**'], gulp.series('build'));
 });
-
-/*
-function sitemapEntry(url) {
-    const fname = url + ((url.slice(-1) === '/') ? 'index.html' : '.html');
-    const stat = fs.statSync(path.join(__dirname, 'www', fname));
-    return '<url><loc>https://docs.scanpay.dk' + url + '</loc><lastmod>' +
-            stat.mtime.toISOString() + '</lastmod><changefreq>monthly</changefreq></url>';
-}
-
-gulp.task('sitemap', (cb) => {
-    let map = '<?xml version="1.0" encoding="UTF-8"?><urlset ' +
-    'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-
-    for (const x in index) {
-        const o = index[x];
-        if (o.hidden) { continue; }
-        map += sitemapEntry(o.url);
-
-        if (o.pages && !Array.isArray(o.pages)) {
-            for (const name in o.pages) {
-                map += sitemapEntry(o.pages[name].url);
-            }
-        }
-    }
-    map += '</urlset>';
-    const fd = fs.openSync(path.join(__dirname, 'www', 'sitemap.xml'), 'w');
-    fs.writeSync(fd, map);
-    fs.closeSync(fd);
-    cb(null);
-});
-*/
 
 gulp.task('rm', (cb) => {
     fs.rmSync(www, { recursive: true, force: true });
