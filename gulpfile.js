@@ -1,36 +1,18 @@
 'use strict';
 
 const www = '/tmp/www/docs/';
+const options = require('./config.json');
+const mo3 = require('./lib/mo3place.js')();
 const { Transform } = require('stream');
 const fs = require('fs');
-const path = require('node:path');
-
-const options = require('./config.json');
 const gulp = require('gulp');
 const connect = require('gulp-connect');
-const hljs = require('highlight.js');
-const mo3 = require('./lib/mo3place.js')();
-const env = require('minimist')(process.argv.slice(2));
+const { highlight } = require('highlight.js');
+const env = mo3.envParser({ server: 'docs.scanpay.dev', csst: '1', jst: '1' });
 const sass = require('sass');
 const uglifyJS = require("uglify-js");
 const htmlmin = require("html-minifier");
 env.currentYear = (new Date()).getFullYear();
-env.server = env.server || 'docs.scanpay.dev';
-if (!env.publish) env.jst = env.csst = '1';
-
-
-function rm(cb) {
-    fs.rmSync(www, { recursive: true, force: true });
-    cb(null);
-}
-
-function writeSourceMap(dest, str) {
-    const dir = path.dirname(dest);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFile(dest + '.map', str, (err) => {
-        if (err) console.error(err);
-    });
-}
 
 const tpl = {};
 function loadTemplates(cb) {
@@ -38,7 +20,6 @@ function loadTemplates(cb) {
     tpl.footer = fs.readFileSync('./src/tpl/footer.html', 'utf8').toString();
     cb(null);
 }
-
 
 function createSidebar(fpath, sorted) {
     let path = fpath;
@@ -174,61 +155,36 @@ function html() {
 
 function code() {
     return gulp.src(['src/docs/**/*.json'], { base: 'src/' })
-        .pipe(new Transform({
-            objectMode: true,
-            transform(file, enc, cb) {
-                const str = hljs.highlight(file.contents.toString(), { language: 'json' }).value;
-                mo3.cache.set(file.relative, { str });
-                cb();
-            }
-        }));
+        .pipe(mo3.tap((file) => {
+            mo3.cache.set(file.relative, {
+                str: highlight(file.contents.toString(), { language: 'json' }).value,
+                mtime: String(Math.floor(Date.now())),
+            });
+        }))
 }
 
-
-function js() {
-    return gulp.src('src/assets/js/**.js', { base: 'src/assets/' })
-        .pipe(new Transform({
-            objectMode: true,
-            transform(file, enc, cb) {
-                // Handle JavaScript
-                options.uglify.sourceMap.url = file.relative + '.map';
-                const ugly = uglifyJS.minify(file.contents.toString(), options.uglify);
-                file.contents = Buffer.from(ugly.code, 'utf-8');
-                writeSourceMap(www + '/js/' + file.relative, ugly.map);
-                cb(null, file);
-            }
-        }))
+function assets() {
+    return gulp
+        .src(['src/assets/**/*'], { encoding: false })
+        .pipe(
+            mo3.tap(async (file) => {
+                if (file.extname === '.scss') {
+                    file.path = file.path.replace(/\.scss$/, '.css');
+                    const { css, sourceMap } = sass.compileString(file.contents.toString(), options.sass);
+                    const sourceMapComment = `/*# sourceMappingURL=${file.relative}.map */`;
+                    file.contents = Buffer.from(`${css}\n${sourceMapComment}`, 'utf-8');
+                    mo3.writeSourceMap(file.relative, JSON.stringify(sourceMap));
+                } else if (file.extname === '.js') {
+                    options.uglify.sourceMap.url = file.relative + '.map';
+                    const ugly = uglifyJS.minify(file.contents.toString(), options.uglify);
+                    file.contents = Buffer.from(ugly.code, 'utf-8');
+                    mo3.writeSourceMap(file.relative, ugly.map);
+                }
+            })
+        )
         .pipe(gulp.dest(www))
         .pipe(connect.reload());
 }
-
-
-function assets() {
-    return gulp.src('src/assets/{font,img}/**', { base: 'src/assets/', encoding: false })
-        .pipe(gulp.dest(www));
-}
-
-function scss() {
-    return gulp.src(['src/assets/css/*.scss'])
-        .pipe(new Transform({
-            objectMode: true,
-            transform(file, enc, cb) {
-                try {
-                    file.path = file.path.replace('.scss', '.css');
-                    const cssobj = sass.compileString(file.contents.toString(), options.sass);
-                    const str = cssobj.css + '\n /*# sourceMappingURL=' + file.relative + '.map */';
-                    file.contents = Buffer.from(str, 'utf-8');
-                    writeSourceMap(www + '/css/' + file.relative, JSON.stringify(cssobj.sourceMap));
-                    cb(null, file);
-                } catch (err) {
-                    cb(err);
-                }
-            }
-        }))
-        .pipe(gulp.dest(www + '/css/'))
-        .pipe(connect.reload());
-}
-
 
 gulp.task('serve', () => {
     connect.server({
@@ -247,10 +203,8 @@ gulp.task('serve', () => {
 
     gulp.watch('src/docs/**/code/**', html);
     gulp.watch('src/docs/**/*.html', html);
-    gulp.watch('src/assets/{font,img}/**/**', assets);
-    gulp.watch('src/assets/css/**/*.scss', scss);
-    gulp.watch('src/assets/js/**/*.js', js);
-    gulp.watch(['src/tpl/**/**', 'src/docs/**/code/*.*'], gulp.series('build'));
+    gulp.watch('src/assets/**/**', assets);
+    gulp.watch(['src/tpl/**/**', 'src/docs/**/code/**'], gulp.series('build'));
 });
 
 /*
@@ -284,6 +238,9 @@ gulp.task('sitemap', (cb) => {
 });
 */
 
-gulp.task('rm', rm);
-gulp.task('build', gulp.series(loadTemplates, code, assets, js, scss, html));
+gulp.task('rm', (cb) => {
+    fs.rmSync(www, { recursive: true, force: true });
+    cb(null);
+});
+gulp.task('build', gulp.series(code, loadTemplates, assets, html));
 gulp.task('default', gulp.series('build', 'serve'));
