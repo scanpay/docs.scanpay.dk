@@ -173,12 +173,12 @@ function assets() {
                     const { css, sourceMap } = sass.compileString(file.contents.toString(), options.sass);
                     const sourceMapComment = `/*# sourceMappingURL=${file.relative}.map */`;
                     file.contents = Buffer.from(`${css}\n${sourceMapComment}`, 'utf-8');
-                    mo3.writeSourceMap(file.relative, JSON.stringify(sourceMap));
+                    mo3.writeSourceMap(www + file.relative, JSON.stringify(sourceMap));
                 } else if (file.extname === '.js') {
                     options.uglify.sourceMap.url = file.relative + '.map';
                     const ugly = uglifyJS.minify(file.contents.toString(), options.uglify);
                     file.contents = Buffer.from(ugly.code, 'utf-8');
-                    mo3.writeSourceMap(file.relative, ugly.map);
+                    mo3.writeSourceMap(www + file.relative, ugly.map);
                 }
             })
         )
