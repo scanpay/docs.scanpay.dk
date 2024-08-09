@@ -1,17 +1,16 @@
 {
     "sass": {
-        "loadPaths": ["src/assets/css/"],
+        "loadPaths": [
+            "src/assets/css/"
+        ],
         "sourceMap": true,
         "sourceMapIncludeSources": true,
         "style": "compressed"
     },
-    "uglify": {
-        "mangle": {
-            "toplevel": true
-        },
-        "sourceMap": {
-            "includeSources": true
-        }
+    "esbuild": {
+        "tsconfig": "jsconfig.json",
+        "bundle": true,
+        "minify": true
     },
     "htmlmin": {
         "collapseWhitespace": true,

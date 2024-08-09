@@ -1,0 +1,67 @@
+/*
+    Search
+*/
+
+#modal-parent {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    overflow: hidden;
+    outline: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-dialog {
+    width: 100%;
+    max-width: 600px;
+    margin: 1.75rem auto;
+    background: #fff;
+    min-height: 300px;
+}
+
+#modal--search {
+    background: #fff;
+}
+
+#modal-search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0;
+}
+
+
+.search--h2 {
+    font-size: 18px;
+    margin: 15px 0 0;
+    padding: 7px 0;
+}
+
+#search--ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#tls-table {
+    margin-bottom: 20px;
+}
+
+.citations {
+    font-size: 0.9em;
+    list-style: none;
+    padding: 0;
+}
+
+.citations>li {
+    padding: 2px 0 2px 2px;
+}
+
+.citations>li:target {
+    background-color: #e6efff;
+}

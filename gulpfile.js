@@ -10,7 +10,7 @@ const connect = require('gulp-connect');
 const { highlight } = require('highlight.js');
 const env = mo3.envParser({ server: 'docs.scanpay.dev', csst: '1', jst: '1' });
 const sass = require('sass');
-const uglifyJS = require("uglify-js");
+const esbuild = require('esbuild');
 const htmlmin = require("html-minifier");
 env.currentYear = (new Date()).getFullYear();
 
@@ -169,7 +169,7 @@ function code() {
 
 function assets() {
     return gulp
-        .src(['src/assets/**/*'], { encoding: false })
+        .src(['src/assets/**/*', '!src/assets/js/**'], { encoding: false })
         .pipe(
             mo3.tap(async (file) => {
                 if (file.extname === '.scss') {
@@ -178,16 +178,22 @@ function assets() {
                     const sourceMapComment = `/*# sourceMappingURL=${file.relative}.map */`;
                     file.contents = Buffer.from(`${css}\n${sourceMapComment}`, 'utf-8');
                     mo3.writeSourceMap(www + file.relative, JSON.stringify(sourceMap));
-                } else if (file.extname === '.js') {
-                    Opts.uglify.sourceMap.url = file.relative + '.map';
-                    const ugly = uglifyJS.minify(file.contents.toString(), Opts.uglify);
-                    file.contents = Buffer.from(ugly.code, 'utf-8');
-                    mo3.writeSourceMap(www + file.relative, ugly.map);
                 }
             })
         )
         .pipe(gulp.dest(www))
         .pipe(connect.reload());
+}
+
+function ts(cb) {
+    return esbuild.build({
+        ...Opts.esbuild,
+        entryPoints: ['src/assets/js/**/*.ts'],
+        outdir: `${www}/js/`
+    }).catch((err) => {
+        console.error(err);
+        cb(null);
+    });
 }
 
 gulp.task('serve', () => {
@@ -205,9 +211,10 @@ gulp.task('serve', () => {
         }])
     });
 
+    gulp.watch(['src/assets/**/*.ts'], ts);
+    gulp.watch(['src/assets/**/*', '!src/assets/js/**'], assets);
     gulp.watch('src/docs/**/code/**', html);
     gulp.watch('src/docs/**/*.html', html);
-    gulp.watch('src/assets/**/**', assets);
     gulp.watch(['src/tpl/**/**', 'src/docs/**/code/**'], gulp.series('build'));
 });
 
@@ -215,5 +222,5 @@ gulp.task('rm', (cb) => {
     fs.rmSync(www, { recursive: true, force: true });
     cb(null);
 });
-gulp.task('build', gulp.series(code, loadTemplates, assets, html));
+gulp.task('build', gulp.series(code, loadTemplates, assets, ts, html));
 gulp.task('default', gulp.series('build', 'serve'));
