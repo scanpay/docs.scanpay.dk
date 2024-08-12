@@ -5,86 +5,59 @@
 const searchURL = '/_gapi/v1?cx=009375899607126965623:qrd_0f4w284&fields=items(title,snippet,link)&q=';
 let delayTimer: number | undefined;
 
+function removeSearchModal() {
+    document.getElementById('modal-parent')!.remove();
+    document.removeEventListener('keydown', handleEscapeKey);
+}
+
+function handleEscapeKey(e: KeyboardEvent) {
+    if (e.key === 'Escape') removeSearchModal();
+}
+
+function searchInput(e: Event) {
+    if (delayTimer) clearTimeout(delayTimer);
+    const str = (e.target as HTMLInputElement).value;
+    if (str.length < 3) return;
+    delayTimer = setTimeout(() => {
+        search(str);
+    }, 1000);
+}
+
 export function showSearchModal(this: HTMLHeadingElement) {
     const parent = document.createElement('div');
     parent.id = 'modal-parent';
     parent.tabIndex = -1;
     parent.role = 'dialog';
-
-    const modal = document.createElement('div');
-    modal.classList.add('modal-dialog');
-    modal.role = 'document';
-
-    const input = document.createElement('input');
-    input.id = 'modal-search-input';
-    input.type = 'search';
-    input.placeholder = 'Search the docs';
-    input.autocomplete = 'off';
-    input.addEventListener('input', (e: Event) => {
-        if (delayTimer) clearTimeout(delayTimer);
-        const str = (e.target as HTMLInputElement).value;
-        if (str.length < 3) return;
-        delayTimer = setTimeout(() => {
-            search(str);
-        }, 1000);
+    parent.addEventListener('click', (e: Event) => {
+        if (e.target === parent) removeSearchModal();
     });
-    modal.appendChild(input);
-
-    const ul = document.createElement('ul');
-    ul.id = 'search-results';
-    modal.appendChild(ul);
-    parent.appendChild(modal);
+    parent.innerHTML = `{% include "tpl/search.html" %}`;
     document.body.appendChild(parent);
+
+    const input = document.getElementById('search-input') as HTMLInputElement;
     input.focus();
+    input.addEventListener('input', searchInput);
+    document.addEventListener('keydown', handleEscapeKey);
 }
 
-
 export function search(query: string) {
-    // const spinner = new Image();
-    // spinner.src = '/img/loading.svg';
-    // modal.appendChild(spinner);
-
-    const modal = document.createElement('div');
-    modal.id = 'search-modal';
-
-    const spinner = new Image();
-    spinner.src = '/img/loading.svg';
-    modal.appendChild(spinner);
-
-    const ul = document.createElement('ul');
-    ul.id = 'search-results';
-    modal.appendChild(ul);
-    document.body.appendChild(modal);
+    const ul = document.getElementById('search-results')!;
+    ul.innerHTML = '<li><img src="/img/loading.svg"></li>';
 
     fetch(searchURL + encodeURI(query))
         .then(res => res.json())
         .then((o) => {
-            if (!o.items) {
+            if (!o.items || !o.items.length) {
                 ul.innerHTML = '<li>No search results.</li>';
-                spinner.remove();
-                return;
+            } else {
+                let html = '';
+                for (let x = 0; x < o.items.length; x++) {
+                    html += `<li><h2 class="search--h2"><a href="${o.items[x].link}">${o.items[x].title}</a></h2>${o.items[x].snippet}</li>`;
+                }
+                ul.innerHTML = html;
             }
-
-            const list = document.createDocumentFragment();
-            for (let x = 0; x < o.items.length; x++) {
-                const li = document.createElement('li');
-                const h2 = document.createElement('h2');
-                const a = document.createElement('a');
-                h2.className = 'search--h2';
-
-                const item = o.items[x];
-                a.textContent = item.title;
-                a.href = item.link;
-                h2.appendChild(a);
-                li.appendChild(h2);
-                li.appendChild(document.createTextNode(item.snippet));
-                list.appendChild(li);
-            }
-            spinner.remove();
-            ul.appendChild(list);
         })
         .catch(() => {
-            spinner.remove();
             ul.innerHTML = '<li>Error: Please try to reload this page</li>';
         });
 }
