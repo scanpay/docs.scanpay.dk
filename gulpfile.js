@@ -185,15 +185,13 @@ function assets() {
         .pipe(connect.reload());
 }
 
-function ts(cb) {
+function typescript(cb) {
     return esbuild.build({
         ...Opts.esbuild,
         entryPoints: ['src/assets/js/**/*.ts'],
-        outdir: `${www}/js/`
-    }).catch((err) => {
-        console.error(err);
-        cb(null);
-    });
+        outdir: `${www}/js/`,
+        plugins: [mo3.esbuildPlugin],
+    }).catch(e => console.error(e));
 }
 
 gulp.task('serve', () => {
@@ -211,7 +209,7 @@ gulp.task('serve', () => {
         }])
     });
 
-    gulp.watch(['src/assets/**/*.ts'], ts);
+    gulp.watch(['src/assets/**/*.ts'], typescript);
     gulp.watch(['src/assets/**/*', '!src/assets/js/**'], assets);
     gulp.watch('src/docs/**/code/**', html);
     gulp.watch('src/docs/**/*.html', html);
@@ -222,5 +220,5 @@ gulp.task('rm', (cb) => {
     fs.rmSync(www, { recursive: true, force: true });
     cb(null);
 });
-gulp.task('build', gulp.series(code, loadTemplates, assets, ts, html));
+gulp.task('build', gulp.series(code, loadTemplates, assets, typescript, html));
 gulp.task('default', gulp.series('build', 'serve'));
