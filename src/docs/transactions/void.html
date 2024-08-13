@@ -10,6 +10,16 @@ order: 30
 <h1>Void transaction</h1>
 
 <p>
+
+
+
+
+
+  After a payment has been authorized, the payment is not complete until it has been captured. If you do not wish to
+  capture the payment, you can void it using the void API described below.
+
+
+
   You can void a transaction with the void API request. However, you can only void transactions that are not yet
   captured, and you cannot undo a void.
 </p>
@@ -61,12 +71,12 @@ order: 30
 
 <h3 id="response-success">Success</h3>
 <p>
-  Successful void requests return status code <code class="code--inline">200</code> and an empty JSON object.
+  Successful requests return status code <code class="code--inline">200</code> and an empty JSON object.
 </p>
 
 <h3 id="response-errors">Errors</h3>
 <p>
-  Failed void requests return an HTTP error code and a error message in the HTTP body:
+  Failed requests return an HTTP error code and an error message in the HTTP body:
 </p>
 
 <div class="responsive">
@@ -124,7 +134,7 @@ order: 30
 <h2 id="example">Example</h2>
 
 <p>
-  The following is an example in pseudo code:
+  The following pseudocode shows how to void a transaction:
 </p>
 
 <pre class="responsive"><code class="code--block">{% include "docs/transactions/code/example/void.txt" %}</code></pre>
