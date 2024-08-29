@@ -1,13 +1,31 @@
-'use strict';
-
-const { Transform } = require('node:stream');
-const Path = require('node:path');
-const fs = require('fs');
+const { Transform } = require('stream');
 const { statSync, readFileSync } = require('fs');
 const inclRegex = /{% include "(.+?)" %}/g;
 const varRegex = /{{ (.+?) }}/g;
 const uri = 'src/'; // TODO: expose this as an option
 const cache = new Map();
+
+function argParser(args) {
+    process.argv.slice(2).forEach((arg) => {
+        const [key, value] = arg.split('=');
+        args[key.replace('--', '')] = value || true;
+    });
+    return args;
+}
+
+function piper(fn) {
+    return new Transform({
+        objectMode: true,
+        transform(file, enc, cb) {
+            try {
+                fn(file);
+                cb(null, file);
+            } catch (err) {
+                cb(err);
+            }
+        },
+    });
+}
 
 function getFile(filename) {
     const stat = statSync(uri + filename, { throwIfNoEntry: false });
@@ -17,7 +35,7 @@ function getFile(filename) {
     }
     let obj = cache.get(filename);
     if (obj && obj.mtime >= stat.mtimeMs) return obj;
-    console.log('Reading file: ' + filename);
+    // console.log('Reading file: ' + filename);
     obj = {
         str: readFileSync(uri + filename, 'utf8'),
         mtime: stat.mtimeMs,
@@ -39,7 +57,9 @@ function includer(str, mainFile = false) {
 }
 
 function replaceVariables(str, vars, opts) {
-    if (typeof vars !== 'object') { return str; }
+    if (typeof vars !== 'object') {
+        return str;
+    }
     const regex = opts.varRegex ? opts.varRegex : varRegex;
 
     const ret = str.replace(regex, (match, k1) => {
@@ -62,7 +82,11 @@ function fromString(str, vars, opts = {}) {
 
 function parseFile(file) {
     const str = file.contents.toString();
-    const obj = { str, path: file.path.substring(file._base.length + 1), mtime: file.stat.mtimeMs };
+    const obj = {
+        str,
+        path: file.path.substring(file._base.length + 1),
+        mtime: file.stat.mtimeMs,
+    };
     const lines = str.split('\n', 10); // TODO: make this more efficient and stop...
     if (lines[0] === '<!--') {
         for (let i = 1; i < lines.length; i++) {
@@ -80,55 +104,10 @@ function parseFile(file) {
     return obj;
 }
 
-function tap(fn) {
-    return new Transform({
-        objectMode: true,
-        async transform(file, enc, cb) {
-            try {
-                await fn(file);
-                cb(null, file);
-            } catch (err) {
-                cb(err);
-            }
-        },
-    });
-}
-
-function envParser(o) {
-    const args = process.argv.slice(2);
-    for (let i = 0; i < args.length; i++) {
-        const arg = args[i];
-        if (arg.startsWith('--')) {
-            const key = arg.slice(2);
-            const nextArg = args[i + 1];
-            if (nextArg && !nextArg.startsWith('--')) {
-                o[key] = nextArg;
-                i++;
-            }
-        }
-    }
-    return o;
-}
-
-function writeSourceMap(dest, str) {
-    const dir = Path.dirname(dest);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFile(dest + '.map', str, (err) => {
-        if (err) console.error(err);
-    });
-}
-
-const esbuildPlugin = {
-    name: 'parse-input',
-    setup(build) {
-        build.onLoad({ filter: /\.ts$/ }, async (args) => {
-            const contents = await fs.promises.readFile(args.path, 'utf8');
-            return {
-                contents: fromString(contents, {}),
-                loader: 'ts',
-            };
-        });
-    },
-};
-
-module.exports = () => ({ cache, parseFile, fromString, tap, envParser, writeSourceMap, esbuildPlugin });
+module.exports = () => ({
+    argParser,
+    piper,
+    cache,
+    parseFile,
+    fromString,
+});
