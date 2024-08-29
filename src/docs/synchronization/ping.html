@@ -27,9 +27,7 @@ order: 10
         <td>
           <pre><code class="code--tmp code--ellipsis"><span class="hljs-attribute">X-Signature</span>: 17FUWCstyodDzsCkG5/gU/2VA2vUEcHfvFxGh8RCElo=</code></pre>
         </td>
-        <td>
-          Base64 encoded HMAC-SHA2-256 signature of the body signed with your API key.
-        </td>
+        <td>Base64 encoded HMAC-SHA2-256 signature of the body signed with your API key.</td>
       </tr>
     </tbody>
   </table>
@@ -48,17 +46,13 @@ order: 10
         <td>
           <code class="code--tmp"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">200</span></code>
         </td>
-        <td>
-          Consecutive sequence number for your shop.
-        </td>
+        <td>Consecutive sequence number for your shop.</td>
       </tr>
       <tr>
         <td>
           <code class="code--tmp"><span class="hljs-attr">"shopid"</span>: <span class="hljs-number">129</span></code>
         </td>
-        <td>
-          The shopid associated with this ping.
-        </td>
+        <td>The shopid associated with this ping.</td>
       </tr>
     </tbody>
   </table>
@@ -66,12 +60,13 @@ order: 10
 
 <p>
   In addition, we ping you every 5 minutes to ensure that your system is up to date. When you receive a ping, it is
-  important that you verify the authenticity of the request. Afterwards you can look at <code
-    class="code--inline">seq</code> to determine if there are any changes. Explained with pseudocode:
+  important that you verify the authenticity of the request. Afterwards you can look at
+  <code class="code--inline">seq</code> to determine if there are any changes. Explained with pseudocode:
 </p>
 
 <pre
-  class="table--responsive"><code class="code--block">{% include "docs/synchronization/code/ping.pseudo.txt" %}</code></pre>
+  class="table--responsive"
+><code class="code--block">{% include "docs/synchronization/code/ping.pseudo.txt" %}</code></pre>
 
 <p>
   You can configure your ping endpoint in our dashboard (<a href="https://dashboard.scanpay.dk/settings/api">here</a>).

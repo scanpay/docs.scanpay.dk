@@ -24,9 +24,7 @@ order: 30
 </div>
 
 <ul class="endpoint-ul">
-  <li>
-    <span class="hljs-attr">$subID</span> is the subscriber ID. You receive this in the Synchronization API.
-  </li>
+  <li><span class="hljs-attr">$subID</span> is the subscriber ID. You receive this in the Synchronization API.</li>
 </ul>
 
 <h3 id="request-headers">Request Headers</h3>
@@ -58,31 +56,34 @@ order: 30
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"successurl"</span>:
+            <span class="hljs-string">"http://blixen.dk/success"</span></code
+          >
+        </td>
+        <td>Redirect to this URL after succesful payment. If omitted we will show a generic success message.</td>
+      </tr>
+      <tr>
+        <td>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></code
+          >
         </td>
         <td>
-          Redirect to this URL after succesful payment. If omitted we will show a generic success message.
+          Preferred language for the payment window. We fallback to the
+          <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
         </td>
       </tr>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span></code
+          >
         </td>
         <td>
-          Preferred language for the payment window. We fallback to the <a
-            href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span></code>
-        </td>
-        <td>
-          Set payment link lifetime in days (d), hours (h) or minutes (m). Default is <code
-            class="code--inline hljs-string">"1h"</code> and max is <code class="code--inline hljs-string">"30d"</code>
+          Set payment link lifetime in days (d), hours (h) or minutes (m). Default is
+          <code class="code--inline hljs-string">"1h"</code> and max is
+          <code class="code--inline hljs-string">"30d"</code>
         </td>
       </tr>
     </tbody>
@@ -92,9 +93,7 @@ order: 30
 <h2 id="response">Response</h2>
 
 <h3 id="response-success">Success</h3>
-<p>
-  Successful requests return status code <code class="code--inline">200</code> and a JSON object:
-</p>
+<p>Successful requests return status code <code class="code--inline">200</code> and a JSON object:</p>
 
 <div class="table--responsive">
   <table class="table--seqreq">
@@ -107,12 +106,12 @@ order: 30
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"url"</span>:
+            <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span></code
+          >
         </td>
-        <td>
-          The payment link. You can redirect the customer to this URL to complete the payment.
-        </td>
+        <td>The payment link. You can redirect the customer to this URL to complete the payment.</td>
       </tr>
     </tbody>
   </table>
@@ -120,9 +119,7 @@ order: 30
 
 <h3 id="response-errors">Errors</h3>
 
-<p>
-  Failed requests return an HTTP error code and a error message in the HTTP body:
-</p>
+<p>Failed requests return an HTTP error code and a error message in the HTTP body:</p>
 
 <div class="responsive">
   <table class="resp-error-table">
@@ -147,30 +144,22 @@ order: 30
       <tr>
         <td class="hljs-attr">408</td>
         <td>Request Timeout</td>
-        <td>
-          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
-        </td>
+        <td>The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.</td>
       </tr>
       <tr>
         <td class="hljs-attr">413</td>
         <td>Request Entity Too Large</td>
-        <td>
-          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
-        </td>
+        <td>The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.</td>
       </tr>
       <tr>
         <td class="hljs-attr">400</td>
         <td>Request Header Or Cookie Too Large</td>
-        <td>
-          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
-        </td>
+        <td>The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code></td>
       </tr>
       <tr>
         <td class="hljs-attr">500</td>
         <td>internal server error</td>
-        <td>
-          Technical issue at Scanpay. Please try again later.
-        </td>
+        <td>Technical issue at Scanpay. Please try again later.</td>
       </tr>
     </tbody>
   </table>
@@ -178,9 +167,8 @@ order: 30
 
 <h2 id="example">Example</h2>
 
-<p>
-  The following is an example in pseudo code:
-</p>
+<p>The following is an example in pseudo code:</p>
 
 <pre
-  class="responsive"><code class="code--block">{% include "docs/subscriptions/code/example/create.txt" %}</code></pre>
+  class="responsive"
+><code class="code--block">{% include "docs/subscriptions/code/example/create.txt" %}</code></pre>

@@ -7,12 +7,10 @@ order: 90
 -->
 
 <h1>Logs &amp; Errors</h1>
-<p>
-  ...
-</p>
+<p>...</p>
 
-<div class="responsive" style="margin-top: 30px;">
-  <table style="table-layout: auto;">
+<div class="responsive" style="margin-top: 30px">
+  <table style="table-layout: auto">
     <thead>
       <tr>
         <th width="300">Error message</th>
@@ -28,64 +26,66 @@ order: 90
       <tr>
         <td>3-d secure problem: parameter 'rreq', 'eci' is missing</td>
         <td>
-          Idiotisk fejl fra Clearhaus som vi selv bør preempte. Det betyder at 3-D Secure v2 authentication ikke gik igennem
+          Idiotisk fejl fra Clearhaus som vi selv bør preempte. Det betyder at 3-D Secure v2 authentication ikke gik
+          igennem
         </td>
       </tr>
 
       <tr>
         <td>3-d secure problem: parameter 'rreq', 'transStatus' (R) indicate authentication reject by issuer</td>
         <td>
-          3-D Secure v2 gik ikke igennem fordi ACS'en sagde "reject" hvilket betyder at man skal stoppe med at forsøge at indløse
+          3-D Secure v2 gik ikke igennem fordi ACS'en sagde "reject" hvilket betyder at man skal stoppe med at forsøge
+          at indløse
         </td>
       </tr>
 
       <tr>
         <td>3-d secure problem: pares has invalid ucaf</td>
-        <td>
-          3-D Secure v1 gik ikke igennem. Igen en skodbesked fra Clearhaus
-        </td>
+        <td>3-D Secure v1 gik ikke igennem. Igen en skodbesked fra Clearhaus</td>
       </tr>
 
       <tr>
-        <td>3dss: required data element missing: Elements failed validation (acctNumber does not match "^[0-9]{13,19}$")</td>
         <td>
-          3-D Secure v2 kunne ikke startes fordi PAN'et ikke var mellem 13 og 19 karakterer
+          3dss: required data element missing: Elements failed validation (acctNumber does not match "^[0-9]{13,19}$")
         </td>
+        <td>3-D Secure v2 kunne ikke startes fordi PAN'et ikke var mellem 13 og 19 karakterer</td>
       </tr>
 
       <tr>
-        <td>3dss: required data element missing: Required elements are missing (acquirerMerchantID is required if messageCategory is 01)</td>
         <td>
-          Kunden har ikke indtastet sit merchant ID i dashboardet
+          3dss: required data element missing: Required elements are missing (acquirerMerchantID is required if
+          messageCategory is 01)
         </td>
+        <td>Kunden har ikke indtastet sit merchant ID i dashboardet</td>
       </tr>
 
       <tr>
         <td>3dss: transaction data not valid: No RReq has been received (No response from directory server yet)</td>
-        <td>
-          ...
-        </td>
+        <td>...</td>
       </tr>
 
       <tr>
-        <td>3dss: transaction data not valid: Unknown BIN (No CRD found, card with BIN 411111 is not enrolled with any known DS)</td>
         <td>
-          Kortet falder ikke i nogen kendte PAN ranges i 3-D Secure v2
+          3dss: transaction data not valid: Unknown BIN (No CRD found, card with BIN 411111 is not enrolled with any
+          known DS)
         </td>
+        <td>Kortet falder ikke i nogen kendte PAN ranges i 3-D Secure v2</td>
       </tr>
 
       <tr>
-        <td>3dss: transaction id not recognised: No transaction found (ID expired after 80 seconds or no preauth request performed)</td>
         <td>
-          3-D Secure v2 er timed out
+          3dss: transaction id not recognised: No transaction found (ID expired after 80 seconds or no preauth request
+          performed)
         </td>
+        <td>3-D Secure v2 er timed out</td>
       </tr>
 
       <tr>
-        <td>acs: format of one or more data elements is invalid according to the specification: Data element not in the required format or [...]</td>
         <td>
-          ...
+          acs: format of one or more data elements is invalid according to the specification: Data element not in the
+          required format or [...]
         </td>
+        <td>...</td>
       </tr>
 
       <tr>
@@ -95,26 +95,20 @@ order: 90
 
       <tr>
         <td>ds: Access denied, invalid endpoint (acquirerBIN, acquirerMerchantID not recognized)</td>
-        <td>
-          ...
-        </td>
+        <td>...</td>
       </tr>
-
     </tbody>
   </table>
 </div>
 
-
-
-
-
-
 <h2 id="error-messages">Error messages</h2>
 <p>
-  Error messages are displayed in the payment window. Banks are inconsistent and unpredictable, but we do our very best to parse and translate their error codes. Here is a complete list of error messages, that your customers can receive in our payment window:
+  Error messages are displayed in the payment window. Banks are inconsistent and unpredictable, but we do our very best
+  to parse and translate their error codes. Here is a complete list of error messages, that your customers can receive
+  in our payment window:
 </p>
 
-<div class="responsive" style="margin-top: 30px;">
+<div class="responsive" style="margin-top: 30px">
   <table>
     <thead>
       <tr>
@@ -124,15 +118,12 @@ order: 90
       </tr>
     </thead>
     <tbody>
-
       <tr>
         <td>invalid card</td>
         <td>
           <i>Invalid card details. Please verify your card details and try again.</i>
         </td>
-        <td>
-          The card number, CVC or expiration date is incorrect.
-        </td>
+        <td>The card number, CVC or expiration date is incorrect.</td>
       </tr>
 
       <tr>
@@ -140,9 +131,7 @@ order: 90
         <td>
           <i>The card has expired. Please use a different card.</i>
         </td>
-        <td>
-          The card has expired.
-        </td>
+        <td>The card has expired.</td>
       </tr>
 
       <tr>
@@ -150,9 +139,7 @@ order: 90
         <td>
           <i>The card was declined. Please verify your card details and try again.</i>
         </td>
-        <td>
-          The card was declined by the acquiring bank, the card issuer or the bank.
-        </td>
+        <td>The card was declined by the acquiring bank, the card issuer or the bank.</td>
       </tr>
 
       <tr>
@@ -161,7 +148,8 @@ order: 90
           <i>Payment was rejected by your bank. Your card has insufficient funds.</i>
         </td>
         <td>
-          The transaction was rejected by the customer's bank due to insufficient funds, that is, there was not enough money or credit available to cover the payment.
+          The transaction was rejected by the customer's bank due to insufficient funds, that is, there was not enough
+          money or credit available to cover the payment.
         </td>
       </tr>
 
@@ -170,18 +158,20 @@ order: 90
         <td>
           <i>Payment was rejected by your bank. Your withdrawal limit has been exceeded.</i>
         </td>
-        <td>
-          The transaction was rejected by the customer's bank. The customer has surpassed their withdrawal limit.
-        </td>
+        <td>The transaction was rejected by the customer's bank. The customer has surpassed their withdrawal limit.</td>
       </tr>
 
       <tr>
         <td><code class="code--inline">$method</code> not supported</td>
         <td>
-          <i>Unfortunately, we do not support <code class="code--inline">$method</code>. Please choose a different payment method.</i>
+          <i
+            >Unfortunately, we do not support <code class="code--inline">$method</code>. Please choose a different
+            payment method.</i
+          >
         </td>
         <td>
-          The customer tried to pay with a payment method that you do not support, e.g. Apple Pay. This is typically because you forgot to enable it in our dashboard.
+          The customer tried to pay with a payment method that you do not support, e.g. Apple Pay. This is typically
+          because you forgot to enable it in our dashboard.
         </td>
       </tr>
 
@@ -190,9 +180,7 @@ order: 90
         <td>
           <i>Unfortunately, we do not support <code class="code--inline">$card</code>. Please use a different card.</i>
         </td>
-        <td>
-          The customer tried to pay with a payment card that you do not support.
-        </td>
+        <td>The customer tried to pay with a payment card that you do not support.</td>
       </tr>
 
       <tr>
@@ -200,9 +188,7 @@ order: 90
         <td>
           <i>3-D Secure authentication failed. Please try again or use a different card.</i>
         </td>
-        <td>
-          3-D Secure authentication failed.
-        </td>
+        <td>3-D Secure authentication failed.</td>
       </tr>
 
       <tr>
@@ -210,9 +196,7 @@ order: 90
         <td>
           <i><code class="code--inline">$service</code> failed. Please try again or use a different payment method.</i>
         </td>
-        <td>
-          The specified service or payment method failed.
-        </td>
+        <td>The specified service or payment method failed.</td>
       </tr>
 
       <tr>
@@ -220,9 +204,7 @@ order: 90
         <td>
           <i>An error occurred at the bank. Please wait a moment and try again.</i>
         </td>
-        <td>
-          An error occurred at the acquiring bank, the card issuer or the bank.
-        </td>
+        <td>An error occurred at the acquiring bank, the card issuer or the bank.</td>
       </tr>
 
       <tr>
@@ -230,9 +212,7 @@ order: 90
         <td>
           <i>An error occurred. This may be because you have opened the page in multiple windows.</i>
         </td>
-        <td>
-          Phase errors are when someone opens the payment window, while it is busy in another state.
-        </td>
+        <td>Phase errors are when someone opens the payment window, while it is busy in another state.</td>
       </tr>
 
       <tr>
@@ -248,27 +228,18 @@ order: 90
         <td>
           <i>No connection to the server. Please check your internet connection and try again.</i>
         </td>
-        <td>
-          No connection to our servers.
-        </td>
+        <td>No connection to our servers.</td>
       </tr>
-
     </tbody>
   </table>
 </div>
 
-
-
-
-
 <h2 id="request-errors">API Errors</h2>
 
-<p>
-  The API is designed to be fault-tolerant and forgiving.
-</p>
+<p>The API is designed to be fault-tolerant and forgiving.</p>
 
-<div class="responsive" style="margin-top: 30px;">
-  <table style="table-layout: auto;">
+<div class="responsive" style="margin-top: 30px">
+  <table style="table-layout: auto">
     <thead>
       <tr>
         <th>Code</th>
@@ -286,17 +257,13 @@ order: 90
       <tr>
         <td class="hljs-attr">400</td>
         <td>missing items</td>
-        <td>
-          Missing <code class="code--inline hljs-attr">items</code> array in payment link API request.
-        </td>
+        <td>Missing <code class="code--inline hljs-attr">items</code> array in payment link API request.</td>
       </tr>
 
       <tr>
         <td class="hljs-attr">400</td>
         <td>invalid items.total</td>
-        <td>
-          Invalid or missing <code class="code--inline hljs-attr">total</code> field.
-        </td>
+        <td>Invalid or missing <code class="code--inline hljs-attr">total</code> field.</td>
       </tr>
 
       <tr>
@@ -308,33 +275,25 @@ order: 90
       <tr>
         <td class="hljs-attr">408</td>
         <td>Request Timeout</td>
-        <td>
-          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
-        </td>
+        <td>The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.</td>
       </tr>
 
       <tr>
         <td class="hljs-attr">413</td>
         <td>Request Entity Too Large</td>
-        <td>
-          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
-        </td>
+        <td>The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.</td>
       </tr>
 
       <tr>
         <td class="hljs-attr">400</td>
         <td>Request Header Or Cookie Too Large</td>
-        <td>
-          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
-        </td>
+        <td>The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code></td>
       </tr>
 
       <tr>
         <td class="hljs-attr">500</td>
         <td>internal server error</td>
-        <td>
-          Technical issue or scheduled downtime. Please try again.
-        </td>
+        <td>Technical issue or scheduled downtime. Please try again.</td>
       </tr>
     </tbody>
   </table>

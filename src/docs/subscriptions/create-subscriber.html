@@ -11,8 +11,8 @@ order: 10
 
 <p>
   The create subscriber API call will return a link to a payment page, where the customer can enter their payment
-  details (<i>i.e. subscribe</i>). When the customer has subscribed, you can retrieve a subscriber ID through the <a
-    href="/synchronization">Synchronization API</a>.
+  details (<i>i.e. subscribe</i>). When the customer has subscribed, you can retrieve a subscriber ID through the
+  <a href="/synchronization">Synchronization API</a>.
 </p>
 
 <h2 id="request-endpoint">Request</h2>
@@ -41,9 +41,7 @@ order: 10
 </div>
 
 <h3 id="request-body">Request Body</h3>
-<p>
-  All request fields are listed below. All fields except <code class="code--inline">subscriber</code> are optional.
-</p>
+<p>All request fields are listed below. All fields except <code class="code--inline">subscriber</code> are optional.</p>
 
 <div class="table--responsive">
   <table class="table--seqreq">
@@ -56,21 +54,20 @@ order: 10
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"395"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"395"</span></code
+          >
         </td>
-        <td>
-          A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.
-        </td>
+        <td>A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.</td>
       </tr>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"successurl"</span>:
+            <span class="hljs-string">"http://blixen.dk/success"</span></code
+          >
         </td>
-        <td>
-          Redirect to this URL after succesful payment. If omitted we will show a generic success message.
-        </td>
+        <td>Redirect to this URL after succesful payment. If omitted we will show a generic success message.</td>
       </tr>
       <tr>
         <td>
@@ -88,9 +85,7 @@ order: 10
           <pre><code class="code--tmp code--ellipsis">{% include "docs/payment-links/code/billing.json" %}</code></pre>
         </td>
         <td>
-          <p>
-            Customer billing and shipping address.
-          </p>
+          <p>Customer billing and shipping address.</p>
           <ul class="table--ul">
             <li><b>name:</b> The full name.</li>
             <li><b>company:</b> Legal company name.</li>
@@ -102,30 +97,36 @@ order: 10
             <li><b>zip:</b> Postal code.</li>
             <li><b>city:</b> City.</li>
             <li><b>state:</b> State or region.</li>
-            <li><b>country:</b> Two-letter country code (<a
-                href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).
+            <li>
+              <b>country:</b> Two-letter country code (<a
+                href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"
+                >ISO 3166-1</a
+              >).
             </li>
           </ul>
         </td>
       </tr>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></code
+          >
         </td>
         <td>
-          Preferred language for the payment window. We fallback to the <a
-            href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
+          Preferred language for the payment window. We fallback to the
+          <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a> header.
         </td>
       </tr>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"2d 12h 30m"</span></code
+          >
         </td>
         <td>
-          Set payment link lifetime in days (d), hours (h) or minutes (m). Default is <code
-            class="code--inline hljs-string">"1h"</code> and max is <code class="code--inline hljs-string">"30d"</code>
+          Set payment link lifetime in days (d), hours (h) or minutes (m). Default is
+          <code class="code--inline hljs-string">"1h"</code> and max is
+          <code class="code--inline hljs-string">"30d"</code>
         </td>
       </tr>
     </tbody>
@@ -135,9 +136,7 @@ order: 10
 <h2 id="response">Response</h2>
 
 <h3 id="response-success">Success</h3>
-<p>
-  Successful requests return status code <code class="code--inline">200</code> and a JSON object:
-</p>
+<p>Successful requests return status code <code class="code--inline">200</code> and a JSON object:</p>
 
 <div class="table--responsive">
   <table class="table--seqreq">
@@ -150,12 +149,12 @@ order: 10
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"url"</span>:
+            <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span></code
+          >
         </td>
-        <td>
-          The payment link. You can redirect the customer to this URL to complete the payment.
-        </td>
+        <td>The payment link. You can redirect the customer to this URL to complete the payment.</td>
       </tr>
     </tbody>
   </table>
@@ -163,9 +162,7 @@ order: 10
 
 <h3 id="response-errors">Errors</h3>
 
-<p>
-  Failed requests return an HTTP error code and a error message in the HTTP body:
-</p>
+<p>Failed requests return an HTTP error code and a error message in the HTTP body:</p>
 
 <div class="responsive">
   <table class="resp-error-table">
@@ -190,42 +187,31 @@ order: 10
       <tr>
         <td class="hljs-attr">408</td>
         <td>Request Timeout</td>
-        <td>
-          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
-        </td>
+        <td>The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.</td>
       </tr>
       <tr>
         <td class="hljs-attr">413</td>
         <td>Request Entity Too Large</td>
-        <td>
-          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
-        </td>
+        <td>The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.</td>
       </tr>
       <tr>
         <td class="hljs-attr">400</td>
         <td>Request Header Or Cookie Too Large</td>
-        <td>
-          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
-        </td>
+        <td>The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code></td>
       </tr>
       <tr>
         <td class="hljs-attr">500</td>
         <td>internal server error</td>
-        <td>
-          Technical issue at Scanpay. Please try again later.
-        </td>
+        <td>Technical issue at Scanpay. Please try again later.</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-
-
 <h2 id="example">Example</h2>
 
-<p>
-  The following is an example in pseudo code:
-</p>
+<p>The following is an example in pseudo code:</p>
 
 <pre
-  class="responsive"><code class="code--block">{% include "docs/subscriptions/code/example/create.txt" %}</code></pre>
+  class="responsive"
+><code class="code--block">{% include "docs/subscriptions/code/example/create.txt" %}</code></pre>

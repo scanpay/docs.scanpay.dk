@@ -9,68 +9,53 @@ order: 30
 <h1>Synchronization</h1>
 
 <p>
-  We call this mechanism <b>seq</b> because it fetches a <b>seq</b>uence of
-  events. To illustrate how it works, let's imagine a sequence of 10 events that
-  goes:
+  We call this mechanism <b>seq</b> because it fetches a <b>seq</b>uence of events. To illustrate how it works, let's
+  imagine a sequence of 10 events that goes:
 </p>
 
-<ol style="list-style: none;">
+<ol style="list-style: none">
+  <li><b>1-3</b> First, the shop receives 3 new orders. We call them trn#1, trn#2 and trn#3.</li>
   <li>
-    <b>1-3</b> First, the shop receives 3 new orders. We call them trn#1, trn#2 and
-    trn#3.
+    <b>4-5</b> The shop owner ships the merchandise for trn#1 and trn#3 but doesn't have stock for trn#2, so he only
+    captures trn#1 and trn#3, leaving trn#2 alone for now.
   </li>
   <li>
-    <b>4-5</b> The shop owner ships the merchandise for trn#1 and trn#3 but doesn't
-    have stock for trn#2, so he only captures trn#1 and trn#3, leaving trn#2
-    alone for now.
+    <b>6-7</b> The shop then receives a new subscriber we call sub#1 and automatically charges it, creating trn#4.
   </li>
   <li>
-    <b>6-7</b> The shop then receives a new subscriber we call sub#1 and automatically
-    charges it, creating trn#4.
+    <b>8-9</b> The shop owner ships the merchandise for trn#4 and captures it. The customer who made trn#2 decides to
+    cancel the order, so the shop owner voids the transaction.
   </li>
-  <li>
-    <b>8-9</b> The shop owner ships the merchandise for trn#4 and captures it. The
-    customer who made trn#2 decides to cancel the order, so the shop owner
-    voids the transaction.
-  </li>
-  <li>
-    <b>10</b> Finally, the shop receives a new order, trn#5.
-  </li>
+  <li><b>10</b> Finally, the shop receives a new order, trn#5.</li>
 </ol>
 
 <p>
-  You might expect that this would mean you need to synchronize 10 times to
-  retrieve all 10 events, but that's not the case. Let's look at how this
-  sequence of events might be synchronized visually. Note that each event is
-  denoted only by the database identifier and not by what has actually changed.
+  You might expect that this would mean you need to synchronize 10 times to retrieve all 10 events, but that's not the
+  case. Let's look at how this sequence of events might be synchronized visually. Note that each event is denoted only
+  by the database identifier and not by what has actually changed.
 </p>
 
-<div style="text-align: center;">
-  <img src="/img/synchronization/four-seq-requests.svg" alt="Example with four seq requests" style="max-width: 700px;">
+<div style="text-align: center">
+  <img src="/img/synchronization/four-seq-requests.svg" alt="Example with four seq requests" style="max-width: 700px" />
 </div>
 
 <p>
-  As you can see, this example only synchronizes 3 times to retrieve all 10
-  events and then once more where it receives no new events. Each
+  As you can see, this example only synchronizes 3 times to retrieve all 10 events and then once more where it receives
+  no new events. Each
   <code class="code--inline hljs-number">/v1/seq/*</code> request retrieves the next part of the sequence and the new
-  position after all the changes have been merged; that is to say, you are not
-  guaranteed to receive the entire sequence, and in this example, you see it's
-  been broken up into 3 pieces. To put it another way, you need to call
-  <code class="code--inline hljs-number">/v1/seq/*</code> in a loop until the <code
-    class="code--inline hljs-number">"seq"</code> value you receive back is
-  the same as the one you called with.
+  position after all the changes have been merged; that is to say, you are not guaranteed to receive the entire
+  sequence, and in this example, you see it's been broken up into 3 pieces. To put it another way, you need to call
+  <code class="code--inline hljs-number">/v1/seq/*</code> in a loop until the
+  <code class="code--inline hljs-number">"seq"</code> value you receive back is the same as the one you called with.
 </p>
 
 <p>
-  You may have noticed that the 3rd synchronization only returned 3 changes
-  despite advancing 4 events in the sequence. That happens because we're not
-  actually sending deltas but rather the entire transaction or subscriber
-  whenever a change occurs. This means that we can (and do) deduplicate the
-  entries we send back. For that reason, you can't simply count the number of
-  entries in the <code class="code--inline hljs-number">"changes"</code> array to advance the counter; instead, you
-  must use the <code class="code--inline hljs-number">"seq"</code> value you receive from us.
+  You may have noticed that the 3rd synchronization only returned 3 changes despite advancing 4 events in the sequence.
+  That happens because we're not actually sending deltas but rather the entire transaction or subscriber whenever a
+  change occurs. This means that we can (and do) deduplicate the entries we send back. For that reason, you can't simply
+  count the number of entries in the <code class="code--inline hljs-number">"changes"</code> array to advance the
+  counter; instead, you must use the <code class="code--inline hljs-number">"seq"</code> value you receive from us.
 </p>
-
 
 <p>
   That's all well and good, but how do you know when you need to start calling
@@ -80,13 +65,13 @@ order: 30
 <h2>Ping</h2>
 
 <p>
-  Whenever a change happens in our database, we will send you a ping request to a
-  URL of your choosing. This is your prompt to call <code class="code--inline hljs-number">/v1/seq/*</code>.
+  Whenever a change happens in our database, we will send you a ping request to a URL of your choosing. This is your
+  prompt to call <code class="code--inline hljs-number">/v1/seq/*</code>.
 </p>
 
 <p>
-  For our mutual benefit, we include the maximum seq value at the time of the
-  ping in the ping request body. That way, you can compare it to the
+  For our mutual benefit, we include the maximum seq value at the time of the ping in the ping request body. That way,
+  you can compare it to the
   <code class="code--inline hljs-number">"seq"</code> value you received from the last successful call to
   <code class="code--inline hljs-number">/v1/seq/*</code> and, if the value received in the ping is less than or equal
   to it, avoid calling <code class="code--inline hljs-number">/v1/seq/*</code>, thus saving us both an unnecessary
@@ -94,88 +79,78 @@ order: 30
 </p>
 
 <p>
-  To ensure eventual consistency, we also send periodic pings. That way, if, for
-  whatever reason, you have not synchronized some changes, you will be notified
-  to synchronize again eventually.
+  To ensure eventual consistency, we also send periodic pings. That way, if, for whatever reason, you have not
+  synchronized some changes, you will be notified to synchronize again eventually.
 </p>
-
 
 <h2>Recommendations and pitfalls</h2>
 
 <p>
-  If you're working with a language like PHP, you probably read the last section
-  and thought that you're just going to run your synchronization code whenever
-  you receive a ping request. Before you do that, let's go over the one massive
+  If you're working with a language like PHP, you probably read the last section and thought that you're just going to
+  run your synchronization code whenever you receive a ping request. Before you do that, let's go over the one massive
   issue you're likely to smash head-first into if you do that:
 </p>
 
-<DIV class="CENTER">
+<div class="CENTER">
   <span ID="txt117">Multiple synchronizations happening simultaneously.</span>
-</DIV>
+</div>
 
 <p>
-  Except for a bit of hysteresis, we send pings immediately when there is
-  something new for you to fetch, and we do not wait for you to respond before
-  sending another one. In practice, this means that if you get 2 transactions in
-  quick succession, you will receive 2 pings, and the first synchronization will
-  not have time to finish before the second ping arrives to start the second
-  synchronization. This can be a big problem as you will be running into lots of
+  Except for a bit of hysteresis, we send pings immediately when there is something new for you to fetch, and we do not
+  wait for you to respond before sending another one. In practice, this means that if you get 2 transactions in quick
+  succession, you will receive 2 pings, and the first synchronization will not have time to finish before the second
+  ping arrives to start the second synchronization. This can be a big problem as you will be running into lots of
   potential
   <a href="https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use">TOCTOU</a>
   races. Consider this timeline of events:
 </p>
 
-<div style="text-align: center;">
-  <img src="/img/synchronization/ping.svg" alt="Synchronization" style="max-width: 450px;">
+<div style="text-align: center">
+  <img src="/img/synchronization/ping.svg" alt="Synchronization" style="max-width: 450px" />
 </div>
 
 <p>
-  In this example, not only is <SPAN CLASS="textit">trn#1</SPAN> being processed twice
-  simultaneously, possibly messing up its data in unpredictable ways, but because
-  the left process was slower than usual and the right process was faster, the
-  older <code class="code--inline hljs-number">"seq"</code> value was saved over the newer one.
+  In this example, not only is <span CLASS="textit">trn#1</span> being processed twice simultaneously, possibly messing
+  up its data in unpredictable ways, but because the left process was slower than usual and the right process was
+  faster, the older <code class="code--inline hljs-number">"seq"</code> value was saved over the newer one.
 </p>
 
 <p>
-  The first solution is simple. All you need to do is take a lock before
-  beginning the synchronization and release it when you finish. Now, you will
-  only ever have 1 synchronization process running at a time.
+  The first solution is simple. All you need to do is take a lock before beginning the synchronization and release it
+  when you finish. Now, you will only ever have 1 synchronization process running at a time.
 </p>
 
 <p>
-  This, too, can have issues. For example: if you're using a MariaDB lock in PHP
-  and your script crashes for whatever reason, you'll find that the lock hasn't
-  been released. This is because PHP multiplexes multiple scripts into a single
-  process, and it shares the MariaDB connection between them for performance
-  reasons. Similarly, you can't just use <code class="code--inline hljs-number">flock()</code> because the lock it
-  takes belongs to the process and will stick around after a crash. But we can do
-  better.
+  This, too, can have issues. For example: if you're using a MariaDB lock in PHP and your script crashes for whatever
+  reason, you'll find that the lock hasn't been released. This is because PHP multiplexes multiple scripts into a single
+  process, and it shares the MariaDB connection between them for performance reasons. Similarly, you can't just use
+  <code class="code--inline hljs-number">flock()</code> because the lock it takes belongs to the process and will stick
+  around after a crash. But we can do better.
 </p>
 
 <h3>The synchronous way</h3>
 
 <p>
-  Fundamentally, you only ever need to run one single process that keeps calling
-  /v1/seq/* in a loop forever. The problem then becomes determining when and
-  for how long to wait. A simple version of this might look something like this:
+  Fundamentally, you only ever need to run one single process that keeps calling /v1/seq/* in a loop forever. The
+  problem then becomes determining when and for how long to wait. A simple version of this might look something like
+  this:
 </p>
 
-<pre class="table--responsive"><code class="code--block">{% include "docs/synchronization/code/overview/synchronous-psuedo.txt" %}</code>
+<pre
+  class="table--responsive"
+><code class="code--block">{% include "docs/synchronization/code/overview/synchronous-psuedo.txt" %}</code>
   </pre>
 
 <p>
-  You might have noticed that there's a race condition here with ping. Suppose
-  a new transaction is created after the request to /v1/seq/* has returned but
-  before WaitForPing has been called. Now, the code is stuck waiting for a ping
-  that has already been sent, and while it will eventually come unstuck when the
-  next ping arrives, we can do better.
+  You might have noticed that there's a race condition here with ping. Suppose a new transaction is created after the
+  request to /v1/seq/* has returned but before WaitForPing has been called. Now, the code is stuck waiting for a ping
+  that has already been sent, and while it will eventually come unstuck when the next ping arrives, we can do better.
 </p>
 <p>
-  All that needs to change here is the WaitForPing loop. Suppose we replace
-  it with a new function called WaitForSeq, and instead of simply waiting for the
-  next ping to arrive, it looks at the last ping received and returns immediately if
-  its "seq" value is greater than the "seq" value from the last successful call to
-  /v1/seq/*. Using common thread primitives, it might look like this:
+  All that needs to change here is the WaitForPing loop. Suppose we replace it with a new function called WaitForSeq,
+  and instead of simply waiting for the next ping to arrive, it looks at the last ping received and returns immediately
+  if its "seq" value is greater than the "seq" value from the last successful call to /v1/seq/*. Using common thread
+  primitives, it might look like this:
 </p>
 
 <pre class="table--responsive"><code class="code--block">global LastSeqFromPing ←0
@@ -198,28 +173,21 @@ function UpdatePing(ping)
 end function
 </code></pre>
 
-<p>
-  This is the most efficient way to synchronize, but it does not necessarily
-  provide the lowest latency.
-</p>
+<p>This is the most efficient way to synchronize, but it does not necessarily provide the lowest latency.</p>
 
 <h3>Atomic updates</h3>
 
 <p>
-  So far, we’ve only discussed the need to update orders in your system with data
-  from ours but not actually how to do it. The fastest way to do it is with atomic
-  (transactional) database queries.
+  So far, we’ve only discussed the need to update orders in your system with data from ours but not actually how to do
+  it. The fastest way to do it is with atomic (transactional) database queries.
 </p>
 <p>
-  Let’s imagine a simple scenario where you only want to send a confirmation
-  email whenever you receive payment for a new order. It sounds simple, but there
-  are a multitude of pitfalls to be aware of. Suppose you’re looking at a transaction
-  received via /v1/seq/*. The way to find the matching order in your database
-  is with the orderid field. You might have noticed that there is also a field called
-  id. This is the immutable ID of the transaction or subscriber in our system, and
-  it, alongside the rev field, which denotes the revision, or version, of the entry,
-  will allow you to build a general and very efficient database transaction. In this
-  simple case, it might look something like this:
+  Let’s imagine a simple scenario where you only want to send a confirmation email whenever you receive payment for a
+  new order. It sounds simple, but there are a multitude of pitfalls to be aware of. Suppose you’re looking at a
+  transaction received via /v1/seq/*. The way to find the matching order in your database is with the orderid field. You
+  might have noticed that there is also a field called id. This is the immutable ID of the transaction or subscriber in
+  our system, and it, alongside the rev field, which denotes the revision, or version, of the entry, will allow you to
+  build a general and very efficient database transaction. In this simple case, it might look something like this:
 </p>
 
 <pre class="table--responsive"><code class="code--block"><i>trnid</i>, <i>email</i> ← MariaDB(
@@ -236,18 +204,14 @@ end function
 </code></pre>
 
 <p>
-  Here, we use a trnid field both as an index for fast lookups when updating
-  an order and to determine whether we’ve already matched this order with a
-  transaction ID, using the knowledge that IDs are always non-zero. We also use
-  a rev field to avoid writing to the database if we’ve already updated the data
-  to this or a newer revision.
+  Here, we use a trnid field both as an index for fast lookups when updating an order and to determine whether we’ve
+  already matched this order with a transaction ID, using the knowledge that IDs are always non-zero. We also use a rev
+  field to avoid writing to the database if we’ve already updated the data to this or a newer revision.
 </p>
 <p>
-  But wait because we can go even further than that. If you have access to
-  atomic queries you can do fully asynchronous synchronization. A simple version
-  of that might look like:
+  But wait because we can go even further than that. If you have access to atomic queries you can do fully asynchronous
+  synchronization. A simple version of that might look like:
 </p>
-
 
 <pre class="table--responsive"><code class="code--block">localseq := MariaDB(SELECT seq FROM globals)
 data := JSONDecode(GET https://api.scanpay.dk/v1/seq/+localseq)
@@ -258,15 +222,14 @@ MariaDB(UPDATE globals SET seq=’data.seq’ WHERE seq&#60;’data.seq’)
 </code></pre>
 
 <p>
-  In this case, you would run this code whenever you receive a ping. We
-  have come full circle and are now running multiple synchronization processes
-  simultaneously. We can do this because we eliminated the data races using
+  In this case, you would run this code whenever you receive a ping. We have come full circle and are now running
+  multiple synchronization processes simultaneously. We can do this because we eliminated the data races using
   atomicity.
 </p>
 
 <p>
-  This last approach has the lowest latency, but the trade-off is potentially
-  making many unnecessary requests to /v1/seq/*.
+  This last approach has the lowest latency, but the trade-off is potentially making many unnecessary requests to
+  /v1/seq/*.
 </p>
 
 <h2>Frequently Questioned Answers</h2>
@@ -275,64 +238,52 @@ MariaDB(UPDATE globals SET seq=’data.seq’ WHERE seq&#60;’data.seq’)
 
 <p>
   Simply don’t save the new "seq" value you received and allow the synchronization to run again. No data has been lost,
-  and synchronization can proceed
-  from the same point next time. A nice side effect of this is that you can always synchronize the entire sequence from
-  the beginning or any arbitrary point
-  thereafter should you need to for any reason, such as when restoring from a
-  backup.
+  and synchronization can proceed from the same point next time. A nice side effect of this is that you can always
+  synchronize the entire sequence from the beginning or any arbitrary point thereafter should you need to for any
+  reason, such as when restoring from a backup.
 </p>
 
 <h3>How do I know what has changed in any given transaction or subscriber?</h3>
 
 <p>
-  If you need that information, you must keep track of it yourself.
-  Referring to the example figure, let’s assume this synchronization occurred
-  after all 10 events had already happened. You might expect that on the /v1/seq/0
-  request, you will get a trn#3 that looks like (a), and then on the /v1/seq/3
-  request, you’ll get a trn#3 that looks like (b); however you will, in fact, get (b)
-  both times.
+  If you need that information, you must keep track of it yourself. Referring to the example figure, let’s assume this
+  synchronization occurred after all 10 events had already happened. You might expect that on the /v1/seq/0 request, you
+  will get a trn#3 that looks like (a), and then on the /v1/seq/3 request, you’ll get a trn#3 that looks like (b);
+  however you will, in fact, get (b) both times.
 </p>
 
 <p>
-  So why is this? It happens because we don’t track what has happened to any
-  given transaction or subscriber, only that something has happened and in what
-  order it happened relative to other transactions and subscribers. If you look
-  at the example figure, I’ll ask you again to note that the only things recorded,
-  represented by the square boxes, are the IDs of the transactions and subscribers
-  that have changed.
-  In practice, the ping arrives so quickly that you’re likely to only ever see a
-  single event in the "changes" array when calling /v1/seq/*, but that’s not a
-  property you may depend on. This is especially important to get right as it will
-  likely only ever be relevant under heavy load, such as on Black Friday.
+  So why is this? It happens because we don’t track what has happened to any given transaction or subscriber, only that
+  something has happened and in what order it happened relative to other transactions and subscribers. If you look at
+  the example figure, I’ll ask you again to note that the only things recorded, represented by the square boxes, are the
+  IDs of the transactions and subscribers that have changed. In practice, the ping arrives so quickly that you’re likely
+  to only ever see a single event in the "changes" array when calling /v1/seq/*, but that’s not a property you may
+  depend on. This is especially important to get right as it will likely only ever be relevant under heavy load, such as
+  on Black Friday.
 </p>
 
 <h3>Why would you do it like this?</h3>
 
 <p>
   Despite the appearance given off by this paper, the method used by our competitors suffers the exact same issues but
-  also much, much worse ones, such
-  as:
+  also much, much worse ones, such as:
 </p>
 
 <ul>
   <li>
-    If the specified endpoint changes, then we would potentially be sending
-    sensitive data to an unknown third party.
+    If the specified endpoint changes, then we would potentially be sending sensitive data to an unknown third party.
   </li>
   <li>
-    If there is a network or server outage, then we would have to resend the
-    data. The question then becomes: how many times do we resend it, and
-    when? This can (and frequently does) result in permanent data loss.
+    If there is a network or server outage, then we would have to resend the data. The question then becomes: how many
+    times do we resend it, and when? This can (and frequently does) result in permanent data loss.
   </li>
   <li>
     If a system isn’t responding correctly to these requests, then we will effectively be conducting a DoS attack,
-    potentially on both our customers
-    and ourselves, by constantly resending.
+    potentially on both our customers and ourselves, by constantly resending.
   </li>
 </ul>
 
 <p>
-  The latter two issues can (and have, many times) manifested in the need
-  to shut down these callback systems due to extreme server loads. This, again,
-  results in permanent data loss. We consider this unacceptable.
+  The latter two issues can (and have, many times) manifested in the need to shut down these callback systems due to
+  extreme server loads. This, again, results in permanent data loss. We consider this unacceptable.
 </p>

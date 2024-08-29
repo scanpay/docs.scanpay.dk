@@ -1,6 +1,6 @@
 /**
-*   @author ScanPay ApS.
-**/
+ *   @author ScanPay ApS.
+ **/
 
 import { search, showSearchModal } from './util/search';
 
@@ -24,7 +24,7 @@ function removeHeadingLink(this: HTMLElement) {
         When a heading (h2-h4) is hovered, a link icon is shown.
     */
     const headings = document.querySelectorAll<HTMLHeadingElement>('h2, h3, h4');
-    headings.forEach(heading => {
+    headings.forEach((heading) => {
         heading.addEventListener('mouseenter', showHeadingLink);
         heading.addEventListener('mouseleave', removeHeadingLink);
     });
@@ -40,37 +40,30 @@ function removeHeadingLink(this: HTMLElement) {
     /*
         Add event listener to the search input.
     */
-    document.getElementById('nav--search--input')!.addEventListener("click", showSearchModal);
-
-
-
+    document.getElementById('nav--search--input')!.addEventListener('click', showSearchModal);
 
     /*
-// TODO: Improve performance and class/ID names
-const pics = document.getElementsByClassName('enlarge');
-for (let i = 0; i < pics.length; i++) {
-    pics[i].onclick = imageZoom;
-}
-
-function imageZoom(e) {
-    const bg = document.createElement('div');
-    bg.id = 'picbg';
-    const img = document.createElement('img');
-    img.src = e.target.src;
-    bg.appendChild(img);
-    bg.onclick = () => {
-        document.getElementById('picbg').remove();
-    };
-    document.body.appendChild(bg);
-    document.addEventListener('keydown', (evt) => {
-        if (evt.key === 'Escape') {
-            const picbg = document.getElementById('picbg');
-            if (picbg) { picbg.remove(); }
+        const pics = document.getElementsByClassName('enlarge');
+        for (let i = 0; i < pics.length; i++) {
+            pics[i].onclick = imageZoom;
         }
-    }, { once: true });
-}
-*/
 
-
-
+        function imageZoom(e) {
+            const bg = document.createElement('div');
+            bg.id = 'picbg';
+            const img = document.createElement('img');
+            img.src = e.target.src;
+            bg.appendChild(img);
+            bg.onclick = () => {
+                document.getElementById('picbg').remove();
+            };
+            document.body.appendChild(bg);
+            document.addEventListener('keydown', (evt) => {
+                if (evt.key === 'Escape') {
+                    const picbg = document.getElementById('picbg');
+                    if (picbg) { picbg.remove(); }
+                }
+            }, { once: true });
+        }
+    */
 })();

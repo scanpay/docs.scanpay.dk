@@ -3,7 +3,7 @@
 */
 
 const searchURL = '/_gapi/v1?cx=009375899607126965623:qrd_0f4w284&fields=items(title,snippet,link)&q=';
-let delayTimer: number | undefined;
+let delayTimer: ReturnType<typeof setTimeout>;
 
 function removeSearchModal() {
     document.getElementById('modal-parent')!.remove();
@@ -45,7 +45,7 @@ export function search(query: string) {
     ul.innerHTML = '<li><img src="/img/loading.svg"></li>';
 
     fetch(searchURL + encodeURI(query))
-        .then(res => res.json())
+        .then((res) => res.json())
         .then((o) => {
             if (!o.items || !o.items.length) {
                 ul.innerHTML = '<li>No search results.</li>';

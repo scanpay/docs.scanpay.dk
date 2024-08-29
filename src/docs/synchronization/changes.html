@@ -10,14 +10,12 @@ order: 30
 <h1>Changes</h1>
 
 <p>
-  There are 3 types of changes: <a href="#seq-transaction">transaction</a>, <a href="#seq-subscriber">subscriber</a>
-  and <a href="#seq-charge">charge</a>.
+  There are 3 types of changes: <a href="#seq-transaction">transaction</a>, <a href="#seq-subscriber">subscriber</a> and
+  <a href="#seq-charge">charge</a>.
 </p>
 
 <h2 id="transaction">Transaction</h2>
-<p>
-  In this context, transactions are regular payment transactions.
-</p>
+<p>In this context, transactions are regular payment transactions.</p>
 
 <div class="table--responsive">
   <table class="table--seqreq">
@@ -30,29 +28,27 @@ order: 30
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"type"</span>: <span class="hljs-string">"transaction"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"type"</span>: <span class="hljs-string">"transaction"</span></code
+          >
         </td>
-        <td>
-          The type of the entry.
-        </td>
+        <td>The type of the entry.</td>
       </tr>
       <tr>
         <td>
           <code class="code--tmp"><span class="hljs-attr">"id"</span>: <span class="hljs-number">2942</span></code>
         </td>
-        <td>
-          The transaction ID.
-        </td>
+        <td>The transaction ID.</td>
       </tr>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"INV3803"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"INV3803"</span></code
+          >
         </td>
         <td>
-          The order ID that you assigned to the transaction when you created the <a
-            href="/payment-link#request-fields">payment link</a>.
+          The order ID that you assigned to the transaction when you created the
+          <a href="/payment-link#request-fields">payment link</a>.
         </td>
       </tr>
       <tr>
@@ -60,8 +56,7 @@ order: 30
           <code class="code--tmp"><span class="hljs-attr">"rev"</span>: <span class="hljs-number">3</span></code>
         </td>
         <td>
-          A revision number. It starts at <code class="code--inline hljs-number">1</code> and it increments
-          every time
+          A revision number. It starts at <code class="code--inline hljs-number">1</code> and it increments every time
           the transaction data changes.
         </td>
       </tr>
@@ -70,44 +65,35 @@ order: 30
           <pre><code class="code--tmp code--ellipsis">{% include "docs/synchronization/code/transaction-method.json" %}</code></pre>
         </td>
         <td>
-
           <ul class="table--ul">
             <li>
-              <b>type</b>: The method type can be either <code class="code--inline hljs-string">"card"</code>, <code
-                class="code--inline hljs-string">"mobilepay"</code> or <code
-                class="code--inline hljs-string">"applepay"</code>
+              <b>type</b>: The method type can be either <code class="code--inline hljs-string">"card"</code>,
+              <code class="code--inline hljs-string">"mobilepay"</code> or
+              <code class="code--inline hljs-string">"applepay"</code>
             </li>
+            <li><b>id</b>: A per-shop opaque hash of the payment device.</li>
             <li>
-              <b>id</b>: A per-shop opaque hash of the payment device.
-            </li>
-            <li>
-              <b>card</b>: A subobject, named for the internal method used to process the payment,
-              contains identifiable
-              information about the payment method to help with customer identification. Currently only
-              "card" is
-              supported. No subobject is guaranteed to be there and more will be added in the future as
-              they become
+              <b>card</b>: A subobject, named for the internal method used to process the payment, contains identifiable
+              information about the payment method to help with customer identification. Currently only "card" is
+              supported. No subobject is guaranteed to be there and more will be added in the future as they become
               necessary.
 
               <ul>
                 <li>
-                  <b>brand</b>: <code class="code--inline hljs-string">"amex"</code>, <code
-                    class="code--inline hljs-string">"dankort"</code>, <code
-                    class="code--inline hljs-string">"diners"</code>, <code
-                    class="code--inline hljs-string">"discover"</code>, <code
-                    class="code--inline hljs-string">"jcb"</code>, <code
-                    class="code--inline hljs-string">"maestro"</code>, <code
-                    class="code--inline hljs-string">"mastercard"</code>, <code
-                    class="code--inline hljs-string">"unionpay"</code>, <code
-                    class="code--inline hljs-string">"visa"</code>
+                  <b>brand</b>: <code class="code--inline hljs-string">"amex"</code>,
+                  <code class="code--inline hljs-string">"dankort"</code>,
+                  <code class="code--inline hljs-string">"diners"</code>,
+                  <code class="code--inline hljs-string">"discover"</code>,
+                  <code class="code--inline hljs-string">"jcb"</code>,
+                  <code class="code--inline hljs-string">"maestro"</code>,
+                  <code class="code--inline hljs-string">"mastercard"</code>,
+                  <code class="code--inline hljs-string">"unionpay"</code>,
+                  <code class="code--inline hljs-string">"visa"</code>
                 </li>
-                <li>
-                  <b>last4</b>: the last 4 digits of the card number.
-                </li>
+                <li><b>last4</b>: the last 4 digits of the card number.</li>
               </ul>
             </li>
           </ul>
-
         </td>
       </tr>
       <tr>
@@ -119,8 +105,12 @@ order: 30
           <ul class="table--ul">
             <li><b>capture:</b> you captured some or all of the authorized funds.</li>
             <li><b>refund:</b> you refunded some/all of the captured funds.</li>
-            <li><b>void:</b> the transaction was cancelled. This can only happen if nothing has been
-              captured (<a href="/code/sync/transaction-acts.json">example</a>).</li>
+            <li>
+              <b>void:</b> the transaction was cancelled. This can only happen if nothing has been captured (<a
+                href="/code/sync/transaction-acts.json"
+                >example</a
+              >).
+            </li>
           </ul>
         </td>
       </tr>
@@ -131,9 +121,10 @@ order: 30
         <td>
           The sum totals of all actions performed on this transaction.
           <ul class="table--ul">
-            <li><b>authorized:</b> how much was originally authorized. This can differ from how much you
-              attempted to
-              authorize.</li>
+            <li>
+              <b>authorized:</b> how much was originally authorized. This can differ from how much you attempted to
+              authorize.
+            </li>
             <li><b>captured:</b> how much has been captured so far.</li>
             <li><b>refunded:</b> how much has been refunded so far.</li>
             <li><b>left:</b> how much is still left to capture.</li>
@@ -144,9 +135,7 @@ order: 30
         <td>
           <pre><code class="code--tmp">{% include "docs/synchronization/code/transaction-time.json" %}</code></pre>
         </td>
-        <td>
-          Unix timestamps denoting when the payment link was created and when the authorization succeeded.
-        </td>
+        <td>Unix timestamps denoting when the payment link was created and when the authorization succeeded.</td>
       </tr>
     </tbody>
   </table>
@@ -154,8 +143,7 @@ order: 30
 
 <h2 id="charge">Charge</h2>
 <p>
-  You will receive this <i>change</i> if you <a href="/subscriptions/charge-subscriber">charge</a> a subscriber
-  through
+  You will receive this <i>change</i> if you <a href="/subscriptions/charge-subscriber">charge</a> a subscriber through
   our subscriptions API. Charges are fundamentally the same as <a href="#seq-transaction">transactions</a> with some
   extra information about the subcriber.
 </p>
@@ -171,20 +159,18 @@ order: 30
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"type"</span>: <span class="hljs-string">"charge"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"type"</span>: <span class="hljs-string">"charge"</span></code
+          >
         </td>
-        <td>
-          The type of the entry.
-        </td>
+        <td>The type of the entry.</td>
       </tr>
       <tr>
         <td>
           <pre><code class="code--tmp">{% include "docs/synchronization/code/charge-subscriber.json" %}</code></pre>
         </td>
         <td>
-          Identifiers for the subscriber that this charge pertains to. This is the same subscriber ID and
-          reference as
+          Identifiers for the subscriber that this charge pertains to. This is the same subscriber ID and reference as
           you received in the <a href="#seq-subscriber">subscriber</a> entry.
         </td>
       </tr>
@@ -194,8 +180,8 @@ order: 30
 
 <h2 id="subscriber">Subscriber</h2>
 <p>
-  You will receive this <i>change</i> if you <a href="/subscriptions/create-subscriber">create</a> or <a
-    href="/subscriptions/renew-subscriber">renew</a> a subscriber through our subscriptions API.
+  You will receive this <i>change</i> if you <a href="/subscriptions/create-subscriber">create</a> or
+  <a href="/subscriptions/renew-subscriber">renew</a> a subscriber through our subscriptions API.
 </p>
 
 <div class="table--responsive">
@@ -209,29 +195,29 @@ order: 30
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"type"</span>: <span class="hljs-string">"subscriber"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"type"</span>: <span class="hljs-string">"subscriber"</span></code
+          >
         </td>
-        <td>
-          The type of the entry.
-        </td>
+        <td>The type of the entry.</td>
       </tr>
       <tr>
         <td>
           <code class="code--tmp"><span class="hljs-attr">"id"</span>: <span class="hljs-number">19</span></code>
         </td>
-        <td>
-          The subscriber ID.
-        </td>
+        <td>The subscriber ID.</td>
       </tr>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"ref"</span>: <span class="hljs-string">"user301"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"ref"</span>: <span class="hljs-string">"user301"</span></code
+          >
         </td>
         <td>
           The reference ID that you assigned to the subscriber when you created it (<a
-            href="/subscriptions/create-subscriber">more details</a>).
+            href="/subscriptions/create-subscriber"
+            >more details</a
+          >).
         </td>
       </tr>
       <tr>
@@ -239,8 +225,7 @@ order: 30
           <code class="code--tmp"><span class="hljs-attr">"rev"</span>: <span class="hljs-number">2</span></code>
         </td>
         <td>
-          A revision number. It starts at <code class="code--inline hljs-number">1</code> and it increments
-          every time
+          A revision number. It starts at <code class="code--inline hljs-number">1</code> and it increments every time
           the subcriber data changes.
         </td>
       </tr>
@@ -254,14 +239,10 @@ order: 30
             <li><b>card:</b> a credit card transaction.</li>
             <li><b>mobilepay:</b> a Mobilepay transaction.</li>
           </ul>
-          and id is a per-shop opaque ID assigned to the payment device (eg. credit card number). A subobject,
-          named for
-          the internal method used to process the payment, contains identifiable information about the payment
-          method to
-          help with customer identification. Currently only "card" is supported. No subobject is guaranteed to
-          be there
-          and more will be added in the future as they become necessary. The card brand can be one of the
-          following:
+          and id is a per-shop opaque ID assigned to the payment device (eg. credit card number). A subobject, named for
+          the internal method used to process the payment, contains identifiable information about the payment method to
+          help with customer identification. Currently only "card" is supported. No subobject is guaranteed to be there
+          and more will be added in the future as they become necessary. The card brand can be one of the following:
           <ul class="table--ul">
             <li><b>amex:</b> American Express.</li>
             <li><b>dankort:</b> a pure Dankort.</li>
@@ -276,8 +257,8 @@ order: 30
             <li><b>visa:</b> Visa.</li>
             <li><b>visadankort:</b> a Visa/Dankort cobranded card.</li>
           </ul>
-          last4 is the last 4 digits of the card number.
-          exp is a UNIX timestamp of the card's latest possible expiration time.
+          last4 is the last 4 digits of the card number. exp is a UNIX timestamp of the card's latest possible
+          expiration time.
         </td>
       </tr>
       <tr>
@@ -287,8 +268,10 @@ order: 30
         <td>
           A cumulative array of actions made to this subscriber. As of now, there is only one type of action:
           <ul class="table--ul">
-            <li><b>renew:</b> when the payment details were renewed. See <a href="/subscriptions/renew-subscriber">renew
-                subscriber</a> for more details.</li>
+            <li>
+              <b>renew:</b> when the payment details were renewed. See
+              <a href="/subscriptions/renew-subscriber">renew subscriber</a> for more details.
+            </li>
           </ul>
         </td>
       </tr>
@@ -296,9 +279,7 @@ order: 30
         <td>
           <pre><code class="code--tmp">{% include "docs/synchronization/code/subscriber-time.json" %}</code></pre>
         </td>
-        <td>
-          Unix timestamps.
-        </td>
+        <td>Unix timestamps.</td>
       </tr>
     </tbody>
   </table>

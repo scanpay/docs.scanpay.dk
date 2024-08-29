@@ -9,9 +9,7 @@ order: 20
 
 <h1>Seq Request</h1>
 
-<p>
-  A seq request is a request you make when you want to pull <a href="#changes">changes</a> from our servers.
-</p>
+<p>A seq request is a request you make when you want to pull <a href="#changes">changes</a> from our servers.</p>
 
 <h2 id="request">Request</h2>
 
@@ -23,9 +21,7 @@ order: 20
 </div>
 
 <ul class="endpoint-ul">
-  <li>
-    <span class="hljs-attr">$num</span> is your local version of the sequence number
-  </li>
+  <li><span class="hljs-attr">$num</span> is your local version of the sequence number</li>
 </ul>
 
 <h3 id="request-headers">Request Headers</h3>
@@ -47,9 +43,7 @@ order: 20
 <h2 id="response">Response</h2>
 
 <h3 id="response-success">Success</h3>
-<p>
-  Successful requests return status code <code class="code--inline">200</code> and a JSON object:
-</p>
+<p>Successful requests return status code <code class="code--inline">200</code> and a JSON object:</p>
 
 <div class="table--responsive">
   <table class="table--seqreq">
@@ -64,29 +58,23 @@ order: 20
         <td>
           <pre><code class="code--tmp"><span class="hljs-attr">"changes"</span>: […]</code></pre>
         </td>
-        <td>
-          An array with changes after the requested sequence number in chronological order.
-        </td>
+        <td>An array with changes after the requested sequence number in chronological order.</td>
       </tr>
       <tr>
         <td>
           <code class="code--tmp"><span class="hljs-attr">"seq"</span>: <span class="hljs-number">164</span></code>
         </td>
-        <td>
-          The sequence number for the last change in the changes array.
-        </td>
+        <td>The sequence number for the last change in the changes array.</td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <h3 id="response-errors">Errors</h3>
-<p>
-  Failed requests return an HTTP error code and a error message in the HTTP body:
-</p>
+<p>Failed requests return an HTTP error code and a error message in the HTTP body:</p>
 
-<div class="responsive" style="margin-top: 30px;">
-  <table style="table-layout: auto;">
+<div class="responsive" style="margin-top: 30px">
+  <table style="table-layout: auto">
     <thead>
       <tr>
         <th>Code</th>
@@ -108,30 +96,22 @@ order: 20
       <tr>
         <td class="hljs-attr">408</td>
         <td>Request Timeout</td>
-        <td>
-          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
-        </td>
+        <td>The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.</td>
       </tr>
       <tr>
         <td class="hljs-attr">413</td>
         <td>Request Entity Too Large</td>
-        <td>
-          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
-        </td>
+        <td>The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.</td>
       </tr>
       <tr>
         <td class="hljs-attr">400</td>
         <td>Request Header Or Cookie Too Large</td>
-        <td>
-          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
-        </td>
+        <td>The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code></td>
       </tr>
       <tr>
         <td class="hljs-attr">500</td>
         <td>internal server error</td>
-        <td>
-          Technical issue at Scanpay. Please try again later.
-        </td>
+        <td>Technical issue at Scanpay. Please try again later.</td>
       </tr>
     </tbody>
   </table>
@@ -139,8 +119,6 @@ order: 20
 
 <h2 id="example">Example</h2>
 
-<p>
-  The following is an example in pseudo code:
-</p>
+<p>The following is an example in pseudo code:</p>
 
 <pre class="responsive"><code class="code--block">{% include "docs/transactions/code/example/refund.txt" %}</code></pre>

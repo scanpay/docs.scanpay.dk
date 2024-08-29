@@ -9,9 +9,7 @@ order: 20
 
 <h1>Charge Subscriber</h1>
 
-<p>
-  The charge subscriber API call will charge a specified subscriber ID.
-</p>
+<p>The charge subscriber API call will charge a specified subscriber ID.</p>
 
 <h2 id="request-endpoint">Request</h2>
 
@@ -23,9 +21,7 @@ order: 20
 </div>
 
 <ul class="endpoint-ul">
-  <li>
-    <span class="hljs-attr">$subID</span> is the subscriber ID. You receive this in the Synchronization API.
-  </li>
+  <li><span class="hljs-attr">$subID</span> is the subscriber ID. You receive this in the Synchronization API.</li>
 </ul>
 
 <h3 id="request-headers">Request Headers</h3>
@@ -54,7 +50,6 @@ order: 20
   </table>
 </div>
 
-
 <h3 id="request-body">Request Body</h3>
 
 <div class="table--responsive">
@@ -68,12 +63,11 @@ order: 20
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"123"</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"123"</span></code
+          >
         </td>
-        <td>
-          A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.
-        </td>
+        <td>A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.</td>
       </tr>
       <tr>
         <td>
@@ -84,13 +78,19 @@ order: 20
           <ul class="table--ul">
             <li><b>name:</b> The name of the item.</li>
             <li><b>quantity:</b> The number of items (integer).</li>
-            <li><b>total:</b> The line total (i.e. unit-price x quantity) with an ISO 4217 currency code. This is
-              required.</li>
-            <li><b>sku:</b> A <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this
-              particular product.</li>
+            <li>
+              <b>total:</b> The line total (i.e. unit-price x quantity) with an ISO 4217 currency code. This is
+              required.
+            </li>
+            <li>
+              <b>sku:</b> A <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this
+              particular product.
+            </li>
           </ul>
-          <span class="td--note">In this example the grand total is 13397.9986 DKK. Most acquires only support 2 digits
-            after the decimal point. If this is the case we will truncate to 13397.99.</span>
+          <span class="td--note"
+            >In this example the grand total is 13397.9986 DKK. Most acquires only support 2 digits after the decimal
+            point. If this is the case we will truncate to 13397.99.</span
+          >
         </td>
       </tr>
       <tr>
@@ -99,10 +99,10 @@ order: 20
         </td>
         <td>
           <p>
-            Note that if the billing address and/or shipping address is unspecified, they
-            will default to the addresses specified in the subscriber.
+            Note that if the billing address and/or shipping address is unspecified, they will default to the addresses
+            specified in the subscriber.
           </p>
-          <br>
+          <br />
 
           Customer billing and shipping address.
           <ul class="table--ul">
@@ -116,20 +116,22 @@ order: 20
             <li><b>zip:</b> Postal code.</li>
             <li><b>city:</b> City.</li>
             <li><b>state:</b> State or region.</li>
-            <li><b>country:</b> Two-letter country code (<a
-                href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1</a>).
+            <li>
+              <b>country:</b> Two-letter country code (<a
+                href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"
+                >ISO 3166-1</a
+              >).
             </li>
           </ul>
         </td>
       </tr>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></code
+          >
         </td>
-        <td>
-          Automatically capture the payment. Default is true.
-        </td>
+        <td>Automatically capture the payment. Default is true.</td>
       </tr>
     </tbody>
   </table>
@@ -137,9 +139,7 @@ order: 20
 
 <h2 id="response">Response</h2>
 
-<p>
-  The HTTP response headers will contain the following headers:
-</p>
+<p>The HTTP response headers will contain the following headers:</p>
 
 <div class="table--responsive">
   <table>
@@ -152,12 +152,11 @@ order: 20
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attribute">Idempotency-Status</span>: <span class="">OK</span></code>
+          <code class="code--tmp"
+            ><span class="hljs-attribute">Idempotency-Status</span>: <span class="">OK</span></code
+          >
         </td>
-        <td>
-          Response header to ensure that the idempotency key has been considered.
-        </td>
+        <td>Response header to ensure that the idempotency key has been considered.</td>
       </tr>
     </tbody>
   </table>
@@ -165,14 +164,10 @@ order: 20
 
 <h3 id="response-success">Success</h3>
 
-<p>
-  Successful charge requests return status code <code class="code--inline">200</code> and an empty JSON object.
-</p>
+<p>Successful charge requests return status code <code class="code--inline">200</code> and an empty JSON object.</p>
 
 <h3 id="response-errors">Errors</h3>
-<p>
-  Failed charge requests return an HTTP error code and a error message in the HTTP body:
-</p>
+<p>Failed charge requests return an HTTP error code and a error message in the HTTP body:</p>
 
 <div class="responsive">
   <table class="resp-error-table">
@@ -192,9 +187,7 @@ order: 20
       <tr>
         <td class="hljs-attr">400</td>
         <td>invalid total</td>
-        <td>
-          Invalid or missing <code class="code--inline hljs-attr">total</code> field.
-        </td>
+        <td>Invalid or missing <code class="code--inline hljs-attr">total</code> field.</td>
       </tr>
       <tr>
         <td class="hljs-attr">403</td>
@@ -204,30 +197,22 @@ order: 20
       <tr>
         <td class="hljs-attr">408</td>
         <td>Request Timeout</td>
-        <td>
-          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
-        </td>
+        <td>The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.</td>
       </tr>
       <tr>
         <td class="hljs-attr">413</td>
         <td>Request Entity Too Large</td>
-        <td>
-          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
-        </td>
+        <td>The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.</td>
       </tr>
       <tr>
         <td class="hljs-attr">400</td>
         <td>Request Header Or Cookie Too Large</td>
-        <td>
-          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
-        </td>
+        <td>The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code></td>
       </tr>
       <tr>
         <td class="hljs-attr">500</td>
         <td>internal server error</td>
-        <td>
-          Technical issue at Scanpay. Please try again later.
-        </td>
+        <td>Technical issue at Scanpay. Please try again later.</td>
       </tr>
     </tbody>
   </table>
@@ -235,9 +220,8 @@ order: 20
 
 <h2 id="example">Example</h2>
 
-<p>
-  The following is an example in pseudo code:
-</p>
+<p>The following is an example in pseudo code:</p>
 
 <pre
-  class="responsive"><code class="code--block">{% include "docs/subscriptions/code/example/charge.txt" %}</code></pre>
+  class="responsive"
+><code class="code--block">{% include "docs/subscriptions/code/example/charge.txt" %}</code></pre>
