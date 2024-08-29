@@ -9,220 +9,39 @@ order: 1
 <section>
   <h1>Getting started</h1>
   <p>
-    <a href="https://scanpay.dk">Scanpay</a> is a software company from Denmark. We have developed a payment platform
-    that allows companies to accept payments online. The platform is programmed in C and designed with a security by
-    design approach. The emphasis has been on developing a secure, stable and efficient platform with a small and
-    auditable codebase.
+    We have developed a payment platform that allows companies to accept payments online. The platform is programmed in
+    C and designed with a secure-by-design approach. The emphasis has been on developing a secure, stable and efficient
+    platform with a small and auditable codebase.
   </p>
   <p>
-    We have put much thought into our API and hope you will enjoy working with it. If you have any questions, please do
-    not hesitate to
+    We have put much thought into our API and hope you enjoy working with it. If you have any questions, please do not
+    hesitate to
     <a href="mailto:support@scanpay.dk" target="_blank">email us</a> or
-    <a href="https://irc.scanpay.dev" target="_blank">chat</a> with us on our IRC server:
+    <a href="https://irc.scanpay.dev" target="_blank">chat</a> with us on our IRC server
+    <code class="code--inline">irc.scanpay.dev:6697</code>.
   </p>
+</section>
+
+<section>
+  <h2 id="test-environment" class="h25">Environments</h2>
+  <p>
+    We have two distinct environments: a production and a sandbox environment. While they are not connected in terms of
+    credentials or data, they are functionally identical.
+  </p>
+
   <ul>
     <li>
-      <b>Server:</b>
-      <code class="code--inline">irc.scanpay.dev:6697 #support</code>
+      <b>Production Environment</b> is our live, PCI-certified environment, which processes thousands of payments daily.
+      This environment is specifically designed and configured for production and production testing.
     </li>
-    <li>
-      <b>Webchat:</b>
-      <a href="https://chat.scanpay.dev" target="_blank">chat.scanpay.dev</a>
+    <li style="margin-top: 14px">
+      <b>Sandbox Environment</b> is a versatile testing ground that developers can use to test their applications and
+      integrations. You can read more about the sandbox and how to gain access <a href="/sandbox/">here</a>.
     </li>
   </ul>
 </section>
 
 <section>
-  <h2 id="modules-and-plugins">Modules and plugins</h2>
-  <p>
-    We have developed modules and plugins for some of the most popular e-commerce platforms. These integrations are free
-    and open-source. Contributions and ideas are much appreciated.
-  </p>
-
-  <ol class="integrations--">
-    <li class="integrations--li">
-      <a target="_blank" href="https://github.com/scanpay/woocommerce-scanpay">
-        <div class="integrations--li--logo">
-          <img width="89" height="53" alt="WooCommerce" src="/img/integrations/ecommerce/woocommerce.svg" />
-        </div>
-        <div class="integrations--li--info">
-          <h3 class="integrations--li--h3">WooCommerce</h3>
-          <p>Payment plugin for WooCommerce.</p>
-          <span class="integrations--li--price">guide</span>
-        </div>
-      </a>
-    </li>
-    <li class="integrations--li">
-      <a target="_blank" href="https://github.com/scanpay/magento2-scanpay">
-        <div class="integrations--li--logo">
-          <img width="55" height="63" alt="Magento" src="/img/integrations/ecommerce/magento.svg" />
-        </div>
-        <div class="integrations--li--info">
-          <h3 class="integrations--li--h3">Magento</h3>
-          <p>Payment module for Magento 2.0 and higher.</p>
-          <span class="integrations--li--price">guide</span>
-        </div>
-      </a>
-    </li>
-    <li class="integrations--li">
-      <a target="_blank" href="https://github.com/scanpay/prestashop-scanpay">
-        <div class="integrations--li--logo">
-          <img width="69" height="69" alt="PrestaShop" src="/img/integrations/ecommerce/prestashop.svg" />
-        </div>
-        <div class="integrations--li--info">
-          <h3 class="integrations--li--h3">PrestaShop</h3>
-          <p>Payment module for PrestaShop 1.7 and higher.</p>
-          <span class="integrations--li--price">guide</span>
-        </div>
-      </a>
-    </li>
-    <li class="integrations--li">
-      <a target="_blank" href="https://github.com/scanpay/thirty-bees-scanpay">
-        <div class="integrations--li--logo">
-          <img width="69" height="69" alt="Thirty Bees" src="/img/integrations/ecommerce/thirty-bees.svg" />
-        </div>
-        <div class="integrations--li--info">
-          <h3 class="integrations--li--h3">Thirty Bees</h3>
-          <p>Payment module for Thirty Bees &amp; PrestaShop 1.6.</p>
-          <span class="integrations--li--price">guide</span>
-        </div>
-      </a>
-    </li>
-    <li class="integrations--li">
-      <a target="_blank" href="https://github.com/scanpay/opencart-scanpay">
-        <div class="integrations--li--logo">
-          <img width="137" height="32" alt="OpenCart" src="/img/integrations/ecommerce/opencart.svg" />
-        </div>
-        <div class="integrations--li--info">
-          <h3 class="integrations--li--h3">OpenCart</h3>
-          <p>Payment module for OpenCart 3.0 and higher.</p>
-          <span class="integrations--li--price">guide</span>
-        </div>
-      </a>
-    </li>
-  </ol>
-</section>
-
-<section>
-  <h2 id="client-libraries">Client libraries</h2>
-  <p>
-    We maintain API client libraries for different programming languages. Client libraries provide convenient and
-    simplified access to our API with improved backwards compatibility.
-  </p>
-
-  <ol class="integrations--">
-    <li class="integrations--li">
-      <a target="_blank" href="https://github.com/scanpay/php-scanpay">
-        <div class="integrations--li--logo">
-          <img width="103" height="54" alt="PHP" src="/img/integrations/library/php.svg" />
-        </div>
-        <div class="integrations--li--info">
-          <h3 class="integrations--li--h3">PHP</h3>
-          <p>PHP client library for easy and secure API integration.</p>
-          <span class="integrations--li--price">docs</span>
-        </div>
-      </a>
-    </li>
-    <li class="integrations--li">
-      <a target="_blank" href="https://github.com/scanpay/node-scanpay">
-        <div class="integrations--li--logo">
-          <img width="100" height="61.3" alt="Node.js" src="/img/integrations/nodejs.svg" />
-        </div>
-        <div class="integrations--li--info">
-          <h3 class="integrations--li--h3">Node.js</h3>
-          <p>Node.js client library for easy and secure API integration.</p>
-          <span class="integrations--li--price">docs</span>
-        </div>
-      </a>
-    </li>
-    <li class="integrations--li">
-      <a target="_blank" href="https://github.com/scanpay/ruby-scanpay">
-        <div class="integrations--li--logo">
-          <img width="60" height="60" alt="Ruby" src="/img/integrations/ruby.svg" />
-        </div>
-        <div class="integrations--li--info">
-          <h3 class="integrations--li--h3">Ruby</h3>
-          <p>Ruby client library for easy and secure API integration.</p>
-          <span class="integrations--li--price">docs</span>
-        </div>
-      </a>
-    </li>
-    <li class="integrations--li">
-      <a target="_blank" href="https://github.com/scanpay/go-scanpay">
-        <div class="integrations--li--logo">
-          <img width="121.3" height="107" alt="Go" src="/img/integrations/go.svg" />
-        </div>
-        <div class="integrations--li--info">
-          <h3 class="integrations--li--h3">Go</h3>
-          <p>Go client library for easy and secure API integration.</p>
-          <span class="integrations--li--price">docs</span>
-        </div>
-      </a>
-    </li>
-    <li class="integrations--li">
-      <a target="_blank" href="https://github.com/scanpay/dotnet-scanpay">
-        <div class="integrations--li--logo">
-          <img width="75" height="75" alt=".NET" src="/img/integrations/dotnet.svg" />
-        </div>
-        <div class="integrations--li--info">
-          <h3 class="integrations--li--h3">.NET</h3>
-          <p>.NET client library for easy and secure API integration.</p>
-          <span class="integrations--li--price">docs</span>
-        </div>
-      </a>
-    </li>
-  </ol>
-</section>
-
-<section>
-  <h2 id="dashboard">Merchant dashboard</h2>
-
-  <div
-    style="
-      float: right;
-      margin: 0 0 20px 40px;
-      padding: 10px 17px;
-      width: 240px;
-      border: 1px solid #e3e8ee;
-      border-radius: 4px;
-    "
-  >
-    <aside class="Aside">
-      <h4
-        class="Heading"
-        style="padding: 5px 0 0 0; margin: 0; text-transform: uppercase; font-size: 0.85em; color: #777"
-      >
-        <span class="algolia-heading-content">Debug logs</span>
-      </h4>
-      <p style="font-size: 0.9em">
-        With our
-        <a href="https://dashboard.scanpay.dk/logs">debug logs</a>, you can get real-time information about requests and
-        errors. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </p>
-    </aside>
-  </div>
-
-  <p>
-    We have a
-    <a href="https://dashboard.scanpay.dk" target="_blank">dashboard</a>
-    where merchants can manage their account settings and payment transactions. To access the dashboard, you must create
-    a personal
-    <a href="https://scanpay.dk/opret" target="_blank">user account</a>, which you can use to create and manage multiple
-    shops.
-  </p>
-  <p>
-    Partners, or merchants with more than 20 shops, can request access to our partner
-    <a href="https://partner.scanpay.dk" target="_blank">portal</a>, where they can easily manage multiple shops.
-  </p>
-  <p>
-    Shops can have multiple users with individual privileges, and we encourage our users to enforce the principles of
-    least privilege (<a href="https://en.wikipedia.org/wiki/Principle_of_least_privilege" target="_blank">PoLP</a>).
-  </p>
-</section>
-
-<section>
-  <h2 id="test-environment">Test environment</h2>
-  <p>
-    <code class="code--inline">https://api.test.scanpay.dk/</code>
-  </p>
+  <h2 id="test-environment" class="h25">API Guarantees</h2>
+  <p>...</p>
 </section>
