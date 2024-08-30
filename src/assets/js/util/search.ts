@@ -31,7 +31,7 @@ export function showSearchModal(this: HTMLHeadingElement) {
     parent.addEventListener('click', (e: Event) => {
         if (e.target === parent) removeSearchModal();
     });
-    parent.innerHTML = `{% include "tpl/search.html" %}`;
+    parent.innerHTML = `{% include "includes/search.html" %}`;
     document.body.appendChild(parent);
 
     const input = document.getElementById('search-input') as HTMLInputElement;

@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const connect = require('gulp-connect');
 const fs = require('fs');
 const util = require('./util.js')();
 
@@ -6,7 +7,7 @@ const util = require('./util.js')();
 global.args = util.argParser({
     server: 'docs.scanpay.dev',
     dist: '/tmp/www/docs.scanpay.dev/',
-    year: new Date().getFullYear(),
+    currentYear: new Date().getFullYear(),
 });
 
 // Load gulp tasks
@@ -47,12 +48,11 @@ gulp.task(
     'default',
     gulp.series('build', () => {
         // We just rebuild everything if a template or highlighted file changes
-        gulp.watch(['src/tpl/**/**', 'src/docs/**/code/**'], gulp.series('build'));
+        gulp.watch(['src/includes/**/**', 'src/docs/**/code/**'], gulp.series('build'));
 
-        const connect = require('gulp-connect');
         connect.server({
             root: global.args.dist,
-            livereload: false,
+            livereload: true,
             middleware: () => [
                 (req, res, next) => {
                     // Add .html to URLs that don't have an ext

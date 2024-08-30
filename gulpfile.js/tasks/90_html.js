@@ -2,11 +2,12 @@
     Build and minify the HTML files.
 */
 
+const connect = require('gulp-connect');
 const { Transform } = require('stream');
 const { minify } = require('html-minifier');
 const { src, dest } = require('gulp');
 const { writeFileSync } = require('fs');
-const util = require('../util.js')();
+const braces = require('../braces.js')();
 
 // HTML minifier options
 const options = {
@@ -129,7 +130,7 @@ exports.task = () => {
                 transform(file, enc, cb) {
                     try {
                         if (!fileData[file.relative] || fileData[file.relative].mtime !== file.stat.mtimeMs) {
-                            fileData[file.relative] = util.parseFile(file);
+                            fileData[file.relative] = braces.parseDoc(file);
                         }
                         files.push(file);
                         cb(null, file);
@@ -145,10 +146,7 @@ exports.task = () => {
                             const o = Object.assign({}, global.args, fileData[file.relative]);
                             breadcrumb(o, sorted);
                             o.sidebar = createSidebar(file.relative, sorted);
-
-                            file.contents = Buffer.from(
-                                minify(util.fromString(global.tpl.header + o.str + global.tpl.footer, o), options)
-                            );
+                            file.contents = Buffer.from(minify(braces.fromString(global.tpl, o), options));
                             this.push(file);
                         });
                         createSitemap();
@@ -162,5 +160,6 @@ exports.task = () => {
                 },
             })
         )
+        .pipe(connect.reload())
         .pipe(dest(global.args.dist));
 };
