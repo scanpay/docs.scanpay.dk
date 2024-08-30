@@ -9,8 +9,8 @@ const varRegex = /{{ (.+?) }}/g;
 function getFile(filename) {
     const stat = statSync(uri + filename, { throwIfNoEntry: false });
     if (!stat) {
-        console.error('File not found: ' + filename);
-        throw 'File not found: ' + filename;
+        console.error(`File not found: ${filename}`);
+        throw new Error(`File not found: ${filename}`);
     }
     let obj = cache.get(filename);
     if (obj && obj.mtime >= stat.mtimeMs) return obj;
@@ -64,8 +64,8 @@ function parseDoc(file) {
     };
     let str = file.contents.toString();
     const endOfConfig = str.indexOf('-->');
-    if (!endOfConfig) {
-        throw 'No end of config found in file: ' + file.path;
+    if (endOfConfig === -1) {
+        throw new Error(`No end of config found in file: ${file.path}`);
     }
     obj.content = fromString(str.substring(endOfConfig + 3));
     str = str.substring(4, endOfConfig - 1);
@@ -73,14 +73,14 @@ function parseDoc(file) {
     for (let i = 1; i < lines.length; i++) {
         const split = lines[i].split(':');
         if (split.length === 2) {
-            obj[split[0]] = split[1].trim();
+            obj[split[0].trim()] = split[1].trim();
         }
     }
     if (!obj.title) {
-        throw 'No title found in file: ' + file.path;
+        throw new Error(`No title found in file: ${file.path}`);
     }
     if (!obj.url) {
-        throw 'No URL found in file: ' + file.path;
+        throw new Error(`No URL found in file: ${file.path}`);
     }
     return obj;
 }
