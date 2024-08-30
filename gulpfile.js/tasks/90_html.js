@@ -37,6 +37,10 @@ function createSidebar(fpath, sorted) {
         let ol = '';
         if (x === path && arr[2] && arr[2].length) {
             ol = '<ol class="nav--ul--li--ol">';
+            ol += `
+                <li class="nav--ul--li--ol--li ${x === fpath ? 'nav--ul--li--ol--li--active' : ''}">
+                    <a class="nav--ul--li--ol--li--a" href="${fileData[x].url}">Introduction</a>
+                </li>`;
             for (const subpage of arr[2]) {
                 const y = subpage[1];
                 ol += `
