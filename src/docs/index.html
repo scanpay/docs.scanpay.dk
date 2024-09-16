@@ -42,6 +42,15 @@ order: 1
 </section>
 
 <section>
-  <h2 id="test-environment" class="h25">API Guarantees</h2>
-  <p>...</p>
+  <h2 id="authentication" class="h25">Authentication</h2>
+
+  <p>
+    All API requests require authentication with HTTP Basic access authentication. with your API key as credentials.
+  </p>
+  <code class="code--block">
+    <span class="hljs-attribute">Authorization</span>: Basic <span class="hljs-built_in">base64_encode</span>(<span
+      class="hljs-string"
+      >"apikey"</span
+    >)
+  </code>
 </section>
