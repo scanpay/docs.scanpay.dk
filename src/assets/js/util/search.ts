@@ -23,7 +23,9 @@ function searchInput(e: Event) {
     }, 1000);
 }
 
-export function showSearchModal(this: HTMLHeadingElement) {
+export async function showSearchModal(this: HTMLHeadingElement) {
+    const response = await fetch('/search.html');
+    const html = await response.text();
     const parent = document.createElement('div');
     parent.id = 'modal-parent';
     parent.tabIndex = -1;
@@ -31,7 +33,7 @@ export function showSearchModal(this: HTMLHeadingElement) {
     parent.addEventListener('click', (e: Event) => {
         if (e.target === parent) removeSearchModal();
     });
-    parent.innerHTML = `{% include "includes/search.html" %}`;
+    parent.innerHTML = html;
     document.body.appendChild(parent);
 
     const input = document.getElementById('search-input') as HTMLInputElement;
