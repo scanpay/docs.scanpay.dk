@@ -3,25 +3,20 @@ title: Transactions API
 description: ...
 url: /transactions/
 link: Transactions
-order: 40
+order: 30
 -->
 
-<h1>Transactions API</h1>
+<h1>Transactions</h1>
 
 <p>
-  In our terminology, a transaction is a payment authorized by the cardholder's bank. You can create a transaction
-  through the Payment link or Subscriptions API. Once created, transactions can be captured, refunded, or voided.
+  In our terminology, a transaction is a payment authorized by the cardholder's bank. You can create a transaction through the <a href="/payment-links/create/">payment link</a> or <a href="/subscriptions/charge-subscriber/">subscriptions</a> API. Once authorized, transactions can be captured, refunded, or voided, meaning:
 </p>
-
-<h3>Transaction types</h3>
-<p>There are two types of transactions:</p>
 <ul>
-  <li>
-    <strong>Regular</strong> - A transaction that has been authorized by the cardholder's bank. You can capture, refund,
-    or void an authorized transaction.
-  </li>
-  <li>
-    <strong>Subscription charges</strong> - A transaction that has been created by the Subscriptions API. You can
-    capture,
-  </li>
+  <li><b>Authorized</b>: The money has been reserved on the cardholder's account. </li>
+  <li><b>Capture</b>: A transfer of some or all of the authorized amount from the cardholder's account to the merchant's account.</li>
+  <li><b>Refund</b>: A transfer of some or all of the captured amount from the merchant's account back to the cardholder's account.</li>
+  <li><b>Void</b>: The reservation made by authorizing has been removed and the amount can no longer be captured.</li>
 </ul>
+<p>
+  Transactions can be partially authorized, captured, or refunded, but not partially voided.
+</p>

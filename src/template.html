@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link href="/docs.css?{{ t }}" rel="stylesheet" />
+    <script defer src="/docs.js?{{ t }}"></script>
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}" />
+    <link rel="canonical" href="https://docs.scanpay.dev{{ url }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": {{ BreadcrumbList }}
+      }
+    </script>
+  </head>
+
+  <aside class="menu">
+    <nav class="nav">
+      <div class="nav--logo">
+        <a href="/" title="Scanpay documentation">
+          <img class="nav--logo--svg" src="/img/logo.svg" alt="Scanpay logo" />
+        </a>
+      </div>
+
+      <div class="nav--search">
+        <button id="nav--burger" aria-label="Toggle navigation menu">{% include "svg/burger.svg" %}</button>
+        <input
+          id="nav--search--input"
+          class="nav--search--input"
+          type="search"
+          name="q"
+          autocomplete="off"
+          placeholder="Search the docs"
+        />
+      </div>
+      <ul id="nav--ul">
+        {{ sidebar }}
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="c">
+    <div id="bg">
+      <header class="header--">
+        <a
+          rel="nofollow"
+          href="https://github.com/scanpay/docs.scanpay.dk/blob/main/html/{{ path }}"
+          class="header--git"
+        >
+          {% include "svg/github.svg" %} Edit
+        </a>
+        <nav class="header--nav" aria-label="Breadcrumb">
+          {% include "svg/breadcrumb.svg" %} {{ BreadcrumbParent }} <span class="header--nav--raquo">»</span>
+          <span aria-current="page">{{ link }}</span>
+        </nav>
+      </header>
+
+      <article class="article">{{ content }}</article>
+      <footer class="footer">&copy; {{ year }} Scanpay ApS</footer>
+    </div>
+  </div>
+</html>

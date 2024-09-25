@@ -1,0 +1,37 @@
+"acts": [
+    {
+        "act": "capture",
+        "time": 1727109740,
+        "who": "s1286:1",
+        "total": "244.90 DKK",
+        "history": [
+            {
+                "item": 0,
+                "quantity": 2,
+                "total": "199.90 DKK"
+            },
+            {
+                "item": 1,
+                "quantity": 1,
+                "total": "45 DKK"
+            }
+        ],
+        "fees": {
+            "capture": "0.25 DKK"
+        }
+    },
+    {
+        "act": "refund",
+        "time": 1727196369,
+        "who": "u7812:3",
+        "total": "99.95 DKK",
+        "history": [
+            {
+                "item": 7,
+                "quantity": 190,
+                "total": "12 DKK"
+            }
+        ],
+        "fees": {}
+    }
+]

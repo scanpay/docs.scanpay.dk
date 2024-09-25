@@ -7,27 +7,26 @@ order: 10
 -->
 
 <section>
-  <h1 id="introduction">Payment Links</h1>
-
+  <h1>Payment Links</h1>
   <p>
-    Payment links are unique, shareable URLs that direct customers to our hosted payment page, where they can securely
-    enter their payment details. While a payment link can be shared and accessed multiple times, it can only be used for
-    a single payment. The link remains active for a limited time, as specified by the
-    <code class="code--inline">lifetime</code> field. Additionally, you can manually expire a payment link at any time
-    using the <a href="#">expire</a> API request.
+    Payment links are unique, shareable URLs that direct customers to our hosted payment page, where they can securely enter their payment details. While a payment link can be shared and accessed multiple times, it can only be used for a single payment.
   </p>
-  <p>...</p>
 </section>
 
-<h2>Payment window</h2>
-<p>The payment window is designed to be responsive and works on all devices.</p>
-<div class="pic-flex">
-  <img class="pic enlarge" width="190" height="200" src="/img/payment-window.png" alt="Payment window" />
-  <img
-    class="pic enlarge"
-    width="145"
-    height="200"
-    src="/img/payment-window-phone.jpg"
-    alt="Responsive payment window "
-  />
-</div>
+<section>
+  <h2 id="lifetime" class="h25">Lifetime</h2>
+  <p>
+    Payment links have a limited, user-defined lifespan. The lifespan of a payment link can be defined in the <code class="code--inline">lifetime</code> parameter when <a href="/payment-links/create/#request-fields">creating</a>. The lifespan of a payment link provides a hard limit on when a payment can be submitted, meaning if the payer has not completed all authentication before the time limit the payment will be rejected. Payment links can also be immediately <a href="/payment-links/expire/">expired</a>.
+  </p>
+</section>
+
+<section>
+  <h2 id="window" class="h25">Payment window</h2>
+  <p>
+    The payment window is designed to be responsive and works on all devices.
+  </p>
+  <div class="pic-flex">
+    <img class="pic enlarge" width="190" height="200" src="/img/payment-window.png" alt="Payment window" />
+    <img class="pic enlarge" width="145" height="200" src="/img/payment-window-phone.jpg" alt="Responsive payment window" />
+  </div>
+</section>

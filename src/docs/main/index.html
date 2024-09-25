@@ -1,0 +1,95 @@
+<!--
+title: Getting Started with Scanpay
+description: Getting started with Scanpay and online payments.
+url: /
+link: Getting Started
+order: 1
+-->
+
+<section>
+  <h1>Getting started</h1>
+  <p>
+    We have developed a payment platform that allows companies to accept payments online. The platform is programmed in
+    C and designed with a secure-by-design approach. The emphasis has been on developing a secure, stable and efficient
+    platform with a small and auditable codebase.
+  </p>
+  <p>
+    We have put much thought into our API and hope you enjoy working with it. If you have any questions, please do not
+    hesitate to
+    <a href="mailto:support@scanpay.dk" target="_blank">email us</a> or
+    <a href="https://irc.scanpay.dev" target="_blank">chat</a> with us on our IRC server
+    <code class="code--inline">irc.scanpay.dev:6697</code>.
+  </p>
+</section>
+
+<section>
+  <h2 id="test-environment" class="h25">Environments</h2>
+  <p>
+    We have two distinct environments: a production and a sandbox environment. While they are not connected in terms of
+    credentials or data, they are functionally identical.
+  </p>
+
+  <ul>
+    <li>
+      <b>Production Environment</b> is our live, PCI-certified environment, which processes thousands of payments daily.
+      This environment is specifically designed and configured for production and production testing.
+    </li>
+    <li style="margin-top: 14px">
+      <b>Sandbox Environment</b> is a versatile testing ground that developers can use to test their applications and
+      integrations. You can read more about the sandbox and how to gain access <a href="/sandbox/">here</a>.
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h2 id="uris" class="h25">URIs</h2>
+
+  <p>
+    All API requests are made to whole or partial URIs. A URI is built up of 4 components:
+  </p>
+  <pre><code class="code--block"><span class="hljs-attr">shopid</span>:<span class="hljs-attr">db</span>#<span class="hljs-attr">id</span>@<span class="hljs-attr">rev</span></code></pre>
+  <ul class="endpoint-ul">
+    <li><span class="hljs-attr">shopid</span> is the ID associated with the shop. It can be found in the dashboard.</li>
+    <li><span class="hljs-attr">db</span> is which database the request is about.</li>
+    <li><span class="hljs-attr">id</span> is the ID of the entry in that database.</li>
+    <li><span class="hljs-attr">rev</span> is the revision (version) of the object.</li>
+  </ul>
+  <p>
+    No API request uses a full URI as no request refers to a specific revision of an object. Similarly, some API requests only refer to databases and not specific objects. Since <code class="code--inline">#</code> can be very annoying to encode in an HTTP request, we allow the use of <code class="code--inline">:</code> instead, so all API request URLs follow this scheme:
+  </p>
+  <pre><code class="code--block">https://api.scanpay.dk/v2/<span class="hljs-attr">shopid</span>:<span class="hljs-attr">db</span>/<span class="hljs-func">action</span>
+https://api.scanpay.dk/v2/<span class="hljs-attr">shopid</span>:<span class="hljs-attr">db</span>:<span class="hljs-attr">id</span>/<span class="hljs-func">action</span></code></pre>
+</section>
+
+<section>
+  <h2 id="authentication" class="h25">Authentication</h2>
+
+  <p>
+    All API requests require <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic authentication</a> using an API key as the credential:
+  </p>
+  <pre><code class="code--block"><span class="hljs-attribute">Authorization</span>: Basic <span class="hljs-built_in">Base64Encode</span>(<span class="hljs-string">"apikey"</span>)</code></pre>
+
+  <h3 id="apikeys">API keys</h3>
+
+  <p>
+    All actions, be they performed through the API documented here or the dashboard, are done by traceable API keys. Users and shops can both have associated API keys of the following format:
+  </p>
+  <pre><code class="code--block"><span class="hljs-punctuation">u</span><span class="hljs-attr">userid</span><span class="hljs-punctuation">:</span><span class="hljs-attr">keyid</span><span class="hljs-punctuation">:randomness</span>
+<span class="hljs-punctuation">s</span><span class="hljs-attr">shopid</span><span class="hljs-punctuation">:</span><span class="hljs-attr">keyid</span><span class="hljs-punctuation">:randomness</span></code></pre>
+
+  <ul class="endpoint-ul">
+    <li><span class="hljs-attr">userid</span> is the ID of the user the key was issued by.</li>
+    <li><span class="hljs-attr">shopid</span> is the ID of the shop the key was issued to.</li>
+    <li><span class="hljs-attr">keyid</span> is the immutable unique ID of the key itself. It is only unique to that given user or shop, not globally.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 id="response" class="h25">Responses</h2>
+
+  <p>
+    Successful requests always have an HTTP response code of <span class="code--inline">200</span> and a JSON object in the response body. On error, responses always have a non-<span class="code--inline">200</span> code and a textual error message both as the HTTP response message and as a singular line in the response body:
+  </p>
+  <pre><code class="code--block"><span class="hljs-attribute">HTTP/1.1</span> <span class="hljs-number">403</span> <span class="hljs-string">invalid apikey</span>
+<div class="nobr"><span class="hljs-attribute">Content-Length</span>: 15</div><span class="tbr hljs-string">invalid apikey</span></code></pre>
+</section>

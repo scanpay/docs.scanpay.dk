@@ -1,0 +1,29 @@
+"billing": {
+    "name": "Michael Jensen",
+    "company": "",
+    "vatin": "",
+    "gln": "",
+    "email": "",
+    "phone": "",
+    "address": [
+        "Hansens Allé 52"
+    ],
+    "city": "Tøjmose",
+    "zip": "5883",
+    "state": "",
+    "country": ""
+}
+
+"shipping": {
+    "name": "Mette Jensen",
+    "company": "",
+    "email": "",
+    "phone": "",
+    "address": [
+        "Hansens Allé 52"
+    ],
+    "city": "Tøjmose",
+    "zip": "5883",
+    "state": "",
+    "country": ""
+}

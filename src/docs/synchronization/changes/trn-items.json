@@ -1,0 +1,20 @@
+"items": [
+    {
+        "quantity": 2,
+        "total": "199.90 DKK",
+        "name": "Danmarkskort plakat",
+        "sku": "182932000-MAP-DK"
+    },
+    {
+        "quantity": 1,
+        "total": "45 DKK",
+        "name": "Fragt - PostNord",
+        "sku": ""
+    },
+    {
+        "quantity": 1,
+        "total": "0.50 DKK",
+        "name": "",
+        "sku": ""
+    }
+]

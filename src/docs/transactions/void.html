@@ -2,7 +2,6 @@
 title: Void API
 description: ...
 url: /transactions/void
-parent: /transactions/
 link: Void
 order: 30
 -->
@@ -10,60 +9,27 @@ order: 30
 <h1>Void transaction</h1>
 
 <p>
-  After a payment has been authorized, the payment is not complete until it has been captured. If you do not wish to
-  capture the payment, you can void it using the void API described below. You can void a transaction with the void API
-  request. However, you can only void transactions that are not yet captured, and you cannot undo a void.
+  Cancel an authorization so that the funds are released on the payer's account and cannot be captured. Voids can only be performed on transactions that have not yet been captured.
 </p>
-
-{% include "includes/v2-warning.html" %}
 
 <h2 id="request">Request</h2>
 
 <div class="endpoint">
   <code class="endpoint-method"><span class="hljs-attribute">POST</span></code>
   <div class="endpoint-url">
-    <code
-      >https://api.scanpay.dk/v2/<span class="hljs-attr">$shopID</span>:trn:<span class="hljs-attr">$trnID</span
-      >/void</code
-    >
+    <code>https://api.scanpay.dk/v2/<a href="/#uris" class="hljs-attr">shopid</a>:trn:<span class="hljs-attr">trnid</span>/void</code>
   </div>
 </div>
 
 <ul class="endpoint-ul">
-  <li>
-    <span class="hljs-attr">$shopID</span> is a unique ID for the shop. You can find it
-    <a href="https://dashboard.scanpay.dk/settings/api">here</a>.
-  </li>
-  <li><span class="hljs-attr">$trnID</span> is the transaction ID. You receive this in the Synchronization API.</li>
+  <li><span class="hljs-attr">trnid</span> is the transaction ID you received when synchronizing.</li>
 </ul>
 
-<h3 id="request-headers">Request Headers</h3>
-
-<div class="table--responsive">
-  <table>
-    <thead>
-      <tr>
-        <th>HTTP headers</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% include "includes/code/basic-auth.html" %}
-    </tbody>
-  </table>
-</div>
-
-<h3 id="request-body">Request Body</h3>
-
-<p>The request body must be empty.</p>
-
-<h2 id="response">Response</h2>
-
-<h3 id="response-success">Success</h3>
-<p>Successful requests return status code <code class="code--inline">200</code> and an empty JSON object.</p>
+<p>
+The request has no body. The response has no defined fields and as such is an empty JSON object.
+</p>
 
 <h3 id="response-errors">Errors</h3>
-<p>Failed requests return an HTTP error code and an error message in the HTTP body:</p>
 
 <div class="responsive">
   <table class="resp-error-table">
@@ -75,42 +41,6 @@ order: 30
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>invalid json</td>
-        <td>Invalid JSON.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">403</td>
-        <td>invalid apikey</td>
-        <td>Invalid API key.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">408</td>
-        <td>Request Timeout</td>
-        <td>The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">413</td>
-        <td>Request Entity Too Large</td>
-        <td>The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>Request Header Or Cookie Too Large</td>
-        <td>The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code></td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">500</td>
-        <td>internal server error</td>
-        <td>Technical issue at Scanpay. Please try again later.</td>
-      </tr>
     </tbody>
   </table>
 </div>
-
-<h2 id="example">Example</h2>
-
-<p>The following pseudocode shows how to void a transaction:</p>
-
-<pre class="responsive"><code class="code--block">{% include "docs/transactions/code/example/void.txt" %}</code></pre>

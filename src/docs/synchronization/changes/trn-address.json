@@ -1,0 +1,30 @@
+"billing": {
+    "name": "Peter Nielsen",
+    "company": "Nielsen A/S",
+    "vatin": "DK91738264",
+    "gln": "7953878173521",
+    "email": "pn@nielsenas.dk",
+    "phone": "+45 90014893",
+    "address": [
+        "Pederstrupvej 14"
+    ],
+    "city": "Teststrup",
+    "zip": "8320",
+    "state": "",
+    "country": "Denmark"
+}
+
+"shipping": {
+    "name": "Peter Nielsen",
+    "company": "Nielsen A/S",
+    "email": "pn@nielsenas.dk",
+    "phone": "+45 90014893",
+    "address": [
+        "C/O Peter Nielsen",
+        "Pederstrupvej 14"
+    ],
+    "city": "Teststrup",
+    "zip": "8320",
+    "state": "",
+    "country": "Denmark"
+}

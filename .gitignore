@@ -1,8 +1,2 @@
-www
-www/*
-node_modules/*
-.DS_Store
-package-lock.json
-publish.sh
-pnpm-lock.yaml
-.vscode/
+obj/
+docs.scanpay.dev.tar.gz

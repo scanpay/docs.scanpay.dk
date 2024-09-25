@@ -2,42 +2,35 @@
 title: Create Payment Link
 description: ...
 url: /payment-links/create
-parent: /payment-links/
 link: Create
 order: 10
 -->
 
 <h1>Create payment link</h1>
 
-<p>
-  A payment link is a shareable URL that will take your customers to our hosted payment page. The link can be shared and
-  used multiple times, but it expires after a certain amount of time or when the payment is completed.
-</p>
-
 <h2 id="request">Request</h2>
 
 <div class="endpoint">
   <code class="endpoint-method"><span class="hljs-attribute">POST</span></code>
   <div class="endpoint-url">
-    <code>https://api.scanpay.dk/v1/new</code>
+    <code>https://api.scanpay.dk/v2/<a href="/#uris" class="hljs-attr">shopid</a>:pay/new</code>
   </div>
 </div>
 
-<h3 id="request-headers">Request Headers</h3>
+<h3 id="request-headers">Headers</h3>
 
 <div class="table--responsive">
   <table>
     <thead>
       <tr>
-        <th>HTTP headers</th>
+        <th>HTTP header</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
-      {% include "includes/code/basic-auth.html" %}
       <tr>
         <td>
-          <code class="code--tmp"><span class="hljs-attribute">X-Cardholder-IP</span>: 47.105.175.99</code>
+          <code class="code--tmp"><span class="hljs-attribute">X-Cardholder-IP</span>: 127.105.175.99</code>
         </td>
         <td>
           The IPv4 or IPv6 address of the customer making the payment. It's optional but highly recommended.
@@ -47,20 +40,24 @@ order: 10
   </table>
 </div>
 
-<h3 id="request-fields">Request Fields</h3>
+<h3 id="request-fields">Fields</h3>
+
+<p>
+  The only required field is <code class="code--inline">"items"</code>. All other fields are optional.
+</p>
 
 <div class="table--responsive">
   <table>
     <thead>
       <tr>
-        <th>JSON fields</th>
+        <th>JSON field</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-          <pre><code class="code--tmp code--ellipsis">{% include "docs/payment-links/code/items.json" %}</code></pre>
+          <pre><code class="code--tmp code--ellipsis">{% include "code/items.json" %}</code></pre>
         </td>
         <td>
           <p>
@@ -80,14 +77,13 @@ order: 10
             </li>
           </ul>
           <span class="td--note">
-            In this example, the total amount is 13497.9986 DKK. Most acquires only support two or three digits after
-            the decimal point. We will automatically truncate the value if needed.
+            In this example, the total amount is 13497.9986 DKK. Acquirers do not support fractions of the minor currency unit (here øre, 0.01 DKK) and as such this will yield an error when trying to pay.
           </span>
         </td>
       </tr>
       <tr>
         <td>
-          <pre><code class="code--tmp code--ellipsis">{% include "docs/payment-links/code/billing.json" %}</code></pre>
+          <pre><code class="code--tmp code--ellipsis">{% include "code/addresses.json" %}</code></pre>
         </td>
         <td>
           <p>
@@ -124,18 +120,15 @@ order: 10
 
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"1234zx"</span></code>
+          <code class="code--tmp">{% include "code/orderid.json" %}</code>
         </td>
         <td>
-          An order identifier that identifies the order in your system. We send the ID to your acquirer and display it
-          in the payment window.
+          An order identifier that identifies the order in your system. We send the ID to your acquirer and display it in the payment window.
         </td>
       </tr>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"successurl"</span>: <span class="hljs-string">"http://blixen.dk/success"</span></code>
+          <code class="code--tmp">{% include "code/successurl.json" %}</code>
         </td>
         <td>
           The success URL is where we send the customer after successful payment.
@@ -144,8 +137,7 @@ order: 10
 
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"language"</span>: <span class="hljs-string">"da"</span></code>
+          <code class="code--tmp">{% include "code/language.json" %}</code>
         </td>
         <td>
           The desired payment window language in ISO <a href="https://en.wikipedia.org/wiki/ISO_639-1">639-1</a>.
@@ -154,25 +146,18 @@ order: 10
       </tr>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></code>
+          <code class="code--tmp">{% include "code/autocapture.json" %}</code>
         </td>
         <td>
-          Automatically capture the payment. Default is <code class="code--inline hljs-number">false</code>, which means
-          that payments are authorized <i>(reserved)</i>, but not captured.
+          Automatically capture the payment. Default is <code class="code--inline"><span class="hljs-keyword">false</span></code>, which means that payments are authorized <i>(reserved)</i>, but not captured. If set to <code class="code--inline"><span class="hljs-keyword">true</span></code> then partial authorizations are rejected and should the capture attempt fail then the authorization will be automatically voided and not saved in the transaction database.
         </td>
       </tr>
       <tr id="field-lifetime">
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"lifetime"</span>: <span class="hljs-string">"7d"</span></code>
+          <code class="code--tmp">{% include "code/lifetime.json" %}</code>
         </td>
         <td>
-          Payment link lifetime in days <i>(<span class="hljs-string">"d"</span>)</i>, hours <i>(<span
-              class="hljs-string">"h"</span>)</i> or minutes <i>(<span class="hljs-string">"m"</span>)</i>. Default is
-          <code class="code--inline hljs-string">"1h"</code> and max is <code
-            class="code--inline hljs-string">"30d"</code>. Increasing the lifetime will also increase the length of the
-          returned URL.
+          Payment link lifetime in days (<span class="hljs-string">"d"</span>), hours (<span class="hljs-string">"h"</span>), minutes (<span class="hljs-string">"m"</span>), and seconds (<span class="hljs-string">"s"</span>). The default is <code class="code--inline"><span class="hljs-string">"1h"</span></code> and max is <code class="code--inline"><span class="hljs-string">"30d"</span></code>. Increasing the lifetime will also increase the length of the returned URL.
         </td>
       </tr>
     </tbody>
@@ -180,11 +165,6 @@ order: 10
 </div>
 
 <h2 id="response">Response</h2>
-
-<h3 id="response-success">Success</h3>
-<p>
-  Successful requests return status code <code class="code--inline">200</code> and a JSON object:
-</p>
 
 <div class="table--responsive">
   <table class="table--seqreq">
@@ -197,84 +177,25 @@ order: 10
     <tbody>
       <tr>
         <td>
-          <code
-            class="code--tmp"><span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://betal.scanpay.dk/9qdvbx2r"</span></code>
+          <code class="code--tmp">{% include "code/response-url.json" %}</code>
         </td>
         <td>
           The payment link. You can redirect the customer to this URL to complete the payment.
         </td>
       </tr>
-    </tbody>
-  </table>
-</div>
-
-<h3 id="response-errors">Errors</h3>
-
-<p>
-  Failed requests return an HTTP error code and a error message in the HTTP body:
-</p>
-
-<div class="responsive">
-  <table class="resp-error-table">
-    <thead>
       <tr>
-        <th>Code</th>
-        <th>HTTP Body</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>invalid json</td>
-        <td>Invalid JSON.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>invalid total</td>
         <td>
-          Invalid or missing <code class="code--inline hljs-attr">total</code> field.
+          <code class="code--tmp">{% include "code/response-id.json" %}</code>
         </td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">403</td>
-        <td>invalid apikey</td>
-        <td>Invalid API key.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">408</td>
-        <td>Request Timeout</td>
         <td>
-          The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.
-        </td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">413</td>
-        <td>Request Entity Too Large</td>
-        <td>
-          The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.
-        </td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>Request Header Or Cookie Too Large</td>
-        <td>
-          The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code>
-        </td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">500</td>
-        <td>internal server error</td>
-        <td>
-          Technical issue at Scanpay. Please try again later.
+          The payment ID.
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-
-<h3 id="mobilepay">Link Parameters</h3>
+<h3 id="link-parameters">Link Parameters</h3>
 <p>
   The following link parameters can be appended to the payment link:
 </p>
@@ -288,23 +209,38 @@ order: 10
       </tr>
     </thead>
     <tbody>
-      <td>
-        <code class="code--tmp"><span class="hljs-string">?go=mobilepay</span></code>
-      </td>
-      <td>
-        Redirect the customer to MobilePay Online. You need to enable MobilePay Online.
-      </td>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-string">?go=mobilepay</span></code>
+        </td>
+        <td>
+          Redirect the customer to MobilePay Online.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="code--tmp"><span class="hljs-string">?go=applepay</span></code>
+        </td>
+        <td>
+          Present the Apple Pay button.
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
 
+<h3 id="response-errors">Errors</h3>
 
-<h2 id="example">Example</h2>
-
-<p>
-  The following is an example in pseudo code:
-</p>
-
-<pre
-  class="responsive"><code class="code--block">{% include "docs/payment-links/code/example/create.txt" %}</code></pre>
+<div class="responsive">
+  <table class="resp-error-table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>HTTP Body</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>

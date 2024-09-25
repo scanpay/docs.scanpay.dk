@@ -1,0 +1,5 @@
+"services": [
+    "mobilepay",
+    "3dsecurev2",
+    "clearhaus-3"
+]

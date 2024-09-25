@@ -1,2 +1,0 @@
-<span class="hljs-built_in">POST</span> https://api.scanpay.dk/v2/37920:trn:120/void
-<div class="nobr"><span class="hljs-attribute">Authorization</span>: Basic <span class="hljs-func">base64_encode</span>(<span class="hljs-attr">$apikey</span>)</div>

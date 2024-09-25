@@ -2,7 +2,6 @@
 title: Capture API
 description: ...
 url: /transactions/capture
-parent: /transactions/
 link: Capture
 order: 10
 -->
@@ -10,40 +9,23 @@ order: 10
 <h1>Capture transaction</h1>
 
 <p>
-  With the capture API request, you can perform full or partial captures on a transaction. You can perform multiple
-  captures on a transaction but cannot capture more than the authorized amount.
+  Perform a full or partial capture on a transaction. You can perform multiple partial captures on a transaction but cannot capture more than the authorized amount.
 </p>
 
-<h2 id="request-endpoint">Request</h2>
+<h2 id="request">Request</h2>
 
 <div class="endpoint">
   <code class="endpoint-method"><span class="hljs-attribute">POST</span></code>
   <div class="endpoint-url">
-    <code>https://api.scanpay.dk/v1/<span class="hljs-attr">$trnID</span>/capture</code>
+    <code>https://api.scanpay.dk/v2/<a href="/#uris" class="hljs-attr">shopid</a>:trn:<span class="hljs-attr">trnid</span>/capture</code>
   </div>
 </div>
 
 <ul class="endpoint-ul">
-  <li><span class="hljs-attr">$trnID</span> is the transaction ID. You receive this in the Synchronization API.</li>
+  <li><span class="hljs-attr">trnid</span> is the transaction ID you received when synchronizing.</li>
 </ul>
 
-<h3 id="request-headers">Request Headers</h3>
-
-<div class="table--responsive">
-  <table>
-    <thead>
-      <tr>
-        <th>HTTP headers</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% include "includes/code/basic-auth.html" %}
-    </tbody>
-  </table>
-</div>
-
-<h3 id="request-body">Request Body</h3>
+<h3 id="request-fields">Fields</h3>
 
 <div class="table--responsive">
   <table class="table--seqreq">
@@ -56,45 +38,33 @@ order: 10
     <tbody>
       <tr>
         <td>
-          <code class="code--tmp"
-            ><span class="hljs-attr">"total"</span>: <span class="hljs-string">"199.95 DKK"</span></code
-          >
+          <code class="code--tmp">{% include "code/capture-total.json" %}</code>
         </td>
         <td>The amount to capture.</td>
       </tr>
       <tr>
         <td>
-          <code class="code--tmp"><span class="hljs-attr">"index"</span>: <span class="hljs-number">0</span></code>
+          <code class="code--tmp">{% include "code/capture-index.json" %}</code>
         </td>
-        <td>
-          The number of <a href="/transactions/">actions</a> performed on the transaction. This is used to prevent
-          duplicate captures.
-        </td>
-      </tr>
+        <td>{% include "shared/index.html" %}</td>
+     </tr>
       <tr>
         <td>
-          <pre><code class="code--tmp code--ellipsis">{% include "docs/transactions/code/items.json" %}</code></pre>
+          <pre><code class="code--tmp">{% include "code/capture-history.json" %}</code></pre>
         </td>
-        <td>
-          <p>
-            An <b>optional</b> array of captured items
-            <i>(<a href="/payment-links/create#request-fields">specs</a>)</i>. This is only metadata, and it does not
-            affect the actual capture. Invalid data will be discarded without returning an error.
-          </p>
-          <p>We display the captured items in our dashboard.</p>
-        </td>
-      </tr>
+        <td>{% include "shared/history.html" %}</td>
+     </tr>
     </tbody>
   </table>
 </div>
 
 <h2 id="response">Response</h2>
 
-<h3 id="response-success">Success</h3>
-<p>Successful capture requests return status code <code class="code--inline">200</code> and an empty JSON object.</p>
+<p>
+  There are no defined response fields and as such this returns an empty JSON object.
+</p>
 
 <h3 id="response-errors">Errors</h3>
-<p>Failed capture requests return an HTTP error code and a error message in the HTTP body:</p>
 
 <div class="responsive">
   <table class="resp-error-table">
@@ -106,49 +76,6 @@ order: 10
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>invalid json</td>
-        <td>Invalid JSON.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>invalid total</td>
-        <td>Invalid or missing <code class="code--inline hljs-attr">total</code> field.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">403</td>
-        <td>invalid apikey</td>
-        <td>Invalid API key.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">408</td>
-        <td>Request Timeout</td>
-        <td>The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">413</td>
-        <td>Request Entity Too Large</td>
-        <td>The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>Request Header Or Cookie Too Large</td>
-        <td>The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code></td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">500</td>
-        <td>internal server error</td>
-        <td>Technical issue at Scanpay. Please try again later.</td>
-      </tr>
     </tbody>
   </table>
 </div>
-
-<h2 id="example">Example</h2>
-
-<p>The following is an example in pseudo code:</p>
-
-<pre
-  class="responsive"
-><code class="code--block">{% include "docs/transactions/code/example/capture.txt" %}</code></pre>

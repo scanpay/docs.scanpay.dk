@@ -1,0 +1,8 @@
+<b>if</b> <span class="hljs-built_in">Base64</span>(<span class="hljs-built_in">HMAC-SHA2-256</span>(<i>body</i>, <i>apikey</i>)) <span class="fsize15">≠</span> <i>headers</i>[<span class="hljs-string">"X-Signature"</span>] <b>then</b>
+    <span class="hljs-built_in">Log</span>(<span class="hljs-string">"Warning: Invalid ping signature!"</span>)
+    <b>exit</b>
+<b>end if</b>
+<i>ping</i> := <span class="hljs-built_in">JSONDecode</span>(<i>body</i>)
+<b>if</b> <i>ping.seq</i> &gt; <i>localSeq</i> <b>then</b>
+    <span class="hljs-built_in">Synchronize</span>()
+<b>end if</b>

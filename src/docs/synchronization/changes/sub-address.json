@@ -1,0 +1,28 @@
+"billing": {
+    "name": "Anne Jensen",
+    "company": "",
+    "vatin": "",
+    "gln": "",
+    "email": "anne@gmail.com",
+    "phone": "80781943",
+    "address": [
+        "Hans Christiansvænge 99",
+        "Postboks 401"
+    ],
+    "city": "Neder Vindinge",
+    "zip": "4760",
+    "state": "",
+    "country": ""
+}
+
+"shipping": {
+    "name": "",
+    "company": "",
+    "email": "",
+    "phone": "",
+    "address": [],
+    "city": "",
+    "zip": "",
+    "state": "",
+    "country": ""
+}

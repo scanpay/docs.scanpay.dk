@@ -2,29 +2,30 @@
 title: Charge Subscriber
 description: ...
 url: /subscriptions/charge-subscriber
-parent: /subscriptions/
 link: Charge Subscriber
 order: 20
 -->
 
 <h1>Charge Subscriber</h1>
 
-<p>The charge subscriber API call will charge a specified subscriber ID.</p>
+<p>
+  Charge money from a specific subscriber.
+</p>
 
 <h2 id="request-endpoint">Request</h2>
 
 <div class="endpoint">
   <code class="endpoint-method"><span class="hljs-attribute">POST</span></code>
   <div class="endpoint-url">
-    <code>https://api.scanpay.dk/v1/subscribers/<span class="hljs-attr">$subID</span>/charge</code>
+    <code>https://api.scanpay.dk/v2/<a href="/#uris" class="hljs-attr">shopid</a>:sub:<span class="hljs-attr">subid</span>/charge</code>
   </div>
 </div>
 
 <ul class="endpoint-ul">
-  <li><span class="hljs-attr">$subID</span> is the subscriber ID. You receive this in the Synchronization API.</li>
+  <li><span class="hljs-attr">subid</span> is the subscriber ID you received when synchronizing.</li>
 </ul>
 
-<h3 id="request-headers">Request Headers</h3>
+<h3 id="request-headers">Headers</h3>
 
 <div class="table--responsive">
   <table>
@@ -35,22 +36,24 @@ order: 20
       </tr>
     </thead>
     <tbody>
-      {% include "includes/code/basic-auth.html" %}
       <tr>
         <td>
           <pre><code class="code--tmp code--ellipsis"><span class="hljs-attribute">Idempotency-Key</span>: xM3h1STdPREZVWXVNeTBqNzkwUTZUaHdCRWp4ZldGWHdKWjBX</code></pre>
         </td>
         <td>
-          Sending multiple requests with the same the body and idempotency key will always give the same response and
-          response code. To ensure the validity of the response, however, you must check for the Idempotency-Status
-          header.
+          Sending this header lets you fetch the result of the request at a later time even if the connection gets cut off. Simply send another request with the same header to retrieve the response.
+          To ensure the validity of the response, you must check for the Idempotency-Status header.
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<h3 id="request-body">Request Body</h3>
+<h3 id="request-fields">Fields</h3>
+
+<p>
+  The only required field is <code class="code--inline">"items"</code>. All other fields are optional.
+</p>
 
 <div class="table--responsive">
   <table class="table--seqreq">
@@ -63,75 +66,35 @@ order: 20
     <tbody>
       <tr>
         <td>
-          <code class="code--tmp"
-            ><span class="hljs-attr">"orderid"</span>: <span class="hljs-string">"123"</span></code
-          >
-        </td>
-        <td>A unique ID that you choose. Never reuse IDs or your synchronization may behave in unexpected ways.</td>
-      </tr>
-      <tr>
-        <td>
-          <pre><code class="code--tmp code--ellipsis">{% include "docs/subscriptions/code/items.json" %}</code></pre>
+          <code class="code--tmp">{% include "code/charge-autocapture.json" %}</code>
         </td>
         <td>
-          An array with items.
-          <ul class="table--ul">
-            <li><b>name:</b> The name of the item.</li>
-            <li><b>quantity:</b> The number of items (integer).</li>
-            <li>
-              <b>total:</b> The line total (i.e. unit-price x quantity) with an ISO 4217 currency code. This is
-              required.
-            </li>
-            <li>
-              <b>sku:</b> A <a rel="nofollow" href="//en.wikipedia.org/wiki/Stock_keeping_unit">SKU</a> for this
-              particular product.
-            </li>
-          </ul>
-          <span class="td--note"
-            >In this example the grand total is 13397.9986 DKK. Most acquires only support 2 digits after the decimal
-            point. If this is the case we will truncate to 13397.99.</span
-          >
+          Automatically capture the authorization. Unlike regular transactions this defaults to <code class="code--inline"><span class="hljs-keyword">true</span></code>.
         </td>
       </tr>
       <tr>
         <td>
-          <pre><code class="code--tmp code--ellipsis">{% include "docs/payment-links/code/billing.json" %}</code></pre>
+          <code class="code--tmp">{% include "code/charge-orderid.json" %}</code>
         </td>
         <td>
-          <p>
-            Note that if the billing address and/or shipping address is unspecified, they will default to the addresses
-            specified in the subscriber.
-          </p>
-          <br />
-
-          Customer billing and shipping address.
-          <ul class="table--ul">
-            <li><b>name:</b> The full name.</li>
-            <li><b>company:</b> Legal company name.</li>
-            <li><b>vatin:</b> EU VAT identification number.</li>
-            <li><b>gln:</b> Global Location Number or European Article Numbering (EAN-number).</li>
-            <li><b>email:</b> E-mail address.</li>
-            <li><b>phone:</b> Phone number with country prefix.</li>
-            <li><b>address:</b> An address array where each element is a new line.</li>
-            <li><b>zip:</b> Postal code.</li>
-            <li><b>city:</b> City.</li>
-            <li><b>state:</b> State or region.</li>
-            <li>
-              <b>country:</b> Two-letter country code (<a
-                href="//en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"
-                >ISO 3166-1</a
-              >).
-            </li>
-          </ul>
+          Like a regular transaction, this is the order ID assigned to this specific purchase.
         </td>
       </tr>
       <tr>
         <td>
-          <code class="code--tmp"
-            ><span class="hljs-attr">"autocapture"</span>: <span class="hljs-number">true</span></code
-          >
+          <pre><code class="code--tmp code--ellipsis">{% include "code/charge-address.json" %}</code></pre>
         </td>
-        <td>Automatically capture the payment. Default is true.</td>
+        <td>
+          Overrides for the stored address of the subscriber. Each address is overridden in its totality if any of its fields is present in your request.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <pre><code class="code--tmp code--ellipsis">{% include "code/charge-items.json" %}</code></pre>
+        </td>
+        <td>
+          An array of one or more items exactly as in regular transactions. Each item requires a <code class="code--inline">"total"</code> but all other fields are optional. The total amount that will be authorized is the sum of all <code class="code--inline">"total"</code> elements added together.
+        </td>
       </tr>
     </tbody>
   </table>
@@ -139,7 +102,7 @@ order: 20
 
 <h2 id="response">Response</h2>
 
-<p>The HTTP response headers will contain the following headers:</p>
+<h3 id="response-headers">Headers</h3>
 
 <div class="table--responsive">
   <table>
@@ -156,18 +119,13 @@ order: 20
             ><span class="hljs-attribute">Idempotency-Status</span>: <span class="">OK</span></code
           >
         </td>
-        <td>Response header to ensure that the idempotency key has been considered.</td>
+        <td>This response is idempotent.</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<h3 id="response-success">Success</h3>
-
-<p>Successful charge requests return status code <code class="code--inline">200</code> and an empty JSON object.</p>
-
 <h3 id="response-errors">Errors</h3>
-<p>Failed charge requests return an HTTP error code and a error message in the HTTP body:</p>
 
 <div class="responsive">
   <table class="resp-error-table">
@@ -179,49 +137,6 @@ order: 20
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>invalid json</td>
-        <td>Invalid JSON.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>invalid total</td>
-        <td>Invalid or missing <code class="code--inline hljs-attr">total</code> field.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">403</td>
-        <td>invalid apikey</td>
-        <td>Invalid API key.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">408</td>
-        <td>Request Timeout</td>
-        <td>The request timed out after <code class="code--inline hljs-attribute">8</code> seconds.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">413</td>
-        <td>Request Entity Too Large</td>
-        <td>The request body was larger than <code class="code--inline hljs-attribute">32 kB</code>.</td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">400</td>
-        <td>Request Header Or Cookie Too Large</td>
-        <td>The request HTTP headers were larger than <code class="code--inline hljs-attribute">4 kB</code></td>
-      </tr>
-      <tr>
-        <td class="hljs-attr">500</td>
-        <td>internal server error</td>
-        <td>Technical issue at Scanpay. Please try again later.</td>
-      </tr>
     </tbody>
   </table>
 </div>
-
-<h2 id="example">Example</h2>
-
-<p>The following is an example in pseudo code:</p>
-
-<pre
-  class="responsive"
-><code class="code--block">{% include "docs/subscriptions/code/example/charge.txt" %}</code></pre>

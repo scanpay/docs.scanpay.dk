@@ -1,0 +1,11 @@
+<i>trnid</i>, <i>email</i> := <span class="hljs-built_in">MariaDB</span>(
+    <b>BEGIN</b>;
+    <b>SELECT</b> trnid,email <b>FROM</b> orders
+        <b>WHERE</b> trnid=<i>'trn.id'</i> <b>OR</b> orderid=<i>'trn.orderid'</i> <b>FOR UPDATE</b>;
+    <b>UPDATE</b> orders <b>SET</b> trnid=<i>'trn.id'</i>,rev=<i>'trn.rev'</i>,…
+        <b>WHERE</b> (trnid=<i>'trn.id'</i> <b>OR</b> orderid=<i>'trn.orderid'</i>) <b>AND</b> rev&lt;<i>'trn.rev'</i>;
+    <b>COMMIT</b>;
+)
+<b>if</b> <i>trnid</i>=0 <b>then</b>
+    <span class="hljs-built_in">SendMail</span>(<i>email</i>, <span class="hljs-string">"Order confirmation …"</span>)
+<b>end if</b>
