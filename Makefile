@@ -78,20 +78,16 @@ obj/%.ts: src/%.ts tools/replace.awk
 	@$(REPLACE) $<
 
 obj/dest/$(JS): $(filter obj/%.ts,$(OBJ))
-	@echo "TSC     docs.ts"
-	@tsc obj/js/docs.ts --outFile $@
+	@echo "esbuild	docs.ts"
+	@esbuild obj/js/docs.ts --bundle --sourcemap --minify --outfile=$@
 
 obj/dest/$(CSS): $(filter obj/%.scss,$(OBJ))
 	@echo "SASS    docs.scss"
-	@sass --style=compressed obj/css/docs.scss $@
+	@node_modules/.bin/sass --style=compressed obj/css/docs.scss $@
 
 obj/$(TARG)/%.html: obj/dest/%.html
 	@echo "MINIFY  $*.html"
-	@html-minifier --collapse-whitespace --remove-comments -o $@ $<
-
-obj/$(TARG)/%.js: obj/dest/%.js
-	@echo "MINIFY  $*.js"
-	@esbuild --minify --outfile=$@ $<
+	@node_modules/.bin/html-minifier --collapse-whitespace --remove-comments -o $@ $<
 
 obj/$(TARG)/%: obj/dest/%
 	@echo "COPY    $*"
