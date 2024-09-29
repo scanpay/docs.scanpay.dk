@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "dependencies": {
+        "esbuild": "latest",
+        "html-minifier": "latest",
+        "sass": "latest"
+    },
+    "devDependencies": {
+        "@eslint/js": "latest",
+        "@types/eslint__js": "latest",
+        "eslint": "latest",
+        "typescript": "latest",
+        "typescript-eslint": "latest"
+    },
+    "packageManager": "pnpm@9.11.0"
+}
