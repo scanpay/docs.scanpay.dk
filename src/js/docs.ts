@@ -2,7 +2,7 @@
  *   @author ScanPay ApS.
  **/
 
-import { search, showSearchModal } from './util/search';
+import { showSearchModal } from './util/search';
 
 function showHeadingLink(this: HTMLElement) {
     const a = document.createElement('a');
