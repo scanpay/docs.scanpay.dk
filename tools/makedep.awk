@@ -91,9 +91,9 @@ BEGIN {
         if (i!=1)
             bca[++nbc]=i
         for (j=1; j<=nbc; j++)
-            bc=bc (bc==""?"":",") "{\"@type\":\"ListItem\",\"position\":" j ",\"name\":" jsescape(pages[bca[j]]["link"]) ",\"item\":" jsescape("https://docs.scanpay.dev" pages[bca[j]]["url"]) "}"
+            bc=bc (bc==""?"":",") "{\"@type\":\"ListItem\",\"position\":" j ",\"name\":\"" jsescape(pages[bca[j]]["link"]) "\",\"item\":\"" jsescape("https://docs.scanpay.dev" pages[bca[j]]["url"]) "\"}"
         if (subsection>0 && pages[i]["path"]!=sections[subsection]["path"])
-            bcp="<span class=\"header--nav--raquo\">»</span> <a href=\"" sections[subsection]["url"] "\">" sections[subsection]["link"] "</a>"
+            bcp="<span class=\"header--nav--raquo\">»</span> <a href=\"" htmlescape(sections[subsection]["url"]) "\">" htmlescape(sections[subsection]["link"]) "</a>"
 
         pages[i]["BreadcrumbList"]="[" bc "]"
         pages[i]["BreadcrumbParent"]=bcp
@@ -106,7 +106,7 @@ BEGIN {
             active=j==subsection?" active":""
             apiicon=match(sections[j]["title"], /API$/)!=0?" <span class=\"nav--ul--li--a--label\">API</span>":""
             menu=menu "<li class=\"nav--ul--li\">"
-            menu=menu "<a class=\"nav--ul--li--a" active "\" href=\"" sections[j]["url"] "\">" sections[j]["link"] apiicon "</a>"
+            menu=menu "<a class=\"nav--ul--li--a" active "\" href=\"" htmlescape(sections[j]["url"]) "\">" htmlescape(sections[j]["link"]) apiicon "</a>"
             if (j==subsection) {
                 menu=menu "<ol class=\"nav--ul--li--ol\">"
                 for (k=1; k<=n; k++) {
@@ -114,7 +114,7 @@ BEGIN {
                     url=pages[k]["url"]
                     active=k==i?" nav--ul--li--ol--li--active":""
                     menu=menu "<li class=\"nav--ul--li--ol--li" active "\">"
-                    menu=menu "<a class=\"nav--ul--li--ol--li--a\" href=\"" url "\">" name "</a>"
+                    menu=menu "<a class=\"nav--ul--li--ol--li--a\" href=\"" htmlescape(url) "\">" htmlescape(name) "</a>"
                     menu=menu "</li>"
                 }
                 menu=menu "</ol>"
@@ -123,6 +123,11 @@ BEGIN {
         }
         pages[i]["sidebar"]=menu
     }
+
+    # content
+    for (i=1; i<=n; i++)
+        pages[i]["content"]="\"`cat $<`\""
+    noesc["content"]=1
 
     # dependencies and build rules
     for (i=1; i<=n; i++) {
@@ -136,8 +141,8 @@ BEGIN {
         printf "\n\t@echo \"BUILD   %s\"\n\t@set -e; env -i ", pages[i][0]["d"]
         for (j in pages[i])
             if (j!=0)
-                printf "%s=%s ", j, makeescape(pages[i][j])
-        printf "content=\"`cat $<`\" $(BUILD)\n\n"
+                printf "%s=%s ", j, noesc[j]?pages[i][j]:("'" makeescape(pages[i][j]) "'")
+        printf "$(BUILD)\n\n"
     }
     for (i=1; i<=n; i++)
         printf "%s%s%s", i==1?"HTML+=":" ", pages[i][0]["d"], i==n?"\n":""
@@ -152,11 +157,22 @@ function jsescape(s)
 {
     gsub(/\\/, "\\\\", s)
     gsub(/"/, "\\\"", s)
-    return "\"" s "\""
+    return s
+}
+
+function htmlescape(s)
+{
+    gsub(/</, "&lt;", s)
+    gsub(/>/, "&gt;", s)
+    gsub(/&/, "&amp;", s)
+    gsub(/"/, "&quot;", s)
+    gsub(/'/, "&#39;", s)
+    return s
 }
 
 function makeescape(s)
 {
     gsub(/'/, "'\"'\"'", s)
-    return "'" s "'"
+    gsub(/\$/, "$$", s)
+    return s
 }
