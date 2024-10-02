@@ -73,6 +73,13 @@ obj/%: src/%
 obj/dest/%: obj/assets/%
 	@$(COPY)
 
+obj/assets/%.svg: src/assets/%.svg
+	@$(COPY) # avoid inlining optimizations
+
+obj/%.svg: src/%.svg
+	@echo "INLINE  $*.svg"
+	@sed -r '/<svg/ s![ \t]+(xmlns(:xlink)?|version)=["'"'"'][^"'"'"']*["'"'"']!!g;s!<\?xml.*\?>!!g' $< >$@
+
 obj/%.json: src/%.json tools/highlight-json.awk
 	@echo "HILIGHT $*.json"
 	@./tools/highlight-json.awk $< >$@
@@ -92,6 +99,10 @@ obj/dest/$(JS): $(filter obj/%.ts,$(OBJ))
 obj/dest/$(CSS): $(filter obj/%.scss,$(OBJ))
 	@echo "SASS    docs.scss"
 	@$(SASS) obj/css/docs.scss $@
+
+obj/$(TARG)/%.svg: obj/dest/%.svg
+	@echo "MINIFY  $*.svg"
+	@sed -r 's!^[ \t]*!!;s![ \t]*$$!!' $< | tr '\n' ' ' | sed -r 's!>[ \t]*<!><!g;s![ \t]*$$!!' | tr -d '\n' >$@
 
 obj/$(TARG)/%.html: obj/dest/%.html
 	@echo "MINIFY  $*.html"
