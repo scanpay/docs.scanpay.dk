@@ -1,5 +1,13 @@
 TARG=docs.scanpay.dev
 
+LOCAL=node_modules/.bin
+SASS:=$(shell test -x $(LOCAL)/sass && echo $(LOCAL)/)sass --style=compressed
+MINIFY:=$(shell test -x $(LOCAL)/html-minifier && echo $(LOCAL)/)html-minifier --collapse-whitespace --remove-comments
+ESBUILD=esbuild --bundle --minify
+
+HOST=127.0.0.1
+PORT=35729
+
 SRC:=$(shell find src/ -type f)
 OBJ=$(patsubst src/%,obj/%,$(SRC))
 
@@ -78,16 +86,16 @@ obj/%.ts: src/%.ts tools/replace.awk
 	@$(REPLACE) $<
 
 obj/dest/$(JS): $(filter obj/%.ts,$(OBJ))
-	@echo "esbuild	docs.ts"
-	@node_modules/.bin/esbuild obj/js/docs.ts --bundle --minify --outfile=$@
+	@echo "ESBUILD docs.ts"
+	@$(ESBUILD) --outfile=$@ obj/js/docs.ts
 
 obj/dest/$(CSS): $(filter obj/%.scss,$(OBJ))
 	@echo "SASS    docs.scss"
-	@node_modules/.bin/sass --style=compressed obj/css/docs.scss $@
+	@$(SASS) obj/css/docs.scss $@
 
 obj/$(TARG)/%.html: obj/dest/%.html
 	@echo "MINIFY  $*.html"
-	@node_modules/.bin/html-minifier --collapse-whitespace --remove-comments -o $@ $<
+	@$(MINIFY) -o $@ $<
 
 obj/$(TARG)/%: obj/dest/%
 	@echo "COPY    $*"
@@ -100,9 +108,6 @@ tar: $(TARG).tar.gz
 
 watch:
 	@inotifywait -mre close_write src/ tools/ | while read -r ln; do $(MAKE) --no-print-directory; done
-
-HOST=127.0.0.1
-PORT=35729
 
 serve: $(MIN)
 	@python -m http.server -b $(HOST) -d obj/$(TARG) $(PORT)
