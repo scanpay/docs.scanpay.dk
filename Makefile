@@ -172,3 +172,4 @@ clean:
 .PHONY: all tar watch serve livereload clean
 .SECONDARY: $(ZIP) obj/$(TARG)/$(SITEMAP)
 .DELETE_ON_ERROR:
+.NOTPARALLEL: $(TARG).tar(%)
