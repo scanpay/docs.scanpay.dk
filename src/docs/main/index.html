@@ -53,8 +53,8 @@ order: 1
   <p>
     No API request uses a full URI as no request refers to a specific revision of an object. Similarly, some API requests only refer to databases and not specific objects. Since <code class="code--inline">#</code> can be very annoying to encode in an HTTP request, we allow the use of <code class="code--inline">:</code> instead, so all API request URLs follow this scheme:
   </p>
-  <pre><code class="code--block">https://api.scanpay.dk/v2/<span class="hljs-attr">shopid</span>:<span class="hljs-attr">db</span>/<span class="hljs-func">action</span>
-https://api.scanpay.dk/v2/<span class="hljs-attr">shopid</span>:<span class="hljs-attr">db</span>:<span class="hljs-attr">id</span>/<span class="hljs-func">action</span></code></pre>
+  <pre><code class="code--block">https://api.scanpay.dk/v2/<span class="hljs-attr">{shopid}</span>:<span class="hljs-attr">{db}</span>/<span class="hljs-func">{action}</span>
+https://api.scanpay.dk/v2/<span class="hljs-attr">{shopid}</span>:<span class="hljs-attr">{db}</span>:<span class="hljs-attr">{id}</span>/<span class="hljs-func">{action}</span></code></pre>
 </section>
 
 <section>
@@ -70,8 +70,8 @@ https://api.scanpay.dk/v2/<span class="hljs-attr">shopid</span>:<span class="hlj
   <p>
     All actions, be they performed through the API documented here or the dashboard, are done by traceable API keys. Users and shops can both have associated API keys of the following format:
   </p>
-  <pre><code class="code--block"><span class="hljs-punctuation">u</span><span class="hljs-attr">userid</span><span class="hljs-punctuation">:</span><span class="hljs-attr">keyid</span><span class="hljs-punctuation">:randomness</span>
-<span class="hljs-punctuation">s</span><span class="hljs-attr">shopid</span><span class="hljs-punctuation">:</span><span class="hljs-attr">keyid</span><span class="hljs-punctuation">:randomness</span></code></pre>
+  <pre><code class="code--block"><span class="hljs-punctuation">u</span><span class="hljs-attr">{userid}</span><span class="hljs-punctuation">:</span><span class="hljs-attr">{keyid}</span><span class="hljs-punctuation">:randomness</span>
+<span class="hljs-punctuation">s</span><span class="hljs-attr">{shopid}</span><span class="hljs-punctuation">:</span><span class="hljs-attr">{keyid}</span><span class="hljs-punctuation">:randomness</span></code></pre>
 
   <ul class="endpoint-ul">
     <li><span class="hljs-attr">userid</span> is the ID of the user the key was issued by.</li>
