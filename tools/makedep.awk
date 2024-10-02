@@ -84,6 +84,11 @@ BEGIN {
         ns=asort(sections, sections, "ordercmp")
     n=asort(pages, pages, "ordercmp")
 
+    # domain
+    for (i=1; i<=n; i++)
+        pages[i]["domain"]="'$(TARG)'"
+    noesc["domain"]=1
+
     # breadcrumbs
     for (i=1; i<=n; i++) {
         bcp=bc=""
@@ -91,13 +96,14 @@ BEGIN {
         if (i!=1)
             bca[++nbc]=i
         for (j=1; j<=nbc; j++)
-            bc=bc (bc==""?"":",") "{\"@type\":\"ListItem\",\"position\":" j ",\"name\":\"" jsescape(pages[bca[j]]["link"]) "\",\"item\":\"" jsescape("https://docs.scanpay.dev" pages[bca[j]]["url"]) "\"}"
+            bc=bc makeescape((bc==""?"":",") "{\"@type\":\"ListItem\",\"position\":" j ",\"name\":\"" jsescape(pages[bca[j]]["link"]) "\",\"item\":\"https://") "$(TARG)" makeescape(jsescape(pages[bca[j]]["url"]) "\"}")
         if (subsection>0 && pages[i]["path"]!=sections[subsection]["path"])
             bcp="<span class=\"header--nav--raquo\">»</span> <a href=\"" htmlescape(sections[subsection]["url"]) "\">" htmlescape(sections[subsection]["link"]) "</a>"
 
-        pages[i]["BreadcrumbList"]="[" bc "]"
+        pages[i]["BreadcrumbList"]="'[" bc "]'"
         pages[i]["BreadcrumbParent"]=bcp
     }
+    noesc["BreadcrumbList"]=1
 
     # sidebar
     for (i=1; i<=n; i++) {
