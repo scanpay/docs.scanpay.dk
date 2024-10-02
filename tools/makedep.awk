@@ -93,7 +93,7 @@ BEGIN {
         for (j=1; j<=nbc; j++)
             bc=bc (bc==""?"":",") "{\"@type\":\"ListItem\",\"position\":" j ",\"name\":" jsescape(pages[bca[j]]["link"]) ",\"item\":" jsescape("https://docs.scanpay.dev" pages[bca[j]]["url"]) "}"
         if (subsection>0 && pages[i]["path"]!=sections[subsection]["path"])
-            bcp="<a href=\"" sections[subsection]["url"] "\">" sections[subsection]["link"] "</a>"
+            bcp="<span class=\"header--nav--raquo\">»</span> <a href=\"" sections[subsection]["url"] "\">" sections[subsection]["link"] "</a>"
 
         pages[i]["BreadcrumbList"]="[" bc "]"
         pages[i]["BreadcrumbParent"]=bcp
