@@ -4,6 +4,8 @@ LOCAL=node_modules/.bin
 SASS:=$(shell test -x $(LOCAL)/sass && echo $(LOCAL)/)sass --style=compressed
 MINIFY:=$(shell test -x $(LOCAL)/html-minifier && echo $(LOCAL)/)html-minifier --collapse-whitespace --remove-comments
 ESBUILD=esbuild --bundle --minify
+BROTLI=brotli -knZfw 0
+GZIP=zopfli -i100
 
 HOST=127.0.0.1
 PORT=35729
@@ -16,8 +18,9 @@ TEMPLATE=src/template.html
 JS=docs.js
 CSS=docs.css
 ASSETS=$(JS) $(CSS) $(patsubst src/assets/%,%,$(filter src/assets/%,$(SRC)))
+SITEMAP=sitemap.xml
 
-OBJ+=$(addprefix obj/dest/,$(ASSETS))
+OBJ+=obj/dest $(addprefix obj/dest/,$(ASSETS))
 
 DEPFILES=$(patsubst src/%,obj/mk/%.d,$(filter src/%.html src/%.ts,$(SRC)))
 DEPTEMPLATE=$(patsubst src/%,obj/mk/%.d,$(TEMPLATE))
@@ -52,6 +55,8 @@ include $(DEPFILES)
 
 OBJ+=$(DESTHTML)
 MIN=$(addprefix obj/$(TARG)/,$(HTML) $(ASSETS))
+ZIPSRC=$(filter %.html %.css %.js %.svg %.xml,$(MIN) obj/$(TARG)/$(SITEMAP))
+ZIP=$(addsuffix .br,$(ZIPSRC)) $(addsuffix .gz,$(ZIPSRC))
 
 OBJDIRS=$(sort $(dir $(OBJ)))
 MINDIRS=$(sort $(dir $(MIN)))
@@ -100,6 +105,27 @@ obj/dest/$(CSS): $(filter obj/%.scss,$(OBJ))
 	@echo "SASS    docs.scss"
 	@$(SASS) obj/css/docs.scss $@
 
+obj/dest/$(SITEMAP): $(filter src/docs/%.html src/include/%,$(SRC)) tools/replace.awk tools/makedep.awk | $(OBJDIRS)
+	@echo "SITEMAP */*.html"
+	@{ \
+	echo '<?xml version="1.0" encoding="UTF-8"?>'; \
+	echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'; \
+	for p in src/docs/*/*.html; do \
+		d=$$p; \
+		deps=$$p; \
+		while test -n "$$d"; do \
+			nd=""; \
+			for x in $$d; do \
+				case $$x in *.html) nd="$$nd `./tools/replace.awk -M -i src/include "$$x" | cut -d: -f2-`"; esac; \
+			done; \
+			d=$$nd; \
+			deps="$$deps $$nd"; \
+		done; \
+		echo "<url><loc>https://$(TARG)/`./tools/makedep.awk -- $$p | sed -r 's/index.html:.*$$//;1q'`</loc><lastmod>`git log --pretty=format:%cd -n 1 --date=iso-strict $$deps`</lastmod></url>"; \
+	done | sort; \
+	echo '</urlset>'; \
+	} >$@
+
 obj/$(TARG)/%.svg: obj/dest/%.svg
 	@echo "MINIFY  $*.svg"
 	@sed -r 's!^[ \t]*!!;s![ \t]*$$!!' $< | tr '\n' ' ' | sed -r 's!>[ \t]*<!><!g;s![ \t]*$$!!' | tr -d '\n' >$@
@@ -108,14 +134,28 @@ obj/$(TARG)/%.html: obj/dest/%.html
 	@echo "MINIFY  $*.html"
 	@$(MINIFY) -o $@ $<
 
+obj/$(TARG)/%.br: obj/$(TARG)/%
+	@echo "BR      $*"
+	@$(BROTLI) $<
+
+obj/$(TARG)/%.gz: obj/$(TARG)/%
+	@echo "GZ      $*"
+	@$(GZIP) $<
+
 obj/$(TARG)/%: obj/dest/%
 	@echo "COPY    $*"
 	@$(COPY)
 
-$(TARG).tar.gz: $(MIN)
-	tar czf $@ -C obj $(TARG)
+$(TARG).tar: $(TARG).tar($(MIN) $(ZIP) obj/$(TARG)/$(SITEMAP))
 
-tar: $(TARG).tar.gz
+$(TARG).tar(%): % obj/dest/$(SITEMAP)
+	@echo "TAR     $(patsubst obj/$(TARG)/%,%,$<)"
+	@fname='$(patsubst obj/$(TARG)/%,%,$(patsubst %/index.html,%/,$(patsubst %$(filter .br .gz,$(suffix $<)),%,$<)))'; \
+	 mtime=`grep -F "<loc>https://$(TARG)/$$fname</loc>" obj/dest/$(SITEMAP) | sed -r 's!^.*<lastmod>([^<]*)</lastmod>.*$$!\1!'`; \
+	 mtime=$${mtime:-`git log --pretty=format:%cd -n 1 --date=iso-strict "src/assets/$$fname" 2>/dev/null`}; \
+	 tar -rf $@ -C obj --mode=644 --owner=0 --group=0 $${mtime:+--mtime=$$mtime} $(patsubst obj/%,%,$<)
+
+tar: $(TARG).tar
 
 watch:
 	@inotifywait -mre close_write src/ tools/ | while read -r ln; do $(MAKE) --no-print-directory; done
@@ -127,6 +167,8 @@ livereload: $(MIN)
 	@livereload --host $(HOST) -p $(PORT) obj/$(TARG)
 
 clean:
-	rm -rf obj/
+	rm -rf obj/ *.tar
 
 .PHONY: all tar watch serve livereload clean
+.SECONDARY: $(ZIP) obj/$(TARG)/$(SITEMAP)
+.DELETE_ON_ERROR:

@@ -1,5 +1,5 @@
 obj/
-docs.scanpay.dev.tar.gz
+*.tar
 package-lock.json
 pnpm-lock.yaml
 node_modules/
