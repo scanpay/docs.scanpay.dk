@@ -79,7 +79,7 @@ obj/%.ts: src/%.ts tools/replace.awk
 
 obj/dest/$(JS): $(filter obj/%.ts,$(OBJ))
 	@echo "esbuild	docs.ts"
-	@esbuild obj/js/docs.ts --bundle --sourcemap --minify --outfile=$@
+	@node_modules/.bin/esbuild obj/js/docs.ts --bundle --minify --outfile=$@
 
 obj/dest/$(CSS): $(filter obj/%.scss,$(OBJ))
 	@echo "SASS    docs.scss"
