@@ -3,7 +3,7 @@ TARG=docs.scanpay.dev
 LOCAL=node_modules/.bin
 SASS:=$(shell test -x $(LOCAL)/sass && echo $(LOCAL)/)sass --style=compressed
 MINIFY:=$(shell test -x $(LOCAL)/html-minifier && echo $(LOCAL)/)html-minifier --collapse-whitespace --remove-comments
-ESBUILD=esbuild --bundle --minify
+ESBUILD=$(shell test -x $(LOCAL)/esbuild && echo $(LOCAL)/)esbuild --bundle --minify
 BROTLI=brotli -knZfw 0
 GZIP=zopfli -i100
 
