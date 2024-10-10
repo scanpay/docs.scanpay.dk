@@ -11,3 +11,8 @@ order: 40
 <p>
   The Subscriptions API allows you to handle recurring payments. You can use it to charge customers on a regular basis or to save a customer's payment details, so the customer does not have to enter the information again.
 </p>
+
+<h2 class="h25">Subscribers</h2>
+<p>
+  Our API only tracks subscribers and not their individual subscriptions. You are responsible for <a href="charge-subscriber">charging</a> the correct amount at the correct time. You should only <a href="create-subscriber">create</a> one subscriber per person and instead <a href="renew-subscriber">renew</a> subscribers whose payment details have expired or have left and come back, rather than create new ones.
+</p>
