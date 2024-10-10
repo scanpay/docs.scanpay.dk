@@ -1,0 +1,46 @@
+<!--
+title: Invalidate Subscriber
+description: ...
+url: /subscriptions/invalidate-subscriber
+link: Invalidate Subscriber
+order: 40
+-->
+
+<h1>Invalidate Subscriber</h1>
+
+<p>
+  Delete all data associated with a subscriber and make it impossible to charge it. Note that the subscriber is not deleted and because of that the subscriber can still be <a href="/subscriptions/renew-subscriber">renewed</a> to make it valid again after this call.
+</p>
+
+<h2 id="request-endpoint">Request</h2>
+
+<div class="endpoint">
+  <code class="endpoint-method"><span class="hljs-attribute">POST</span></code>
+  <div class="endpoint-url">
+    <code>https://api.scanpay.dk/v2/<a href="/#uris" class="hljs-attr">{shopid}</a>:sub:<span class="hljs-attr">{subid}</span>/invalidate</code>
+  </div>
+</div>
+
+<ul class="endpoint-ul">
+  <li><span class="hljs-attr">subid</span> is the subscriber ID you received when synchronizing.</li>
+</ul>
+
+<p>
+  The request has no body. The response has no defined fields and as such is an empty JSON object.
+</p>
+
+<h3 id="response-errors">Errors</h3>
+
+<div class="responsive">
+  <table class="resp-error-table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>HTTP Body</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
