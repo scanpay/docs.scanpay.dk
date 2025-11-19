@@ -18,6 +18,8 @@ end note
 sp -> sca ++ : Credit card number (**""Prep""**)
 sp <-- sca -- : URL
 b <-- sp -- : //Insert iframe to fingerprint browser//
+b -> sca ++ : Fingerprint data
+b <-- sca --
 b -> sp : Fingerprinting done
 activate sp #LightCyan
 activate sp #LavenderBlush
