@@ -12,8 +12,8 @@ all: $(SVG)
 	dvisvgm -n -d2 -Oall --zoom=-1 $<
 
 PLANTUML=plantuml -tsvg -overwrite
-#PLANTUML=curl -o $@ "https://www.plantuml.com/plantuml/svg/~h`xxd -c0 -p < $<`" \#
-# ^ this web service works exceedingly poorly and will often time out in cloudflare
+#PLANTUML=curl -o $@ "https://img.plantuml.biz/plantuml/svg/~h`xxd -c0 -p < $<`" \#
+# ^ this web service is not very reliable...
 
 %.svg: %.puml
 	$(PLANTUML) $<
