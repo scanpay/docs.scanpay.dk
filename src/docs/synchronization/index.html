@@ -3,65 +3,19 @@ title: Synchronization API
 description: The synchronization API will keep all your systems up-to-date with changes to your payments.
 url: /synchronization/
 link: Synchronization
-order: 20
+order: 90
 -->
 
 <section>
   <h1>Synchronization</h1>
 
   <p>
-    After creating a payment link and receiving a payment through it we need to somehow send the new transaction data to you. You are probably familiar with the concept of webhooks, wherein one party sends an HTTP request containing all the new data to another party, ie. they push data. We do the inverse, where you request the data from us, which is to say you have to pull data. It is perhaps easier to understand conceptually as you synchronizing your database with ours.
+    We call our synchronization mechanism <b>seq</b> because it fetches a <b>seq</b>uence of events.
   </p>
-</section>
-
-<section>
-  <h2 id="seq">Sequential Changes</h2>
-
   <p>
-    We call our synchronization mechanism <b>seq</b> because it fetches a <b>seq</b>uence of events. To illustrate how it works, let's imagine a sequence of 10 events that goes:
+    At its core, synchronization simply entails calling <a href="sequence-request">seq</a> in an infinte loop, where every call to <a href="sequence-request">seq</a> uses the <code class="code--inline">"seq"</code> value returned from the previous call. That is obviously very inefficient, so to address that we have a service called <a href="ping">ping</a>. Whenever a change happens in our database, we will send a <a href="ping">ping</a> request to a URL of your choosing. This is your prompt to call <a href="sequence-request">seq</a>.
   </p>
-
-  <dl style="display:grid;grid-template-columns:2.5em auto">
-    <dt style="text-align:right;font-weight:bold">1-3</dt><dd style="margin-left:0.7em">First, the shop receives 3 new orders. We call them <i>trn#1</i>, <i>trn#2</i> and <i>trn#3</i>.</dd>
-    <dt style="text-align:right;font-weight:bold">4-5</dt><dd style="margin-left:0.7em">The shop owner ships the merchandise for <i>trn#1</i> and <i>trn#3</i> but doesn't have stock for <i>trn#2</i>, so he only captures <i>trn#1</i> and <i>trn#3</i>, leaving <i>trn#2</i> alone for now.</dd>
-    <dt style="text-align:right;font-weight:bold">6-7</dt><dd style="margin-left:0.7em">The shop then receives a new subscriber we call <i>sub#1</i> and automatically charges it, creating <i>trn#4</i>.</dd>
-    <dt style="text-align:right;font-weight:bold">8-9</dt><dd style="margin-left:0.7em">The shop owner ships the merchandise for <i>trn#4</i> and captures it and the customer who made <i>trn#2</i> has decided to cancel the order, so the shop owner voids it.</dd>
-     <dt style="text-align:right;font-weight:bold">10</dt><dd style="margin-left:0.7em">Finally, the shop receives a new order, <i>trn#5</i>.</dd>
-  </dl>
-
   <p>
-    You might expect that this would mean you need to synchronize 10 times to retrieve all 10 events, but that's not the case. Let's look at how this sequence of events might be synchronized visually. Note that each event is denoted only by the database identifier and not by what has actually changed.
-  </p>
-
-  <div style="text-align:center;max-width:700px;margin:auto">
-    {% include "img/seq-requests.svg" %}
-  </div>
-
-  <p>
-    As you can see, this example only synchronizes 3 times to retrieve all 10 events and then once more where it receives no new events. Each <a href="sequence-request">seq</a> request retrieves the next part of the sequence and the new position after all the changes have been merged; that is to say, you are not guaranteed to receive the entire sequence, and in this example, you see it's been broken up into 3 pieces. To put it another way, you need to call <a href="sequence-request">seq</a> in a loop until the <code class="code--inline">"seq"</code> value you receive back is the same as the one you called with.
-  </p>
-
-  <p>
-    You may have noticed that the 3rd synchronization only returned 3 changes despite advancing 4 events in the sequence. That happens because we're not actually sending deltas but rather the entire transaction or subscriber whenever a change occurs. This means that we can (and do) deduplicate the entries we send back. For that reason, you can't simply count the number of entries in the <code class="code--inline">"changes"</code> array to advance the counter; instead, you must use the <code class="code--inline">"seq"</code> value you receive from us.
-  </p>
-
-  <p>
-    That's all well and good, but how do you know when you need to start calling <a href="sequence-request">seq</a> in the first place? For that, we'll need to introduce you to
-  </p>
-</section>
-
-<section>
-  <h2 id="ping">Ping</h2>
-
-  <p>
-    Whenever a change happens in our database, we will send you a <a href="ping">ping</a> request to a URL of your choosing. This is your prompt to call <a href="sequence-request">seq</a>.
-  </p>
-
-  <p>
-    For our mutual benefit, we include the maximum <code class="code--inline">"seq"</code> value at the time of the ping in the <a href="ping/#request-fields">ping request body</a>. That way, you can compare it to the <code class="code--inline">"seq"</code> value you received from the last successful call to <a href="sequence-request">seq</a> and, if the value received in the ping is less than or equal to it, avoid calling <a href="sequence-request">seq</a>, thus saving us both an unnecessary request.
-  </p>
-
-  <p>
-    To ensure eventual consistency, we also send periodic pings. That way, if, for whatever reason, you have not synchronized some changes, you will be notified to synchronize again eventually.
+    There are two hard problems in computer science: cache invalidation and naming things. The requests are simple but synchronization is extremely difficult and full of pitfalls. For a deep dive into the intricacies, see the <a href="implementation-notes">implementation notes</a>. It's long and boring and extremely recommended reading.
   </p>
 </section>

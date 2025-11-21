@@ -9,14 +9,5 @@ order: 30
 <h1>Transactions</h1>
 
 <p>
-  In our terminology, a transaction is a payment authorized by the cardholder's bank. You can create a transaction through the <a href="/payment-links/create/">payment link</a> or <a href="/subscriptions/charge-subscriber/">subscriptions</a> API. Once authorized, transactions can be captured, refunded, or voided, meaning:
-</p>
-<ul>
-  <li><b>Authorized</b>: The money has been reserved on the cardholder's account. </li>
-  <li><b>Capture</b>: A transfer of some or all of the authorized amount from the cardholder's account to the merchant's account.</li>
-  <li><b>Refund</b>: A transfer of some or all of the captured amount from the merchant's account back to the cardholder's account.</li>
-  <li><b>Void</b>: The reservation made by authorizing has been removed and the amount can no longer be captured.</li>
-</ul>
-<p>
-  Transactions can be partially authorized, captured, or refunded, but not partially voided.
+  In our terminology, a transaction is a payment authorized by the cardholder's bank. You can create a transaction through the <a href="/payment-links/create/">payment link</a> or <a href="/subscriptions/charge-subscriber/">subscriptions</a> API. Once authorized, transactions can be <a href="https://knowledge.scanpay.dev/transaction-states">captured, refunded, or voided</a>. Transactions can be partially authorized, captured, or refunded, but not partially voided.
 </p>

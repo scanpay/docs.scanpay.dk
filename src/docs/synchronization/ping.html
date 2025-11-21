@@ -74,11 +74,19 @@ order: 10
 </div>
 
 <p>
-  We send you this ping request whenever a new change is ready to be fetched, as well as periodically in case a ping has been missed. When you reveive the ping request you can verify its authenticity using the <a href="#request-headers" class="hljs-attribute">X-Signature</a> header. Afterwards you can use the <code class="code--inline">seq</code> value to determine if there are any changes to be fetched.
+  When you receive the ping request you can verify its authenticity using the <a href="#request-headers" class="hljs-attribute">X-Signature</a> header.
+</p>
+
+<p>
+  For our mutual benefit, we include the maximum <code class="code--inline">"seq"</code> value at the time of the ping in the <a href="#request-fields">request body</a>. That way, you can compare it to the <code class="code--inline">"seq"</code> value you received from the last successful call to <a href="../sequence-request">seq</a> and, if the value received in the ping is less than or equal to it, avoid calling <a href="../sequence-request">seq</a>, thus saving us both an unnecessary request.
+</p>
+
+<p>
+  To ensure eventual consistency, we also send periodic pings. That way, if, for whatever reason, you have not synchronized some changes, you will be notified to synchronize again eventually.
 </p>
 
 <pre><code class="code--block">{% include "code/ping.html" %}</code></pre>
 
 <p>
-  You can configure your ping endpoint in our dashboard (<a href="https://dashboard.scanpay.dk/settings/api">here</a>). We recommend that you use Transport Layer Security (TLS), but this is not a requirement.
+  You can configure your ping endpoint in our dashboard (<a href="https://dashboard.scanpay.dk/settings/api">here</a>). We recommend that you use TLS, but this is not a requirement.
 </p>
