@@ -1,14 +1,19 @@
 TARG=docs.scanpay.dev
 
-LOCAL=node_modules/.bin
-SASS:=$(shell test -x $(LOCAL)/sass && echo $(LOCAL)/)sass --style=compressed
-MINIFY:=$(shell test -x $(LOCAL)/html-minifier && echo $(LOCAL)/)html-minifier --collapse-whitespace --remove-comments
-ESBUILD=$(shell test -x $(LOCAL)/esbuild && echo $(LOCAL)/)esbuild --bundle --minify
+LOCAL=./node_modules/.bin
+SASS:=$(shell test -x $(LOCAL)/sass && echo $(LOCAL)/)sass
+SASSFLAGS=--style=compressed
+MINIFY:=$(shell test -x $(LOCAL)/html-minifier && echo $(LOCAL)/)html-minifier
+MINIFYFLAGS=--collapse-whitespace --remove-comments
+TSC:=$(shell test -x $(LOCAL)/esbuild && echo $(LOCAL)/)esbuild
+TSCFLAGS=--bundle --minify --log-level=warning
 BROTLI=brotli -knZfw 0
 GZIP=zopfli -i100
 
 HOST=127.0.0.1
 PORT=35729
+
+-include config.mak
 
 SRC:=$(shell find src/ -type f)
 OBJ=$(patsubst src/%,obj/%,$(SRC))
@@ -22,7 +27,7 @@ SITEMAP=sitemap.xml
 
 OBJ+=obj/dest $(addprefix obj/dest/,$(ASSETS))
 
-DEPFILES=$(patsubst src/%,obj/mk/%.d,$(filter src/%.html src/%.ts,$(SRC)))
+DEPFILES=$(patsubst src/%,obj/mk/%.d,$(filter src/%.md src/%.html src/%.ts,$(SRC)))
 DEPTEMPLATE=$(patsubst src/%,obj/mk/%.d,$(TEMPLATE))
 DEPDIRS=$(patsubst src/docs/%,obj/mk/%.mk,$(wildcard src/docs/*))
 MKDIRS=$(sort obj/mk $(dir $(DEPFILES)))
@@ -32,9 +37,9 @@ all:
 $(DEPDIRS): tools/makedep.awk | obj/mk
 $(DEPFILES): tools/replace.awk $(filter src/include/%,$(SRC)) | $(MKDIRS)
 
-obj/mk/%.mk: src/docs/%/*.html src/docs/*/index.html
+obj/mk/%.mk: src/docs/%/*.md src/docs/*/index.md
 	@echo "DEP     $*/"
-	@./tools/makedep.awk -d obj/dest src/docs/*/index.html -- src/docs/$*/*.html | sed -r 's!(^obj/[^:]*: )src/!\1obj/!g' >$@
+	@./tools/makedep.awk -d obj/dest src/docs/*/index.md -- src/docs/$*/*.md | sed -r 's!(^obj/[^:]*: )src/!\1obj/!g' >$@
 
 obj/mk/%.d: src/%
 	@echo "DEP     $<"
@@ -46,8 +51,9 @@ $(DEPTEMPLATE): $(TEMPLATE)
 
 YEAR:=$(shell date +%Y)
 TIME:=$(shell date +%s)
-REPLACE=./tools/replace.awk -I $(dir $@) -i obj/include -o $@
-BUILD=t=$(TIME) year=$(YEAR) $(REPLACE) $(TEMPLATE)
+REPLACE=t=$(TIME) ./tools/replace.awk -I $(dir $@) -i obj/include -o $@
+MARKDOWN=./tools/markdown2.py -x header-ids,tables,markdown-in-html,fenced-code-blocks,strike
+BUILD=year=$(YEAR) $(REPLACE) $(TEMPLATE)
 HTML=
 include $(DEPDIRS)
 DESTHTML=$(addprefix obj/dest/,$(HTML))
@@ -89,6 +95,10 @@ obj/%.json: src/%.json tools/highlight-json.awk
 	@echo "HILIGHT $*.json"
 	@./tools/highlight-json.awk $< >$@
 
+obj/%.md: src/%.md tools/markdown2.py tools/replace.awk
+	@echo "MD      $*.md"
+	@$(MARKDOWN) $< | $(REPLACE)
+
 obj/%.html: src/%.html tools/replace.awk
 	@echo "REPLACE $*.html"
 	@$(REPLACE) $<
@@ -97,26 +107,30 @@ obj/%.ts: src/%.ts tools/replace.awk
 	@echo "REPLACE $*.ts"
 	@$(REPLACE) $<
 
+obj/%.scss: src/%.scss tools/replace.awk
+	@echo "REPLACE $*.scss"
+	@$(REPLACE) $<
+
 obj/dest/$(JS): $(filter obj/%.ts,$(OBJ))
-	@echo "ESBUILD docs.ts"
-	@$(ESBUILD) --outfile=$@ obj/js/docs.ts
+	@echo "TSC     docs.ts"
+	@$(TSC) $(TSCFLAGS) obj/js/docs.ts >$@
 
 obj/dest/$(CSS): $(filter obj/%.scss,$(OBJ))
 	@echo "SASS    docs.scss"
-	@$(SASS) obj/css/docs.scss $@
+	@$(SASS) $(SASSFLAGS) obj/css/docs.scss >$@
 
-obj/dest/$(SITEMAP): $(filter src/docs/%.html src/include/%,$(SRC)) tools/replace.awk tools/makedep.awk | $(OBJDIRS)
-	@echo "SITEMAP */*.html"
+obj/dest/$(SITEMAP): $(filter src/docs/% src/include/%,$(SRC)) tools/replace.awk tools/makedep.awk | $(OBJDIRS)
+	@echo "SITEMAP */*.md"
 	@{ \
 	echo '<?xml version="1.0" encoding="UTF-8"?>'; \
 	echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'; \
-	for p in src/docs/*/*.html; do \
+	for p in src/docs/*/*.md; do \
 		d=$$p; \
 		deps=$$p; \
 		while test -n "$$d"; do \
 			nd=""; \
 			for x in $$d; do \
-				case $$x in *.html) nd="$$nd `./tools/replace.awk -M -i src/include "$$x" | cut -d: -f2-`"; esac; \
+				case $$x in *.md|*.html) nd="$$nd `./tools/replace.awk -M -i src/include "$$x" | cut -d: -f2-`"; esac; \
 			done; \
 			d=$$nd; \
 			deps="$$deps $$nd"; \
@@ -132,7 +146,7 @@ obj/$(TARG)/%.svg: obj/dest/%.svg
 
 obj/$(TARG)/%.html: obj/dest/%.html
 	@echo "MINIFY  $*.html"
-	@$(MINIFY) -o $@ $<
+	@$(MINIFY) $(MINIFYFLAGS) $< >$@
 
 obj/$(TARG)/%.br: obj/$(TARG)/%
 	@echo "BR      $*"
@@ -153,7 +167,10 @@ $(TARG).tar(%): % obj/dest/$(SITEMAP)
 	@fname='$(patsubst obj/$(TARG)/%,%,$(patsubst %/index.html,%/,$(patsubst %$(filter .br .gz,$(suffix $<)),%,$<)))'; \
 	 mtime=`grep -F "<loc>https://$(TARG)/$$fname</loc>" obj/dest/$(SITEMAP) | sed -r 's!^.*<lastmod>([^<]*)</lastmod>.*$$!\1!'`; \
 	 mtime=$${mtime:-`git log --pretty=format:%cd -n 1 --date=iso-strict "src/assets/$$fname" 2>/dev/null`}; \
-	 tar -rf $@ -C obj --mode=644 --owner=0 --group=0 $${mtime:+--mtime=$$mtime} $(patsubst obj/%,%,$<)
+	 flock -Fx $@ tar -rf $@ -C obj --mode=644 --owner=0 --group=0 $${mtime:+--mtime=$$mtime} $(patsubst obj/%,%,$<)
+
+fonts:
+	$(MAKE) -C tools/fonts
 
 tar: $(TARG).tar
 
@@ -169,7 +186,5 @@ livereload: $(MIN)
 clean:
 	rm -rf obj/ *.tar
 
-.PHONY: all tar watch serve livereload clean
+.PHONY: all fonts tar watch serve livereload clean
 .SECONDARY: $(ZIP) obj/$(TARG)/$(SITEMAP)
-.DELETE_ON_ERROR:
-.NOTPARALLEL: $(TARG).tar(%)

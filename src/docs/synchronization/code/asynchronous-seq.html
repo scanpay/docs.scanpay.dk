@@ -1,6 +1,0 @@
-<i>localSeq</i> := <span class="hljs-built_in">MariaDB</span>(<b>SELECT</b> seq <b>FROM</b> globals)
-<i>data</i> := <span class="hljs-built_in">JSONDecode</span>(GET <span class="hljs-string">"https://api.scanpay.dk/v2/<a href="/#uris" class="hljs-attr">shopid</a>:seq:"</span> ‖ <i>localSeq</i>)
-<b>for each</b> <i>change</i> in <i>data.changes</i> <b>do</b>
-    <span class="hljs-built_in">Update</span>(<i>change</i>)
-end for
-<span class="hljs-built_in">MariaDB</span>(<b>UPDATE</b> globals <b>SET</b> seq=<i>'data.seq'</i> <b>WHERE</b> seq&lt;<i>'data.seq'</i>)

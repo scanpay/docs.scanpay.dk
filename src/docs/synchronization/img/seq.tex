@@ -1,0 +1,38 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary{decorations.pathreplacing,calligraphy,arrows.meta}
+\begin{document}
+\begin{tikzpicture}
+\filldraw[black] (0,1.5) circle (2pt) node[anchor=east]{\footnotesize Scanpay};
+\filldraw[black] (0,0) circle (2pt) node[anchor=east]{\footnotesize You};
+\draw [thick] (0,1.5) -- (1.6,1.5);
+\draw [thick] (0,0) -- (0.5,0);
+
+\draw [-Stealth] (0.5,1.5) -- node[anchor=west]{\rotatebox{-90}{\footnotesize Ping!}} (0.5,0.1);
+\begin{scope}
+\clip (0,-1) rectangle (2.85,1) (5,-1) rectangle (7,1);
+\draw [thick] (0.5,-0.1) rectangle (5.6,0.1);
+\end{scope}
+
+\draw [-Stealth] (1.6,0.1) -- node[anchor=east]{\rotatebox{90}{\footnotesize seq}} (1.6,1.4);
+\draw [thick] (1.6,1.4) rectangle (2.2,1.6);
+\draw [-Stealth] (2.2,1.4) -- node[anchor=west]{\rotatebox{-90}{\footnotesize changes}} (2.2,0.1);
+\draw [thick] (2.2,1.5) -- (2.85,1.5);
+
+\draw [gray,line width=0.5pt] (2.95,-.25) -- (2.85,-.25) -- (2.85,1.75) -- (2.95,1.75);
+\draw [gray,densely dotted,thick] (2.85,1.5) -- (3.3,1.5);
+\draw [gray,densely dotted,thick] (2.85,-0.1) -- (5,-0.1);
+\draw [gray,densely dotted,thick] (2.85,0.1) -- (5,0.1);
+\draw [gray,densely dashed,{-Stealth[open]}] (3.3,0.1) -- node[anchor=east]{\rotatebox{90}{\footnotesize seq}} (3.3,1.4);
+\draw [gray,densely dotted,thick] (3.3,1.4) rectangle (3.9,1.6);
+\draw [gray,densely dashed,{-Stealth[open]}] (3.9,1.4) -- node[anchor=west]{\rotatebox{-90}{\footnotesize changes}} (3.9,0.1);
+\draw [gray,densely dotted,thick] (3.9,1.5) -- (5,1.5);
+\draw [gray] (4.3,0.75) node[anchor=west]{$\cdots$};
+\draw [gray,line width=0.5pt] (4.9,-.25) -- (5,-.25) -- (5,1.75) -- (4.9,1.75);
+\draw [thick,-Stealth] (5,1.5) -- (6.25,1.5);
+
+\draw [-Stealth] (5.6,0.1) -- node[anchor=east]{\rotatebox{90}{\footnotesize\texttt{ok}}} (5.6,1.5);
+
+\draw [thick,-Stealth] (5.6,0) -- (6.25,0);
+
+\end{tikzpicture}
+\end{document}

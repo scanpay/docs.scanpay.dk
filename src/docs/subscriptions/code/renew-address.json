@@ -1,0 +1,28 @@
+"billing": {
+    "name": "",
+    "company": "",
+    "vatin": "",
+    "gln": "",
+    "email": "",
+    "phone": "",
+    "address": [],
+    "city": "",
+    "zip": "",
+    "state": "",
+    "country": ""
+}
+
+"shipping": {
+    "name": "Hansen ApS",
+    "company": "",
+    "email": "",
+    "phone": "",
+    "address": [
+        "c/o Hans Hansen",
+        "Rinkevej 14B"
+    ],
+    "city": "Kgs. Lyngby",
+    "zip": "2800",
+    "state": "",
+    "country": ""
+}

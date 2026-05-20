@@ -6,9 +6,30 @@ This repository contains the files used to generate [docs.scanpay.dev](https://d
 
 So, you are interested in contributing? Welcome! Every single contribution is very much encouraged and appreciated. If you find a bug, typo or something that could be improved, please submit a bug report ([github issue](https://github.com/scanpay/docs.scanpay.dk/issues/new)) or contact us on e-mail or IRC.
 
-To build it locally, you will need to install make, tsc, sass, html-minifier, and esbuild. Now you can build the docs with:
+To build it locally, you will need to install GNU make, Python 3.9 or higher, awk, Dart Sass, html-minifier, and esbuild. Now you can build the docs with:
 ```bash
-make
+make -j
+```
+
+You can set up a continuous build with:
+```bash
+make -j watch
+```
+
+To run an HTTP server for the local build, use one of these:
+```bash
+make serve
+make livereload
+```
+
+You can override tools in your own `config.mak` if you want. They are all assumed to take a single file as a final argument and write the output to stdout.
+```make
+SASS=/path/to/your/own/dart-sass
+SASSFLAGS=--your-own-flags
+MINIFY=htmlmin
+MINIFYFLAGS=-p code -c
+TSC=esbuild-0.25.1
+TSCFLAGS=--bundle --something-else
 ```
 
 ### Browser support

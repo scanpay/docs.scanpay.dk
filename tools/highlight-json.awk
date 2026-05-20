@@ -29,14 +29,14 @@ BEGIN {
         case "{":
         case "[":
             if (!instr) {
-                highlight("punctuation")
+                unhighlight()
                 stk[++nstk]=inarg=($i!="{")
             }
             break
         case ":":
         case ",":
             if (!instr) {
-                highlight("punctuation")
+                unhighlight()
                 if (!stk[nstk])
                     inarg=($i==":")
             }
@@ -44,7 +44,7 @@ BEGIN {
         case "]":
         case "}":
             if (!instr) {
-                highlight("punctuation")
+                unhighlight()
                 inarg=stk[--nstk];
                 if (nstk<1)
                     nstk=1

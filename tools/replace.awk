@@ -7,6 +7,7 @@ function usage()
 
 BEGIN {
     outf="/dev/stdout"
+    d=0
     for (i=1; i<ARGC; i++) {
         switch (ARGV[i]) {
         case "-M":
@@ -28,13 +29,15 @@ BEGIN {
             outf=ARGV[i]
             break
         case "--":
-            i++;
+            d=i
         default:
-            skipfiles=i-1
             i=ARGC
-            break;
+            continue
         }
+        d=i
     }
+    for (i=1; i<=d; i++)
+        delete ARGV[i]
     for (i=1; i<=nbefore; i++)
         paths[++npath]=ibefore[i]
     selfpath=++npath
@@ -47,8 +50,6 @@ BEGIN {
     }
 }
 BEGINFILE {
-    if (skipfiles-->0)
-        nextfile
     deps=""
 }
 {
@@ -89,7 +90,7 @@ function parse(ln, fname, fline)
             intro=2
             outtro=2
         } else
-            break;
+            break
         end+=to-1
         if (!mflag)
             printf "%s", substr(ln, 1, to-1) > outf
@@ -103,7 +104,7 @@ function parse(ln, fname, fline)
             for (i=0; i<=npath; i++) {
                 pf=paths[i] f
                 if ((r=getline nest < pf)>=0)
-                    break;
+                    break
             }
             if (mflag)
                 deps=deps " " pf
